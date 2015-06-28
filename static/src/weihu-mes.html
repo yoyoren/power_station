@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta chraset="utf-8">
+  <title>维护 - 工作日志</title>
+  <link rel="stylesheet" type="text/css" href="css/base.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.css">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+
+</head>
+<body>
+  <div class="n-layout">
+    <div class="n-head clearfix">
+      <div class="n-logo fl-l">
+        能耗管理云系统
+      </div>
+      <ul class="n-head-nav fl-l">
+        <li><a href="">首页</a></li>
+        <li><a href="">基站</a></li>
+        <li><a href="">告警</a></li>
+        <li><a href="">电表</a></li>
+        <li><a class="current" href="">维护</a></li>
+        <li><a href="">报表</a></li>
+        <li><a href="">账户</a></li>
+      </ul>
+      <div class="n-logout fl-r">你好，管理员，<span class="name">梅梅哇</span><a href="" class="func">退出</a></div>
+    </div>
+
+    <div class="n-container">
+
+      <div class="n-nav-left">
+        <ul>
+          <li><a href="weihu-note.html"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">工作日志</span></a></li>
+          <li class="current"><a href="weihu-mes.html"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">天气信息</a></li>
+
+        </ul>
+      </div>
+
+      <div class="n-right-content">
+        <h4 class="tab-to-title">天气信息</h4>
+        <div style="margin-bottom:20px;">
+          <button type="button" class="btn btn-default">excel导入</button>
+          <button type="button" class="btn btn-default">互联网自动获取</button>
+        </div>
+
+
+        <p class="table-title"><b>互联网采集</b></p>
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>日期</th>
+              <th>城市</th>
+              <th>区县</th>
+              <th>天气</th>
+              <th>温度高低</th>
+              <th>风力</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>6-19</td>
+              <td>上海</td>
+              <td>浦东</td>
+              <td>晴</td>
+              <td>18-30</td>
+              <td>3</td>
+            </tr>
+            <tr>
+              <td>6-19</td>
+              <td>上海</td>
+              <td>浦东</td>
+              <td>晴</td>
+              <td>18-30</td>
+              <td>3</td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+
+          </tbody>
+        </table>
+
+        <div class="tl-r">
+          <p>每页显示15条信息，查看更多请翻页。</p>
+          <ul class="pagination">
+            <li>
+              <a href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li>
+              <a href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</body>
+
+<script type="text/javascript" src="js/jquery.js"></script>
+
+</html>

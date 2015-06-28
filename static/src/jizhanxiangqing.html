@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta chraset="utf-8">
+  <title>基站详情--当前状态</title>
+  <link rel="stylesheet" type="text/css" href="css/base.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+
+</head>
+<body>
+  <div class="n-layout">
+    <div class="n-head clearfix">
+      <div class="n-logo fl-l">
+        能耗管理云系统
+      </div>
+      <ul class="n-head-nav fl-l">
+        <li><a href="">首页</a></li>
+        <li><a class="current" href="">基站</a></li>
+        <li><a href="">告警</a></li>
+        <li><a href="">电表</a></li>
+        <li><a href="">维护</a></li>
+        <li><a href="">报表</a></li>
+        <li><a href="">账户</a></li>
+      </ul>
+      <div class="n-logout fl-r">你好，管理员，<span class="name">梅梅哇</span><a href="" class="func">退出</a></div>
+    </div>
+
+    <div class="n-container">
+
+      <div class="n-nav-left">
+        <ul>
+          <li class="title"><a href="jizhan-index.html"><span class="vl-m title">基站列表</span><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a></li>
+          <li class="current"><a href=""><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">基站详情</span></a></li>
+          <li><a href="jizhan-man-edit.html"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">基站管理</a></li>
+
+        </ul>
+      </div>
+
+      <div class="n-right-content">
+        <h4 class="tab-to-title">基站详情</h4>
+        <div class="current-name-area clearfix">
+          <span class="vl-m fl-l name"><b>001</b>基站</span>
+
+          <div class="fl-r">
+            <div class="btn-group">
+              <button type="button" class="btn btn-default">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><span class="vl-m">前一个基站</span>
+              </button>
+              <button type="button" class="btn btn-default">
+                <span class="vl-m">后一个基站</span><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <ul class="nav nav-tabs">
+          <li role="presentation" class="active"><a href="jizhanxiangqing.html">当前状态</a></li>
+          <li role="presentation"><a href="jizhan-jichu.html">基础信息</a></li>
+          <li role="presentation"><a href="jizhan-date-data.html">日报数据</a></li>
+          <li role="presentation"><a href="jizhan-month-data.html">月报数据</a></li>
+          <li role="presentation"><a href="jizhan-year-data.html">年报数据</a></li>
+          <li role="presentation"><a href="jizhan-yuanshi-data.html">原始数据</a></li>
+        </ul>
+
+        <div class="nav-tabs-content">
+          <p>
+            基站当前状态：正常在线
+          </p>
+
+          <div>
+            <span>最新采集时间：2015-04-23 10：34：11</span>
+            <button type="button" class="btn btn-success">自动刷新</button>
+          </div>
+          <hr/>
+          <p class="table-title"><b>温度</b></p>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>室内温度</th>
+                <th>室外温度</th>
+                <th>恒温柜温度</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>27.9℃</td>
+                <td>27.9℃</td>
+                <td>27.9℃</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p class="table-title"><b>设备状态</b></p>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>新风</th>
+                <th>空调1</th>
+                <th>空调2</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>关闭</td>
+                <td>关闭</td>
+                <td>工作</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p class="table-title"><b>能耗状态</b></p>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>基准能耗</th>
+                <th>当前能耗</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>34A</td>
+                <td>29A</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p class="table-title"><b>电表状态</b></p>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>智能电表</th>
+                <th>基站电表</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>31302.85</td>
+                <td>151440.31</td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</body>
+</html>

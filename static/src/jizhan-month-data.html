@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta chraset="utf-8">
+  <title>基站详情--月报数据</title>
+  <link rel="stylesheet" type="text/css" href="css/base.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.css">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+
+</head>
+<body>
+  <div class="n-layout">
+    <div class="n-head clearfix">
+      <div class="n-logo fl-l">
+        能耗管理云系统
+      </div>
+      <ul class="n-head-nav fl-l">
+        <li><a href="">首页</a></li>
+        <li><a class="current" href="">基站</a></li>
+        <li><a href="">告警</a></li>
+        <li><a href="">电表</a></li>
+        <li><a href="">维护</a></li>
+        <li><a href="">报表</a></li>
+        <li><a href="">账户</a></li>
+      </ul>
+      <div class="n-logout fl-r">你好，管理员，<span class="name">梅梅哇</span><a href="" class="func">退出</a></div>
+    </div>
+
+    <div class="n-container">
+
+      <div class="n-nav-left">
+        <ul>
+          <li class="title"><a href="jizhan-index.html"><span class="vl-m title">基站列表</span><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a></li>
+          <li class="current"><a href=""><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">基站详情</span></a></li>
+          <li><a href="jizhan-man-edit.html"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">基站管理</a></li>
+
+        </ul>
+      </div>
+
+      <div class="n-right-content">
+        <h4 class="tab-to-title">基站详情</h4>
+        <div class="current-name-area clearfix">
+          <span class="vl-m fl-l name"><b>001</b>基站</span>
+
+          <div class="fl-r">
+            <div class="btn-group">
+              <button type="button" class="btn btn-default">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><span class="vl-m">前一个基站</span>
+              </button>
+              <button type="button" class="btn btn-default">
+                <span class="vl-m">后一个基站</span><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <ul class="nav nav-tabs">
+          <li role="presentation"><a href="jizhanxiangqing.html">当前状态</a></li>
+          <li role="presentation"><a href="jizhan-jichu.html">基础信息</a></li>
+          <li role="presentation"><a href="jizhan-date-data.html">日报数据</a></li>
+          <li role="presentation" class="active"><a href="jizhan-month-data.html">月报数据</a></li>
+          <li role="presentation"><a href="jizhan-year-data.html">年报数据</a></li>
+          <li role="presentation"><a href="jizhan-yuanshi-data.html">原始数据</a></li>
+        </ul>
+
+
+        <div class="nav-tabs-content">
+          <div class="n-check-area tl-r">
+
+            可选择月份<input size="16" type="text" value="2012-06" readonly class="date-control form-control form_datetime">
+            <input type="checkbox" checked="checked" />天气
+            <button type="button" class="btn btn-default" style="margin-left:30px;">确定</button>
+
+          </div>
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th>日期</th>
+                <th>总能耗</th>
+                <th>DC能耗</th>
+                <th>AC能耗</th>
+                <th>初始化负载</th>
+                <th>实际负载</th>
+                <th>电表（0点）</th>
+                <th>故障标志</th>
+                <th>高温</th>
+                <th>低温</th>
+                <th>日照</th>
+                <th>风力</th>
+              </tr>
+              <tr>
+                <td>5－1 周一</td>
+                <td>136.98</td>
+                <td>123.28</td>
+                <td>13.7</td>
+                <td>86</td>
+                <td>81.6</td>
+                <td>29233.35</td>
+                <td>有／无</td>
+                <td>28</td>
+                <td>16</td>
+                <td>阴</td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>5－2 周二</td>
+                <td>136.98</td>
+                <td>123.28</td>
+                <td>13.7</td>
+                <td>86</td>
+                <td>81.6</td>
+                <td>29233.35</td>
+                <td>有／无</td>
+                <td>28</td>
+                <td>16</td>
+                <td>阴</td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>5－3 周三</td>
+                <td>136.98</td>
+                <td>123.28</td>
+                <td>13.7</td>
+                <td>86</td>
+                <td>81.6</td>
+                <td>29233.35</td>
+                <td>有／无</td>
+                <td>28</td>
+                <td>16</td>
+                <td>阴</td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>5－4 周四</td>
+                <td>136.98</td>
+                <td>123.28</td>
+                <td>13.7</td>
+                <td>86</td>
+                <td>81.6</td>
+                <td>29233.35</td>
+                <td>有／无</td>
+                <td>28</td>
+                <td>16</td>
+                <td>阴</td>
+                <td>2</td>
+              </tr>
+
+            </tbody>
+          </table>
+          <div style="height:200px; background:#eee;">这里有个图片，不知道干嘛</div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/datepicker/bootstrap-datetimepicker.js"></script>
+
+<script type="text/javascript">
+$(function () {
+    $(".form_datetime").datetimepicker({
+      format: 'yyyy-mm',
+      language: 'cn'
+    });
+
+});
+    </script>
+</html>
