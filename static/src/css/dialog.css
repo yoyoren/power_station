@@ -1,0 +1,116 @@
+/* 弹框区域 */
+.gray-bg{background:#222; opacity:0.1; filter:alpha(opacity=10); position:absolute; top:0; left:0; *zoom:1; width:100%; height:100%; min-height:740px;}
+.dialog{width: 400px; padding: 6px; min-height: 200px; _height:200px; position: absolute; top:200px; left: 50%; margin-left: -200px; background: url(../img/touming.png) repeat; _background:#fff;}
+.dialog-head{position: relative; padding: 14px; height: 26px; background: #fff;}
+.dia-title{font-size: 16px; line-height: 1.5; *font-weight: bold;}
+.close-ico{position: absolute; top:20px; right: 20px; color: #ff7e00; font-weight: bold; cursor: pointer;
+height: 16px; width: 16px; background: url(../img/dialog-close-btn.png) 0 0 no-repeat; text-indent: -100px; overflow: hidden;}
+
+.dialog-con{padding: 10px 14px 20px 14px; background: #fff;}
+
+
+.dia-st-tip{font-size: 14px; line-height: 1.5; text-align: center; margin-bottom: 10px; padding: 20px 0;}
+
+.dialog-foo{height: auto; padding: 10px 0; background: #f1ede4; text-align: center;}
+
+/* 为兼容已有dialog搞的 */
+.mask {position: absolute;z-index: 100000;left: 0;top: 0;background-color: #333;opacity: .7;filter: alpha(opacity=70);width: 100%;height: 100%;}
+.mask{background: #fff;z-index: 99999;}
+.alert-container {position: absolute;z-index: 100001;background-color: white;}
+.alert-container {background: url(../img/touming.png) repeat 0 0;padding: 5px; _background:#fff;}
+ 
+.alert-container .alert-body {background: #fff;}
+
+.alert-container .alert-header {
+background-color: #A9A9A9;height: 30px;}
+.alert-container .alert-header {display: none;}
+
+.pop-attention-main {padding: 15px;}
+.pop-attention-main {background-color: #fff;text-align: center;font-size: 14px;color: #8e6a55;padding: 30px 15px 20px;}
+
+.pop-attention-main .confirm, .pop-attention-main .alert {display: none;}
+
+.pop-attention-main .figure span.mark {
+font-size: 18px;}
+
+.pop-attention-main .bottom {text-align: center;margin: 15px 0 10px 0;}
+
+.btn-caution{background: #432818; border:1px solid #432818; color: #fff;}
+.alert-content .btn-caution{margin-right: 20px;}
+
+/* message-error */
+.message-error{position: absolute; z-index: 99999;}
+.message-error:focus{outline: 0 none;}
+.message-error .icon{color: #e44d10;}
+
+.message-success{position: absolute; z-index: 99999;}
+.message-success:focus{outline: 0 none;}
+.message-success .icon{color: #6ca334;}
+
+.message-body{max-width:202px; color:#333;_width:202px;}
+.message-body .icon{font-size:30px;float:left;line-height:30px; margin: 24px 0 0 40px;}
+.message-body .message-content{margin-left:45px;line-height:22px;}
+
+#pop_message_success .icon{background:url(../img/minicart_07.png) 0 0 no-repeat;}
+
+
+.message-body {position:relative;background:url(../img/touming.png) repeat 0 0;border:none;color: #8c6a53;max-width:400px;padding:5px;box-shadow: none;}
+.message-body .icon { font-size:0; line-height:0;}
+.message-body .message-content {margin:0 !important; padding:30px 40px 30px 85px; background:url(../img/minicart_07.png) no-repeat 40px 25px #fff; font-size:18px;}
+.message-error .message-body .message-content { padding:30px 40px 30px 85px; background:url(../img/error02.png) no-repeat 45px 31px #fff;}
+.message-body .message-content b {font-size:12px; font-weight:normal;}
+
+.message{display:inline-block;position:absolute;background-color:#ffdeac;padding:0 8px;line-height:22px;color:#333;font-size:12px;}
+.message:focus{outline:0 none;}
+.error{color:#666;}
+.error .icon{color:#B14C49;}
+.success{color:#888;}
+.success .icon{color:#81A363;}
+.alert-tip{background-color:#FFFCE7;border:1px solid #E7C96D;line-height:25px;color:#666;display:inline-block;padding:0 5px;}
+.alert-tip .icon{color:#FEBE00;margin-right:6px;}
+.error-tip{background-color:#FFF7F3;border:1px solid #D7A0A0;line-height:25px;color:#AB4D49;display:inline-block;padding:0 5px;}
+.error-tip .icon{margin-right:6px;}
+.xtips-inline{background-color:#FFAD35;display:inline-block;}
+.xtips-inline .arr,
+.xtips-inline .arr2{display:none;}
+.xtips-inline .icon{margin-right:5px;}
+.xtips-inline .xtips-content{line-height:24px;padding:0 8px;color:white;}
+.caution-inline{background-color:#FFAD35;display:inline-block;}
+.caution-inline .arr,
+.caution-inline .arr2{display:none;}
+.caution-inline .icon{font-size:16px;margin-left:8px;margin-right:5px;vertical-align:-2px;color:white;}
+.caution-inline .caution-content{line-height:24px;padding-right:8px;color:white;}
+.notice{display:block;line-height:140%;}
+.notice .icon{margin-right:5px;vertical-align:middle;}
+.notice-inline{padding:0 5px;vertical-align:middle;}
+.notice-inline .icon{font-size:14px;margin-right:5px;vertical-align:middle;}
+.fav-loading{color:#999;}
+.fav-success{color:#4CAF1E;}
+.fav-success .icon{font-size:14px;}
+
+.icon{display: inline-block; *display: inline; zoom:1; width: 32px; height: 32px; background: url(../img/dia-tip-ico.png) 0 0 no-repeat; vertical-align: middle; text-indent: -500px; overflow: hidden;}
+.caution-content{ color: #f75e53;}
+.error .icon{display:inline-block; *display: inline; zoom:1; width:15px; height:15px; margin-top:-1px; background:url(../img/ico_x.jpg) no-repeat 0 0; font-size:0; line-height:0; color: #f75e53;}
+.success .icon {display:inline-block; *display: inline; zoom:1; width:15px; height:15px; margin-top:-1px; background:url(../img/ico_y.jpg) no-repeat 0 0; font-size:0; line-height:0; color: #f75e53;}
+.success{ color:#999; }
+.success .caution-content {color:#57ccc8;}
+
+/* 支付弹窗 */
+.popup-content .change-payment{padding:20px 25px;}
+.popup-content .change-payment input{margin-right:5px;}
+.popup-content .change-payment th,
+.popup-content .change-payment td{padding-top:8px;padding-bottom:8px;}
+.popup-content .change-payment th{width:16%;font-weight:400;white-space:nowrap;}
+.popup-content .change-payment tfoot td{padding-top:16px;padding-bottom:0;}
+.popup-content .payment-online,
+.popup-content .payment-recharge{padding:20px;line-height:1.8em;}
+.popup-content .payment-online p,
+.popup-content .payment-recharge p{margin-bottom:1em;}
+.popup-content .payment-recharge{text-align:center;}
+.popup-content .pay-stat{overflow:hidden;}
+.popup-content .pay-stat h4,
+.popup-content .pay-stat .action{float:left;}
+.popup-content .pay-success{float:left;overflow:hidden;}
+.popup-content .pay-failure{float:right;overflow:hidden;}
+.popup-content .pay-failure a{margin-right:10px;}
+

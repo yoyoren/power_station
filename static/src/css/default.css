@@ -1,0 +1,81 @@
+/* 页面中间的容器 */
+.content-area{max-width: 1200px; min-height: 400px; padding:0 20px; _width: 960px; margin: 0 auto;}
+
+/* 模块标题 */
+.ca-title{font-size: 18px; font-weight: bold; line-height: 1.5; padding:38px 0 8px 0;}
+
+/* 单独的一条线 */
+.single-line{height: 0; width: 430px; overflow: hidden; border-bottom: 1px solid #bda99c; margin: 25px auto;}
+
+/* btn */
+.btn{
+border: 0 none;
+background: #f7f7f7;
+border:1px solid #bda99c;
+padding: 0 10px;
+height: 28px; 
+line-height: 28px;
+color: #604136;
+text-decoration: none;
+display: inline-block; *display: inline; *zoom:1;
+vertical-align: middle;
+*overflow: visible;
+font-family: "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+}
+.btn{line-height: normal\0; *line-height:normal; _line-height: 28px;}
+a.btn{height: 26px; line-height: 26px; *line-height:26px; _height:31px; _line-height: 31px; }
+a.btn:hover{text-decoration: none;}
+
+.big-btn{height: 42px; line-height: 42px; padding: 0 40px; font-size: 16px;}
+.mid-btn{height: 34px; line-height: 34px; padding: 0 20px; font-size: 14px;}
+
+.big-btn{line-height: normal\0; *line-height: normal; _line-height: 42px; }
+.mid-btn{line-height: normal\0; *line-height: normal; _line-height:34px;}
+
+a.big-btn{height: 40px; line-height: 40px; _height: 45px; _line-height: 45px;}
+a.mid-btn{height: 32px; line-height: 32px; _height: 37px; _line-height: 37px;}
+
+.btn-import{background: #432818; border:1px solid #432818; color: #fff;}
+.btn-space{margin-right: 10px;}
+
+input.disabled,
+a.disabled{cursor: default; color: #999;}
+
+/* 带背景的容器 */
+.bg-item{background: #f7f7f7; padding: 10px; position: relative; *zoom:1;}
+
+/* 输入框 */
+.input-container{position: relative; display: inline-block; *display: inline; *zoom:1; vertical-align: middle;}
+.input-item{display: inline-block; *display: inline; *zoom:1; height: 14px; line-height: normal; border:1px solid #bda99c; width: 238px; padding: 6px; color: #604136;}
+.input-item{_height: 19px; _line-height: 19px; *vertical-align: top;}
+.textarea-item{display: inline-block; *display: inline; *zoom:1; height:30px; line-height: normal; border:1px solid #bda99c; width: 438px; padding: 6px; color: #604136;}
+input::-moz-placeholder,
+textarea::-moz-placeholder{color:#c5b4a8;}
+::-webkit-input-placeholder{color:#c5b4a8;}
+input:-ms-input-placeholder{color:#c5b4a8;}
+
+.input-error{position: absolute; top:5px; _top:10px; right: 5px; color: #ff7e00; line-height: 1.5;}
+
+/* checkbox radio 与文字的间隙 */
+.check-item{display: inline-block; *display: inline; *zoom:1; width: 24px;} 
+
+/* 模拟选择框 */
+.select-area{width: 120px; *width: auto; position: relative; height: 28px; z-index: 10; margin-right: 10px;
+display: inline-block; *display: inline; *zoom:1; vertical-align: middle;
+}
+.select-item{display: inline-block; *display: inline; *zoom:1; min-width: 120px; height: 28px; line-height: 28px; vertical-align: middle;}
+.select-ico{display: block; width: 0; height: 0;overflow: hidden; border:6px solid #fff;
+border-top:6px solid #8c6a52; position: absolute; right: 10px; top:10px;}
+.select-inner{width: 106px; overflow: hidden; cursor: pointer; background: #fff;}
+.select-ul-area{position: absolute; top:29px; left: 0; width: 118px; border:1px solid #bda99c;
+background: #fff; 
+}
+.select-ul-area li{height: 22px; line-height: 22px; padding: 0 4px;}
+.select-ul-area li:hover{background: #f7f7f7;}
+
+/* 文字加输入框排版 */
+.enter-area{padding-top: 30px;}
+.ea-item{}
+.ea-font{width: 70px; float: left; height: 28px; line-height: 28px; padding-left: 10px;}
+.ea-input-area{float: left; padding-bottom: 10px; *padding-bottom: 8px; _padding-bottom:0; _height: 38px;}
+.ea-input-area label{margin-right: 30px;}

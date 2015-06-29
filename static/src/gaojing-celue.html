@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta chraset="utf-8">
+  <title>能耗系统</title>
+  <link rel="stylesheet" type="text/css" href="css/base.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+
+</head>
+<body>
+  <div class="n-layout">
+    <div class="n-head clearfix">
+      <div class="n-logo fl-l">
+        能耗管理云系统
+      </div>
+      <ul class="n-head-nav fl-l">
+        <li><a href="">首页</a></li>
+        <li><a href="jizhan-index.html">基站</a></li>
+        <li><a class="current" href="gaojing-index.html">告警</a></li>
+        <li><a href="">电表</a></li>
+        <li><a href="">维护</a></li>
+        <li><a href="">报表</a></li>
+        <li><a href="">账户</a></li>
+      </ul>
+      <div class="n-logout fl-r">你好，管理员，<span class="name">梅梅哇</span><a href="" class="func">退出</a></div>
+    </div>
+
+    <div class="n-container">
+
+      <div class="n-nav-left">
+        <ul>
+          <li class="title"><a href="gaojing-index.html"><span class="vl-m title">告警监控</span><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a></li>
+          <li class="current"><a href="gaojing-celue.html"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">告警策略管理</span></a></li>
+
+        </ul>
+      </div>
+
+<style type="text/css">
+.n-check-item{width: auto; margin-right: 20px;}
+.n-check-item .name{width: auto;}
+
+.data-name p,
+.data-data p{height: 20px; margin-bottom: 4px;}
+</style>
+      <div class="n-right-content">
+        <h4 class="tab-to-title">告警策略管理</h4>
+
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>告警类型</th>
+              <th>分析</th>
+              <th>实现策略</th>
+              <th>备注</th>
+              <th>预留</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>断站</td>
+              <td>无数据</td>
+              <td>？触发</td>
+              <td>5分钟无数据</td>
+              <td>时间</td>
+            </tr>
+
+            <tr>
+              <td>室内高温</td>
+              <td>实时</td>
+              <td>&nbsp;</td>
+              <td>室内温度大于36度</td>
+              <td>温度</td>
+            </tr>
+
+            <tr>
+              <td>恒温柜高温</td>
+              <td>实时</td>
+              <td>&nbsp;</td>
+              <td>恒温柜温度大于28度</td>
+              <td>&nbsp;</td>
+            </tr>
+
+            <tr>
+              <td>电表故障</td>
+              <td>无数据</td>
+              <td>?</td>
+              <td>无电表数据（总／d c）</td>
+              <td>&nbsp;</td>
+            </tr>
+
+            <tr>
+              <td>电表故障</td>
+              <td>实时</td>
+              <td>&nbsp;</td>
+              <td>总能耗小于DC</td>
+              <td>&nbsp;</td>
+            </tr>
+
+            <tr>
+              <td style="background:#eee">功率异常</td>
+              <td>实时</td>
+              <td>&nbsp;</td>
+              <td>功率大于前10条平均值的15%</td>
+              <td>比例 + 10条</td>
+            </tr>
+
+            <tr>
+              <td style="background:#eee">远程关站</td>
+              <td>实时 + 计数</td>
+              <td>&nbsp;</td>
+              <td>故障标志</td>
+              <td>&nbsp;</td>
+            </tr>
+
+            <tr>
+              <td style="background:#eee">代理维护按钮</td>
+              <td>实时</td>
+              <td>&nbsp;</td>
+              <td>故障标志</td>
+              <td>&nbsp;</td>
+            </tr>
+
+            <tr>
+              <td>空调故障</td>
+              <td>实时</td>
+              <td>&nbsp;</td>
+              <td>空调温度大于20度（开）</td>
+              <td>温度</td>
+            </tr>
+
+            <tr>
+              <td>温度感应故障</td>
+              <td>无数据</td>
+              <td>？</td>
+              <td>5分钟未提供数据</td>
+              <td>&nbsp;</td>
+            </tr>
+
+            <tr>
+              <td>温度感应故障</td>
+              <td>实时</td>
+              <td>&nbsp;</td>
+              <td>超过范围（－10－70）</td>
+              <td>&nbsp;</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+
+    </div>
+
+  </div>
+</body>
+</html>
