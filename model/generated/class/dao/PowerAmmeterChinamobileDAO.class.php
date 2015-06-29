@@ -3,7 +3,7 @@
  * Intreface DAO
  *
  * @author: http://phpdao.com
- * @date: 2015-06-25 11:03
+ * @date: 2015-06-29 07:33
  */
 interface PowerAmmeterChinamobileDAO{
 

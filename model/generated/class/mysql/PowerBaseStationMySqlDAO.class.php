@@ -3,7 +3,7 @@
  * Class that operate on table 'power_base_station'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2015-06-25 11:03
+ * @date: 2015-06-29 07:33
  */
 class PowerBaseStationMySqlDAO implements PowerBaseStationDAO{
 
@@ -57,7 +57,7 @@ class PowerBaseStationMySqlDAO implements PowerBaseStationDAO{
  	 * @param PowerBaseStationMySql powerBaseStation
  	 */
 	public function insert($powerBaseStation){
-		$sql = 'INSERT INTO power_base_station (station_name, station_serise_code, station_type, station_project, station_building_type, station_province, station_city, station_distirct, station_address, station_lat, station_lng, create_time, creator_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO power_base_station (station_name, station_serise_code, station_type, station_project, station_building_type, station_province, station_city, station_distirct, station_address, station_lat, station_lng, create_time, creator_id, data_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
 		$sqlQuery->set($powerBaseStation->stationName);
@@ -73,6 +73,7 @@ class PowerBaseStationMySqlDAO implements PowerBaseStationDAO{
 		$sqlQuery->set($powerBaseStation->stationLng);
 		$sqlQuery->set($powerBaseStation->createTime);
 		$sqlQuery->setNumber($powerBaseStation->creatorId);
+		$sqlQuery->setNumber($powerBaseStation->dataStatus);
 
 		$id = $this->executeInsert($sqlQuery);	
 		$powerBaseStation->stationId = $id;
@@ -85,7 +86,7 @@ class PowerBaseStationMySqlDAO implements PowerBaseStationDAO{
  	 * @param PowerBaseStationMySql powerBaseStation
  	 */
 	public function update($powerBaseStation){
-		$sql = 'UPDATE power_base_station SET station_name = ?, station_serise_code = ?, station_type = ?, station_project = ?, station_building_type = ?, station_province = ?, station_city = ?, station_distirct = ?, station_address = ?, station_lat = ?, station_lng = ?, create_time = ?, creator_id = ? WHERE station_id = ?';
+		$sql = 'UPDATE power_base_station SET station_name = ?, station_serise_code = ?, station_type = ?, station_project = ?, station_building_type = ?, station_province = ?, station_city = ?, station_distirct = ?, station_address = ?, station_lat = ?, station_lng = ?, create_time = ?, creator_id = ?, data_status = ? WHERE station_id = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
 		$sqlQuery->set($powerBaseStation->stationName);
@@ -101,6 +102,7 @@ class PowerBaseStationMySqlDAO implements PowerBaseStationDAO{
 		$sqlQuery->set($powerBaseStation->stationLng);
 		$sqlQuery->set($powerBaseStation->createTime);
 		$sqlQuery->setNumber($powerBaseStation->creatorId);
+		$sqlQuery->setNumber($powerBaseStation->dataStatus);
 
 		$sqlQuery->setNumber($powerBaseStation->stationId);
 		return $this->executeUpdate($sqlQuery);
@@ -206,6 +208,13 @@ class PowerBaseStationMySqlDAO implements PowerBaseStationDAO{
 		return $this->getList($sqlQuery);
 	}
 
+	public function queryByDataStatus($value){
+		$sql = 'SELECT * FROM power_base_station WHERE data_status = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		return $this->getList($sqlQuery);
+	}
+
 
 	public function deleteByStationName($value){
 		$sql = 'DELETE FROM power_base_station WHERE station_name = ?';
@@ -298,6 +307,13 @@ class PowerBaseStationMySqlDAO implements PowerBaseStationDAO{
 		return $this->executeUpdate($sqlQuery);
 	}
 
+	public function deleteByDataStatus($value){
+		$sql = 'DELETE FROM power_base_station WHERE data_status = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		return $this->executeUpdate($sqlQuery);
+	}
+
 
 	
 	/**
@@ -322,6 +338,7 @@ class PowerBaseStationMySqlDAO implements PowerBaseStationDAO{
 		$powerBaseStation->stationLng = $row['station_lng'];
 		$powerBaseStation->createTime = $row['create_time'];
 		$powerBaseStation->creatorId = $row['creator_id'];
+		$powerBaseStation->dataStatus = $row['data_status'];
 
 		return $powerBaseStation;
 	}

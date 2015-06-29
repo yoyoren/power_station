@@ -3,7 +3,7 @@
 	 * Object represents table 'power_base_station_device_info'
 	 *
      	 * @author: http://phpdao.com
-     	 * @date: 2015-06-25 11:03	 
+     	 * @date: 2015-06-29 07:33	 
 	 */
 	class PowerBaseStationDeviceInfo{
 		

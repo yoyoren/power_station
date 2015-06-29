@@ -3,7 +3,7 @@
  * Class that operate on table 'power_base_station_runing_data'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2015-06-25 11:03
+ * @date: 2015-06-29 07:33
  */
 class PowerBaseStationRuningDataMySqlDAO implements PowerBaseStationRuningDataDAO{
 

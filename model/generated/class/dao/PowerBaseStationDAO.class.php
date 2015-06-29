@@ -3,7 +3,7 @@
  * Intreface DAO
  *
  * @author: http://phpdao.com
- * @date: 2015-06-25 11:03
+ * @date: 2015-06-29 07:33
  */
 interface PowerBaseStationDAO{
 
@@ -77,6 +77,8 @@ interface PowerBaseStationDAO{
 
 	public function queryByCreatorId($value);
 
+	public function queryByDataStatus($value);
+
 
 	public function deleteByStationName($value);
 
@@ -103,6 +105,8 @@ interface PowerBaseStationDAO{
 	public function deleteByCreateTime($value);
 
 	public function deleteByCreatorId($value);
+
+	public function deleteByDataStatus($value);
 
 
 }

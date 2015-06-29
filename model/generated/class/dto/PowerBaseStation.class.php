@@ -3,7 +3,7 @@
 	 * Object represents table 'power_base_station'
 	 *
      	 * @author: http://phpdao.com
-     	 * @date: 2015-06-25 11:03	 
+     	 * @date: 2015-06-29 07:33	 
 	 */
 	class PowerBaseStation{
 		
@@ -21,6 +21,7 @@
 		var $stationLng;
 		var $createTime;
 		var $creatorId;
+		var $dataStatus;
 		
 	}
 ?>
