@@ -1,14 +1,8 @@
 <?php
-require 'slim/Slim/Slim.php';
-\Slim\Slim::registerAutoloader();
-$app = new \Slim\Slim();
-$app->get('/', function () {
-    echo "Home";
-});
-
-$app->get('/hello/:name', function ($name) {
-    echo "Hello, $name";
-});
-
+require 'init.php';
+require 'restful_api.php';
+require 'pageview_api.php';
+global $app;
 $app->run();
+
 ?>
