@@ -3,7 +3,7 @@
  * Class that operate on table 'power_weather'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2015-06-29 07:33
+ * @date: 2015-06-29 10:45
  */
 class PowerWeatherMySqlDAO implements PowerWeatherDAO{
 
@@ -67,7 +67,7 @@ class PowerWeatherMySqlDAO implements PowerWeatherDAO{
 		$sqlQuery->setNumber($powerWeather->temperatureHigh);
 		$sqlQuery->setNumber($powerWeather->temperatureLow);
 		$sqlQuery->setNumber($powerWeather->wind);
-		$sqlQuery->set($powerWeather->createTime);
+		$sqlQuery->setNumber($powerWeather->createTime);
 
 		$id = $this->executeInsert($sqlQuery);	
 		$powerWeather->id = $id;
@@ -90,7 +90,7 @@ class PowerWeatherMySqlDAO implements PowerWeatherDAO{
 		$sqlQuery->setNumber($powerWeather->temperatureHigh);
 		$sqlQuery->setNumber($powerWeather->temperatureLow);
 		$sqlQuery->setNumber($powerWeather->wind);
-		$sqlQuery->set($powerWeather->createTime);
+		$sqlQuery->setNumber($powerWeather->createTime);
 
 		$sqlQuery->setNumber($powerWeather->id);
 		return $this->executeUpdate($sqlQuery);
@@ -157,7 +157,7 @@ class PowerWeatherMySqlDAO implements PowerWeatherDAO{
 	public function queryByCreateTime($value){
 		$sql = 'SELECT * FROM power_weather WHERE create_time = ?';
 		$sqlQuery = new SqlQuery($sql);
-		$sqlQuery->set($value);
+		$sqlQuery->setNumber($value);
 		return $this->getList($sqlQuery);
 	}
 
@@ -214,7 +214,7 @@ class PowerWeatherMySqlDAO implements PowerWeatherDAO{
 	public function deleteByCreateTime($value){
 		$sql = 'DELETE FROM power_weather WHERE create_time = ?';
 		$sqlQuery = new SqlQuery($sql);
-		$sqlQuery->set($value);
+		$sqlQuery->setNumber($value);
 		return $this->executeUpdate($sqlQuery);
 	}
 

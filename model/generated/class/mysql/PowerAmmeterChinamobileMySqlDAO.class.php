@@ -3,7 +3,7 @@
  * Class that operate on table 'power_ammeter_chinamobile'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2015-06-29 07:33
+ * @date: 2015-06-29 10:45
  */
 class PowerAmmeterChinamobileMySqlDAO implements PowerAmmeterChinamobileDAO{
 
@@ -63,7 +63,7 @@ class PowerAmmeterChinamobileMySqlDAO implements PowerAmmeterChinamobileDAO{
 		$sqlQuery->setNumber($powerAmmeterChinamobile->beginValue);
 		$sqlQuery->setNumber($powerAmmeterChinamobile->endValue);
 		$sqlQuery->setNumber($powerAmmeterChinamobile->creatorId);
-		$sqlQuery->set($powerAmmeterChinamobile->createTime);
+		$sqlQuery->setNumber($powerAmmeterChinamobile->createTime);
 
 		$id = $this->executeInsert($sqlQuery);	
 		$powerAmmeterChinamobile->ammeterId = $id;
@@ -82,7 +82,7 @@ class PowerAmmeterChinamobileMySqlDAO implements PowerAmmeterChinamobileDAO{
 		$sqlQuery->setNumber($powerAmmeterChinamobile->beginValue);
 		$sqlQuery->setNumber($powerAmmeterChinamobile->endValue);
 		$sqlQuery->setNumber($powerAmmeterChinamobile->creatorId);
-		$sqlQuery->set($powerAmmeterChinamobile->createTime);
+		$sqlQuery->setNumber($powerAmmeterChinamobile->createTime);
 
 		$sqlQuery->setNumber($powerAmmeterChinamobile->ammeterId);
 		return $this->executeUpdate($sqlQuery);
@@ -121,7 +121,7 @@ class PowerAmmeterChinamobileMySqlDAO implements PowerAmmeterChinamobileDAO{
 	public function queryByCreateTime($value){
 		$sql = 'SELECT * FROM power_ammeter_chinamobile WHERE create_time = ?';
 		$sqlQuery = new SqlQuery($sql);
-		$sqlQuery->set($value);
+		$sqlQuery->setNumber($value);
 		return $this->getList($sqlQuery);
 	}
 
@@ -150,7 +150,7 @@ class PowerAmmeterChinamobileMySqlDAO implements PowerAmmeterChinamobileDAO{
 	public function deleteByCreateTime($value){
 		$sql = 'DELETE FROM power_ammeter_chinamobile WHERE create_time = ?';
 		$sqlQuery = new SqlQuery($sql);
-		$sqlQuery->set($value);
+		$sqlQuery->setNumber($value);
 		return $this->executeUpdate($sqlQuery);
 	}
 

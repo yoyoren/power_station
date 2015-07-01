@@ -3,7 +3,7 @@
  * Class that operate on table 'power_base_station_log'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2015-06-29 07:33
+ * @date: 2015-06-29 10:45
  */
 class PowerBaseStationLogMySqlDAO implements PowerBaseStationLogDAO{
 
@@ -65,7 +65,7 @@ class PowerBaseStationLogMySqlDAO implements PowerBaseStationLogDAO{
 		$sqlQuery->set($powerBaseStationLog->logDesc);
 		$sqlQuery->setNumber($powerBaseStationLog->originValue);
 		$sqlQuery->setNumber($powerBaseStationLog->currentValue);
-		$sqlQuery->set($powerBaseStationLog->createTime);
+		$sqlQuery->setNumber($powerBaseStationLog->createTime);
 		$sqlQuery->setNumber($powerBaseStationLog->creatorId);
 
 		$id = $this->executeInsert($sqlQuery);	
@@ -87,7 +87,7 @@ class PowerBaseStationLogMySqlDAO implements PowerBaseStationLogDAO{
 		$sqlQuery->set($powerBaseStationLog->logDesc);
 		$sqlQuery->setNumber($powerBaseStationLog->originValue);
 		$sqlQuery->setNumber($powerBaseStationLog->currentValue);
-		$sqlQuery->set($powerBaseStationLog->createTime);
+		$sqlQuery->setNumber($powerBaseStationLog->createTime);
 		$sqlQuery->setNumber($powerBaseStationLog->creatorId);
 
 		$sqlQuery->setNumber($powerBaseStationLog->logId);
@@ -141,7 +141,7 @@ class PowerBaseStationLogMySqlDAO implements PowerBaseStationLogDAO{
 	public function queryByCreateTime($value){
 		$sql = 'SELECT * FROM power_base_station_log WHERE create_time = ?';
 		$sqlQuery = new SqlQuery($sql);
-		$sqlQuery->set($value);
+		$sqlQuery->setNumber($value);
 		return $this->getList($sqlQuery);
 	}
 
@@ -191,7 +191,7 @@ class PowerBaseStationLogMySqlDAO implements PowerBaseStationLogDAO{
 	public function deleteByCreateTime($value){
 		$sql = 'DELETE FROM power_base_station_log WHERE create_time = ?';
 		$sqlQuery = new SqlQuery($sql);
-		$sqlQuery->set($value);
+		$sqlQuery->setNumber($value);
 		return $this->executeUpdate($sqlQuery);
 	}
 

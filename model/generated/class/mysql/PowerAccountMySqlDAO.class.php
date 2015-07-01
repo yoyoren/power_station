@@ -3,7 +3,7 @@
  * Class that operate on table 'power_account'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2015-06-29 07:33
+ * @date: 2015-06-29 10:45
  */
 class PowerAccountMySqlDAO implements PowerAccountDAO{
 
@@ -57,16 +57,16 @@ class PowerAccountMySqlDAO implements PowerAccountDAO{
  	 * @param PowerAccountMySql powerAccount
  	 */
 	public function insert($powerAccount){
-		$sql = 'INSERT INTO power_account (account_name, account_password, account_salt, accout_type, create_time, last_login_time, account_status) VALUES (?, ?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO power_account (account_name, account_password, account_salt, accout_type, create_time, last_login_time, status) VALUES (?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
 		$sqlQuery->set($powerAccount->accountName);
 		$sqlQuery->set($powerAccount->accountPassword);
 		$sqlQuery->setNumber($powerAccount->accountSalt);
 		$sqlQuery->setNumber($powerAccount->accoutType);
-		$sqlQuery->set($powerAccount->createTime);
-		$sqlQuery->set($powerAccount->lastLoginTime);
-		$sqlQuery->setNumber($powerAccount->accountStatus);
+		$sqlQuery->setNumber($powerAccount->createTime);
+		$sqlQuery->setNumber($powerAccount->lastLoginTime);
+		$sqlQuery->set($powerAccount->status);
 
 		$id = $this->executeInsert($sqlQuery);	
 		$powerAccount->accountId = $id;
@@ -79,16 +79,16 @@ class PowerAccountMySqlDAO implements PowerAccountDAO{
  	 * @param PowerAccountMySql powerAccount
  	 */
 	public function update($powerAccount){
-		$sql = 'UPDATE power_account SET account_name = ?, account_password = ?, account_salt = ?, accout_type = ?, create_time = ?, last_login_time = ?, account_status = ? WHERE account_id = ?';
+		$sql = 'UPDATE power_account SET account_name = ?, account_password = ?, account_salt = ?, accout_type = ?, create_time = ?, last_login_time = ?, status = ? WHERE account_id = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
 		$sqlQuery->set($powerAccount->accountName);
 		$sqlQuery->set($powerAccount->accountPassword);
 		$sqlQuery->setNumber($powerAccount->accountSalt);
 		$sqlQuery->setNumber($powerAccount->accoutType);
-		$sqlQuery->set($powerAccount->createTime);
-		$sqlQuery->set($powerAccount->lastLoginTime);
-		$sqlQuery->setNumber($powerAccount->accountStatus);
+		$sqlQuery->setNumber($powerAccount->createTime);
+		$sqlQuery->setNumber($powerAccount->lastLoginTime);
+		$sqlQuery->set($powerAccount->status);
 
 		$sqlQuery->setNumber($powerAccount->accountId);
 		return $this->executeUpdate($sqlQuery);
@@ -134,21 +134,21 @@ class PowerAccountMySqlDAO implements PowerAccountDAO{
 	public function queryByCreateTime($value){
 		$sql = 'SELECT * FROM power_account WHERE create_time = ?';
 		$sqlQuery = new SqlQuery($sql);
-		$sqlQuery->set($value);
+		$sqlQuery->setNumber($value);
 		return $this->getList($sqlQuery);
 	}
 
 	public function queryByLastLoginTime($value){
 		$sql = 'SELECT * FROM power_account WHERE last_login_time = ?';
 		$sqlQuery = new SqlQuery($sql);
-		$sqlQuery->set($value);
+		$sqlQuery->setNumber($value);
 		return $this->getList($sqlQuery);
 	}
 
-	public function queryByAccountStatus($value){
-		$sql = 'SELECT * FROM power_account WHERE account_status = ?';
+	public function queryByStatus($value){
+		$sql = 'SELECT * FROM power_account WHERE status = ?';
 		$sqlQuery = new SqlQuery($sql);
-		$sqlQuery->setNumber($value);
+		$sqlQuery->set($value);
 		return $this->getList($sqlQuery);
 	}
 
@@ -184,21 +184,21 @@ class PowerAccountMySqlDAO implements PowerAccountDAO{
 	public function deleteByCreateTime($value){
 		$sql = 'DELETE FROM power_account WHERE create_time = ?';
 		$sqlQuery = new SqlQuery($sql);
-		$sqlQuery->set($value);
+		$sqlQuery->setNumber($value);
 		return $this->executeUpdate($sqlQuery);
 	}
 
 	public function deleteByLastLoginTime($value){
 		$sql = 'DELETE FROM power_account WHERE last_login_time = ?';
 		$sqlQuery = new SqlQuery($sql);
-		$sqlQuery->set($value);
+		$sqlQuery->setNumber($value);
 		return $this->executeUpdate($sqlQuery);
 	}
 
-	public function deleteByAccountStatus($value){
-		$sql = 'DELETE FROM power_account WHERE account_status = ?';
+	public function deleteByStatus($value){
+		$sql = 'DELETE FROM power_account WHERE status = ?';
 		$sqlQuery = new SqlQuery($sql);
-		$sqlQuery->setNumber($value);
+		$sqlQuery->set($value);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -219,7 +219,7 @@ class PowerAccountMySqlDAO implements PowerAccountDAO{
 		$powerAccount->accoutType = $row['accout_type'];
 		$powerAccount->createTime = $row['create_time'];
 		$powerAccount->lastLoginTime = $row['last_login_time'];
-		$powerAccount->accountStatus = $row['account_status'];
+		$powerAccount->status = $row['status'];
 
 		return $powerAccount;
 	}

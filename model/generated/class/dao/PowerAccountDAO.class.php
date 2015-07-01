@@ -3,7 +3,7 @@
  * Intreface DAO
  *
  * @author: http://phpdao.com
- * @date: 2015-06-29 07:33
+ * @date: 2015-06-29 10:45
  */
 interface PowerAccountDAO{
 
@@ -63,7 +63,7 @@ interface PowerAccountDAO{
 
 	public function queryByLastLoginTime($value);
 
-	public function queryByAccountStatus($value);
+	public function queryByStatus($value);
 
 
 	public function deleteByAccountName($value);
@@ -78,7 +78,7 @@ interface PowerAccountDAO{
 
 	public function deleteByLastLoginTime($value);
 
-	public function deleteByAccountStatus($value);
+	public function deleteByStatus($value);
 
 
 }

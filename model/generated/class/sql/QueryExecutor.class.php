@@ -28,7 +28,6 @@ class QueryExecutor{
 //                    }
 //                }
 		$result = $connection->executeQuery($query);
-	        var_dump($result);
         	if(!$result){
 			throw new Exception("SQL Error: -->".$query."<--" . mysql_error());
 		}
