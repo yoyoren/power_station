@@ -13,5 +13,14 @@ class PowerAccountMySqlExtDAO extends PowerAccountMySqlDAO{
 		return $this->getList($sqlQuery);
 	}
 	
+	public function updateAccountStatus($status,$account_name){
+		$sql = 'UPDATE power_account SET status = ? WHERE account_name = ?';
+		$sqlQuery = new SqlQuery($sql);
+		
+		$sqlQuery->set($status);
+		$sqlQuery->set($account_name);
+		return $this->executeUpdate($sqlQuery);
+	}
+	
 }
 ?>
