@@ -1,9 +1,10 @@
-<button onclick="account_add()">account_add</button>
-<button onclick="account_signin()">account_signin</button>
-<button onclick="account_logout()">account_logout</button>
-<button onclick="account_islogin()">account_islogin</button>
-<button onclick="account_lock()">account_lock</button>
-<button onclick="account_unlock()">account_unlock</button>
+<div>账户模块API</div>
+<button onclick="account_add()">account_add（添加账户）</button></br>
+<button onclick="account_signin()">account_signin<（账户登录）</button></br>
+<button onclick="account_logout()">account_logout（账户注销）</button></br>
+<button onclick="account_islogin()">account_islogin（账户是否登录）</button></br>
+<button onclick="account_lock()">account_lock（账户锁定）</button></br>
+<button onclick="account_unlock()">account_unlock（账户解锁）</button></br>
 <script src="/static/src/js/jquery.js"></script>
 <script>
 window.account_add = function(){
