@@ -3,7 +3,7 @@
  * Class that operate on table 'power_base_station_runing_data'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2015-06-29 07:33
+ * @date: 2015-06-29 10:45
  */
 class PowerBaseStationRuningDataMySqlDAO implements PowerBaseStationRuningDataDAO{
 
@@ -57,7 +57,7 @@ class PowerBaseStationRuningDataMySqlDAO implements PowerBaseStationRuningDataDA
  	 * @param PowerBaseStationRuningDataMySql powerBaseStationRuningData
  	 */
 	public function insert($powerBaseStationRuningData){
-		$sql = 'INSERT INTO power_base_station_runing_data (working_status, device_status_1, device_status_2, device_status_3, device_status_4, device_status_5, device_status_6, device_status_7, device_status_8, device_status_fan, device_status_cabinet, device_status_ventilator, station_id, wet_inside, wet_outside, ammeter_normal, ammeter_smart, overload_ac, overload_dc, temperature_inside, temperature_outside, temperature_cabinet, temperature_aircondition_1, temperature_aircondition_2, temperature_aircondition_3, temperature_aircondition_4, temperature_aircondition_5, temperature_aircondition_6, temperature_aircondition_7, temperature_aircondition_8) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO power_base_station_runing_data (working_status, device_status_1, device_status_2, device_status_3, device_status_4, device_status_5, device_status_6, device_status_7, device_status_8, device_status_fan, device_status_cabinet, device_status_ventilator, station_id, wet_inside, wet_outside, ammeter_normal, ammeter_smart, overload_ac, overload_dc, temperature_inside, temperature_outside, temperature_cabinet, temperature_aircondition_1, temperature_aircondition_2, temperature_aircondition_3, temperature_aircondition_4, temperature_aircondition_5, temperature_aircondition_6, temperature_aircondition_7, temperature_aircondition_8, create_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
 		$sqlQuery->setNumber($powerBaseStationRuningData->workingStatus);
@@ -90,6 +90,7 @@ class PowerBaseStationRuningDataMySqlDAO implements PowerBaseStationRuningDataDA
 		$sqlQuery->setNumber($powerBaseStationRuningData->temperatureAircondition6);
 		$sqlQuery->setNumber($powerBaseStationRuningData->temperatureAircondition7);
 		$sqlQuery->setNumber($powerBaseStationRuningData->temperatureAircondition8);
+		$sqlQuery->setNumber($powerBaseStationRuningData->createTime);
 
 		$id = $this->executeInsert($sqlQuery);	
 		$powerBaseStationRuningData->runingDataId = $id;
@@ -102,7 +103,7 @@ class PowerBaseStationRuningDataMySqlDAO implements PowerBaseStationRuningDataDA
  	 * @param PowerBaseStationRuningDataMySql powerBaseStationRuningData
  	 */
 	public function update($powerBaseStationRuningData){
-		$sql = 'UPDATE power_base_station_runing_data SET working_status = ?, device_status_1 = ?, device_status_2 = ?, device_status_3 = ?, device_status_4 = ?, device_status_5 = ?, device_status_6 = ?, device_status_7 = ?, device_status_8 = ?, device_status_fan = ?, device_status_cabinet = ?, device_status_ventilator = ?, station_id = ?, wet_inside = ?, wet_outside = ?, ammeter_normal = ?, ammeter_smart = ?, overload_ac = ?, overload_dc = ?, temperature_inside = ?, temperature_outside = ?, temperature_cabinet = ?, temperature_aircondition_1 = ?, temperature_aircondition_2 = ?, temperature_aircondition_3 = ?, temperature_aircondition_4 = ?, temperature_aircondition_5 = ?, temperature_aircondition_6 = ?, temperature_aircondition_7 = ?, temperature_aircondition_8 = ? WHERE runing_data_id = ?';
+		$sql = 'UPDATE power_base_station_runing_data SET working_status = ?, device_status_1 = ?, device_status_2 = ?, device_status_3 = ?, device_status_4 = ?, device_status_5 = ?, device_status_6 = ?, device_status_7 = ?, device_status_8 = ?, device_status_fan = ?, device_status_cabinet = ?, device_status_ventilator = ?, station_id = ?, wet_inside = ?, wet_outside = ?, ammeter_normal = ?, ammeter_smart = ?, overload_ac = ?, overload_dc = ?, temperature_inside = ?, temperature_outside = ?, temperature_cabinet = ?, temperature_aircondition_1 = ?, temperature_aircondition_2 = ?, temperature_aircondition_3 = ?, temperature_aircondition_4 = ?, temperature_aircondition_5 = ?, temperature_aircondition_6 = ?, temperature_aircondition_7 = ?, temperature_aircondition_8 = ?, create_time = ? WHERE runing_data_id = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
 		$sqlQuery->setNumber($powerBaseStationRuningData->workingStatus);
@@ -135,6 +136,7 @@ class PowerBaseStationRuningDataMySqlDAO implements PowerBaseStationRuningDataDA
 		$sqlQuery->setNumber($powerBaseStationRuningData->temperatureAircondition6);
 		$sqlQuery->setNumber($powerBaseStationRuningData->temperatureAircondition7);
 		$sqlQuery->setNumber($powerBaseStationRuningData->temperatureAircondition8);
+		$sqlQuery->setNumber($powerBaseStationRuningData->createTime);
 
 		$sqlQuery->setNumber($powerBaseStationRuningData->runingDataId);
 		return $this->executeUpdate($sqlQuery);
@@ -359,6 +361,13 @@ class PowerBaseStationRuningDataMySqlDAO implements PowerBaseStationRuningDataDA
 		return $this->getList($sqlQuery);
 	}
 
+	public function queryByCreateTime($value){
+		$sql = 'SELECT * FROM power_base_station_runing_data WHERE create_time = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		return $this->getList($sqlQuery);
+	}
+
 
 	public function deleteByWorkingStatus($value){
 		$sql = 'DELETE FROM power_base_station_runing_data WHERE working_status = ?';
@@ -570,6 +579,13 @@ class PowerBaseStationRuningDataMySqlDAO implements PowerBaseStationRuningDataDA
 		return $this->executeUpdate($sqlQuery);
 	}
 
+	public function deleteByCreateTime($value){
+		$sql = 'DELETE FROM power_base_station_runing_data WHERE create_time = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		return $this->executeUpdate($sqlQuery);
+	}
+
 
 	
 	/**
@@ -611,6 +627,7 @@ class PowerBaseStationRuningDataMySqlDAO implements PowerBaseStationRuningDataDA
 		$powerBaseStationRuningData->temperatureAircondition6 = $row['temperature_aircondition_6'];
 		$powerBaseStationRuningData->temperatureAircondition7 = $row['temperature_aircondition_7'];
 		$powerBaseStationRuningData->temperatureAircondition8 = $row['temperature_aircondition_8'];
+		$powerBaseStationRuningData->createTime = $row['create_time'];
 
 		return $powerBaseStationRuningData;
 	}

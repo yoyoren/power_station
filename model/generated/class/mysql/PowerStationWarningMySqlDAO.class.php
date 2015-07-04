@@ -3,7 +3,7 @@
  * Class that operate on table 'power_station_warning'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2015-06-29 07:33
+ * @date: 2015-06-29 10:45
  */
 class PowerStationWarningMySqlDAO implements PowerStationWarningDAO{
 
@@ -62,8 +62,8 @@ class PowerStationWarningMySqlDAO implements PowerStationWarningDAO{
 		
 		$sqlQuery->setNumber($powerStationWarning->warningType);
 		$sqlQuery->set($powerStationWarning->warningDesc);
-		$sqlQuery->set($powerStationWarning->createTime);
-		$sqlQuery->set($powerStationWarning->updateTime);
+		$sqlQuery->setNumber($powerStationWarning->createTime);
+		$sqlQuery->setNumber($powerStationWarning->updateTime);
 		$sqlQuery->setNumber($powerStationWarning->stationId);
 		$sqlQuery->setNumber($powerStationWarning->warningStatus);
 
@@ -83,8 +83,8 @@ class PowerStationWarningMySqlDAO implements PowerStationWarningDAO{
 		
 		$sqlQuery->setNumber($powerStationWarning->warningType);
 		$sqlQuery->set($powerStationWarning->warningDesc);
-		$sqlQuery->set($powerStationWarning->createTime);
-		$sqlQuery->set($powerStationWarning->updateTime);
+		$sqlQuery->setNumber($powerStationWarning->createTime);
+		$sqlQuery->setNumber($powerStationWarning->updateTime);
 		$sqlQuery->setNumber($powerStationWarning->stationId);
 		$sqlQuery->setNumber($powerStationWarning->warningStatus);
 
@@ -118,14 +118,14 @@ class PowerStationWarningMySqlDAO implements PowerStationWarningDAO{
 	public function queryByCreateTime($value){
 		$sql = 'SELECT * FROM power_station_warning WHERE create_time = ?';
 		$sqlQuery = new SqlQuery($sql);
-		$sqlQuery->set($value);
+		$sqlQuery->setNumber($value);
 		return $this->getList($sqlQuery);
 	}
 
 	public function queryByUpdateTime($value){
 		$sql = 'SELECT * FROM power_station_warning WHERE update_time = ?';
 		$sqlQuery = new SqlQuery($sql);
-		$sqlQuery->set($value);
+		$sqlQuery->setNumber($value);
 		return $this->getList($sqlQuery);
 	}
 
@@ -161,14 +161,14 @@ class PowerStationWarningMySqlDAO implements PowerStationWarningDAO{
 	public function deleteByCreateTime($value){
 		$sql = 'DELETE FROM power_station_warning WHERE create_time = ?';
 		$sqlQuery = new SqlQuery($sql);
-		$sqlQuery->set($value);
+		$sqlQuery->setNumber($value);
 		return $this->executeUpdate($sqlQuery);
 	}
 
 	public function deleteByUpdateTime($value){
 		$sql = 'DELETE FROM power_station_warning WHERE update_time = ?';
 		$sqlQuery = new SqlQuery($sql);
-		$sqlQuery->set($value);
+		$sqlQuery->setNumber($value);
 		return $this->executeUpdate($sqlQuery);
 	}
 

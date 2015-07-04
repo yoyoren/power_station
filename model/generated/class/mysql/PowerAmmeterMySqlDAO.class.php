@@ -3,7 +3,7 @@
  * Class that operate on table 'power_ammeter'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2015-06-29 07:33
+ * @date: 2015-06-29 10:45
  */
 class PowerAmmeterMySqlDAO implements PowerAmmeterDAO{
 
@@ -63,7 +63,7 @@ class PowerAmmeterMySqlDAO implements PowerAmmeterDAO{
 		$sqlQuery->setNumber($powerAmmeter->beginValue);
 		$sqlQuery->setNumber($powerAmmeter->endValue);
 		$sqlQuery->setNumber($powerAmmeter->creatorId);
-		$sqlQuery->set($powerAmmeter->createTime);
+		$sqlQuery->setNumber($powerAmmeter->createTime);
 
 		$id = $this->executeInsert($sqlQuery);	
 		$powerAmmeter->ammeterId = $id;
@@ -82,7 +82,7 @@ class PowerAmmeterMySqlDAO implements PowerAmmeterDAO{
 		$sqlQuery->setNumber($powerAmmeter->beginValue);
 		$sqlQuery->setNumber($powerAmmeter->endValue);
 		$sqlQuery->setNumber($powerAmmeter->creatorId);
-		$sqlQuery->set($powerAmmeter->createTime);
+		$sqlQuery->setNumber($powerAmmeter->createTime);
 
 		$sqlQuery->setNumber($powerAmmeter->ammeterId);
 		return $this->executeUpdate($sqlQuery);
@@ -121,7 +121,7 @@ class PowerAmmeterMySqlDAO implements PowerAmmeterDAO{
 	public function queryByCreateTime($value){
 		$sql = 'SELECT * FROM power_ammeter WHERE create_time = ?';
 		$sqlQuery = new SqlQuery($sql);
-		$sqlQuery->set($value);
+		$sqlQuery->setNumber($value);
 		return $this->getList($sqlQuery);
 	}
 
@@ -150,7 +150,7 @@ class PowerAmmeterMySqlDAO implements PowerAmmeterDAO{
 	public function deleteByCreateTime($value){
 		$sql = 'DELETE FROM power_ammeter WHERE create_time = ?';
 		$sqlQuery = new SqlQuery($sql);
-		$sqlQuery->set($value);
+		$sqlQuery->setNumber($value);
 		return $this->executeUpdate($sqlQuery);
 	}
 

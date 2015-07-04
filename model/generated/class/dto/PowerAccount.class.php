@@ -3,7 +3,7 @@
 	 * Object represents table 'power_account'
 	 *
      	 * @author: http://phpdao.com
-     	 * @date: 2015-06-29 07:33	 
+     	 * @date: 2015-06-29 10:45	 
 	 */
 	class PowerAccount{
 		
@@ -14,7 +14,7 @@
 		var $accoutType;
 		var $createTime;
 		var $lastLoginTime;
-		var $accountStatus;
+		var $status;
 		
 	}
 ?>

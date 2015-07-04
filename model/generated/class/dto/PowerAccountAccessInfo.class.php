@@ -3,7 +3,7 @@
 	 * Object represents table 'power_account_access_info'
 	 *
      	 * @author: http://phpdao.com
-     	 * @date: 2015-06-29 07:33	 
+     	 * @date: 2015-06-29 10:45	 
 	 */
 	class PowerAccountAccessInfo{
 		

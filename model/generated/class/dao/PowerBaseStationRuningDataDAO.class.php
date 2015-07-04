@@ -3,7 +3,7 @@
  * Intreface DAO
  *
  * @author: http://phpdao.com
- * @date: 2015-06-29 07:33
+ * @date: 2015-06-29 10:45
  */
 interface PowerBaseStationRuningDataDAO{
 
@@ -111,6 +111,8 @@ interface PowerBaseStationRuningDataDAO{
 
 	public function queryByTemperatureAircondition8($value);
 
+	public function queryByCreateTime($value);
+
 
 	public function deleteByWorkingStatus($value);
 
@@ -171,6 +173,8 @@ interface PowerBaseStationRuningDataDAO{
 	public function deleteByTemperatureAircondition7($value);
 
 	public function deleteByTemperatureAircondition8($value);
+
+	public function deleteByCreateTime($value);
 
 
 }
