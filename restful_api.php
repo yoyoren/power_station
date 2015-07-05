@@ -94,4 +94,11 @@ $app->post('/account/unlock', function () {
     AccountHandler::is_login(0,$accountName);
 	restful_response(RES_SUCCESS);
 });
+
+
+
+$app->get('/file/read', function () {
+	$result = ECUHandler::read();
+	echo json_encode($result);
+});
 ?>

@@ -1,4 +1,7 @@
-<div>账户模块API</div>
+<style>
+button {margin:5px;padding:5px;}
+</style>
+<h2>账户模块API</h2>
 <button onclick="account_add()">account_add（添加账户）</button></br>
 <button onclick="account_signin()">account_signin<（账户登录）</button></br>
 <button onclick="account_logout()">account_logout（账户注销）</button></br>
