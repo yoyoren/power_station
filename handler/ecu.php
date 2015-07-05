@@ -16,7 +16,7 @@
 	define('FILE_CONTENT_SIZE',56 * BYTE_1);
 	
 	class ECUHandler {
-		public static function read($path='./ecu/site/laogang/ecu1234567-20280601-131706.engy'){
+		public static function read($path=ECU_ROOT_PATH.'laogang/ecu1234567-20280601-131706.engy'){
 			$file = fopen($path,'rb');
 			$content=fread($file,filesize($path));
 			
@@ -41,7 +41,7 @@
 				
 			}
 			$file_version = bindec(substr($decode_content,0,FILE_VERSION_SIZE));
-			$file_content = array();
+			$file_content = array(); 
 			
 			//一个ECU中可能是多个文件数据 56字节是一个数据
 			$file_count = (strlen($decode_content) - FILE_VERSION_SIZE)/FILE_CONTENT_SIZE;
