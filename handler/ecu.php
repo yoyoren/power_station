@@ -106,5 +106,29 @@
 				file_content => $file_content, 
 			);
 		}
+		
+		
+		//扫描目录
+		public static function scan(){
+			$res = array();
+			$stations = scandir(ECU_ROOT_PATH);
+			$counts = count($stations);
+			for($i=0;$i<$counts;$i++){
+				$dir = $stations[$i];
+				if(is_dir(ECU_ROOT_PATH.'/'.$dir) && !is_dir($dir)){
+					$station_data = scandir(ECU_ROOT_PATH.'/'.$dir);
+					for($k=0;$k<count($station_data);$k++){
+						if(!is_dir(ECU_ROOT_PATH.$dir.'/'.$station_data[$k])){
+							array_push($res,ECU_ROOT_PATH.$dir.'/'.$station_data[$k]);
+						}
+					}
+				}
+			}
+			return $res;
+		}
+		
+		public static function write_to_db(){
+		
+		}
 	}
 ?>

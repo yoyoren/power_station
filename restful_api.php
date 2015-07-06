@@ -96,9 +96,43 @@ $app->post('/account/unlock', function () {
 });
 
 
-
-$app->get('/file/read', function () {
+//ecu文件读取的测试接口
+$app->get('/ecu/read', function () {
 	$result = ECUHandler::read();
-	echo json_encode($result);
+	restful_response(RES_SUCCESS,$result);
+});
+
+$app->get('/ecu/scan', function () {
+	$result = ECUHandler::scan();
+	restful_response(RES_SUCCESS,$result);
+});
+
+//增加一个站点
+$app->post('/station/add', function () {
+	global $app;
+	$stationName = $app->request->post('name');
+	$stationSeriseCode = $app->request->post('code');
+	$stationType = $app->request->post('type');
+	$stationProject = $app->request->post('project');
+	$stationProvince = $app->request->post('province');
+	$stationCity = $app->request->post('city');
+	$stationDistirct = $app->request->post('distirct');
+	$stationAddress = $app->request->post('address');
+	$stationLat = $app->request->post('lat');
+	$stationLng = $app->request->post('lng');
+	
+	$result = StationHandler::add(
+		$stationName,
+		$stationSeriseCode,
+		$stationType,
+		$stationProject,
+		$stationProvince,
+		$stationCity,
+		$stationDistirct,
+		$stationAddress,
+		$stationLat,
+		$stationLng);
+		
+	restful_response(RES_SUCCESS);
 });
 ?>
