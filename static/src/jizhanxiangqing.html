@@ -65,82 +65,102 @@
         </ul>
 
         <div class="nav-tabs-content">
-          <p>
-            基站当前状态：正常在线
-          </p>
+          <div class="clearfix">
+            <div class="n-new-time" style="background:#ffef95; color:#333; padding-top:30px;">
+              <span class="vl-m">基站当前状态：<span style="background:#ff4400; color:#fff; padding:4px; border-radius:4px;">正常在线</span></span>
+            </div>
 
-          <div>
-            <span>最新采集时间：2015-04-23 10：34：11</span>
-            <button type="button" class="btn btn-success">自动刷新</button>
+            <div class="n-new-time">
+              <p>10 : 34 : 11</p>
+              <span>最新采集时间：2015年4月23日 </span>
+            </div>
+          </div>
+
+          <div class="clearfix">
+            <div class="n-wendu-item" style="background:#56d4ca;">
+              <img src="img/ic-wendu2.png" class="fl-l" style="height:120px;" />
+              <div class="fl-l" style="padding:30px 0 0 20px;;">
+                <p>室内温度</p>
+                <p class="num">27.9℃</p>
+              </div>
+
+            </div>
+
+            <div class="n-wendu-item" style="background:#1fecfe;">
+              <img src="img/ic-wendu2.png" class="fl-l" style="height:120px;" />
+              <div class="fl-l" style="padding:30px 0 0 20px;;">
+                <p>室外温度</p>
+                <p class="num">27.9℃</p>
+              </div>
+
+            </div>
+
+            <div class="n-wendu-item" style="background:#1fa2fe;">
+              <img src="img/ic-wendu2.png" class="fl-l" style="height:120px;" />
+              <div class="fl-l" style="padding:30px 0 0 20px;;">
+                <p>恒温柜温度</p>
+                <p class="num">27.9℃</p>
+              </div>
+
+            </div>
           </div>
           <hr/>
-          <p class="table-title"><b>温度</b></p>
-          <table class="table table-bordered table-striped">
-            <thead>
-              <tr>
-                <th>室内温度</th>
-                <th>室外温度</th>
-                <th>恒温柜温度</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>27.9℃</td>
-                <td>27.9℃</td>
-                <td>27.9℃</td>
-              </tr>
-            </tbody>
-          </table>
-
           <p class="table-title"><b>设备状态</b></p>
-          <table class="table table-bordered table-striped">
-            <thead>
-              <tr>
-                <th>新风</th>
-                <th>空调1</th>
-                <th>空调2</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>关闭</td>
-                <td>关闭</td>
-                <td>工作</td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="clearfix">
+            <div class="n-status-item">
+              <p>新风</p>
+              <img src="img/ic-off.png"/>
+            </div>
+            <div class="n-status-item">
+              <p>空调1</p>
+              <img src="img/ic-off.png"/>
+            </div>
+            <div class="n-status-item">
+              <p>空调2</p>
+              <img src="img/ic-on.png"/>
+            </div>
+          </div>
 
-          <p class="table-title"><b>能耗状态</b></p>
-          <table class="table table-bordered table-striped">
-            <thead>
-              <tr>
-                <th>基准能耗</th>
-                <th>当前能耗</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>34A</td>
-                <td>29A</td>
-              </tr>
-            </tbody>
-          </table>
+          <hr/>
+          <div class="clearfix">
+            <div class="fl-l">
+              <p class="table-title"><b>能耗状态</b></p>
+              <div class="clearfix">
+                <div class="n-dian-biao-status-item" style="background:#1fa2fe;">
+                  <img src="img/ic-nh.png" />
+                  <p>基准能耗</p>
+                  <p class="num">34A</p>
 
-          <p class="table-title"><b>电表状态</b></p>
-          <table class="table table-bordered table-striped">
-            <thead>
-              <tr>
-                <th>智能电表</th>
-                <th>基站电表</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>31302.85</td>
-                <td>151440.31</td>
-              </tr>
-            </tbody>
-          </table>
+                </div>
+                <div class="n-dian-biao-status-item" style="background:#1fa2fe;">
+                  <img src="img/ic-nh.png"/>
+                  <p>当前能耗</p>
+                  <p class="num">29A</p>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="fl-l" style="margin-left:40px;">
+              <p class="table-title"><b>电表状态</b></p>
+              <div class="clearfix">
+                <div class="n-dian-biao-status-item">
+                  <img src="img/ic-dianbiao.png" />
+                  <p>智能电表</p>
+                  <p class="num">31302.85</p>
+
+                </div>
+                <div class="n-dian-biao-status-item">
+                  <img src="img/ic-dianbiao.png"/>
+                  <p>基站电表</p>
+                  <p class="num">151440.31</p>
+
+                </div>
+              </div>
+
+            </div>
+
+          </div>
 
         </div>
 
