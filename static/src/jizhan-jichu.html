@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta chraset="utf-8">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
   <title>基站详情--基础信息</title>
   <link rel="stylesheet" type="text/css" href="css/base.css">
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
@@ -12,7 +12,7 @@
   <div class="n-layout">
     <div class="n-head clearfix">
       <div class="n-logo fl-l">
-        能耗管理云系统
+        <img class="ico-logo" src="img/ic-nenghao2.png" /><span class="vl-m">能耗管理云系统</span>
       </div>
       <ul class="n-head-nav fl-l">
         <li><a href="">首页</a></li>
@@ -30,15 +30,20 @@
 
       <div class="n-nav-left">
         <ul>
-          <li class="title"><a href="jizhan-index.html"><span class="vl-m title">基站列表</span><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a></li>
-          <li class="current"><a href=""><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">基站详情</span></a></li>
-          <li><a href="jizhan-man-edit.html"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">基站管理</a></li>
-
+          <li><a href="jizhanxiangqing.html"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">当前状态</span></a></li>
+          <li class="current"><a href="jizhan-jichu.html"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">基础信息</a></li>
+          <li><a href="jizhan-date-data.html"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">日报数据</a></li>
+          <li><a href="jizhan-month-data.html"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">月报数据</a></li>
+          <li><a href="jizhan-year-data.html"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">年报数据</a></li>
+          <li><a href="jizhan-yuanshi-data.html"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">原始数据</a></li>
+          <li><a href="jizhan-man-edit.html"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">基站编辑</a></li>
+          <li><a href="jizhan-man-yuancheng.html"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">远程配置</a></li>
+          <li><a href="jizhan-man-create.html"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">基站创建</a></li>
         </ul>
       </div>
 
       <div class="n-right-content">
-        <h4 class="tab-to-title">基站详情</h4>
+        <h4 class="tab-to-title">基础信息</h4>
         <div class="current-name-area clearfix">
           <span class="vl-m fl-l name"><b>001（鹤东）</b>基站</span>
 
@@ -55,20 +60,10 @@
 
         </div>
 
-        <ul class="nav nav-tabs">
-          <li role="presentation"><a href="jizhanxiangqing.html">当前状态</a></li>
-          <li role="presentation" class="active"><a href="jizhan-jichu.html">基础信息</a></li>
-          <li role="presentation"><a href="jizhan-date-data.html">日报数据</a></li>
-          <li role="presentation"><a href="jizhan-month-data.html">月报数据</a></li>
-          <li role="presentation"><a href="jizhan-year-data.html">年报数据</a></li>
-          <li role="presentation"><a href="jizhan-yuanshi-data.html">原始数据</a></li>
-        </ul>
-
         <div class="nav-tabs-content">
 
           <p class="table-title clearfix">
-            <b>基站基础信息</b>
-            <button type="button" class="btn btn-default fl-r">编辑</button>
+            <button type="button" class="btn btn-default fl-r">编辑当前基站</button>
           </p>
 
           <table class="table table-bordered">

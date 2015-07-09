@@ -8,5 +8,6 @@
 class PowerBaseStationMySqlExtDAO extends PowerBaseStationMySqlDAO{
 
 	
+	
 }
 ?>

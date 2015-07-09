@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta chraset="utf-8">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
   <title>维护 - 工作日志</title>
   <link rel="stylesheet" type="text/css" href="css/base.css">
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
@@ -13,16 +13,16 @@
   <div class="n-layout">
     <div class="n-head clearfix">
       <div class="n-logo fl-l">
-        能耗管理云系统
+        <img class="ico-logo" src="img/ic-nenghao2.png" /><span class="vl-m">能耗管理云系统</span>
       </div>
       <ul class="n-head-nav fl-l">
-        <li><a href="">首页</a></li>
-        <li><a href="">基站</a></li>
-        <li><a href="">告警</a></li>
-        <li><a href="">电表</a></li>
-        <li><a class="current" href="">维护</a></li>
+        <li><a href="main.html">首页</a></li>
+        <li><a href="jizhan-index.html">基站</a></li>
+        <li><a href="gaojing-index.html">告警</a></li>
+        <li><a href="dianbiao-my.html">电表</a></li>
+        <li><a class="current" href="weihu-note.html">维护</a></li>
         <li><a href="">报表</a></li>
-        <li><a href="">账户</a></li>
+        <li><a href="account-create.html">账户</a></li>
       </ul>
       <div class="n-logout fl-r">你好，管理员，<span class="name">梅梅哇</span><a href="" class="func">退出</a></div>
     </div>
@@ -42,7 +42,7 @@
         <div class="n-check-area">
           <div class="n-check-item2">
             <span class="name">日期</span>
-            <input type="text" class="form-control form_datetime" value="2015-02-12" />
+            <input type="text" class="form-control form_datetime" readonly value="2015-02-12" />
           </div>
           <div class="n-check-item2">
             <span class="name">工作类型</span>
@@ -59,11 +59,30 @@
           <button type="button" class="btn btn-default">确定</button>
         </div>
 
+        <div class="tl-r">
+          <ul class="pagination">
+            <li>
+              <a href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li>
+              <a href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </div>
         <table class="table table-bordered table-striped">
           <thead>
             <tr>
               <th>记录时间</th>
-              <th>鹤东</th>
+              <th>基站</th>
               <th>工作类型</th>
               <th>修改项目</th>
               <th>原来</th>
@@ -103,26 +122,7 @@
           </tbody>
         </table>
 
-        <div class="tl-r">
-          <p>每页显示15条信息，查看更多请翻页。</p>
-          <ul class="pagination">
-            <li>
-              <a href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-              </a>
-            </li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li>
-              <a href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-              </a>
-            </li>
-          </ul>
-        </div>
+
 
       </div>
 

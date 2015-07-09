@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta chraset="utf-8">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
   <title>基站管理--基站编辑</title>
   <link rel="stylesheet" type="text/css" href="css/base.css">
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
@@ -13,16 +13,16 @@
   <div class="n-layout">
     <div class="n-head clearfix">
       <div class="n-logo fl-l">
-        能耗管理云系统
+        <img class="ico-logo" src="img/ic-nenghao2.png" /><span class="vl-m">能耗管理云系统</span>
       </div>
       <ul class="n-head-nav fl-l">
-        <li><a href="">首页</a></li>
-        <li><a class="current" href="">基站</a></li>
-        <li><a href="">告警</a></li>
-        <li><a href="">电表</a></li>
-        <li><a href="">维护</a></li>
+        <li><a href="main.html">首页</a></li>
+        <li><a class="current" href="jizhan-index.html">基站</a></li>
+        <li><a href="gaojing-index.html">告警</a></li>
+        <li><a href="dianbiao-my.html">电表</a></li>
+        <li><a href="weihu-note.html">维护</a></li>
         <li><a href="">报表</a></li>
-        <li><a href="">账户</a></li>
+        <li><a href="account-create.html">账户</a></li>
       </ul>
       <div class="n-logout fl-r">你好，管理员，<span class="name">梅梅哇</span><a href="" class="func">退出</a></div>
     </div>
@@ -31,15 +31,20 @@
 
       <div class="n-nav-left">
         <ul>
-          <li class="title"><a href="jizhan-index.html"><span class="vl-m title">基站列表</span><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a></li>
-          <li><a href="jizhanxiangqing.html"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">基站详情</span></a></li>
-          <li class="current"><a href=""><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">基站管理</a></li>
-
+          <li><a href="jizhanxiangqing.html"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">当前状态</span></a></li>
+          <li><a href="jizhan-jichu.html"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">基础信息</a></li>
+          <li><a href="jizhan-date-data.html"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">日报数据</a></li>
+          <li><a href="jizhan-month-data.html"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">月报数据</a></li>
+          <li><a href="jizhan-year-data.html"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">年报数据</a></li>
+          <li><a href="jizhan-yuanshi-data.html"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">原始数据</a></li>
+          <li class="current"><a href="jizhan-man-edit.html"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">基站编辑</a></li>
+          <li><a href="jizhan-man-yuancheng.html"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">远程配置</a></li>
+          <li><a href="jizhan-man-create.html"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">基站创建</a></li>
         </ul>
       </div>
 
       <div class="n-right-content">
-        <h4 class="tab-to-title">基站管理</h4>
+        <h4 class="tab-to-title">基站编辑</h4>
         <div class="current-name-area clearfix">
           <span class="vl-m fl-l name"><b>001</b>基站</span>
 
@@ -56,34 +61,21 @@
 
         </div>
 
-        <ul class="nav nav-tabs">
-          <li role="presentation" class="active"><a href="jizhan-man-edit.html">基站编辑</a></li>
-          <li role="presentation"><a href="jizhan-man-yuancheng.html">远程配置</a></li>
-          <li role="presentation"><a href="jizhan-man-create.html">基站创建</a></li>
-        </ul>
+
 
         <div class="nav-tabs-content">
 
-          <p class="table-title clearfix">
-            <b>基站编辑</b>
-          </p>
           <style type="text/css">
           .table-bordered td.td-to-th{vertical-align: middle;}
           </style>
-          <p style="color:#ff4400;">页面note：暂时不知道哪些是不可以编辑的，确定以后可以把不可编辑的部分输入框的内容释放出来。</p>
+          <p style="color:#ff4400;">页面note：没输入框的部分是不能编辑的，其他可以编辑</p>
           <table class="table table-bordered">
             <tbody>
               <tr>
                 <td class="td-to-th">基站名称</td>
-                <td><input type="text" value="鹤东" class="form-control" /></td>
+                <td>鹤东</td>
                 <td class="td-to-th">站点类型</td>
-                <td>
-                  <select>
-                    <option>基准站</option>
-                    <option>节能站</option>
-                    <option>预备站</option>
-                  </select>
-                </td>
+                <td>基准站 / 节能站 / 预备站</td>
                 <td class="td-to-th">&nbsp;</td>
                 <td>&nbsp;</td>
               </tr>
@@ -97,9 +89,9 @@
               </tr>
               <tr>
                 <td class="td-to-th">基站编号</td>
-                <td><input type="text" value="cu-sh-pd-0001" class="form-control" /></td>
+                <td>cu-sh-pd-0001</td>
                 <td class="td-to-th">用能方站号</td>
-                <td><input type="text" value="NH10113" class="form-control" /></td>
+                <td>NH10113</td>
                 <td class="td-to-th">&nbsp;</td>
                 <td>&nbsp;</td>
               </tr>
@@ -259,7 +251,7 @@
             </tbody>
           </table>
 
-          <div class="tl-r"><button type="button" class="btn btn-primary">编辑</button></div>
+          <div class="tl-r"><button type="button" class="btn btn-primary" style="width:120px;">确定</button></div>
 
         </div>
 

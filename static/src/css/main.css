@@ -5,15 +5,21 @@ body{overflow: auto;}
 .n-layout{height: 100%; padding-top: 56px;
   box-sizing: border-box;}
 
-.n-head{background: #2cb876; color: #fff; height: 56px; margin-top: -56px;}
-.n-logo{font-size: 18px; line-height: 56px;}
-.n-head-nav{overflow: hidden; padding-top: 16px; margin-left: 60px;}
+.n-head{background: #2cb876; color: #fff; height: 56px; margin-top: -56px; overflow: hidden;}
+.n-head{background:-webkit-gradient(linear, 0 0, 0 100%, from(#4ebd21), to(#059953));
+background:-moz-linear-gradient(top, #4ebd21,#059953);
+filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#4ebd21,endColorstr=#059953,grandientType=0);}
+.n-logo{font-size: 18px; line-height: 56px; width: 154px;}
+.n-logo{text-shadow:0 1px 1px #666; font-weight: bold; margin-left: 20px;}
+.ico-logo{display: inline-block; width: 22px; height: 20px; vertical-align: -6px; margin-right: 4px;}
+
+.n-head-nav{overflow: hidden; padding-top: 16px; margin-left: 60px; width: 620px;}
 .n-head-nav li{float: left; text-align: center; margin-right: 20px;}
 .n-head-nav li a{color:#fff; font-size:14px; display: inline-block; padding: 4px 20px; }
 .n-head-nav li a:hover,
 .n-head-nav li a.current{background: #fff; color:#2cb876; border-radius: 6px; text-decoration: none;}
 
-.n-logout{padding-right: 20px; padding-top: 20px;}
+.n-logout{padding-right: 20px; padding-top: 20px; width: 240px;}
 .n-logout .name{color: #e8da33;}
 .n-logout .func{color: #fff; margin-left: 20px; text-decoration: underline;}
 
@@ -58,9 +64,9 @@ body{overflow: auto;}
 .n-check-item{display: inline-block; width: 200px; margin-bottom: 20px;}
 .n-check-item .name{width: 40px; display: inline-block;}
 
-.current-name-area{background: #f5f5f5; padding: 10px; margin-bottom: 20px;}
+.current-name-area{background: #f5f5f5; padding: 10px; margin-bottom: 20px; margin-top:10px;}
 .current-name-area .name b{color: #ff4400; font-size: 20px;}
-.nav-tabs-content{padding: 20px; border: 1px solid #ddd; border-top: 0 none; margin-bottom: 20px;}
+.nav-tabs-content{padding-bottom:20px; margin-bottom: 20px;}
 
 /* 基础信息表格处理 */
 .td-to-th{background: #eee;}
@@ -80,3 +86,44 @@ body{overflow: auto;}
 .n-check-item2 .form-control{display: inline-block; width: 100px;}
 
 .date-control{display: inline-block; width: 120px;}
+
+/* 首页 */
+.n-mian-area{padding: 20px;}
+.n-mian-area .n-title{padding-top: 20px;}
+
+.n-show-item{width: 200px; position: relative; height: 140px; background: #ff4400; color: #fff; text-align: center; float: left; margin-right: 10px; border-radius: 10px;}
+.n-show-item img{display: block; width: 80px; margin: 0 auto;}
+.n-show-item .intro{font-size: 16px; padding-top: 8px; font-weight: bold;}
+.n-show-item .num{position: absolute; bottom: 0; width: 100%; text-align: center; font-size: 22px;}
+.n-show-item .num em{font-size: 12px;}
+/*基站数量和告警*/
+.n-jizhan-container{padding: 20px; background: #20ddff; border-radius: 10px; padding-left: 100px; position: relative;}
+.n-jizhan-container .ico-item{position: absolute; left: 10px; top: 10px; width: 80px;}
+
+.n-jizhan-container .n-table{background: #fff; padding: 10px; border-radius: 10px; height: 62px;}
+.n-jizhan-item p{margin-bottom: 2px;}
+.n-jizhan-item{padding-right: 20px; margin-right: 20px; border-right: 1px solid #eee; float: left;}
+.n-jizhan-item .n-total-item{background:#ff4400; display:inline-block; padding:0 4px; border-radius:4px; color:#fff; text-align:center}
+.n-jizhan-item a{text-decoration: underline;}
+
+.n-jizhan-jingshi{background:#fff799;}
+.n-jizhan-jingshi p,
+.n-jizhan-jingshi p a{color: #ff4400;}
+
+/* 当前状态的时间和室内温度 */
+.n-new-time{background: #ff5096; float: left; padding: 10px; text-align: center; color: #fff; margin-bottom: 20px; border-radius: 10px; margin-right: 20px; height: 78px;}
+.n-new-time p{font-size: 20px; font-weight: bold;}
+.n-new-time span{}
+
+.n-wendu-item{float: left; padding: 10px 20px; background:#56d4ca; border-radius: 10px; margin-right: 20px; color: #fff; margin-bottom: 20px;}
+.n-wendu-item p{font-weight: bold;}
+.n-wendu-item .num{font-size: 30px;}
+
+/* 设备状态 */
+.n-status-item{background: #56d4ca; padding: 10px 20px; color: #fff; margin-right: 20px; float: left; margin-bottom: 20px; border-radius: 10px; font-size: 16px;}
+.n-status-item img{height: 24px;}
+
+/* 电表状态 */
+.n-dian-biao-status-item{background: #0eac06; border-radius: 10px; padding: 10px 20px; float: left; margin-right: 20px; margin-bottom: 20px; color: #fff; text-align: center; width: 150px;}
+.n-dian-biao-status-item img{width: 60px;}
+.n-dian-biao-status-item .num{font-size: 20px; font-weight: bold;}

@@ -1,6 +1,12 @@
 <?php
 class AccountHandler {
 
+	public static function get_list($start,$end){
+		$dao =  new PowerAccountMySqlDAO();
+		$exsit = $dao->queryAndPage($start,$end);
+		return $exsit;
+	}
+	
   //增加账户
   public static function add($accountName,$accountPassword,$accountType=1){
     $dao =  new PowerAccountMySqlDAO();

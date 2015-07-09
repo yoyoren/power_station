@@ -6,7 +6,22 @@
  * @date: 2015-06-29 10:45
  */
 class PowerAccountMySqlDAO implements PowerAccountDAO{
-
+	
+	public function queryAndPage($start,$end){
+		$sql = 'SELECT * FROM power_account limit '.$start.','.$end;
+		$sqlQuery = new SqlQuery($sql);
+		return $this->getList($sqlQuery);
+	}
+	
+	public function updateAccountStatus($status,$account_name){
+		$sql = 'UPDATE power_account SET status = ? WHERE account_name = ?';
+		$sqlQuery = new SqlQuery($sql);
+		
+		$sqlQuery->set($status);
+		$sqlQuery->set($account_name);
+		return $this->executeUpdate($sqlQuery);
+	}
+	
 	/**
 	 * Get Domain object by primry key
 	 *
