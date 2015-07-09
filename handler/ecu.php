@@ -127,6 +127,7 @@
 			return $res;
 		}
 		
+		//将扫描后的文件放到库里
 		public static function write_to_db(){
 		
 		}

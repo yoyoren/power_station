@@ -1,5 +1,11 @@
 <?php	
 	class StationHandler {
+		public static function get_list($start,$end){
+			$dao =  new PowerBaseStationMySqlDAO();
+			$exsit = $dao->queryAndPage($start,$end);
+			return $exsit;
+		}
+		
 		public static function add(
 		$stationName,
 		$stationSeriseCode,
@@ -42,8 +48,9 @@
 			}
 		}
 		
-		public static function update(){
-			
+		public static function update($stationId,$status){
+			$dao_station =  new PowerBaseStationMySqlDAO();
+			$dao_station->updateStatus($stationId,$status);
 		}
 		
 		public static function remove(){
