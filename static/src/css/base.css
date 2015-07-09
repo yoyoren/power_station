@@ -1,5 +1,3 @@
-@charset "utf-8";
-
 /* Reset */
 body, h1, h2, h3, h4, h5, h6,
 div, p, blockquote, pre, address,
@@ -79,19 +77,21 @@ button {
 textarea, pre {
 	overflow:auto;
 }
-.clearfix:after  {
+.clearfix:after,
+.clearfix:before{
 	content:".";
 	display:block;
 	height:0;
 	clear:both;
 	visibility:hidden;
 }
-.clearfix {display: inline-block;}
+
 /* Hides from IE-mac \*/
 * html .clearfix {height: 1%;}
 .clearfix   {display: block;}
 /* End hide from IE-mac */
 .vl-m{vertical-align: middle;}
+.vl-t{vertical-align: top;}
 .cboth {
 	clear:both;
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta chraset="utf-8">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
   <title>录入电表 - 局方</title>
   <link rel="stylesheet" type="text/css" href="css/base.css">
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
@@ -13,16 +13,16 @@
   <div class="n-layout">
     <div class="n-head clearfix">
       <div class="n-logo fl-l">
-        能耗管理云系统
+        <img class="ico-logo" src="img/ic-nenghao2.png" /><span class="vl-m">能耗管理云系统</span>
       </div>
       <ul class="n-head-nav fl-l">
-        <li><a href="">首页</a></li>
-        <li><a href="">基站</a></li>
-        <li><a href="">告警</a></li>
-        <li><a class="current" href="">电表</a></li>
-        <li><a href="">维护</a></li>
+        <li><a href="main.html">首页</a></li>
+        <li><a href="jizhan-index.html">基站</a></li>
+        <li><a href="gaojing-index.html">告警</a></li>
+        <li><a class="current" href="dianbiao-my.html">电表</a></li>
+        <li><a href="weihu-note.html">维护</a></li>
         <li><a href="">报表</a></li>
-        <li><a href="">账户</a></li>
+        <li><a href="account-create.html">账户</a></li>
       </ul>
       <div class="n-logout fl-r">你好，管理员，<span class="name">梅梅哇</span><a href="" class="func">退出</a></div>
     </div>
@@ -46,7 +46,7 @@
           </div>
           <div class="input-group-item clearfix">
             <span class="name">基站电表采集时间：</span>
-            <input type="text" class="form-control form_datetime" value="昨天的时间（去现场的时间）" required />
+            <input type="text" class="form-control form_datetime" readonly value="昨天的时间（去现场的时间）" required />
           </div>
           <div class="input-group-item tl-r">
             <button type="button" class="btn btn-default">确定</button>
