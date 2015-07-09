@@ -5,21 +5,21 @@ body{overflow: auto;}
 .n-layout{height: 100%; padding-top: 56px;
   box-sizing: border-box;}
 
-.n-head{background: #2cb876; color: #fff; height: 56px; margin-top: -56px;}
+.n-head{background: #2cb876; color: #fff; height: 56px; margin-top: -56px; overflow: hidden;}
 .n-head{background:-webkit-gradient(linear, 0 0, 0 100%, from(#4ebd21), to(#059953));
 background:-moz-linear-gradient(top, #4ebd21,#059953);
 filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#4ebd21,endColorstr=#059953,grandientType=0);}
-.n-logo{font-size: 18px; line-height: 56px;}
+.n-logo{font-size: 18px; line-height: 56px; width: 154px;}
 .n-logo{text-shadow:0 1px 1px #666; font-weight: bold; margin-left: 20px;}
 .ico-logo{display: inline-block; width: 22px; height: 20px; vertical-align: -6px; margin-right: 4px;}
 
-.n-head-nav{overflow: hidden; padding-top: 16px; margin-left: 60px;}
+.n-head-nav{overflow: hidden; padding-top: 16px; margin-left: 60px; width: 620px;}
 .n-head-nav li{float: left; text-align: center; margin-right: 20px;}
 .n-head-nav li a{color:#fff; font-size:14px; display: inline-block; padding: 4px 20px; }
 .n-head-nav li a:hover,
 .n-head-nav li a.current{background: #fff; color:#2cb876; border-radius: 6px; text-decoration: none;}
 
-.n-logout{padding-right: 20px; padding-top: 20px;}
+.n-logout{padding-right: 20px; padding-top: 20px; width: 240px;}
 .n-logout .name{color: #e8da33;}
 .n-logout .func{color: #fff; margin-left: 20px; text-decoration: underline;}
 
@@ -64,9 +64,9 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#4ebd21,endColor
 .n-check-item{display: inline-block; width: 200px; margin-bottom: 20px;}
 .n-check-item .name{width: 40px; display: inline-block;}
 
-.current-name-area{background: #f5f5f5; padding: 10px; margin-bottom: 20px;}
+.current-name-area{background: #f5f5f5; padding: 10px; margin-bottom: 20px; margin-top:10px;}
 .current-name-area .name b{color: #ff4400; font-size: 20px;}
-.nav-tabs-content{padding: 20px; border: 1px solid #ddd; border-top: 0 none; margin-bottom: 20px;}
+.nav-tabs-content{padding-bottom:20px; margin-bottom: 20px;}
 
 /* 基础信息表格处理 */
 .td-to-th{background: #eee;}

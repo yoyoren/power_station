@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta chraset="utf-8">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
   <title>基站详情--日报数据</title>
   <link rel="stylesheet" type="text/css" href="css/base.css">
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
@@ -13,16 +13,16 @@
   <div class="n-layout">
     <div class="n-head clearfix">
       <div class="n-logo fl-l">
-        能耗管理云系统
+        <img class="ico-logo" src="img/ic-nenghao2.png" /><span class="vl-m">能耗管理云系统</span>
       </div>
       <ul class="n-head-nav fl-l">
-        <li><a href="">首页</a></li>
-        <li><a class="current" href="">基站</a></li>
-        <li><a href="">告警</a></li>
-        <li><a href="">电表</a></li>
-        <li><a href="">维护</a></li>
+        <li><a href="main.html">首页</a></li>
+        <li><a class="current" href="jizhan-index.html">基站</a></li>
+        <li><a href="gaojing-index.html">告警</a></li>
+        <li><a href="dianbiao-my.html">电表</a></li>
+        <li><a href="weihu-note.html">维护</a></li>
         <li><a href="">报表</a></li>
-        <li><a href="">账户</a></li>
+        <li><a href="account-create.html">账户</a></li>
       </ul>
       <div class="n-logout fl-r">你好，管理员，<span class="name">梅梅哇</span><a href="" class="func">退出</a></div>
     </div>
@@ -31,15 +31,20 @@
 
       <div class="n-nav-left">
         <ul>
-          <li class="title"><a href="jizhan-index.html"><span class="vl-m title">基站列表</span><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a></li>
-          <li class="current"><a href=""><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">基站详情</span></a></li>
-          <li><a href="jizhan-man-edit.html"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">基站管理</a></li>
-
+          <li><a href="jizhanxiangqing.html"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">当前状态</span></a></li>
+          <li><a href="jizhan-jichu.html"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">基础信息</a></li>
+          <li class="current"><a href="jizhan-date-data.html"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">日报数据</a></li>
+          <li><a href="jizhan-month-data.html"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">月报数据</a></li>
+          <li><a href="jizhan-year-data.html"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">年报数据</a></li>
+          <li><a href="jizhan-yuanshi-data.html"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">原始数据</a></li>
+          <li><a href="jizhan-man-edit.html"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">基站编辑</a></li>
+          <li><a href="jizhan-man-yuancheng.html"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">远程配置</a></li>
+          <li><a href="jizhan-man-create.html"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">基站创建</a></li>
         </ul>
       </div>
 
       <div class="n-right-content">
-        <h4 class="tab-to-title">基站详情</h4>
+        <h4 class="tab-to-title">日报数据</h4>
         <div class="current-name-area clearfix">
           <span class="vl-m fl-l name"><b>001</b>基站</span>
 
@@ -55,16 +60,6 @@
           </div>
 
         </div>
-
-        <ul class="nav nav-tabs">
-          <li role="presentation"><a href="jizhanxiangqing.html">当前状态</a></li>
-          <li role="presentation"><a href="jizhan-jichu.html">基础信息</a></li>
-          <li role="presentation" class="active"><a href="jizhan-date-data.html">日报数据</a></li>
-          <li role="presentation"><a href="jizhan-month-data.html">月报数据</a></li>
-          <li role="presentation"><a href="jizhan-year-data.html">年报数据</a></li>
-          <li role="presentation"><a href="jizhan-yuanshi-data.html">原始数据</a></li>
-        </ul>
-
 
         <div class="nav-tabs-content">
           <div class="n-check-area tl-r">
@@ -127,73 +122,117 @@ $(function () {
       language: 'cn'
     });
 
+
+$(function () {
     $('#container').highcharts({
         chart: {
-            type: 'bar'
+            type: 'area'
         },
         title: {
-            text: '功率'
+            text: 'Area chart with negative values'
         },
         xAxis: {
-            categories: ['总功率', '通讯设备DC1', '通讯设备DC2', '通讯设备DC3', '通讯设备DC4'],
-            title: {
-                text: null
+            // categories: ['00:00', '02:00', '04:00', '06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00', '00:00']
+            categories: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19','0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19','0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19','0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19','0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19',],
+            labels: {
+              step:10
             }
+
+
         },
         yAxis: {
-            min: 0,
-            categories: ['0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24'],
             title: {
-                text: '点',
-                align: 'high'
+                text: 'Nuclear weapon states'
             },
             labels: {
-                overflow: 'justify'
+                formatter: function () {
+                    return this.value / 1000 + 'k';
+                },
+                step:2
             }
-        },
-        tooltip: {
-            valueSuffix: '点单位'
-        },
-        plotOptions: {
-            bar: {
-                dataLabels: {
-                    enabled: true
-                }
-            }
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'top',
-            x: -40,
-            y: 100,
-            floating: true,
-            borderWidth: 1,
-            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
-            shadow: true
         },
         credits: {
             enabled: false
         },
         series: [{
-            name: '功率',
-            data: [22, 10, 9, 10, 2]
+            name: '总功率',
+            data: [5000, 6000, 4600, 7000, 6000, 5000, 6000, 6000, 5000, 6000, 4600, 7000, 6000, 5000, 6000, 4600, 7000, 6000, 5000, 6000, 4600, 7000, 6000,5000, 6000, 4600, 7000, 6000, 5000, 6000, 6000, 5000, 6000, 4600, 7000, 6000, 5000, 6000, 4600, 7000, 6000, 5000, 6000, 4600, 7000, 6000,5000, 6000, 4600, 7000, 6000, 5000, 6000, 6000, 5000, 6000, 4600, 7000, 6000, 5000, 6000, 4600, 7000, 6000, 5000, 6000, 4600, 7000, 6000]
+        }, {
+            name: 'DC1功率',
+            data: [4000, 4200, 4300, 4100, 4100, null, null, null, null, null, null, null]
+        }, {
+            name: 'DC2功率',
+            data: [3000, 3200, 4000, 3400, 3800, null, null, null, null, null, null, null]
         }]
-        // , {
-        //     name: 'Year 1900',
-        //     data: [22, 10, 9, 10, 2]
-        // }, {
-        //     name: 'Year 2008',
-        //     data: [11, 10, 9, 10, 2]
-        // }]
 
-        //     name: 'Year 1900',
-        //     data: [133, 156, 947, 408, 6]
+
+        // chart: {
+        //     type: 'area'
+        // },
+        // title: {
+        //     text: 'US and USSR nuclear stockpiles'
+        // },
+        // subtitle: {
+        //     text: 'Source: <a href="http://thebulletin.metapress.com/content/c4120650912x74k7/fulltext.pdf">' +
+        //         'thebulletin.metapress.com</a>'
+        // },
+        // xAxis: {
+        //     allowDecimals: false,
+        //     labels: {
+        //         formatter: function () {
+        //             return this.value; // clean, unformatted number for year
+        //         }
+        //     }
+        // },
+        // yAxis: {
+        //     title: {
+        //         text: 'Nuclear weapon states'
+        //     },
+        //     labels: {
+        //         formatter: function () {
+        //             return this.value / 1000 + 'k';
+        //         }
+        //     }
+        // },
+        // tooltip: {
+        //     pointFormat: '{series.name} produced <b>{point.y:,.0f}</b><br/>warheads in {point.x}'
+        // },
+        // plotOptions: {
+        //     area: {
+        //         pointStart: '00:00',
+        //         marker: {
+        //             enabled: false,
+        //             symbol: 'circle',
+        //             radius: 2,
+        //             states: {
+        //                 hover: {
+        //                     enabled: true
+        //                 }
+        //             }
+        //         }
+        //     }
+        // },
+        // series: [{
+        //     name: 'USA',
+        //     data: [null, null, null, null, null, 6, 11, 32, 110, 235, 369, 640,
+        //         1005, 1436, 2063, 3057, 4618, 6444, 9822, 15468, 20434, 24126,
+        //         27387, 29459, 31056, 31982, 32040, 31233, 29224, 27342, 26662,
+        //         26956, 27912, 28999, 28965, 27826, 25579, 25722, 24826, 24605,
+        //         24304, 23464, 23708, 24099, 24357, 24237, 24401, 24344, 23586,
+        //         22380, 21004, 17287, 14747, 13076, 12555, 12144, 11009, 10950,
+        //         10871, 10824, 10577, 10527, 10475, 10421, 10358, 10295, 10104]
         // }, {
-        //     name: 'Year 2008',
-        //     data: [973, 914, 4054, 732, 34]
+        //     name: 'USSR/Russia',
+        //     data: [null, null, null, null, null, null, null, null, null, null,
+        //         5, 25, 50, 120, 150, 200, 426, 660, 869, 1060, 1605, 2471, 3322,
+        //         4238, 5221, 6129, 7089, 8339, 9399, 10538, 11643, 13092, 14478,
+        //         15915, 17385, 19055, 21205, 23044, 25393, 27935, 30062, 32049,
+        //         33952, 35804, 37431, 39197, 45000, 43000, 41000, 39000, 37000,
+        //         35000, 33000, 31000, 29000, 27000, 25000, 24000, 23000, 22000,
+        //         21000, 20000, 19000, 18000, 18000, 17000, 16000]
         // }]
     });
+});
 
     $('#container2').highcharts({
         chart: {

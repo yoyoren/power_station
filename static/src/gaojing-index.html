@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta chraset="utf-8">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
   <title>能耗系统</title>
   <link rel="stylesheet" type="text/css" href="css/base.css">
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
@@ -12,16 +12,16 @@
   <div class="n-layout">
     <div class="n-head clearfix">
       <div class="n-logo fl-l">
-        能耗管理云系统
+        <img class="ico-logo" src="img/ic-nenghao2.png" /><span class="vl-m">能耗管理云系统</span>
       </div>
       <ul class="n-head-nav fl-l">
-        <li><a href="">首页</a></li>
+        <li><a href="main.html">首页</a></li>
         <li><a href="jizhan-index.html">基站</a></li>
         <li><a class="current" href="gaojing-index.html">告警</a></li>
-        <li><a href="">电表</a></li>
-        <li><a href="">维护</a></li>
+        <li><a href="dianbiao-my.html">电表</a></li>
+        <li><a href="weihu-note.html">维护</a></li>
         <li><a href="">报表</a></li>
-        <li><a href="">账户</a></li>
+        <li><a href="account-create.html">账户</a></li>
       </ul>
       <div class="n-logout fl-r">你好，管理员，<span class="name">梅梅哇</span><a href="" class="func">退出</a></div>
     </div>
@@ -30,7 +30,7 @@
 
       <div class="n-nav-left">
         <ul>
-          <li class="title"><a href=""><span class="vl-m title">告警监控</span><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a></li>
+          <li class="current"><a href="gaojing-index.html"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m title">告警监控故障列表</span></a></li>
           <li><a href="gaojing-celue.html"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">告警策略管理</span></a></li>
 
         </ul>
@@ -84,6 +84,7 @@
               <th>告警状态</th>
             </tr>
           </thead>
+          <p style="color:#ff4400;">页面note：点击站点可以查看具体的原始数据</p>
           <tbody>
             <tr>
               <td></td>
