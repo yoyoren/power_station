@@ -213,4 +213,27 @@ $app->post('/station/offline', function () {
 	StationHandler::update($stationId,1);
 	restful_response(RES_SUCCESS);
 });
+
+//显示天气
+$app->get('/weather/show', function () {
+     global $app;
+     $result=WeatherHandler::show();
+     if(!$result){
+          restful_response(RES_ERROR);
+     }else{
+          restful_response(RES_SUCCESS,$result);
+     }
+	
+});
+//插入天气
+$app->get('/weather/add', function () {
+     global $app;
+     $result=WeatherHandler::add_weather();
+     if(!$result){
+          restful_response(RES_ERROR);
+     }else{
+          restful_response(RES_SUCCESS);
+     }
+	
+});
 ?>
