@@ -63,6 +63,7 @@ function param_check($key,$method='post',$type=''){
 		die();
 	}
  }
+ 
 
  //增加账户
 $app->post('/account/add', function () {
