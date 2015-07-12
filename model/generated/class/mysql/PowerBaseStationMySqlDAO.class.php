@@ -71,7 +71,7 @@ class PowerBaseStationMySqlDAO implements PowerBaseStationDAO{
  	 * @param PowerBaseStationMySql powerBaseStation
  	 */
 	public function insert($powerBaseStation){
-		$sql = 'INSERT INTO power_base_station (station_name, station_serise_code, station_type, station_project, station_building_type, station_province, station_city, station_distirct, station_address, station_lat, station_lng, create_time, creator_id, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO power_base_station (station_name, station_serise_code, station_type, station_project, station_building_type, station_province, station_city, station_distirct, station_address, station_lat, station_lng, create_time, creator_id, status, project_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
 		$sqlQuery->set($powerBaseStation->stationName);
@@ -88,6 +88,7 @@ class PowerBaseStationMySqlDAO implements PowerBaseStationDAO{
 		$sqlQuery->setNumber($powerBaseStation->createTime);
 		$sqlQuery->setNumber($powerBaseStation->creatorId);
 		$sqlQuery->setNumber($powerBaseStation->status);
+		$sqlQuery->setNumber($powerBaseStation->projectId);
 
 		$id = $this->executeInsert($sqlQuery);	
 		$powerBaseStation->stationId = $id;
