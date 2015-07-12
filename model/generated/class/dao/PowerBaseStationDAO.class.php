@@ -79,7 +79,7 @@ interface PowerBaseStationDAO{
 
 	public function queryByStatus($value);
 
-	public function queryByProjectId($value);
+	//public function queryByProjectId($value);
 
 
 	public function deleteByStationName($value);
@@ -110,7 +110,7 @@ interface PowerBaseStationDAO{
 
 	public function deleteByStatus($value);
 
-	public function deleteByProjectId($value);
+	//public function deleteByProjectId($value);
 
 
 }

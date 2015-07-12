@@ -86,7 +86,8 @@ $app->post('/account/signin', function () {
     $accountPassword = param_check('password');
 	$result = AccountHandler::sign_in($accountName,$accountPassword);
 	global $app;
-	$app->setCookie('user_id', $result['data']->accountName);
+	$app->setCookie('user_id', $result['data']->accountId);
+	$app->setCookie('user_name', $result['data']->accountName);
 	$app->setCookie('pass_token', $result['pass_token']);
 	
 	if($result == 1){
@@ -169,6 +170,7 @@ $app->post('/station/add', function () {
 	$stationSeriseCode = param_check('code');
 	$stationType = param_check('type');
 	$stationProject = param_check('project');
+	$stationProjectId = param_check('project_id');
 	$stationProvince = param_check('province');
 	$stationCity = param_check('city');
 	$stationDistirct = param_check('distirct');
@@ -186,7 +188,8 @@ $app->post('/station/add', function () {
 		$stationDistirct,
 		$stationAddress,
 		$stationLat,
-		$stationLng);
+		$stationLng,
+		$stationProjectId);
 		
 	restful_response(RES_SUCCESS);
 });

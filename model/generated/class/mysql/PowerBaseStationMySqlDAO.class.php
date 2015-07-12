@@ -89,7 +89,6 @@ class PowerBaseStationMySqlDAO implements PowerBaseStationDAO{
 		$sqlQuery->setNumber($powerBaseStation->creatorId);
 		$sqlQuery->setNumber($powerBaseStation->status);
 		$sqlQuery->setNumber($powerBaseStation->projectId);
-
 		$id = $this->executeInsert($sqlQuery);	
 		$powerBaseStation->stationId = $id;
 		return $id;
@@ -354,6 +353,7 @@ class PowerBaseStationMySqlDAO implements PowerBaseStationDAO{
 		$powerBaseStation->createTime = $row['create_time'];
 		$powerBaseStation->creatorId = $row['creator_id'];
 		$powerBaseStation->status = $row['status'];
+		$powerBaseStation->projectId = $row['project_id'];
 
 		return $powerBaseStation;
 	}

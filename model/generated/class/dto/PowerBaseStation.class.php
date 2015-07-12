@@ -22,6 +22,8 @@
 		var $createTime;
 		var $creatorId;
 		var $status;
+		
+		var $projectId;
 		
 	}
 ?>

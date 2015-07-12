@@ -65,8 +65,9 @@ class AccountHandler {
    //判断用户是否登录
    public static function is_login(){
    
-     $account_name = $_COOKIE['user_id'];
+     $account_name = $_COOKIE['user_name'];
 	 $pass_token = $_COOKIE['pass_token'];
+	 $account_id = $_COOKIE['user_id'];
 
 	 if($account_name && $pass_token){
 	    //用passtoken计算用户密码

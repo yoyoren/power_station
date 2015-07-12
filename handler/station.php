@@ -16,7 +16,8 @@
 		$stationDistirct,
 		$stationAddress,
 		$stationLat,
-		$stationLng){
+		$stationLng,
+		$projectId=0){
 		
 			$dao_station =  new PowerBaseStationMySqlDAO();
 			$current_time = time();
@@ -34,6 +35,7 @@
 			$station->createTime = $current_time;
 			$station->creatorId = $_COOKIE['user_id'];
 			$station->status = 0;
+			$station->projectId = $projectId;
 			$station_id = $dao_station->insert($station);
 			
 			//插入站点的设备信息和节能信息
