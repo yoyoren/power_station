@@ -108,5 +108,28 @@ class AccountHandler {
 	  $dao =  new PowerAccountMySqlDAO();
       $exsit = $dao->updateAccountStatus($status,$accountName);
    }
+   
+   //把一个用户账户添加到一个项目中去
+    public static function add_to_project($accountId,$projectId){
+		$dao =  new PowerAccountAccessProjectMySqlDAO();
+		$project = new PowerAccountAccessProject();
+		$current_time = time();
+		$project->accountId = $accountId;
+		$project->projectId = $projectId;
+		$project->status = 0;
+		$project->createTime = $current_time;
+		$dao->insert($project);
+		return true;
+	}
+	
+	//从项目中移除用户
+	public static function remove_from_project($userId,$projectId){
+	
+	}
+	
+	//检测用户是否有访问项目的权限
+	public static function get_project_auth($userId,$projectId){
+	
+	}
 }
 ?>

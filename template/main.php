@@ -10,7 +10,7 @@
       <div class="n-mian-area">
       <div class="clearfix">
         <h4 class="n-title fl-l" style="padding:0; margin-right:40px;">当前项目：<span style="color:#ff4400;">上海联通</span></h4>
-        <div class="btn-group fl-l">
+        <div class="btn-group fl-l" id="project_list">
               <button type="button" class="btn btn-default">
                 上海
               </button>

@@ -148,6 +148,15 @@ $app->get('/account/list', function () {
 	restful_response(RES_SUCCESS,$data);
 });
 
+$app->post('/account/addproject', function () {
+	restful_api_auth();
+	$user_id = param_check('user_id');
+	$project_id = param_check('project_id');
+    AccountHandler::add_to_project($user_id,$project_id);
+	restful_response(RES_SUCCESS);
+});
+
+
 
 //ecu文件读取的测试接口
 $app->get('/ecu/read', function () {
@@ -216,6 +225,29 @@ $app->post('/station/offline', function () {
 	restful_api_auth();
 	$stationId = param_check('id');
 	StationHandler::update($stationId,1);
+	restful_response(RES_SUCCESS);
+});
+
+//新建项目
+$app->post('/project/add', function () {
+	restful_api_auth();
+	$name = param_check('name');
+	ProjectHandler::add($name);
+	restful_response(RES_SUCCESS);
+});
+
+//项目列表
+$app->get('/project/list', function () {
+	restful_api_auth();
+	$data = ProjectHandler::get_list();
+	restful_response(RES_SUCCESS,$data);
+});
+
+//删除项目
+$app->post('/project/remove', function () {
+	restful_api_auth();
+	$id = param_check('id');
+	ProjectHandler::remove($id);
 	restful_response(RES_SUCCESS);
 });
 

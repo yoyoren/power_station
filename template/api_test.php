@@ -9,9 +9,13 @@ button {margin:5px;padding:5px;}
 <button onclick="account_lock()">account_lock（账户锁定）</button></br>
 <button onclick="account_unlock()">account_unlock（账户解锁）</button></br>
 <button onclick="account_list()">account_list（获得注册账户列表）</button></br>
+<button onclick="account_addproject()">account_addproject（增加一个用户到某项目）</button></br>
 <h2>ECU API</h2>
 <button onclick="ECU_read()">ECU_read(读取ECU原始数据)</button></br>
 <button onclick="ECU_scan()">ECU_scan(ECU目录扫描)</button></br>
+<h2>项目 API</h2>
+<button onclick="project_add()">project_add(增加一个项目)</button></br>
+<button onclick="project_list()">project_list(项目列表)</button></br>
 <h2>基站 API</h2>
 <button onclick="station_add()">station_add(增加一个基站数据)</button></br>
 <button onclick="station_remove()">station_remove(删除一个基站数据)</button></br>
@@ -19,6 +23,22 @@ button {margin:5px;padding:5px;}
 <button onclick="station_list()">station_list(基站数据列表)</button></br>
 <script src="/static/src/js/jquery.js"></script>
 <script>
+
+window.project_add = function(){
+	$.post('/project/add',{
+	  name:'测试项目'
+	},function(d){
+
+	},'json');
+}
+
+window.project_list = function(){
+	$.get('/project/list',{
+	},function(d){
+
+	},'json');
+}
+
 window.account_add = function(){
 	$.post('/account/add',{
 	  name:'test2',
@@ -67,6 +87,17 @@ window.account_unlock = function(){
 
 	},'json');
 }
+
+window.account_addproject = function(){
+	$.post('/account/addproject',{
+	  project_id:0,
+	  user_id:1
+	},function(d){
+
+	},'json');
+}
+
+
 
 window.account_list = function(){
 	$.get('/account/list',{
