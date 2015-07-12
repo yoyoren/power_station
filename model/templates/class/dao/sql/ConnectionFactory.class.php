@@ -14,7 +14,7 @@ class ConnectionFactory{
 	 */
 	static public function getConnection(){
 		$conn = mysql_connect('127.0.0.1','root', '');
-		mysql_select_db('power_manager');
+		mysql_select_db('power_manager_v2');
                 if(!$conn){
 			throw new Exception('could not connect to database');
 		}
