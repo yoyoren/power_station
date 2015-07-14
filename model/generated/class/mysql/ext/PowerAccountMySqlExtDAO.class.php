@@ -22,5 +22,17 @@ class PowerAccountMySqlExtDAO extends PowerAccountMySqlDAO{
 		return $this->executeUpdate($sqlQuery);
 	}
 	
+	public function queryAndPage($start,$end){
+		$sql = 'SELECT * FROM power_account limit '.$start.','.$end;
+		$sqlQuery = new SqlQuery($sql);
+		return $this->getList($sqlQuery);
+	}
+	
+	public function getTotalNum(){
+		$sql_num = 'SELECT count(*) FROM power_account';
+		$sqlQueryNum = new SqlQuery($sql_num);
+		$num = $this->execute($sqlQueryNum);
+		return $num[0][0];
+	}
 }
 ?>

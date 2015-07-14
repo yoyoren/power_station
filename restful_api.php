@@ -160,7 +160,7 @@ $app->post('/account/addproject', function () {
 
 //ecu文件读取的测试接口
 $app->get('/ecu/read', function () {
-	restful_api_auth();
+	//restful_api_auth();
 	$result = ECUHandler::read();
 	restful_response(RES_SUCCESS,$result);
 });
@@ -169,6 +169,13 @@ $app->get('/ecu/read', function () {
 $app->get('/ecu/scan', function () {
 	restful_api_auth();
 	$result = ECUHandler::scan();
+	restful_response(RES_SUCCESS,$result);
+});
+
+//扫描上传ECU文件的目录
+$app->get('/ecu/write', function () {
+	restful_api_auth();
+	$result = ECUHandler::write();
 	restful_response(RES_SUCCESS,$result);
 });
 

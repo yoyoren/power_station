@@ -5,20 +5,11 @@
   <div class="n-layout">
     <?php include ('include/header.php')?>
 
-    <div class="n-container">
-
-      <div class="n-nav-left">
-        <ul>
-          <li class="title"><a href=""><span class="vl-m title">基站列表</span><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a></li>
-          <li><a href="jizhanxiangqing.html"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">基站详情</span></a></li>
-          <li><a href="jizhan-man-edit.html"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">基站管理</a></li>
-
-        </ul>
-      </div>
+    <div class="n-container" style="padding-left:20px;">
 
       <div class="n-right-content">
-        <h4 class="tab-to-title">基站列表</h4>
-        <div class="n-check-area">
+        <h4 class="tab-to-title">基站列表<a href="/base/create"  style="margin-left:20px;" class="btn btn-primary">创建基站</a></h4>
+        <div class="n-check-area" style="border:1px solid #eee;">
           <div class="n-check-item">
             <span class="name">项目</span>
             <select><option>--查询条件--</option></select>
@@ -49,6 +40,25 @@
           <button type="button" class="btn btn-default">确定</button>
         </div>
 
+        <div class="tl-r">
+          <ul class="pagination">
+            <li>
+              <a href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li>
+              <a href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </div>
 
         <table class="table table-bordered table-striped" role="grid">
           <thead>
@@ -75,7 +85,7 @@
               <td>&nbsp;</td>
             </tr>
             <tr>
-              <td class="sorting_1"><a href="">002</a></td>
+              <td class="sorting_1"><a href="jizhanxiangqing.html">002</a></td>
               <td>丰桥</td>
               <td>上海</td>
               <td>浦东区</td>
@@ -85,7 +95,7 @@
               <td>&nbsp;</td>
             </tr>
             <tr>
-              <td class="sorting_1"><a href="">002</a></td>
+              <td class="sorting_1"><a href="jizhanxiangqing.html">002</a></td>
               <td>丰桥</td>
               <td>上海</td>
               <td>浦东区</td>
@@ -95,7 +105,7 @@
               <td>&nbsp;</td>
             </tr>
             <tr>
-              <td class="sorting_1"><a href="">002</a></td>
+              <td class="sorting_1"><a href="jizhanxiangqing.html">002</a></td>
               <td>丰桥</td>
               <td>上海</td>
               <td>浦东区</td>
@@ -105,7 +115,7 @@
               <td>&nbsp;</td>
             </tr>
             <tr>
-              <td class="sorting_1"><a href="">002</a></td>
+              <td class="sorting_1"><a href="jizhanxiangqing.html">002</a></td>
               <td>丰桥</td>
               <td>上海</td>
               <td>浦东区</td>
@@ -115,7 +125,7 @@
               <td>&nbsp;</td>
             </tr>
             <tr>
-              <td class="sorting_1"><a href="">002</a></td>
+              <td class="sorting_1"><a href="jizhanxiangqing.html">002</a></td>
               <td>丰桥</td>
               <td>上海</td>
               <td>浦东区</td>
@@ -125,7 +135,7 @@
               <td>&nbsp;</td>
             </tr>
             <tr>
-              <td class="sorting_1"><a href="">002</a></td>
+              <td class="sorting_1"><a href="jizhanxiangqing.html">002</a></td>
               <td>丰桥</td>
               <td>上海</td>
               <td>浦东区</td>
@@ -135,7 +145,7 @@
               <td>&nbsp;</td>
             </tr>
             <tr>
-              <td class="sorting_1"><a href="">002</a></td>
+              <td class="sorting_1"><a href="jizhanxiangqing.html">002</a></td>
               <td>丰桥</td>
               <td>上海</td>
               <td>浦东区</td>
@@ -145,7 +155,7 @@
               <td>&nbsp;</td>
             </tr>
             <tr>
-              <td class="sorting_1"><a href="">002</a></td>
+              <td class="sorting_1"><a href="jizhanxiangqing.html">002</a></td>
               <td>丰桥</td>
               <td>上海</td>
               <td>浦东区</td>
@@ -155,7 +165,7 @@
               <td>&nbsp;</td>
             </tr>
             <tr>
-              <td class="sorting_1"><a href="">002</a></td>
+              <td class="sorting_1"><a href="jizhanxiangqing.html">002</a></td>
               <td>丰桥</td>
               <td>上海</td>
               <td>浦东区</td>
@@ -165,7 +175,7 @@
               <td>&nbsp;</td>
             </tr>
             <tr>
-              <td class="sorting_1"><a href="">002</a></td>
+              <td class="sorting_1"><a href="jizhanxiangqing.html">002</a></td>
               <td>丰桥</td>
               <td>上海</td>
               <td>浦东区</td>
@@ -175,7 +185,7 @@
               <td>&nbsp;</td>
             </tr>
             <tr>
-              <td class="sorting_1"><a href="">002</a></td>
+              <td class="sorting_1"><a href="jizhanxiangqing.html">002</a></td>
               <td>丰桥</td>
               <td>上海</td>
               <td>浦东区</td>
@@ -185,7 +195,7 @@
               <td>&nbsp;</td>
             </tr>
             <tr>
-              <td class="sorting_1"><a href="">002</a></td>
+              <td class="sorting_1"><a href="jizhanxiangqing.html">002</a></td>
               <td>丰桥</td>
               <td>上海</td>
               <td>浦东区</td>
@@ -195,7 +205,7 @@
               <td>&nbsp;</td>
             </tr>
             <tr>
-              <td class="sorting_1"><a href="">002</a></td>
+              <td class="sorting_1"><a href="jizhanxiangqing.html">002</a></td>
               <td>丰桥</td>
               <td>上海</td>
               <td>浦东区</td>
@@ -205,7 +215,7 @@
               <td>&nbsp;</td>
             </tr>
             <tr>
-              <td class="sorting_1"><a href="">002</a></td>
+              <td class="sorting_1"><a href="jizhanxiangqing.html">002</a></td>
               <td>丰桥</td>
               <td>上海</td>
               <td>浦东区</td>
@@ -217,29 +227,6 @@
 
           </tbody>
         </table>
-
-
-
-        <div class="tl-r">
-          <p>每页显示15条信息，查看更多请翻页。</p>
-          <ul class="pagination">
-            <li>
-              <a href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-              </a>
-            </li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li>
-              <a href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-              </a>
-            </li>
-          </ul>
-        </div>
 
       </div>
 

@@ -21,7 +21,8 @@
 			$content=fread($file,filesize($path));
 			
 			//按16位转成整数
-			$byte_array = unpack("N*",$content);
+			$byte_array = unpack("V*",$content);
+			
 			
 			$decode_content = '';
 			//按字节转成2进制序列，并补0
@@ -56,22 +57,23 @@
 				$head_poiner += FILE_CONTENT_SIZE;
 				array_push($file_content,array(
 					'date'=>date('Y-m-d H:i:s',bindec(substr($one_file_content,0,BYTE_4))),
-					'tempature'=>bindec(substr($one_file_content,32,BYTE_1)),
+					'timestamps'=>bindec(substr($one_file_content,0,BYTE_4)),
+					'target_temperature'=>bindec(substr($one_file_content,32,BYTE_1)),
 					'egy_save_status'=>bindec(substr($one_file_content,40,BYTE_1)),
 					'fault_code'=>substr($one_file_content,48,BYTE_1),
 					'relay_status'=>substr($one_file_content,56,BYTE_1),
 					'elec_engy'=>array(
 						bindec(substr($one_file_content,64,BYTE_4))/100,
 						bindec(substr($one_file_content,96,BYTE_4))/100,
-						bindec(substr($one_file_content,128,BYTE_4))/100,
-						bindec(substr($one_file_content,160,BYTE_4))/100,
+						//bindec(substr($one_file_content,128,BYTE_4))/100,
+						//bindec(substr($one_file_content,160,BYTE_4))/100,
 					),
 					
 					'elec_power'=>array(
 						bindec(substr($one_file_content,192,BYTE_2)),
 						bindec(substr($one_file_content,208,BYTE_2)),
-						bindec(substr($one_file_content,224,BYTE_2)),
-						bindec(substr($one_file_content,240,BYTE_2)),
+						//bindec(substr($one_file_content,224,BYTE_2)),
+						//bindec(substr($one_file_content,240,BYTE_2)),
 					),
 					
 					'temperature'=>array(
@@ -128,8 +130,67 @@
 		}
 		
 		//将扫描后的文件放到库里
-		public static function write_to_db(){
-		
+		public static function write($path=ECU_ROOT_PATH.'test/ecu1234567-20150710-150450.engy'){
+			$data = ECUHandler::read($path);
+			$data = $data['file_content'];
+			$dao =  new PowerBaseStationRuningDataMySqlDAO();
+			$current_time = time();
+			$all = count($data);
+			for($i=0;$i<1;$i++){
+				$cur_data = $data[$i];
+				
+				$dao_obj = new PowerBaseStationRuningData();
+				$dao_obj->workingStatus = -1;
+				
+				//空调状态
+				$dao_obj->deviceStatus1 = -1;
+				$dao_obj->deviceStatus2 = -1;
+				$dao_obj->deviceStatus3 = -1;
+				$dao_obj->deviceStatus4 = -1;
+				$dao_obj->deviceStatus5 = -1;
+				$dao_obj->deviceStatus6 = -1;
+				$dao_obj->deviceStatus7 = -1;
+				$dao_obj->deviceStatus8 = -1;
+				$dao_obj->deviceStatusFan = -1;
+				$dao_obj->deviceStatusCabinet = -1;
+				$dao_obj->deviceStatusVentilator = -1;
+				$dao_obj->stationId = 1;
+				$dao_obj->wetInside = $cur_data['reserved'][1];
+				$dao_obj->wetOutside = $cur_data['reserved'][0];
+				$dao_obj->ammeterNormal = -1;
+				$dao_obj->ammeterSmart = -1;
+				$dao_obj->overloadAc = -1;
+				$dao_obj->overloadDc = -1;
+				//室外温度
+				$dao_obj->temperatureOutside = $cur_data['temperature'][0];
+				//室内温度
+				$dao_obj->temperatureInside = $cur_data['temperature'][1];
+				//恒温柜
+				$dao_obj->temperatureCabinet = $cur_data['temperature'][7];
+				//空调1
+				$dao_obj->temperatureAircondition1 = $cur_data['temperature'][3];
+				//空调2
+				$dao_obj->temperatureAircondition2 = $cur_data['temperature'][2];
+				
+				$dao_obj->temperatureAircondition3 = -1;
+				$dao_obj->temperatureAircondition4 = -1;
+				$dao_obj->temperatureAircondition5 = -1;
+				$dao_obj->temperatureAircondition6 = -1;
+				$dao_obj->temperatureAircondition7 = -1;
+				$dao_obj->temperatureAircondition8 = -1;
+				
+				$dao_obj->createTime = $cur_data['timestamps'];
+				
+				//新增
+				$dao_obj->powerAll = $cur_data['elec_power'][0];
+				$dao_obj->powerDc = $cur_data['elec_power'][1];
+				
+				$dao_obj->energyAll = $cur_data['elec_engy'][0];
+				$dao_obj->energyDc = $cur_data['elec_engy'][1];
+				$dao->insert($dao_obj);
+				
+			}
+				
 		}
 	}
 ?>

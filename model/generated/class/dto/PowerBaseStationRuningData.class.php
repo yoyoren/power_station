@@ -39,6 +39,11 @@
 		var $temperatureAircondition7;
 		var $temperatureAircondition8;
 		var $createTime;
+		
+		var $energyAll;
+		var $energyDc;
+		var $powerAll;
+		var $powerDc;
 		
 	}
 ?>

@@ -2,9 +2,21 @@
 class AccountHandler {
 
 	public static function get_list($start,$end){
-		$dao =  new PowerAccountMySqlDAO();
+		$dao =  new PowerAccountMySqlExtDAO();
 		$exsit = $dao->queryAndPage($start,$end);
-		return $exsit;
+		$total = $dao->getTotalNum();
+		$res = array();
+		for($i=0;$i<count($exsit);$i++){
+			$d = $exsit[$i];
+			array_push($res,array(
+				'accountId'=>$d->accountId,
+				'accountName'=>$d->accountName,
+			));
+		}
+		return array(
+			'data'=>$res,
+			'total'=>$total
+		);
 	}
 	
   //增加账户

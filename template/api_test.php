@@ -41,7 +41,7 @@ window.project_list = function(){
 
 window.account_add = function(){
 	$.post('/account/add',{
-	  name:'test2',
+	  name:'test4',
 	  password:'test',
 	  type : 1
 	},function(d){

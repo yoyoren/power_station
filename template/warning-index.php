@@ -6,13 +6,7 @@
     <?php include ('include/header.php')?>
     <div class="n-container">
 
-      <div class="n-nav-left">
-        <ul>
-          <li class="title"><a href=""><span class="vl-m title">告警监控</span><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a></li>
-          <li><a href="gaojing-celue.html"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">告警策略管理</span></a></li>
-
-        </ul>
-      </div>
+      <?php include ('include/nav_warning.php')?>
 
 <style type="text/css">
 .n-check-item{width: auto; margin-right: 20px;}

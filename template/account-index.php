@@ -4,17 +4,9 @@
 <body>
   <div class="n-layout">
     <?php include ('include/header.php')?>
-
-
     <div class="n-container">
-
-      <div class="n-nav-left">
-        <ul>
-          <li class="current"><a href="jizhanxiangqing.html"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">权限管理</span></a></li>
-
-        </ul>
-      </div>
-
+      <?php include ('include/nav_account.php')?>
+	  <script>$('#account_nav_0').addClass('current');</script>
       <div class="n-right-content">
         <h4 class="tab-to-title">权限管理</h4>
         <div class="tl-r" style="margin-bottom:20px;">
@@ -145,5 +137,15 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+<script>
+	$.get('/account/list',{
+	  start:0,
+	  end:10
+	},function(d){
+		if(d.code == 0){
+			var data = d.data;
+		}
+	},'json');
+</script>
 </body>
 </html>
