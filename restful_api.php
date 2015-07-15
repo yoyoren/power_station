@@ -363,8 +363,8 @@ $app->get('/city/all', function () {
 });
 
 //获得所有的省数据
-$app->get('/city/province', function () {
-	$data = file_get_contents('./data/city.json');
+$app->get('/address/province', function () {
+	$data = file_get_contents(ADDRESS_DATA_PATH);
 	$data = json_decode($data);
 	$res = array();
 	for($i=0;$i<count($data);$i++){
@@ -377,8 +377,36 @@ $app->get('/city/province', function () {
 });
 
 //获得所有的市数据
-$app->get('/city/city', function () {
+$app->get('/address/city', function () {
+	$province = param_check_get('province');
+	$data = file_get_contents(ADDRESS_DATA_PATH);
+	$data = json_decode($data);
+	$res = array();
+	for($i=0;$i<count($data);$i++){
+		if($data[$i]->region->code == $province){
+			$res = $data[$i]->region->state;
+			restful_response(RES_SUCCESS,$res);
+		}
+	}
+});
 
+//获得所有的区数据
+$app->get('/address/district', function () {
+	$province = param_check_get('province');
+	$city = param_check_get('city');
+	$data = file_get_contents(ADDRESS_DATA_PATH);
+	$data = json_decode($data);
+	$res = array();
+	for($i=0;$i<count($data);$i++){
+		if($data[$i]->region->code == $province){
+			$_data = $data[$i]->region->state;
+			for($j=0;$j<count($_data);$j++){
+				if($_data[$j]->code == $city){
+					restful_response(RES_SUCCESS,$_data[$j]->city);
+				}
+			}
+		}
+	}
 });
 
 //显示天气

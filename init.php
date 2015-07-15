@@ -3,6 +3,7 @@
 //ECU同步目录
 define('ECU_ROOT_PATH','./ecu/site/');
 
+define('ADDRESS_DATA_PATH','./data/city.json');
 //管理员
 define('ACCOUNT_TYPE_ADMIN',1);
 //普通用户
