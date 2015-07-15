@@ -81,8 +81,8 @@ class AccountHandler {
 	$account->createTime = $current_time;
 	$account->lastLoginTime = $current_time;
 	$account->status = 0;
-	$dao->insert($account);
-	return true;
+	$id = $dao->insert($account);
+	return $id;
   }
   
    //账户登陆
@@ -130,9 +130,12 @@ class AccountHandler {
 			if($exsit){
 				$exsit = $exsit[0];
 				$accountPassword = $exsit->accountPassword;
+				$accountType = $exsit->accountType;
+				
 				if($accountPassword == $client_key){
 					//登录状态放在session里面 防止再查库
 					$_SESSION['user_login'.$account_name] = $accountPassword;
+					$_SESSION['user_login_type'.$accountType] = $accountType;
 					return true;
 				}else{
 					return false;

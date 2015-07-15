@@ -3,6 +3,7 @@ button {margin:5px;padding:5px;}
 </style>
 <h2>账户模块API</h2>
 <button onclick="account_add()">account_add（添加账户）</button></br>
+<button onclick="account_updateinfo()">account_update（更新账户信息）</button></br>
 <button onclick="account_signin()">account_signin（账户登录）</button></br>
 <button onclick="account_logout()">account_logout（账户注销）</button></br>
 <button onclick="account_islogin()">account_islogin（账户是否登录）</button></br>
@@ -37,7 +38,6 @@ window.project_add = function(){
 	},'json');
 }
 
-
 window.project_list = function(){
 	$.get('/project/list',{
 	},function(d){
@@ -56,6 +56,19 @@ window.account_add = function(){
 
 	},'json');
 }
+
+
+window.account_updateinfo = function(){
+	$.post('/account/updateinfo',{
+	  user_id:1,
+	  role:1,
+	  add_project:1,
+	  remove_project:1
+	},function(d){
+
+	},'json');
+}
+
 
 window.account_signin = function(){
 	$.post('/account/signin',{

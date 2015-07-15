@@ -160,32 +160,65 @@
 	
 	//弹框确认新增用户 
 	$('#add_user_confirm').click(function(){
+
 		var name = $('#name').val();
 		var password = $('#password').val();
 		var role = $('#role').val();
+		var projects_input = $('#add_project_list').find('input');
+		var projects_add_arr = [];
+		var projects_remove_arr = [];
+		for(var i=0;i<projects_input.length;i++){
+			var _id = $(projects_input[i]).data('id');
+			if(projects_input[i].checked){
+				projects_add_arr.push(_id);
+			}else{
+				projects_remove_arr.push(_id);
+			}
+		}
 		$.post('/account/add',{
 		  name:name,
 		  password:password,
 		  type : role
 		},function(d){
 			if(d.code == 0){
+				var id = d.data.id;
 				$('#add_user_dialog').hide();
 				$('#mask').hide();
+				
+				//增加项目
+				$.post('/account/addproject_mass',{
+				  project_id:projects_add_arr.join(','),
+				  user_id:id
+				},function(d){
+
+				},'json');
+				
+				//删除项目
+				$.post('/account/removeproject_mass',{
+				  project_id:projects_remove_arr.join(','),
+				  user_id:id
+				},function(d){
+
+				},'json');
+				
 				alert('添加成功！');
+				
 			} else {
+			
 			
 			}
 		},'json');
 	});
 	
-	//项目列表
+	//全部的项目列表
 	$get('/project/list',{
+	
 	},function(d){
 		var project = d.data;
 		var html = '';
 		for(var i=0;i<project.length;i++){
 			var d = project[i];
-			html+='<label style="margin-right:20px;"><input type="checkbox" />'+d.projectName+'</label>';
+			html+='<label style="margin-right:20px;"><input data-id="'+d.id+'" type="checkbox" />'+d.projectName+'</label>';
 		}
 		$('.project_list').append(html);
 	},'json');
@@ -193,6 +226,40 @@
 	
 	//编辑用户
 	$('#edit_user_confirm').click(function(){
+		var user_id;
+		var role;
+		$.post('/account/updateinfo',{
+		  user_id:user_id,
+		  type:role
+		},function(d){
+			if(d.code == 0){
+				var id = d.data.id;
+				$('#add_user_dialog').hide();
+				$('#mask').hide();
+				
+				//增加项目
+				$.post('/account/addproject_mass',{
+				  project_id:projects_add_arr.join(','),
+				  user_id:id
+				},function(d){
+
+				},'json');
+				
+				//删除项目
+				$.post('/account/removeproject_mass',{
+				  project_id:projects_remove_arr.join(','),
+				  user_id:id
+				},function(d){
+
+				},'json');
+				
+				alert('添加成功！');
+				
+			} else {
+			
+			
+			}
+		},'json');
 		
 	});
 	

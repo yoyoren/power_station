@@ -75,11 +75,17 @@ $app->post('/account/add', function () {
 	$accountType = param_check('type');
     $result = AccountHandler::add($accountName,$accountPassword,$accountType);
 	if($result){
-	   restful_response(RES_SUCCESS);
+	   restful_response(RES_SUCCESS,array('id'=>$result));
 	}else{
 	   restful_response(RES_ACCOUNT_EXIST);
 	}
 	
+});
+
+ //更新账户信息
+$app->post('/account/updateinfo', function () {
+	$accountId = param_check('user_id');
+	$accountType = param_check('type');
 });
 
  //账户登录
@@ -173,6 +179,19 @@ $app->post('/account/addproject', function () {
 	}
 });
 
+//给用户添加项目权限（批量更新）
+$app->post('/account/addproject_mass', function () {
+	restful_api_auth();
+	$user_id = param_check('user_id');
+	$project_id = param_check('project_id');
+	$project_arr = explode(',',$project_id);
+	
+	for($i=0;$i<count($project_arr);$i++){
+	   AccountHandler::add_to_project($user_id,$project_arr[$i]);
+	}
+	restful_response(RES_SUCCESS);
+});
+
 //给用户的项目权限删除(单个项目)
 $app->post('/account/removeproject', function () {
 	restful_api_auth();
@@ -186,19 +205,20 @@ $app->post('/account/removeproject', function () {
 	}
 });
 
-//给用户添加项目权限（批量更新）
-$app->post('/account/updateproject', function () {
+//给用户的项目权限删除(批量更新)
+$app->post('/account/removeproject_mass', function () {
 	restful_api_auth();
 	$user_id = param_check('user_id');
 	$project_id = param_check('project_id');
 	$project_arr = explode(',',$project_id);
 	
 	for($i=0;$i<count($project_arr);$i++){
-	   AccountHandler::add_to_project($user_id,$project_arr[$i]);
+	   AccountHandler::remove_from_project($user_id,$project_arr[$i]);
 	}
-	restful_response(RES_USER_HAS_IN_PROJECT);
-
+	restful_response(RES_SUCCESS);
 });
+
+
 
 
 //获得用户的项目权限
