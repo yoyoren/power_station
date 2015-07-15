@@ -13,7 +13,9 @@ define("RES_PARAM_EMPTY", 5);
 define("RES_PARAM_TYPE_ERROR", 6);
 define("RES_ACCOUNT_EXIST", 10001); 
 define("RES_ACCOUNT_PASSWORD_ERROR", 10002); 
-define("RES_ACCOUNT_NOT_EXIST", 10003); 
+define("RES_ACCOUNT_NOT_EXIST", 10003);
+
+define("RES_USER_HAS_IN_PROJECT", 20001);  
 
 
 //http接口返回
@@ -86,9 +88,10 @@ $app->post('/account/signin', function () {
     $accountPassword = param_check('password');
 	$result = AccountHandler::sign_in($accountName,$accountPassword);
 	global $app;
-	$app->setCookie('user_id', $result['data']->accountId);
-	$app->setCookie('user_name', $result['data']->accountName);
-	$app->setCookie('pass_token', $result['pass_token']);
+	$expire_time = time() + 7200;
+	$app->setCookie('user_id', $result['data']->accountId,$expire_time );
+	$app->setCookie('user_name', $result['data']->accountName,$expire_time);
+	$app->setCookie('pass_token', $result['pass_token'],$expire_time);
 	
 	if($result == 1){
 		restful_response(RES_ACCOUNT_NOT_EXIST);
@@ -148,12 +151,62 @@ $app->get('/account/list', function () {
 	restful_response(RES_SUCCESS,$data);
 });
 
+//获得注册账户列表 同时获得这个用户所在的项目
+$app->get('/account/list_with_project', function () {
+	restful_api_auth();
+	$start = param_check_get('start');
+	$end = param_check_get('end');
+    $data = AccountHandler::get_list_with_project($start,$end);
+	restful_response(RES_SUCCESS,$data);
+});
+
+//给用户添加项目权限(单个项目)
 $app->post('/account/addproject', function () {
 	restful_api_auth();
 	$user_id = param_check('user_id');
 	$project_id = param_check('project_id');
-    AccountHandler::add_to_project($user_id,$project_id);
-	restful_response(RES_SUCCESS);
+    $res = AccountHandler::add_to_project($user_id,$project_id);
+	if($res){
+		restful_response(RES_SUCCESS);
+	} else {
+		restful_response(RES_USER_HAS_IN_PROJECT);
+	}
+});
+
+//给用户的项目权限删除(单个项目)
+$app->post('/account/removeproject', function () {
+	restful_api_auth();
+	$user_id = param_check('user_id');
+	$project_id = param_check('project_id');
+    $res = AccountHandler::remove_from_project($user_id,$project_id);
+	if($res){
+		restful_response(RES_SUCCESS);
+	} else {
+		restful_response(RES_USER_HAS_IN_PROJECT);
+	}
+});
+
+//给用户添加项目权限（批量更新）
+$app->post('/account/updateproject', function () {
+	restful_api_auth();
+	$user_id = param_check('user_id');
+	$project_id = param_check('project_id');
+	$project_arr = explode(',',$project_id);
+	
+	for($i=0;$i<count($project_arr);$i++){
+	   AccountHandler::add_to_project($user_id,$project_arr[$i]);
+	}
+	restful_response(RES_USER_HAS_IN_PROJECT);
+
+});
+
+
+//获得用户的项目权限
+$app->get('/account/getproject', function () {
+	restful_api_auth();
+	$user_id = param_check_get('user_id');
+    $data = AccountHandler::get_user_project($user_id);
+	restful_response(RES_SUCCESS,$data);
 });
 
 

@@ -15,8 +15,10 @@ class ProwerProjectMySqlDAO implements ProwerProjectDAO{
 	 */
 	public function load($id){
 		$sql = 'SELECT * FROM prower_project WHERE id = ?';
+		
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->setNumber($id);
+		#var_dump($sqlQuery);
 		return $this->getRow($sqlQuery);
 	}
 

@@ -9,7 +9,11 @@ button {margin:5px;padding:5px;}
 <button onclick="account_lock()">account_lock（账户锁定）</button></br>
 <button onclick="account_unlock()">account_unlock（账户解锁）</button></br>
 <button onclick="account_list()">account_list（获得注册账户列表）</button></br>
+<button onclick="account_list_with_project()">account_list_with_project（获得用户的同时获得用户的项目）</button></br>
 <button onclick="account_addproject()">account_addproject（增加一个用户到某项目）</button></br>
+<button onclick="account_updateproject()">account_updateproject(批量更新一个用户的项目权限)</button></br>
+<button onclick="account_getproject()">account_getproject(获得一个用户的项目权限)</button></br>
+
 <h2>ECU API</h2>
 <button onclick="ECU_read()">ECU_read(读取ECU原始数据)</button></br>
 <button onclick="ECU_scan()">ECU_scan(ECU目录扫描)</button></br>
@@ -32,12 +36,15 @@ window.project_add = function(){
 	},'json');
 }
 
+
 window.project_list = function(){
 	$.get('/project/list',{
 	},function(d){
 
 	},'json');
 }
+
+
 
 window.account_add = function(){
 	$.post('/account/add',{
@@ -90,7 +97,16 @@ window.account_unlock = function(){
 
 window.account_addproject = function(){
 	$.post('/account/addproject',{
-	  project_id:0,
+	  project_id:1,
+	  user_id:1
+	},function(d){
+
+	},'json');
+}
+
+window.account_updateproject = function(){
+	$.post('/account/updateproject',{
+	  project_id:'1,2',
 	  user_id:1
 	},function(d){
 
@@ -98,9 +114,25 @@ window.account_addproject = function(){
 }
 
 
+window.account_getproject = function(){
+	$.get('/account/getproject',{
+		user_id:1
+	},function(d){
+
+	},'json');
+}
 
 window.account_list = function(){
 	$.get('/account/list',{
+	  start:0,
+	  end:10
+	},function(d){
+
+	},'json');
+}
+
+window.account_list_with_project = function(){
+	$.get('/account/list_with_project',{
 	  start:0,
 	  end:10
 	},function(d){

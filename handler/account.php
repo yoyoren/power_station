@@ -1,16 +1,19 @@
 <?php
 class AccountHandler {
 
-	public static function get_list($start,$end){
+	//获得用户列表
+	public static function get_list($start=0,$end=15){
 		$dao =  new PowerAccountMySqlExtDAO();
 		$exsit = $dao->queryAndPage($start,$end);
 		$total = $dao->getTotalNum();
 		$res = array();
 		for($i=0;$i<count($exsit);$i++){
 			$d = $exsit[$i];
+
 			array_push($res,array(
-				'accountId'=>$d->accountId,
-				'accountName'=>$d->accountName,
+				'id'=>$d->accountId,
+				'name'=>$d->accountName,
+				'type'=>$d->accoutType,
 			));
 		}
 		return array(
@@ -19,6 +22,35 @@ class AccountHandler {
 		);
 	}
 	
+	
+	//获得用户列表 同时获得用户的所属项目
+	public static function get_list_with_project($start=0,$end=15){
+		$data = AccountHandler::get_list($start,$end);
+		$projectDao = new ProwerProjectMySqlDAO();
+		$users = $data['data'];
+		for($i=0;$i<count($users);$i++){
+			$user = $users[$i];
+			$project = AccountHandler::get_user_project($user['id']);
+			if($project){
+				$res = array();
+				for($k=0;$k<count($project);$k++){
+					$project_id = $project[$k]->projectId;
+					$project_id = intval($project_id);
+					$project_detail = $projectDao->load($project_id);
+					if($project_detail){
+						array_push($res,$project_detail);
+					}
+				}
+				$data['data'][$i]['project'] = $res;
+			} else {
+				$data['data'][$i]['project'] = array();
+			}
+		}
+		
+		return $data;
+	
+	}
+  
   //增加账户
   public static function add($accountName,$accountPassword,$accountType=1){
     $dao =  new PowerAccountMySqlDAO();
@@ -123,8 +155,16 @@ class AccountHandler {
    
    //把一个用户账户添加到一个项目中去
     public static function add_to_project($accountId,$projectId){
-		$dao =  new PowerAccountAccessProjectMySqlDAO();
+		$dao =  new PowerAccountAccessProjectMySqlExtDAO();
 		$project = new PowerAccountAccessProject();
+		
+		//检测是否添加过该用户到本项目
+		$if_exsit = $dao->queryByAccountId_And_ProjectId($accountId,$projectId);
+		if($if_exsit){
+		   if(count($if_exsit)>0){
+			   return false;
+		   }
+		}
 		$current_time = time();
 		$project->accountId = $accountId;
 		$project->projectId = $projectId;
@@ -134,13 +174,22 @@ class AccountHandler {
 		return true;
 	}
 	
-	//从项目中移除用户
-	public static function remove_from_project($userId,$projectId){
+	//获得用一个用户的所有项目权限
+	public static function get_user_project($accountId){
+		$dao =  new PowerAccountAccessProjectMySqlDAO();
+		$data = $dao->queryByAccountId($accountId);
+		return $data;
+	}
 	
+	//从项目中移除用户
+	public static function remove_from_project($accountId,$projectId){
+		$dao =  new PowerAccountAccessProjectMySqlExtDAO();
+		$dao->removeUserFromProject($accountId,$projectId);
+		return true;
 	}
 	
 	//检测用户是否有访问项目的权限
-	public static function get_project_auth($userId,$projectId){
+	public static function get_project_auth($accountId,$projectId){
 	
 	}
 }
