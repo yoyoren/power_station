@@ -27,17 +27,19 @@ function restful_response($code,$data=array()) {
  }
 
 //参数合法性检测
-function param_check($key,$method='post',$type=''){
+function param_check($key,$method='post',$type='',$empty = false){
 	global $app;
 	if($method == 'post'){
 		$val = $app->request->post($key);
 	}else{
 		$val = $app->request->get($key);
 	}
-	if($val == '' || $val == NULL){
-		restful_response(RES_PARAM_EMPTY,array('PARAM_EMPTY'=>$key));
-		die();
-		return;
+	if(!$empty){
+		if($val == '' || $val == NULL){
+			restful_response(RES_PARAM_EMPTY,array('PARAM_EMPTY'=>$key));
+			die();
+			return;
+		}
 	}
 	
 	if($type == 'number'){
@@ -82,13 +84,35 @@ $app->post('/account/add', function () {
 	
 });
 
- //更新账户信息
+//彻底删除一个账户（危险慎用）
+$app->post('/account/remove', function () {
+	restful_api_auth();
+	$accountId = param_check('user_id');
+    $result = AccountHandler::remove($accountId);
+	restful_response(RES_SUCCESS);
+});
+
+
+//更新账户信息
 $app->post('/account/updateinfo', function () {
 	$accountId = param_check('user_id');
 	$accountType = param_check('type');
+	$project_add_id = param_check('project_add_id','post','',true);
+	$project_remove_id = param_check('project_remove_id','post','',true);
+	if($project_add_id){
+		$project_add_id = explode(',',$project_add_id);
+	}
+	
+	if($project_remove_id){
+		$project_remove_id = explode(',',$project_remove_id);
+	}
+	$accountId = intval($accountId);
+	$accountType = intval($accountType);
+	AccountHandler::updateUserInfo($accountId,$accountType,$project_add_id,$project_remove_id);
+	restful_response(RES_SUCCESS);
 });
 
- //账户登录
+//账户登录
 $app->post('/account/signin', function () {
 	$accountName = param_check('name');
     $accountPassword = param_check('password');

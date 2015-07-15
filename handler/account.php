@@ -85,6 +85,12 @@ class AccountHandler {
 	return $id;
   }
   
+  //彻底删除账户
+  public static function remove($accountId){
+	$dao =  new PowerAccountMySqlExtDAO();
+	return $dao->deleteByAccountId($accountId);
+  }
+  
    //账户登陆
    public static function sign_in($accountName,$accountPassword){
        $dao =  new PowerAccountMySqlDAO();
@@ -194,6 +200,32 @@ class AccountHandler {
 	//检测用户是否有访问项目的权限
 	public static function get_project_auth($accountId,$projectId){
 	
+	}
+	
+	//更新用户的基本信息，用户类型和所属项目
+	public static function updateUserInfo($accountId,$accountType,$project_add_id=array(),$project_remove_id=array()){
+		$dao =  new PowerAccountMySqlExtDAO();
+		//更新账户类型
+		$dao->updateAccountType($accountId,$accountType);
+		
+		//添加用户到项目中
+		for($i=0;$i<count($project_add_id);$i++){
+			$projectId = $project_add_id[$i];
+			$projectId = intval($projectId);
+			if($projectId){
+				AccountHandler::add_to_project($accountId,$projectId);
+			}
+		}
+		
+		//从项目中删除用户
+		for($i=0;$i<count($project_remove_id);$i++){
+			$projectId = $project_remove_id[$i];
+			$projectId = intval($projectId);
+			if($projectId){
+				AccountHandler::remove_from_project($accountId,$projectId);
+			}
+		}
+		return true;
 	}
 }
 ?>
