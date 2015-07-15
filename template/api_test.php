@@ -11,6 +11,7 @@ button {margin:5px;padding:5px;}
 <button onclick="account_list()">account_list（获得注册账户列表）</button></br>
 <button onclick="account_list_with_project()">account_list_with_project（获得用户的同时获得用户的项目）</button></br>
 <button onclick="account_addproject()">account_addproject（增加一个用户到某项目）</button></br>
+<button onclick="account_removeproject()">account_removeproject（将用户从某项目中移除）</button></br>
 <button onclick="account_updateproject()">account_updateproject(批量更新一个用户的项目权限)</button></br>
 <button onclick="account_getproject()">account_getproject(获得一个用户的项目权限)</button></br>
 
@@ -97,6 +98,14 @@ window.account_unlock = function(){
 
 window.account_addproject = function(){
 	$.post('/account/addproject',{
+	  project_id:1,
+	  user_id:1
+	},function(d){
+
+	},'json');
+}
+window.account_removeproject = function(){
+	$.post('/account/removeproject',{
 	  project_id:1,
 	  user_id:1
 	},function(d){
