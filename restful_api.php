@@ -355,6 +355,32 @@ $app->post('/project/remove', function () {
 	restful_response(RES_SUCCESS);
 });
 
+//获得所有的城市数据
+$app->get('/city/all', function () {
+	 $data = file_get_contents('./data/city.json');
+	 $data = json_decode($data);
+     restful_response(RES_SUCCESS,$data);
+});
+
+//获得所有的省数据
+$app->get('/city/province', function () {
+	$data = file_get_contents('./data/city.json');
+	$data = json_decode($data);
+	$res = array();
+	for($i=0;$i<count($data);$i++){
+		array_push($res,array(
+			'name'=>$data[$i]->region->name,
+			'code'=>$data[$i]->region->code,
+		));
+	}
+	restful_response(RES_SUCCESS,$res);
+});
+
+//获得所有的市数据
+$app->get('/city/city', function () {
+
+});
+
 //显示天气
 $app->get('/weather/show', function () {
      global $app;
