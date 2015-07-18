@@ -63,6 +63,7 @@ function param_check($key,$method='post',$type=''){
 		die();
 	}
  }
+ 
 
  //增加账户
 $app->post('/account/add', function () {
@@ -199,7 +200,7 @@ $app->get('/station/list', function () {
 	restful_response(RES_SUCCESS,$data);
 });
 
-
+//删除基站
 $app->post('/station/online', function () {
 	restful_api_auth();
 	$stationId = param_check('id');
@@ -207,10 +208,35 @@ $app->post('/station/online', function () {
 	restful_response(RES_SUCCESS);
 });
 
+//恢复基站
 $app->post('/station/offline', function () {
 	restful_api_auth();
 	$stationId = param_check('id');
 	StationHandler::update($stationId,1);
 	restful_response(RES_SUCCESS);
+});
+
+//显示天气
+$app->get('/weather/show', function () {
+     global $app;
+     $result=WeatherHandler::show();
+     if(!$result){
+          restful_response(RES_ERROR);
+     }else{
+          restful_response(RES_SUCCESS,$result);
+     }
+	
+});
+
+//插入天气
+$app->post('/weather/add', function () {
+     global $app;
+     $result=WeatherHandler::add_weather();
+     if(!$result){
+          restful_response(RES_ERROR);
+     }else{
+          restful_response(RES_SUCCESS,$result);
+     }
+	
 });
 ?>

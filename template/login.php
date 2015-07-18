@@ -103,6 +103,12 @@ overflow: hidden;}
 			}
 		},'json');
 	});
+	
+	$(window).keydown(function(e){
+		if(e.which == 13){	
+			$('#login_button').trigger('click');
+		}
+	})
 	</script>
   </body>
 </html>
