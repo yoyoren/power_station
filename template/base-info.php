@@ -12,7 +12,7 @@
       <div class="n-right-content">
         <h4 class="tab-to-title">基础信息</h4>
         <div class="current-name-area clearfix">
-          <span class="vl-m fl-l name"><b>001（鹤东）</b>基站</span>
+          <span class="vl-m fl-l name"><b><?php echo $station->stationId; ?>（<?php echo $station->stationName; ?>）</b>基站</span>
 
           <div class="fl-r">
             <div class="btn-group">
@@ -37,9 +37,9 @@
             <tbody>
               <tr>
                 <td class="td-to-th">基站名称</td>
-                <td>鹤东</td>
+                <td><?php echo $station->stationName; ?></td>
                 <td class="td-to-th">站点类型</td>
-                <td>基准站／节能站／预备站</td>
+                <td><?php echo $station->stationType; ?></td>
                 <td class="td-to-th">&nbsp;</td>
                 <td>&nbsp;</td>
               </tr>

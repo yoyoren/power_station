@@ -57,7 +57,7 @@ class PowerBaseStationDeviceInfoMySqlDAO implements PowerBaseStationDeviceInfoDA
  	 * @param PowerBaseStationDeviceInfoMySql powerBaseStationDeviceInfo
  	 */
 	public function insert($powerBaseStationDeviceInfo){
-		$sql = 'INSERT INTO power_base_station_device_info (station_id, air_condition_num, tempature_outside, tempature_inside, fan_out_type, fan_in_type, cabinet_num, battery_type, battery_air_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO power_base_station_device_info (station_id, air_condition_num, tempature_outside, tempature_inside, fan_out_type, fan_in_type, cabinet_num, battery_type, battery_air_type, air_condition_tempature) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
 		$sqlQuery->setNumber($powerBaseStationDeviceInfo->stationId);
@@ -69,6 +69,8 @@ class PowerBaseStationDeviceInfoMySqlDAO implements PowerBaseStationDeviceInfoDA
 		$sqlQuery->setNumber($powerBaseStationDeviceInfo->cabinetNum);
 		$sqlQuery->set($powerBaseStationDeviceInfo->batteryType);
 		$sqlQuery->set($powerBaseStationDeviceInfo->batteryAirType);
+		
+		$sqlQuery->set($powerBaseStationDeviceInfo->airConditionTempature);
 
 		$id = $this->executeInsert($sqlQuery);	
 		$powerBaseStationDeviceInfo->id = $id;
@@ -93,6 +95,7 @@ class PowerBaseStationDeviceInfoMySqlDAO implements PowerBaseStationDeviceInfoDA
 		$sqlQuery->setNumber($powerBaseStationDeviceInfo->cabinetNum);
 		$sqlQuery->set($powerBaseStationDeviceInfo->batteryType);
 		$sqlQuery->set($powerBaseStationDeviceInfo->batteryAirType);
+		
 
 		$sqlQuery->setNumber($powerBaseStationDeviceInfo->id);
 		return $this->executeUpdate($sqlQuery);

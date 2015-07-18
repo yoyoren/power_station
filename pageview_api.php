@@ -38,45 +38,46 @@ $app->get('/base', function () use ($app) {
 });
 
 //基站当前状态
-$app->get('/base/status', function () use ($app) {
+$app->get('/base/status/:id', function ($id) use ($app) {
 	pageview_api_auth();
-	$app->render('base-status.php',array());
+	$app->render('base-status.php',array('id'=>$id));
 });
 
 //基站基础信息
-$app->get('/base/info', function () use ($app) {
+$app->get('/base/info/:id', function ($id) use ($app) {
 	pageview_api_auth();
-	$app->render('base-info.php',array());
+	$data = StationHandler::get_one_detail($id);
+	$app->render('base-info.php',array('station'=>$data,'id'=>$id));
 });
 
 //基站基础信息编辑
-$app->get('/base/edit', function () use ($app) {
+$app->get('/base/edit/:id', function ($id) use ($app) {
 	pageview_api_auth();
-	$app->render('base-edit.php',array());
+	$app->render('base-edit.php',array('id'=>$id));
 });
 
 //基站创建
 $app->get('/base/create', function () use ($app) {
 	pageview_api_auth();
-	$app->render('base-create.php',array());
+	$app->render('base-create.php',array('id'=>1));
 });
 
 //日报数据
-$app->get('/base/daily', function () use ($app) {
+$app->get('/base/daily/:id', function ($id) use ($app) {
 	pageview_api_auth();
-	$app->render('base-daily.php',array());
+	$app->render('base-daily.php',array('id'=>$id));
 });	
 
 //月报数据
-$app->get('/base/month', function () use ($app) {
+$app->get('/base/month/:id', function ($id) use ($app) {
 	pageview_api_auth();
-	$app->render('base-month.php',array());
+	$app->render('base-month.php',array('id'=>$id));
 });	
 
 //年报数据
-$app->get('/base/year', function () use ($app) {
+$app->get('/base/year/:id', function ($id) use ($app) {
 	pageview_api_auth();
-	$app->render('base-year.php',array());
+	$app->render('base-year.php',array('id'=>$id));
 });
 
 //远程控制
@@ -86,7 +87,7 @@ $app->get('/base/remote', function () use ($app) {
 });
 
 //原始数据
-$app->get('/base/origindata', function () use ($app) {
+$app->get('/base/origindata/:id', function ($id) use ($app) {
 	pageview_api_auth();
 	$app->render('base-origindata.php',array());
 });

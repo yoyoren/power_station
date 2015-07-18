@@ -279,6 +279,8 @@ $app->get('/ecu/write', function () {
 //增加一个基站站点
 $app->post('/station/add', function () {
 	restful_api_auth();
+	
+	//基站基本信息
 	$stationName = param_check('name');
 	$stationSeriseCode = param_check('code');
 	$stationType = param_check('type');
@@ -290,6 +292,48 @@ $app->post('/station/add', function () {
 	$stationAddress = param_check('address');
 	$stationLat = param_check('lat');
 	$stationLng = param_check('lng');
+	$createTime = param_check('create_time','post','',true);
+	
+	//设备信息
+	$airConditionNum = param_check('air_condition_num');
+	$tempatureOutside = param_check('tempature_out_side');
+	$tempatureInside = param_check('tempature_in_side');
+	$fanOutType = param_check('fan_out_type');
+	$fanInType = param_check('fan_in_type');
+	$cabinetNum = param_check('cabinet_num');
+	$batteryType = param_check('battery_type');
+	$batteryAirType = 0;
+	
+	//能耗信息
+	//电价
+	$price = param_check('price');
+	
+	//我方电表号
+	$ammeterNum = param_check('ammeter_num');
+	
+	//局方电表号
+	$ammeterNumChinamobile = param_check('ammeter_num_chinamobile');
+	
+	//电价收费方
+	$feeType = param_check('fee_type');
+	
+	//供电类型
+	$powerSupplyType = param_check('power_supply_type');
+	
+	$overload = param_check('overload');
+	$overloadNormal = 0;
+	$simNum = param_check('sim_num');
+	$esgNum = param_check('esg_num');
+	$ecuNum = param_check('ecu_num');
+	$powerBaseStationEnergyInfocol = 0;
+	
+	$buildingType = param_check('building_type');
+	$ration = param_check('ration');
+	$energyType = param_check('energy_type');
+	
+	//空调温感
+	$airConditionTempature = param_check('air_condition_tempature');
+	
 	
 	$result = StationHandler::add(
 		$stationName,
@@ -302,7 +346,31 @@ $app->post('/station/add', function () {
 		$stationAddress,
 		$stationLat,
 		$stationLng,
-		$stationProjectId);
+		$stationProjectId,
+		$createTime,
+		$airConditionNum,
+		$tempatureOutside,
+		$tempatureInside,
+		$fanOutType,
+		$fanInType,
+		$cabinetNum,
+		$batteryType,
+		$batteryAirType,
+		$price,
+		$ammeterNum,
+		$ammeterNumChinamobile,
+		$feeType,
+		$powerSupplyType,
+		$overload,
+		$overloadNormal,
+		$simNum,
+		$esgNum,
+		$ecuNum,
+		$powerBaseStationEnergyInfocol,
+		$buildingType,
+		$ration,
+		$energyType,
+		$airConditionTempature);
 		
 	restful_response(RES_SUCCESS);
 });

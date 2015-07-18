@@ -22,6 +22,11 @@ button {margin:5px;padding:5px;}
 <h2>项目 API</h2>
 <button onclick="project_add()">project_add(增加一个项目)</button></br>
 <button onclick="project_list()">project_list(项目列表)</button></br>
+<h2>地址服务 API</h2>
+<button onclick="address_province()">address_province(获得省数据)</button></br>
+<button onclick="address_city()">address_city(获得某个省下面的市数据)</button></br>
+<button onclick="address_district()">address_district(获得某个市下面的区数据)</button></br>
+
 <h2>基站 API</h2>
 <button onclick="station_add()">station_add(增加一个基站数据)</button></br>
 <button onclick="station_remove()">station_remove(删除一个基站数据)</button></br>
@@ -29,6 +34,26 @@ button {margin:5px;padding:5px;}
 <button onclick="station_list()">station_list(基站数据列表)</button></br>
 <script src="/static/src/js/jquery.js"></script>
 <script>
+window.address_province = function(){
+	$.get('/address/province',{
+	},function(d){
+
+	},'json');
+}
+
+window.address_city = function(){
+	$.get('/address/city',{
+	},function(d){
+
+	},'json');
+}
+
+window.address_district = function(){
+	$.get('/address/district',{
+	},function(d){
+
+	},'json');
+}
 
 window.project_add = function(){
 	$.post('/project/add',{
