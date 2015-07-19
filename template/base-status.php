@@ -14,7 +14,7 @@
         <h4 class="tab-to-title">当前状态</h4>
         <div class="current-name-area clearfix">
           <span class="vl-m fl-l name">
-            <b>001</b>基站
+            <b><?php echo $station['info']->stationSeriseCode;?></b>基站
             <span style="background:#ff4400; color:#fff; padding:4px; border-radius:4px; margin-left:10px; ">正常在线</span>
             <span>最新采集时间：2015-04-23 10:23:11 </span>
 
@@ -37,7 +37,7 @@
           <p class="table-title"><b>温度</b></p>
           <div class="clearfix">
             <div class="n-wendu-item">
-              <img src="img/ic-wendu2.png" class="fl-l" style="height:120px;" />
+              <img src="/static/src/img/ic-wendu2.png" class="fl-l" style="height:120px;" />
               <div class="fl-l" style="padding:30px 0 0 20px;;">
                 <p>室内温度</p>
                 <p class="num">27.9℃</p>
@@ -46,7 +46,7 @@
             </div>
 
             <div class="n-wendu-item">
-              <img src="img/ic-wendu2.png" class="fl-l" style="height:120px;" />
+              <img src="/static/src/img/ic-wendu2.png" class="fl-l" style="height:120px;" />
               <div class="fl-l" style="padding:30px 0 0 20px;;">
                 <p>室外温度</p>
                 <p class="num">27.9℃</p>
@@ -55,7 +55,7 @@
             </div>
 
             <div class="n-wendu-item">
-              <img src="img/ic-wendu2.png" class="fl-l" style="height:120px;" />
+              <img src="/static/src/img/ic-wendu2.png" class="fl-l" style="height:120px;" />
               <div class="fl-l" style="padding:30px 0 0 20px;;">
                 <p>恒温柜温度</p>
                 <p class="num">27.9℃</p>
@@ -90,13 +90,13 @@
               <p class="table-title"><b>能耗状态</b></p>
               <div class="clearfix">
                 <div class="n-dian-biao-status-item">
-                  <img src="img/ic-nh2.png" />
+                  <img src="/static/src/img/ic-nh2.png" />
                   <p>基准能耗</p>
                   <p class="num">34A</p>
 
                 </div>
                 <div class="n-dian-biao-status-item">
-                  <img src="img/ic-nh2.png"/>
+                  <img src="/static/src/img/ic-nh2.png"/>
                   <p>当前能耗</p>
                   <p class="num">29A</p>
 
@@ -109,13 +109,13 @@
               <p class="table-title"><b>电表状态</b></p>
               <div class="clearfix">
                 <div class="n-dian-biao-status-item">
-                  <img src="img/ic-dianbiao2.png" />
+                  <img src="/static/src/img/ic-dianbiao2.png" />
                   <p>智能电表</p>
                   <p class="num">31302.85</p>
 
                 </div>
                 <div class="n-dian-biao-status-item">
-                  <img src="img/ic-dianbiao2.png"/>
+                  <img src="/static/src/img/ic-dianbiao2.png"/>
                   <p>基站电表</p>
                   <p class="num">151440.31</p>
 

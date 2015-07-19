@@ -257,7 +257,7 @@ class PowerBaseStationDeviceInfoMySqlDAO implements PowerBaseStationDeviceInfoDA
 		$powerBaseStationDeviceInfo->cabinetNum = $row['cabinet_num'];
 		$powerBaseStationDeviceInfo->batteryType = $row['battery_type'];
 		$powerBaseStationDeviceInfo->batteryAirType = $row['battery_air_type'];
-
+		$powerBaseStationDeviceInfo->airConditionTempature = $row['air_condition_tempature'];
 		return $powerBaseStationDeviceInfo;
 	}
 	

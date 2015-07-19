@@ -309,7 +309,9 @@ class PowerBaseStationEnergyInfoMySqlDAO implements PowerBaseStationEnergyInfoDA
 		$powerBaseStationEnergyInfo->ecuNum = $row['ecu_num'];
 		$powerBaseStationEnergyInfo->powerBaseStationEnergyInfocol = $row['power_base_station_energy_infocol'];
 		$powerBaseStationEnergyInfo->stationId = $row['station_id'];
-
+		$powerBaseStationEnergyInfo->buildingType = $row['building_type'];
+		$powerBaseStationEnergyInfo->ration = $row['ration'];
+		$powerBaseStationEnergyInfo->energyType = $row['energy_type'];
 		return $powerBaseStationEnergyInfo;
 	}
 	

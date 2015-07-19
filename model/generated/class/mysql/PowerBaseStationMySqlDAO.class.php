@@ -100,7 +100,7 @@ class PowerBaseStationMySqlDAO implements PowerBaseStationDAO{
  	 * @param PowerBaseStationMySql powerBaseStation
  	 */
 	public function update($powerBaseStation){
-		$sql = 'UPDATE power_base_station SET station_name = ?, station_serise_code = ?, station_type = ?, station_project = ?, station_building_type = ?, station_province = ?, station_city = ?, station_distirct = ?, station_address = ?, station_lat = ?, station_lng = ?, create_time = ?, creator_id = ?, status = ? WHERE station_id = ?';
+		$sql = 'UPDATE power_base_station SET station_name = ?, station_serise_code = ?, station_type = ?, station_project = ?, station_building_type = ?, station_province = ?, station_city = ?, station_distirct = ?, station_address = ?, station_lat = ?, station_lng = ?, create_time = ?, creator_id = ?, status = ?, project_id = ? WHERE station_id = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
 		$sqlQuery->set($powerBaseStation->stationName);
@@ -117,6 +117,7 @@ class PowerBaseStationMySqlDAO implements PowerBaseStationDAO{
 		$sqlQuery->setNumber($powerBaseStation->createTime);
 		$sqlQuery->setNumber($powerBaseStation->creatorId);
 		$sqlQuery->setNumber($powerBaseStation->status);
+		$sqlQuery->setNumber($powerBaseStation->projectId);
 
 		$sqlQuery->setNumber($powerBaseStation->stationId);
 		return $this->executeUpdate($sqlQuery);

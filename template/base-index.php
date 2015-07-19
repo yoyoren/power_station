@@ -38,13 +38,21 @@
           </div>
           <div class="n-check-item">
             <span class="name">负载</span>
-            <select><option>--查询条件--</option></select>
+            <select>
+				<option value="0">--查询条件--</option>
+				<option value="1">10-20A</option>
+				<option value="2">20-30A</option>
+				<option value="3">30-40A</option>
+				<option value="4">40-50A</option>
+				<option value="5">50-60A</option>
+				<option value="6">70A+</option>
+			</select>
           </div>
           <br/>
-          <button type="button" class="btn btn-default">确定</button>
+          <button type="button" class="btn btn-default" id="query_button">确定</button>
         </div>
 
-        <div class="tl-r">
+        <div class="tl-r" style="display:none">
           <ul class="pagination">
             <li>
               <a href="#" aria-label="Previous">
@@ -118,10 +126,10 @@ $get('/station/list',{
 		for (var i=0;i<data.length;i++){
 			var _d = data[i];
 			html += '<tr>\
-					  <td class="sorting_1"><a href="/base/info/'+_d.stationId+'">'+_d.stationId+'</a></td>\
+					  <td class="sorting_1"><a href="/base/info/'+_d.stationId+'">'+_d.stationSeriseCode+'</a></td>\
 					  <td>'+_d.stationName+'</td>\
-					  <td>'+_d.stationProvince+'</td>\
-					  <td>'+_d.stationDistirct+'</td>\
+					  <td>'+_d.cityName+'</td>\
+					  <td>'+_d.distirctName+'</td>\
 					  <td>12..6A</td>\
 					  <td>砖墙</td>\
 					  <td>是</td>\
@@ -158,6 +166,9 @@ selCity.change(function(){
 	});
 });
 
+$('#query_button').click(function(){
+
+});
   </script>
 </body>
 </html>

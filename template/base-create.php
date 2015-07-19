@@ -367,7 +367,8 @@ $('#create_button').click(function(){
 	  energy_type:energy_type
 	},function(d){
 		if(d.code == 0){
-			alert('创建成功')
+			alert('创建成功');
+			location.href = '/base';
 		}
 	});
 
