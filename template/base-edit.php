@@ -207,7 +207,16 @@
                 <td class="td-to-th">负载（A）</td>
                 <td><input type="text" value="78" class="form-control" /></td>
                 <td class="td-to-th">能耗类型（A）</td>
-                <td><input type="text" value="30-40" class="form-control" /></td>
+                <td>
+                  <select>
+                    <option>10-20A</option>
+                    <option>20-30A</option>
+                    <option>30-40A</option>
+                    <option>40-50A</option>
+                    <option>50-60A</option>
+                    <option>70A+</option>
+                  </select>
+                </td>
                 <td class="td-to-th">&nbsp;</td>
                 <td>&nbsp;</td>
               </tr>

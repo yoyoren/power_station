@@ -1,19 +1,11 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-    <title>登录页</title>
-    <link href="css/base.css" rel="stylesheet">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-<style type="text/css">
 html{height: 100%; overflow: hidden;}
 body {
   padding-top: 40px;
   padding-bottom: 40px;
   height: 100%;
+    -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
   box-sizing:border-box;
-  background:url(img/big-bg2.png) center center no-repeat;
-  background-size: cover;
 }
 
 .form-signin {
@@ -63,38 +55,3 @@ overflow: hidden;}
 .n-title,
 .n-intro{font-family: "Hiragino Sans GB","华文细黑","STHeiti","微软雅黑","Microsoft YaHei",SimHei,"Helvetica Neue",Helvetica,Arial,sans-serif !important;}
 .n-intro{font-size: 18px; font-weight: bold; color: #fff; text-shadow: 0 0 2px #444; letter-spacing: 2px;}
-</style>
-
-  </head>
-
-  <body>
-    <h4 class="tl-c n-title"><img src="img/ic-nenghao-ico.png" class="vl-m" style="width:70px; margin-top:-8px;" /><span class="vl-m">能耗云管理系统</span></h4>
-    <p class="tl-c n-intro">独一无二的大数据能耗管理平台，让节能变得更简单。</p>
-    <div class="n-container">
-
-      <form class="form-signin">
-        <h2 class="form-signin-heading">登录</h2>
-        <div class="tl-c"><em class="f-corner"></em></div>
-        <div class="inner">
-          <label for="userName" class="sr-only">用户名</label>
-          <input type="text" id="userName" class="form-control form-username" placeholder="用户名" required autofocus>
-          <label for="inputPassword" class="sr-only">密码</label>
-          <input type="password" id="inputPassword" class="form-control" placeholder="密码" required>
-
-          <!-- <div class="clearfix" style="margin-bottom:20px;">
-            <label for="checkCode" class="sr-only">验证码</label>
-            <input type="text" id="checkCode" class="form-control form-checkcode" placeholder="验证码" required>
-            <img src="" class="checkcode-img fl-r" />
-          </div> -->
-          <!-- <p class="error-tip">错误信息存放处</p> -->
-
-
-          <button class="btn btn-lg btn-success btn-block" type="submit">登录</button>
-        </div>
-      </form>
-
-    </div>
-
-
-  </body>
-</html>

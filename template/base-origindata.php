@@ -30,8 +30,7 @@
         <div class="nav-tabs-content">
           <div class="n-check-area tl-r">
 
-            日期<input size="16" type="text" value="2012" readonly class="date-control form-control form_datetime">
-            小时<input size="16" type="text" value="06" readonly class="date-control form-control form_datetime">
+            选择日期<input size="16" type="text" value="2012" style="width:180px;" readonly class="date-control form-control form_datetime">
 
             <button type="button" class="btn btn-default" style="margin-left:30px;">确定</button>
             <div style="margin-top:10px;">
@@ -94,13 +93,11 @@
   </div>
 </body>
 
-<script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/datepicker/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="/static/src/js/datepicker/bootstrap-datetimepicker.js"></script>
 
 <script type="text/javascript">
 $(function () {
     $(".form_datetime").datetimepicker({
-      format: 'yyyy-mm',
       language: 'cn'
     });
 

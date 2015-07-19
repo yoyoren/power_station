@@ -23,12 +23,8 @@
             <input type="text" class="form-control" required autofocus />
           </div>
           <div class="input-group-item clearfix">
-            <span class="name">基站电表采集日期：</span>
-            <input type="text" class="form-control form_datetime" value="2014-04" required />
-          </div>
-          <div class="input-group-item clearfix">
             <span class="name">基站电表采集时间：</span>
-            <input type="text" class="form-control form_datetime" value="2014-04" required />
+            <input type="text" class="form-control form_datetime" readonly value="2014-04-14 12:30" required />
           </div>
           <div class="input-group-item clearfix">
             <span class="name">基站电表采集值：</span>
@@ -86,10 +82,11 @@
 
   </div>
 </body>
+<script type="text/javascript" src="/static/src/js/datepicker/bootstrap-datetimepicker.js"></script>
+
 <script type="text/javascript">
 $(function () {
     $(".form_datetime").datetimepicker({
-      format: 'yyyy-mm',
       language: 'cn'
     });
 
