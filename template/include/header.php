@@ -3,7 +3,7 @@
         <img class="ico-logo" src="/static/src/img/ic-nenghao2.png" /><span class="vl-m">能耗管理云系统</span>
       </div>
       <ul class="n-head-nav fl-l" id="header_nav">
-        <li><a class="current" href="/main">首页</a></li>
+        <li><a class="current" href="/main" id="tab_main">首页</a></li>
         <li><a href="/base" id="tab_base">基站</a></li>
         <li><a href="/warning" id="tab_warning">告警</a></li>
         <li><a href="/ammeter" id="tab_ammeter">电表</a></li>
@@ -15,23 +15,23 @@
     </div>
 	<script>
 	(function(){
-		
+
 		var path = location.pathname.split('/')[1];
 		if(path){
 			$('#header_nav').find('a').removeClass('current');
-			$('#tab_'+path).addClass('current');	
+			$('#tab_'+path).addClass('current');
 		}
 		$('#header_logo').click(function(){
 			location.href = '/main';
 		});
-		
+
 		$('#header_logout').click(function(){
 			$.get('/account/logout',{
 			},function(d){
 				location.href = '/login';
 			},'json');
 		});
-		var name = document.cookie.split('user_id=')[1];
+		var name = document.cookie.split('user_name=')[1];
 		name = name.split(';')[0];
 		$('#header_name').html(name);
 	})();

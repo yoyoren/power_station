@@ -17,6 +17,10 @@
 	require_once('class/dto/PowerAccountAccessInfo.class.php');
 	require_once('class/mysql/PowerAccountAccessInfoMySqlDAO.class.php');
 	require_once('class/mysql/ext/PowerAccountAccessInfoMySqlExtDAO.class.php');
+	require_once('class/dao/PowerAccountAccessProjectDAO.class.php');
+	require_once('class/dto/PowerAccountAccessProject.class.php');
+	require_once('class/mysql/PowerAccountAccessProjectMySqlDAO.class.php');
+	require_once('class/mysql/ext/PowerAccountAccessProjectMySqlExtDAO.class.php');
 	require_once('class/dao/PowerAmmeterDAO.class.php');
 	require_once('class/dto/PowerAmmeter.class.php');
 	require_once('class/mysql/PowerAmmeterMySqlDAO.class.php');
@@ -57,5 +61,9 @@
 	require_once('class/dto/PowerWeather.class.php');
 	require_once('class/mysql/PowerWeatherMySqlDAO.class.php');
 	require_once('class/mysql/ext/PowerWeatherMySqlExtDAO.class.php');
+	require_once('class/dao/ProwerProjectDAO.class.php');
+	require_once('class/dto/ProwerProject.class.php');
+	require_once('class/mysql/ProwerProjectMySqlDAO.class.php');
+	require_once('class/mysql/ext/ProwerProjectMySqlExtDAO.class.php');
 
 ?>

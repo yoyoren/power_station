@@ -17,6 +17,8 @@
 		var $cabinetNum;
 		var $batteryType;
 		var $batteryAirType;
-		
+		
+		var $airConditionTempature;
+				
 	}
 ?>
