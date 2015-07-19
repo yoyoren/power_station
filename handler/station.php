@@ -1,8 +1,26 @@
 <?php
 	class StationHandler {
+		public static function get_index_station_num($projectId = 0){
+			global $ENERGY_TYPE;
+			$dao = new PowerBaseStationMySqlExtDAO();
+			$res = array();
+			$total = 0;
+			foreach($ENERGY_TYPE as $key => $value){
+				$data = $dao->getNumByEnergyType($key);
+				$total = $total + intval($data);
+				array_push($res,$data);
+			}
+			array_push($res,$total);
+			return $res;
+		}
+		
 		public static function get_list($start,$end){
+			global $ENERGY_TYPE;
+			global $BUILDING_TYPE;
+			
 			$dao =  new PowerBaseStationMySqlDAO();
 			$exsit = $dao->queryAndPage($start,$end);
+			
 			if($exsit){
 				for($i=0;$i<count($exsit);$i++){
 					$temp = $exsit[$i];
@@ -14,6 +32,13 @@
 					
 					$distirctName = AddressHandler::get_district_info($stationProvince,$stationCity,$stationDistirct );
 					$exsit[$i] -> distirctName = $distirctName->name;
+					
+					$stationId = $temp -> stationId;
+					
+					$energy_dao =  new PowerBaseStationEnergyInfoMySqlDAO();
+					$station_energy_info = $energy_dao->queryByStationId($stationId)[0];
+					$exsit[$i] -> energyTypeName = $ENERGY_TYPE[$station_energy_info->energyType];
+					$exsit[$i] -> buildTypeName = $BUILDING_TYPE[$station_energy_info->buildingType];
 			
 				}
 			}
@@ -26,6 +51,7 @@
 			global $POWER_SUPPLY_TYPE;
 			global $FEE_TYPE;
 			global $BUILDING_TYPE;
+			global $ENERGY_TYPE;
 			
 			$res = array();
 			$dao =  new PowerBaseStationMySqlDAO();
@@ -53,16 +79,17 @@
 			
 			//获得站点的设备信息
 			$dao =  new PowerBaseStationDeviceInfoMySqlDAO();
-			$station_device_info = $dao->load($stationId);
-			
+			$station_device_info = $dao->queryByStationId($stationId)[0];
+			//var_dump($station_device_info); 
 			//获得站点的能耗信息
 			$dao =  new PowerBaseStationEnergyInfoMySqlDAO();
-			$station_energy_info = $dao->load($stationId);
-
+			$station_energy_info = $dao->queryByStationId($stationId)[0];
+			
 			$station_energy_info->powerSupplyTypeName = $POWER_SUPPLY_TYPE[$station_energy_info->powerSupplyType];
 			$station_energy_info->feeTypeName = $POWER_SUPPLY_TYPE[$station_energy_info->feeType];
 			$station_energy_info->buildingTypeName = $BUILDING_TYPE[$station_energy_info->buildingType];
-			
+			$station_energy_info->energyTypeName = $ENERGY_TYPE[$station_energy_info->energyType];
+
 			if($editMode){
 				$project_list = ProjectHandler::get_list();
 				$province_list = AddressHandler::get_province_list();

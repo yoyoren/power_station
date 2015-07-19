@@ -13,12 +13,14 @@ global $response_body;
  }
 $app->get('/', function () use ($app) {
 	pageview_api_auth();
-	$app->render('main.php',array());
+	$station_num = StationHandler::get_index_station_num();
+	$app->render('main.php',array('station_num'=>$station_num));
 });
 
 $app->get('/main', function () use ($app) {
 	pageview_api_auth();
-	$app->render('main.php',array());
+	$station_num = StationHandler::get_index_station_num();
+	$app->render('main.php',array('station_num'=>$station_num));
 });
 
 //登录

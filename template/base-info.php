@@ -182,7 +182,7 @@
                 <td class="td-to-th">负载（A）</td>
                 <td><?php echo $station['energy']->overload;?></td>
                 <td class="td-to-th">能耗类型（A）</td>
-                <td><?php echo $station['energy']->energyType;?></td>
+                <td><?php echo $station['energy']->energyTypeName;?></td>
                 <td class="td-to-th">&nbsp;</td>
                 <td>&nbsp;</td>
               </tr>

@@ -214,7 +214,17 @@
                 <td class="td-to-th">负载（A）</td>
                 <td><input id="overload" type="text" value="<?php echo $station['energy']->overload;?>" class="form-control" /></td>
                 <td class="td-to-th">能耗类型（A）</td>
-                <td><input id="energy_type" type="text" value="<?php echo $station['energy']->energyType;?>" class="form-control" /></td>
+                <td>
+					<select id="energy_type">
+						<option value="0">请选择</option>
+						<option value="1">10-20A</option>
+						<option value="2">20-30A</option>
+						<option value="3">30-40A</option>
+						<option value="4">40-50A</option>
+						<option value="5">50-60A</option>
+						<option value="6">70A+</option>
+					</select>
+				</td>
                 <td class="td-to-th">&nbsp;</td>
                 <td>&nbsp;</td>
               </tr>
@@ -249,6 +259,7 @@ window.onload = function(){
 		$('#power_supply_type').val(stationJSON.energy.powerSupplyType);
 		$('#fee_type').val(stationJSON.energy.feeType);
 		$('#building_type').val(stationJSON.energy.buildingType);
+		$('#energy_type').val(stationJSON.energy.energyType);
 		$('#province').val(stationJSON.info.stationProvince);
 		$('#province').trigger('change');
 		setTimeout(function(){

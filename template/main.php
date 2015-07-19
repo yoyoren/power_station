@@ -51,31 +51,31 @@
           <div class="n-table clearfix">
             <div class="n-jizhan-item">
               <p>10-20A 类基站</p>
-              <p><a href="/base">100（台）</a></p>
+              <p><a href="/base"><?php echo $station_num[0]?>（台）</a></p>
             </div>
             <div class="n-jizhan-item">
               <p>20-30A 类基站</p>
-              <p><a href="/base">100（台）</a></p>
+              <p><a href="/base"><?php echo $station_num[1]?>（台）</a></p>
             </div>
             <div class="n-jizhan-item">
               <p>30-40A 类基站</p>
-              <p><a href="/base">100（台）</a></p>
+              <p><a href="/base"><?php echo $station_num[2]?>（台）</a></p>
             </div>
             <div class="n-jizhan-item">
               <p>40-50A 类基站</p>
-              <p><a href="/base">100（台）</a></p>
+              <p><a href="/base"><?php echo $station_num[3]?>（台）</a></p>
             </div>
             <div class="n-jizhan-item">
               <p>50-60A 类基站</p>
-              <p><a href="/base">100（台）</a></p>
+              <p><a href="/base"><?php echo $station_num[4]?>（台）</a></p>
             </div>
             <div class="n-jizhan-item">
               <p>70A+ 类基站</p>
-              <p><a href="/base">100（台）</a></p>
+              <p><a href="/base"><?php echo $station_num[5]?>（台）</a></p>
             </div>
             <div class="n-jizhan-item">
               <p><em class="n-total-item">总计</em></p>
-              <p><a href="/base">600（台）</a></p>
+              <p><a href="/base"><?php echo $station_num[6]?>（台）</a></p>
             </div>
 
 

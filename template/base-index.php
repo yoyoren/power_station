@@ -116,10 +116,11 @@ $get('/project/list',{
 	   }
 	   $('#station_project').html(html);
 });
-
+var start = 3;
+var pageSize = 15;
 $get('/station/list',{
-		start:0,
-		end:15
+		start:start,
+		end:start + pageSize
 	},function(d){
 		var data = d.data;
 		var html = '';
@@ -130,8 +131,8 @@ $get('/station/list',{
 					  <td>'+_d.stationName+'</td>\
 					  <td>'+_d.cityName+'</td>\
 					  <td>'+_d.distirctName+'</td>\
-					  <td>12..6A</td>\
-					  <td>砖墙</td>\
+					  <td>'+_d.energyTypeName+'</td>\
+					  <td>'+_d.buildTypeName+'</td>\
 					  <td>是</td>\
 					</tr>';
 		}

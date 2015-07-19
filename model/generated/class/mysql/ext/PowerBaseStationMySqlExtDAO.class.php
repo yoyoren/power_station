@@ -25,6 +25,14 @@ class PowerBaseStationMySqlExtDAO extends PowerBaseStationMySqlDAO{
 		return $this->executeUpdate($sqlQuery);
 	}
 	
+	public function getNumByEnergyType($energyType){
+		$sql_num = 'SELECT count(*) FROM power_base_station_energy_info WHERE energy_type = ?';
+		$sqlQueryNum = new SqlQuery($sql_num);
+		$sqlQueryNum->set($energyType);
+		$num = $this->execute($sqlQueryNum);
+		return $num[0][0];
+	}
+	
 	
 }
 ?>
