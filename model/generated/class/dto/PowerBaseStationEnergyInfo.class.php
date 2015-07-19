@@ -20,6 +20,12 @@
 		var $ecuNum;
 		var $powerBaseStationEnergyInfocol;
 		var $stationId;
+		 
+		var $buildingType;
+		
+		var $ration;
+		
+		var $energyType;
 		
 	}
 ?>

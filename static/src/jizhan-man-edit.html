@@ -67,6 +67,7 @@
 
           <style type="text/css">
           .table-bordered td.td-to-th{vertical-align: middle;}
+
           </style>
           <p style="color:#ff4400;">页面note：没输入框的部分是不能编辑的，其他可以编辑</p>
           <table class="table table-bordered">
@@ -79,14 +80,6 @@
                 <td class="td-to-th">&nbsp;</td>
                 <td>&nbsp;</td>
               </tr>
-              <tr class="td-empty">
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-              </tr>
               <tr>
                 <td class="td-to-th">基站编号</td>
                 <td>cu-sh-pd-0001</td>
@@ -95,10 +88,23 @@
                 <td class="td-to-th">&nbsp;</td>
                 <td>&nbsp;</td>
               </tr>
+              <tr class="td-empty">
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
 
               <tr>
                 <td class="td-to-th">项目</td>
-                <td><input type="text" value="上海联通" class="form-control" /></td>
+                <td>
+                  <select>
+                    <option>上海联通</option>
+                    <option>北京移动</option>
+                  </select>
+                </td>
                 <td class="td-to-th">工程分期</td>
                 <td><input type="text" value="shcu1" class="form-control" /></td>
                 <td class="td-to-th">建站时间</td>
@@ -118,9 +124,9 @@
                 <td class="td-to-th">地址</td>
                 <td><input type="text" value="鹤东村沙东路13号" class="form-control" /></td>
                 <td class="td-to-th">经度</td>
-                <td>&nbsp;</td>
+                <td><input type="text" value="123°" class="form-control" /></td>
                 <td class="td-to-th">纬度</td>
-                <td>&nbsp;</td>
+                <td><input type="text" value="345°" class="form-control" /></td>
               </tr>
 
               <tr class="td-empty">
@@ -185,7 +191,7 @@
                 <td>&nbsp;</td>
               </tr>
 
-              <tr class="td-special-color">
+              <tr>
                 <td class="td-to-th">空调数量</td>
                 <td><input type="text" value="2" class="form-control" /></td>
                 <td class="td-to-th">空调温感</td>
@@ -194,7 +200,7 @@
                 <td>&nbsp;</td>
               </tr>
 
-              <tr class="td-special-color">
+              <tr>
                 <td class="td-to-th">室外温感</td>
                 <td><input type="text" value="有" class="form-control" /></td>
                 <td class="td-to-th">室内温感</td>
@@ -203,7 +209,7 @@
                 <td>&nbsp;</td>
               </tr>
 
-              <tr class="td-special-color">
+              <tr>
                 <td class="td-to-th">进风机型号</td>
                 <td><input type="text" value="厂家型号" class="form-control" /></td>
                 <td class="td-to-th">出风机型号</td>
@@ -212,7 +218,7 @@
                 <td>&nbsp;</td>
               </tr>
 
-              <tr class="td-special-color">
+              <tr>
                 <td class="td-to-th">恒温柜数量</td>
                 <td><input type="text" value="1" class="form-control" /></td>
                 <td class="td-to-th">蓄电池柜</td>
@@ -234,7 +240,16 @@
                 <td class="td-to-th">负载（A）</td>
                 <td><input type="text" value="78" class="form-control" /></td>
                 <td class="td-to-th">能耗类型（A）</td>
-                <td><input type="text" value="30-40" class="form-control" /></td>
+                <td>
+                  <select>
+                    <option>10-20A</option>
+                    <option>20-30A</option>
+                    <option>30-40A</option>
+                    <option>40-50A</option>
+                    <option>50-60A</option>
+                    <option>70A+</option>
+                  </select>
+                </td>
                 <td class="td-to-th">&nbsp;</td>
                 <td>&nbsp;</td>
               </tr>

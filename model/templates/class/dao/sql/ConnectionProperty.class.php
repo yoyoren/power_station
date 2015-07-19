@@ -9,7 +9,7 @@ class ConnectionProperty{
 	private static $host = 'localhost';
 	private static $user = 'root';
 	private static $password = '';
-	private static $database = 'power_manage';
+	private static $database = 'power_manager_v2';
 
 	public static function getHost(){
 		return ConnectionProperty::$host;

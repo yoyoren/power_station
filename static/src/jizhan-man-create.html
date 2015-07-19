@@ -45,21 +45,6 @@
 
       <div class="n-right-content">
         <h4 class="tab-to-title">基站创建</h4>
-        <div class="current-name-area clearfix">
-          <span class="vl-m fl-l name"><b>001</b>基站</span>
-
-          <div class="fl-r">
-            <div class="btn-group">
-              <button type="button" class="btn btn-default">
-                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><span class="vl-m">前一个基站</span>
-              </button>
-              <button type="button" class="btn btn-default">
-                <span class="vl-m">后一个基站</span><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-              </button>
-            </div>
-          </div>
-
-        </div>
 
         <div class="nav-tabs-content">
 
@@ -70,7 +55,7 @@
             <tbody>
               <tr>
                 <td class="td-to-th">基站名称</td>
-                <td><input type="text" value="鹤东" class="form-control" /></td>
+                <td><input type="text" class="form-control" /></td>
                 <td class="td-to-th">站点类型</td>
                 <td>
                   <select>
@@ -79,6 +64,14 @@
                     <option>预备站</option>
                   </select>
                 </td>
+                <td class="td-to-th">&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td class="td-to-th">基站编号</td>
+                <td><input type="text" class="form-control" /></td>
+                <td class="td-to-th">用能方站号</td>
+                <td><input type="text" class="form-control" /></td>
                 <td class="td-to-th">&nbsp;</td>
                 <td>&nbsp;</td>
               </tr>
@@ -91,19 +84,15 @@
                 <td>&nbsp;</td>
               </tr>
               <tr>
-                <td class="td-to-th">基站编号</td>
-                <td><input type="text" value="cu-sh-pd-0001" class="form-control" /></td>
-                <td class="td-to-th">用能方站号</td>
-                <td><input type="text" value="NH10113" class="form-control" /></td>
-                <td class="td-to-th">&nbsp;</td>
-                <td>&nbsp;</td>
-              </tr>
-
-              <tr>
                 <td class="td-to-th">项目</td>
-                <td><input type="text" value="上海联通" class="form-control" /></td>
+                <td>
+                  <select>
+                    <option>上海联通</option>
+                    <option>北京移动</option>
+                  </select>
+                </td>
                 <td class="td-to-th">工程分期</td>
-                <td><input type="text" value="shcu1" class="form-control" /></td>
+                <td><input type="text" class="form-control" /></td>
                 <td class="td-to-th">建站时间</td>
                 <td><input size="16" type="text" value="2012-06-15" readonly class="form-control form_datetime"></td>
               </tr>
@@ -119,11 +108,11 @@
 
               <tr>
                 <td class="td-to-th">地址</td>
-                <td><input type="text" value="鹤东村沙东路13号" class="form-control" /></td>
+                <td><input type="text" class="form-control" /></td>
                 <td class="td-to-th">经度</td>
-                <td>&nbsp;</td>
+                <td><input type="text" class="form-control" /></td>
                 <td class="td-to-th">纬度</td>
-                <td>&nbsp;</td>
+                <td><input type="text" class="form-control" /></td>
               </tr>
 
               <tr class="td-empty">
@@ -163,18 +152,18 @@
 
               <tr>
                 <td class="td-to-th">电价</td>
-                <td><input type="text" value="0.91" class="form-control" /></td>
+                <td><input type="text" class="form-control" /></td>
                 <td class="td-to-th">分成比例</td>
-                <td><input type="text" value="70%" class="form-control" /></td>
+                <td><input type="text" class="form-control" /></td>
                 <td class="td-to-th">&nbsp;</td>
                 <td>&nbsp;</td>
               </tr>
 
               <tr>
                 <td class="td-to-th">局方电表号</td>
-                <td><input type="text" value="0330303003q" class="form-control" /></td>
+                <td><input type="text" class="form-control" /></td>
                 <td class="td-to-th">我方电表号</td>
-                <td><input type="text" value="cush0003" class="form-control" /></td>
+                <td><input type="text" class="form-control" /></td>
                 <td class="td-to-th">&nbsp;</td>
                 <td>&nbsp;</td>
               </tr>
@@ -188,40 +177,40 @@
                 <td>&nbsp;</td>
               </tr>
 
-              <tr class="td-special-color">
+              <tr>
                 <td class="td-to-th">空调数量</td>
-                <td><input type="text" value="2" class="form-control" /></td>
+                <td><input type="text" class="form-control" /></td>
                 <td class="td-to-th">空调温感</td>
-                <td><input type="text" value="2" class="form-control" /></td>
+                <td><input type="text" class="form-control" /></td>
                 <td class="td-to-th">&nbsp;</td>
                 <td>&nbsp;</td>
               </tr>
 
-              <tr class="td-special-color">
+              <tr>
                 <td class="td-to-th">室外温感</td>
-                <td><input type="text" value="有" class="form-control" /></td>
+                <td><input type="text" class="form-control" /></td>
                 <td class="td-to-th">室内温感</td>
-                <td><input type="text" value="有" class="form-control" /></td>
+                <td><input type="text" class="form-control" /></td>
                 <td class="td-to-th">&nbsp;</td>
                 <td>&nbsp;</td>
               </tr>
 
-              <tr class="td-special-color">
+              <tr>
                 <td class="td-to-th">进风机型号</td>
-                <td><input type="text" value="厂家型号" class="form-control" /></td>
+                <td><input type="text" class="form-control" /></td>
                 <td class="td-to-th">出风机型号</td>
-                <td><input type="text" value="厂家型号" class="form-control" /></td>
+                <td><input type="text" class="form-control" /></td>
                 <td class="td-to-th">&nbsp;</td>
                 <td>&nbsp;</td>
               </tr>
 
-              <tr class="td-special-color">
+              <tr>
                 <td class="td-to-th">恒温柜数量</td>
-                <td><input type="text" value="1" class="form-control" /></td>
+                <td><input type="text" class="form-control" /></td>
                 <td class="td-to-th">蓄电池柜</td>
-                <td><input type="text" value="厂家型号" class="form-control" /></td>
+                <td><input type="text" class="form-control" /></td>
                 <td class="td-to-th">蓄电池空调</td>
-                <td><input type="text" value="厂家型号" class="form-control" /></td>
+                <td><input type="text" class="form-control" /></td>
               </tr>
 
               <tr class="td-empty">
@@ -235,31 +224,36 @@
 
               <tr>
                 <td class="td-to-th">负载（A）</td>
-                <td><input type="text" value="78" class="form-control" /></td>
+                <td><input type="text" class="form-control" /></td>
                 <td class="td-to-th">能耗类型（A）</td>
-                <td><input type="text" value="30-40" class="form-control" /></td>
+                <td>
+                  <select>
+                    <option>10-20A</option>
+                    <option>20-30A</option>
+                    <option>30-40A</option>
+                    <option>40-50A</option>
+                    <option>50-60A</option>
+                    <option>70A+</option>
+                  </select>
+                </td>
                 <td class="td-to-th">&nbsp;</td>
                 <td>&nbsp;</td>
               </tr>
               <tr>
                 <td class="td-to-th">SIM卡号</td>
-                <td><input type="text" value="14567895678" class="form-control" /></td>
+                <td><input type="text" class="form-control" /></td>
                 <td class="td-to-th">ECU编号</td>
-                <td><input type="text" value="1100119657" class="form-control" /></td>
+                <td><input type="text" class="form-control" /></td>
                 <td class="td-to-th">ECU扩展编号</td>
-                <td><input type="text" value="厂家型" class="form-control" /></td>
+                <td><input type="text" class="form-control" /></td>
               </tr>
 
 
             </tbody>
           </table>
 
-          <div class="tl-r"><button type="button" class="btn btn-primary">创建</button></div>
+          <div class="tl-r"><button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#myModal">创建</button></div>
 
-          <div class="n-check-area" style="margin-top:20px;">
-            <p class="suc-tip">创建成功</p>
-            <div class="tl-c"><button type="button" class="btn btn-default">继续创建</button></div>
-          </div>
 
         </div>
 
@@ -268,8 +262,29 @@
     </div>
 
   </div>
+
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">提示</h4>
+      </div>
+      <div class="modal-body">
+
+        <div class="n-check-area" style="margin-top:20px;">
+          <p class="suc-tip">创建成功</p>
+          <div class="tl-c"><button type="button" class="btn btn-default" data-dismiss="modal">继续创建</button></div>
+        </div>
+
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 </body>
 <script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/datepicker/bootstrap-datetimepicker.js"></script>
 
 <script type="text/javascript">

@@ -22,6 +22,13 @@ class DAOFactory{
 	}
 
 	/**
+	 * @return PowerAccountAccessProjectDAO
+	 */
+	public static function getPowerAccountAccessProjectDAO(){
+		return new PowerAccountAccessProjectMySqlExtDAO();
+	}
+
+	/**
 	 * @return PowerAmmeterDAO
 	 */
 	public static function getPowerAmmeterDAO(){
@@ -89,6 +96,13 @@ class DAOFactory{
 	 */
 	public static function getPowerWeatherDAO(){
 		return new PowerWeatherMySqlExtDAO();
+	}
+
+	/**
+	 * @return ProwerProjectDAO
+	 */
+	public static function getProwerProjectDAO(){
+		return new ProwerProjectMySqlExtDAO();
 	}
 
 
