@@ -6,7 +6,7 @@
     <?php include ('include/header.php')?>
     <div class="n-container">
       <?php include ('include/nav_account.php')?>
-	  <script>$('#account_nav_0').addClass('current');</script>
+	    <script>$('#account_nav_0').addClass('current');</script>
       <div class="n-right-content">
         <h4 class="tab-to-title">权限管理</h4>
         <div class="tl-r" style="margin-bottom:20px;">
@@ -147,21 +147,21 @@
 		3:'局方用户'
 	}
 	var USE_PROJECT ={
-	
+
 	}
-	
+
 	//新增用户
 	$('#add').click(function(){
 		$('#add_user_dialog').show();
 		$('#mask').show();
 	});
-	
+
 	$('.cancel_add_user_confirm').click(function(){
 		$('#add_user_dialog').hide();
 		$('#mask').hide();
 	});
-	
-	//弹框确认新增用户 
+
+	//弹框确认新增用户
 	$('#add_user_confirm').click(function(){
 
 		var name = $('#name').val();
@@ -170,13 +170,13 @@
 		var projects_input = $('#add_project_list').find('input');
 		var projects_add_arr = [];
 		var projects_remove_arr = [];
-		
+
 		//clear checkbox
 		var inputs = $('.project_list').find('input');
 		for(var i=0;i<inputs.length;i++){
 		   inputs[i].checked = false;
 		}
-		
+
 		for(var i=0;i<projects_input.length;i++){
 			var _id = $(projects_input[i]).data('id');
 			if(projects_input[i].checked){
@@ -194,7 +194,7 @@
 				var id = d.data.id;
 				$('#add_user_dialog').hide();
 				$('#mask').hide();
-				
+
 				//增加项目
 				$.post('/account/addproject_mass',{
 				  project_id:projects_add_arr.join(','),
@@ -202,7 +202,7 @@
 				},function(d){
 
 				},'json');
-				
+
 				//删除项目
 				$.post('/account/removeproject_mass',{
 				  project_id:projects_remove_arr.join(','),
@@ -210,19 +210,19 @@
 				},function(d){
 
 				},'json');
-				
+
 				alert('添加成功！');
-				
+
 			} else {
-			
-			
+
+
 			}
 		},'json');
 	});
-	
+
 	//全部的项目列表
 	$get('/project/list',{
-	
+
 	},function(d){
 		var project = d.data;
 		var html = '';
@@ -232,8 +232,8 @@
 		}
 		$('.project_list').append(html);
 	},'json');
-	
-	
+
+
 	//编辑用户
 	$('#edit_user_confirm').click(function(){
 		var user_id = window.CurrentEditUserId;
@@ -241,7 +241,7 @@
 		var projects_input = $('#edit_project_list').find('input');
 		var projects_add_arr = [];
 		var projects_remove_arr = [];
-		
+
 		for(var i=0;i<projects_input.length;i++){
 			var _id = $(projects_input[i]).data('id');
 			if(projects_input[i].checked){
@@ -250,7 +250,7 @@
 				projects_remove_arr.push(_id);
 			}
 		}
-		
+
 		$post('/account/updateinfo',{
 		  user_id:user_id,
 		  project_add_id:projects_add_arr.join(','),
@@ -263,19 +263,19 @@
 				$('#mask').hide();
 				alert('修改成功！');
 			} else {
-			
-			
+
+
 			}
 		},'json');
-		
+
 	});
-	
+
 	$('.cancel_edit_user_confirm').click(function(){
 		$('#edit_user_dialog').hide();
 		$('#mask').hide();
 	});
-	
-	
+
+
 	//编辑删除用户
 	$('body').delegate('.user_edit','click',function(){
 		var _this = $(this);
@@ -311,11 +311,11 @@
 					//界面删除
 					_this.parent().parent().remove();
 				}
-			 
+
 			 });
 		 }
 	});
-	
+
 	//用户列表
 	$get('/account/list_with_project',{
 	  start:0,
@@ -342,7 +342,7 @@
 						  </td>\
 						</tr>';
 			}
-			
+
 			$('#data_container').html(html);
 		}
 	},'json');
