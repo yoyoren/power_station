@@ -22,7 +22,7 @@
 			
 			//按16位转成整数
 			$byte_array = unpack("V*",$content);
-			
+			//var_dump($byte_array);
 			
 			$decode_content = '';
 			//按字节转成2进制序列，并补0

@@ -110,6 +110,11 @@ $app->get('/ammeter', function () use ($app) {
 	$app->render('ammeter-index.php',array());
 });
 
+$app->get('/ammeter-other', function () use ($app) {
+	pageview_api_auth();
+	$app->render('ammeter-other.php',array());
+});
+
 //维护日志首页
 $app->get('/log', function () use ($app) {
 	pageview_api_auth();
