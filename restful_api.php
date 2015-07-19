@@ -500,4 +500,44 @@ $app->post('/weather/add', function () {
      }
 	
 });
+//日志列表
+$app->get('/log/list', function () {
+    global $app;
+    $start = param_check_get('start');
+     $end = param_check_get('end');
+    $result=LogHandler::show_log($start, $end);
+     if(!$result){
+          restful_response(RES_ERROR);
+     }else{
+          restful_response(RES_SUCCESS,$result);
+     }
+	
+});
+//显示操作者
+$app->get('/log/operater', function () {
+    global $app;
+    $result=LogHandler::get_operater();
+     if(!$result){
+          restful_response(RES_ERROR);
+     }else{
+          restful_response(RES_SUCCESS,$result);
+     }
+	
+});
+//查询日志
+$app->post('/log/list', function () {
+    global $app;
+    $createTime=param_check('createTime','post','',True);
+    $logType=param_check('logType','post','',True);
+    $creatorId=param_check('operaterId','post','',True);
+    $start = param_check('start','post','',True);
+     $end = param_check('end','post','',True);
+    $result=LogHandler::show_log($start, $end, $createTime, $logType, $creatorId);
+     if(!$result){
+          restful_response(RES_ERROR);
+     }else{
+          restful_response(RES_SUCCESS,$result);
+     }
+	
+});
 ?>
