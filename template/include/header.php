@@ -31,7 +31,7 @@
 				location.href = '/login';
 			},'json');
 		});
-		var name = document.cookie.split('user_id=')[1];
+		var name = document.cookie.split('user_name=')[1];
 		name = name.split(';')[0];
 		$('#header_name').html(name);
 	})();

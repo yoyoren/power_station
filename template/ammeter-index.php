@@ -9,8 +9,8 @@
 
       <div class="n-nav-left">
         <ul>
-          <li class="current"><a href="dianbiao-my.html"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">录入电表 - 我方</span></a></li>
-          <li><a href="dianbiao-he.html"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">录入电表 - 局方</a></li>
+          <li class="current"><a href="/ammeter"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">录入电表 - 我方</span></a></li>
+          <li><a href="/ammeter-other"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">录入电表 - 局方</a></li>
 
         </ul>
       </div>
@@ -86,10 +86,6 @@
 
   </div>
 </body>
-
-<script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/datepicker/bootstrap-datetimepicker.js"></script>
-
 <script type="text/javascript">
 $(function () {
     $(".form_datetime").datetimepicker({

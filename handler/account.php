@@ -1,12 +1,56 @@
 <?php
 class AccountHandler {
 
-	public static function get_list($start,$end){
-		$dao =  new PowerAccountMySqlDAO();
+	//获得用户列表
+	public static function get_list($start=0,$end=15){
+		$dao =  new PowerAccountMySqlExtDAO();
 		$exsit = $dao->queryAndPage($start,$end);
-		return $exsit;
+		$total = $dao->getTotalNum();
+		$res = array();
+		for($i=0;$i<count($exsit);$i++){
+			$d = $exsit[$i];
+
+			array_push($res,array(
+				'id'=>$d->accountId,
+				'name'=>$d->accountName,
+				'type'=>$d->accoutType,
+			));
+		}
+		return array(
+			'data'=>$res,
+			'total'=>$total
+		);
 	}
 	
+	
+	//获得用户列表 同时获得用户的所属项目
+	public static function get_list_with_project($start=0,$end=15){
+		$data = AccountHandler::get_list($start,$end);
+		$projectDao = new ProwerProjectMySqlDAO();
+		$users = $data['data'];
+		for($i=0;$i<count($users);$i++){
+			$user = $users[$i];
+			$project = AccountHandler::get_user_project($user['id']);
+			if($project){
+				$res = array();
+				for($k=0;$k<count($project);$k++){
+					$project_id = $project[$k]->projectId;
+					$project_id = intval($project_id);
+					$project_detail = $projectDao->load($project_id);
+					if($project_detail){
+						array_push($res,$project_detail);
+					}
+				}
+				$data['data'][$i]['project'] = $res;
+			} else {
+				$data['data'][$i]['project'] = array();
+			}
+		}
+		
+		return $data;
+	
+	}
+  
   //增加账户
   public static function add($accountName,$accountPassword,$accountType=1){
     $dao =  new PowerAccountMySqlDAO();
@@ -37,8 +81,14 @@ class AccountHandler {
 	$account->createTime = $current_time;
 	$account->lastLoginTime = $current_time;
 	$account->status = 0;
-	$dao->insert($account);
-	return true;
+	$id = $dao->insert($account);
+	return $id;
+  }
+  
+  //彻底删除账户
+  public static function remove($accountId){
+	$dao =  new PowerAccountMySqlExtDAO();
+	return $dao->deleteByAccountId($accountId);
   }
   
    //账户登陆
@@ -65,8 +115,9 @@ class AccountHandler {
    //判断用户是否登录
    public static function is_login(){
    
-     $account_name = $_COOKIE['user_id'];
+     $account_name = $_COOKIE['user_name'];
 	 $pass_token = $_COOKIE['pass_token'];
+	 $account_id = $_COOKIE['user_id'];
 
 	 if($account_name && $pass_token){
 	    //用passtoken计算用户密码
@@ -85,9 +136,12 @@ class AccountHandler {
 			if($exsit){
 				$exsit = $exsit[0];
 				$accountPassword = $exsit->accountPassword;
+				$accountType = $exsit->accountType;
+				
 				if($accountPassword == $client_key){
 					//登录状态放在session里面 防止再查库
 					$_SESSION['user_login'.$account_name] = $accountPassword;
+					$_SESSION['user_login_type'.$accountType] = $accountType;
 					return true;
 				}else{
 					return false;
@@ -107,5 +161,71 @@ class AccountHandler {
 	  $dao =  new PowerAccountMySqlDAO();
       $exsit = $dao->updateAccountStatus($status,$accountName);
    }
+   
+   //把一个用户账户添加到一个项目中去
+    public static function add_to_project($accountId,$projectId){
+		$dao =  new PowerAccountAccessProjectMySqlExtDAO();
+		$project = new PowerAccountAccessProject();
+		
+		//检测是否添加过该用户到本项目
+		$if_exsit = $dao->queryByAccountId_And_ProjectId($accountId,$projectId);
+		if($if_exsit){
+		   if(count($if_exsit)>0){
+			   return false;
+		   }
+		}
+		$current_time = time();
+		$project->accountId = $accountId;
+		$project->projectId = $projectId;
+		$project->status = 0;
+		$project->createTime = $current_time;
+		$dao->insert($project);
+		return true;
+	}
+	
+	//获得用一个用户的所有项目权限
+	public static function get_user_project($accountId){
+		$dao =  new PowerAccountAccessProjectMySqlDAO();
+		$data = $dao->queryByAccountId($accountId);
+		return $data;
+	}
+	
+	//从项目中移除用户
+	public static function remove_from_project($accountId,$projectId){
+		$dao =  new PowerAccountAccessProjectMySqlExtDAO();
+		$dao->removeUserFromProject($accountId,$projectId);
+		return true;
+	}
+	
+	//检测用户是否有访问项目的权限
+	public static function get_project_auth($accountId,$projectId){
+	
+	}
+	
+	//更新用户的基本信息，用户类型和所属项目
+	public static function updateUserInfo($accountId,$accountType,$project_add_id=array(),$project_remove_id=array()){
+		$dao =  new PowerAccountMySqlExtDAO();
+		//更新账户类型
+		$dao->updateAccountType($accountId,$accountType);
+		
+		//添加用户到项目中
+		for($i=0;$i<count($project_add_id);$i++){
+			$projectId = $project_add_id[$i];
+			$projectId = intval($projectId);
+			if($projectId){
+				AccountHandler::add_to_project($accountId,$projectId);
+			}
+		}
+		
+		//从项目中删除用户
+		for($i=0;$i<count($project_remove_id);$i++){
+			$projectId = $project_remove_id[$i];
+			$projectId = intval($projectId);
+			if($projectId){
+				AccountHandler::remove_from_project($accountId,$projectId);
+			}
+		}
+		return true;
+	}
 }
 ?>

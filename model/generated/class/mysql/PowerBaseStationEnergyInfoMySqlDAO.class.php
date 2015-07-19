@@ -57,7 +57,7 @@ class PowerBaseStationEnergyInfoMySqlDAO implements PowerBaseStationEnergyInfoDA
  	 * @param PowerBaseStationEnergyInfoMySql powerBaseStationEnergyInfo
  	 */
 	public function insert($powerBaseStationEnergyInfo){
-		$sql = 'INSERT INTO power_base_station_energy_info (price, ammeter_num, ammeter_num_chinamobile, fee_type, power_supply_type, overload, overload_normal, sim_num, esg_num, ecu_num, power_base_station_energy_infocol, station_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO power_base_station_energy_info (price, ammeter_num, ammeter_num_chinamobile, fee_type, power_supply_type, overload, overload_normal, sim_num, esg_num, ecu_num, power_base_station_energy_infocol, station_id, building_type, ration, energy_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
 		$sqlQuery->setNumber($powerBaseStationEnergyInfo->price);
@@ -72,6 +72,10 @@ class PowerBaseStationEnergyInfoMySqlDAO implements PowerBaseStationEnergyInfoDA
 		$sqlQuery->set($powerBaseStationEnergyInfo->ecuNum);
 		$sqlQuery->set($powerBaseStationEnergyInfo->powerBaseStationEnergyInfocol);
 		$sqlQuery->setNumber($powerBaseStationEnergyInfo->stationId);
+		
+		$sqlQuery->set($powerBaseStationEnergyInfo->buildingType);
+		$sqlQuery->set($powerBaseStationEnergyInfo->ration);
+		$sqlQuery->set($powerBaseStationEnergyInfo->energyType);
 
 		$id = $this->executeInsert($sqlQuery);	
 		$powerBaseStationEnergyInfo->id = $id;
