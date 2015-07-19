@@ -8,6 +8,7 @@
     <div class="n-container">
 
       <?php include ('include/nav_warning.php')?>
+      <script>$('#nav_warning_1').addClass('current');</script>
 
 <style type="text/css">
 .n-check-item{width: auto; margin-right: 20px;}

@@ -301,7 +301,7 @@ $(".form_datetime").datetimepicker({
       language: 'cn',
 	  autoclose:true
 });
-	
+
 $('#create_button').click(function(){
 
 	//基站基本信息
@@ -317,7 +317,7 @@ $('#create_button').click(function(){
 	var lng = $('#lng').val();
 	var create_time = $('#station_createtime').val();
 	create_time = new Date(create_time).getTime() / 1000;
-	
+
 	//设备信息
 	var air_condition_num = $('#air_condition_num').val();
 	var tempature_out_side = $('#tempature_out_side').val();
@@ -327,7 +327,7 @@ $('#create_button').click(function(){
 	var cabinet_num = $('#cabinet_num').val();
 	var battery_type = $('#battery_type').val();
 	var air_condition_tempature = $('#air_condition_tempature').val();
-	
+
 	//节能信息
 	var price = $('#price').val();
 	var ammeter_num = $('#ammeter_num').val();
@@ -341,7 +341,7 @@ $('#create_button').click(function(){
 	var building_type = $('#building_type').val();
 	var ration = $('#ration').val();
 	var energy_type = $('#energy_type').val();
-	
+
 	$post('/station/add',{
 	  name:name,
 	  code:code,

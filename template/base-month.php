@@ -120,8 +120,7 @@
   </div>
 </body>
 
-<script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/datepicker/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="/static/src/js/datepicker/bootstrap-datetimepicker.js"></script>
 
 <script type="text/javascript">
 $(function () {
