@@ -3,7 +3,7 @@
  * Class that operate on table 'power_ammeter_chinamobile'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2015-06-29 10:45
+ * @date: 2015-07-20 13:00
  */
 class PowerAmmeterChinamobileMySqlDAO implements PowerAmmeterChinamobileDAO{
 
@@ -57,9 +57,13 @@ class PowerAmmeterChinamobileMySqlDAO implements PowerAmmeterChinamobileDAO{
  	 * @param PowerAmmeterChinamobileMySql powerAmmeterChinamobile
  	 */
 	public function insert($powerAmmeterChinamobile){
-		$sql = 'INSERT INTO power_ammeter_chinamobile (begin_value, end_value, creator_id, create_time) VALUES (?, ?, ?, ?)';
+		$sql = 'INSERT INTO power_ammeter_chinamobile (station_id, ammeter_normal, ammeter_normal_chinamobile, read_time, begin_value, end_value, creator_id, create_time) VALUES (?,?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
+		$sqlQuery->setNumber($powerAmmeterChinamobile->stationId);
+		$sqlQuery->setNumber($powerAmmeterChinamobile->ammeterNormal);
+		$sqlQuery->setNumber($powerAmmeterChinamobile->ammeterNormalChinamobile);
+                $sqlQuery->setNumber($powerAmmeterChinamobile->readTime);
 		$sqlQuery->setNumber($powerAmmeterChinamobile->beginValue);
 		$sqlQuery->setNumber($powerAmmeterChinamobile->endValue);
 		$sqlQuery->setNumber($powerAmmeterChinamobile->creatorId);
@@ -76,9 +80,12 @@ class PowerAmmeterChinamobileMySqlDAO implements PowerAmmeterChinamobileDAO{
  	 * @param PowerAmmeterChinamobileMySql powerAmmeterChinamobile
  	 */
 	public function update($powerAmmeterChinamobile){
-		$sql = 'UPDATE power_ammeter_chinamobile SET begin_value = ?, end_value = ?, creator_id = ?, create_time = ? WHERE ammeter_id = ?';
+		$sql = 'UPDATE power_ammeter_chinamobile SET station_id = ?, ammeter_normal = ?, ammeter_normal_chinamobile = ?, begin_value = ?, end_value = ?, creator_id = ?, create_time = ? WHERE ammeter_id = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
+		$sqlQuery->setNumber($powerAmmeterChinamobile->stationId);
+		$sqlQuery->setNumber($powerAmmeterChinamobile->ammeterNormal);
+		$sqlQuery->setNumber($powerAmmeterChinamobile->ammeterNormalChinamobile);
 		$sqlQuery->setNumber($powerAmmeterChinamobile->beginValue);
 		$sqlQuery->setNumber($powerAmmeterChinamobile->endValue);
 		$sqlQuery->setNumber($powerAmmeterChinamobile->creatorId);
@@ -95,6 +102,27 @@ class PowerAmmeterChinamobileMySqlDAO implements PowerAmmeterChinamobileDAO{
 		$sql = 'DELETE FROM power_ammeter_chinamobile';
 		$sqlQuery = new SqlQuery($sql);
 		return $this->executeUpdate($sqlQuery);
+	}
+
+	public function queryByStationId($value){
+		$sql = 'SELECT * FROM power_ammeter_chinamobile WHERE station_id = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		return $this->getList($sqlQuery);
+	}
+
+	public function queryByAmmeterNormal($value){
+		$sql = 'SELECT * FROM power_ammeter_chinamobile WHERE ammeter_normal = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		return $this->getList($sqlQuery);
+	}
+
+	public function queryByAmmeterNormalChinamobile($value){
+		$sql = 'SELECT * FROM power_ammeter_chinamobile WHERE ammeter_normal_chinamobile = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		return $this->getList($sqlQuery);
 	}
 
 	public function queryByBeginValue($value){
@@ -125,6 +153,27 @@ class PowerAmmeterChinamobileMySqlDAO implements PowerAmmeterChinamobileDAO{
 		return $this->getList($sqlQuery);
 	}
 
+
+	public function deleteByStationId($value){
+		$sql = 'DELETE FROM power_ammeter_chinamobile WHERE station_id = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		return $this->executeUpdate($sqlQuery);
+	}
+
+	public function deleteByAmmeterNormal($value){
+		$sql = 'DELETE FROM power_ammeter_chinamobile WHERE ammeter_normal = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		return $this->executeUpdate($sqlQuery);
+	}
+
+	public function deleteByAmmeterNormalChinamobile($value){
+		$sql = 'DELETE FROM power_ammeter_chinamobile WHERE ammeter_normal_chinamobile = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		return $this->executeUpdate($sqlQuery);
+	}
 
 	public function deleteByBeginValue($value){
 		$sql = 'DELETE FROM power_ammeter_chinamobile WHERE begin_value = ?';
@@ -165,6 +214,10 @@ class PowerAmmeterChinamobileMySqlDAO implements PowerAmmeterChinamobileDAO{
 		$powerAmmeterChinamobile = new PowerAmmeterChinamobile();
 		
 		$powerAmmeterChinamobile->ammeterId = $row['ammeter_id'];
+		$powerAmmeterChinamobile->stationId = $row['station_id'];
+		$powerAmmeterChinamobile->ammeterNormal = $row['ammeter_normal'];
+		$powerAmmeterChinamobile->ammeterNormalChinamobile = $row['ammeter_normal_chinamobile'];
+                $powerAmmeterChinamobile->readTime = $row['read_time'];
 		$powerAmmeterChinamobile->beginValue = $row['begin_value'];
 		$powerAmmeterChinamobile->endValue = $row['end_value'];
 		$powerAmmeterChinamobile->creatorId = $row['creator_id'];

@@ -6,4 +6,6 @@
   require 'weather.php';
   require 'address.php';
   require 'log.php';
+  require 'ammeter.php';
+  
 ?>
