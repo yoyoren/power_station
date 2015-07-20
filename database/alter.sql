@@ -9,3 +9,6 @@ alter table power_base_station_energy_info add energy_type varchar(200) default 
 
 alter table power_base_station_device_info add air_condition_tempature varchar(200) default '0';
 alter table power_base_station_device_info drop column energy_type;
+
+ALTER TABLE `power_base_station_log` CHANGE `origin_value` `origin_value` VARCHAR(500) NULL DEFAULT NULL;
+ALTER TABLE `power_base_station_log` CHANGE `current_value` `current_value` VARCHAR(500) NULL DEFAULT NULL;

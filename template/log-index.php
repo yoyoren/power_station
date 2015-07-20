@@ -10,7 +10,7 @@
       <div class="n-nav-left">
         <ul>
           <li class="current"><a href="weihu-note.html"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">工作日志</span></a></li>
-          <li><a href="weihu-mes.html"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">天气信息</a></li>
+          
 
         </ul>
       </div>
@@ -20,64 +20,39 @@
         <div class="n-check-area">
           <div class="n-check-item2">
             <span class="name">日期</span>
-            <input type="text" class="form-control form_datetime" value="2015-02-12" />
+            <input type="text" id="createTime" class="form-control form_datetime" value="" />
           </div>
           <div class="n-check-item2">
             <span class="name">工作类型</span>
-            <select>
-              <option>修改</option>
+            <select id="logType">
+              <option value="">全部</option>
+              <option value="0">创建</option>
+              <option value="1">修改</option>
+              <option value="2">删除</option>
             </select>
           </div>
           <div class="n-check-item2">
             <span class="name">操作者</span>
-            <select>
-              <option>操作A</option>
+            <select id="operater">
+                
             </select>
           </div>
-          <button type="button" class="btn btn-default">确定</button>
+            <button type="button" class="btn btn-default" onclick="search()">确定</button>
         </div>
 
         <table class="table table-bordered table-striped">
           <thead>
             <tr>
               <th>记录时间</th>
-              <th>鹤东</th>
-              <th>工作类型</th>
+              <th>基站名称</th>
+              <th>操作类型</th>
               <th>修改项目</th>
               <th>原来</th>
               <th>当前</th>
               <th>操作者</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>2015-04-12 12:00</td>
-              <td>鹤东</td>
-              <td>修改</td>
-              <td>经度</td>
-              <td>30</td>
-              <td>31</td>
-              <td>行山</td>
-            </tr>
-            <tr>
-              <td>2015-04-12 12:00</td>
-              <td>鹤东</td>
-              <td>抄表</td>
-              <td>-</td>
-              <td>-</td>
-              <td>31897</td>
-              <td>行山</td>
-            </tr>
-            <tr>
-              <td>2015-04-12 12:00</td>
-              <td>鹤东</td>
-              <td>创建</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>行山</td>
-            </tr>
-
+          <tbody id="container">
           </tbody>
         </table>
 
@@ -109,16 +84,77 @@
   </div>
 </body>
 
-<script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/datepicker/bootstrap-datetimepicker.js"></script>
+
+<script type="text/javascript" src="/static/src/js/datepicker/bootstrap-datetimepicker.js"></script>
 
 <script type="text/javascript">
 $(function () {
     $(".form_datetime").datetimepicker({
       format: 'yyyy-mm-dd',
-      language: 'cn'
+      language: 'cn',
+      minView: "month",
+      autoclose:true 
+    });
+    $get('/log/list',{
+		start:0,
+		end:15
+	},function(d){
+		var data = d.data;
+		var html = '';
+		for (var i=0;i<data.length;i++){
+			var _d = data[i];
+			html += '<tr>\
+					  <td>'+_d.createTime+'</td>\
+					  <td>'+_d.stationName+'</td>\
+					  <td>'+_d.workType+'</td>\
+					  <td>'+_d.logDesc+'</td>\
+					  <td>'+_d.originValue+'</td>\
+					  <td>'+_d.currentValue+'</td>\
+					  <td>'+_d.operater+'</td>\
+					</tr>';
+		}
+		$('#container').html(html);
+	   
+    });
+        $get('/log/operater',{
+		
+	},function(d){
+		var data = d.data;
+		var html = '';
+		for (var i=0;i<data.length;i++){
+			var _d = data[i];
+			html += "<option value=\""+_d.accountId+"\">"+_d.accountName+"</option>";										
+		}
+		$('#operater').html(html);
+	   
     });
 
 });
+window.search = function(){
+	$.post('/log/list',{
+		start:0,
+		end:10,
+                createTime:$("#createTime").val(),
+                logType:$("#logType").val(),
+                operaterId:$("#operater").val()
+                
+	},function(d){
+            	var data = d.data;
+		var html = '';
+		for (var i=0;i<data.length;i++){
+			var _d = data[i];
+			html += '<tr>\
+					  <td>'+_d.createTime+'</td>\
+					  <td>'+_d.stationName+'</td>\
+					  <td>'+_d.workType+'</td>\
+					  <td>'+_d.logDesc+'</td>\
+					  <td>'+_d.originValue+'</td>\
+					  <td>'+_d.currentValue+'</td>\
+					  <td>'+_d.operater+'</td>\
+					</tr>';
+		}
+		$('#container').html(html);
+	},'json');
+}
 </script>
 </html>
