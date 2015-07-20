@@ -192,15 +192,16 @@
                 <td><input id="overload" type="text" class="form-control" /></td>
                 <td class="td-to-th">能耗类型（A）</td>
                 <td>
-                  <select id="energy_type">
-                    <option>10-20A</option>
-                    <option>20-30A</option>
-                    <option>30-40A</option>
-                    <option>40-50A</option>
-                    <option>50-60A</option>
-                    <option>70A+</option>
-                  </select>
-                </td>
+					<select id="energy_type">
+						<option value="0">请选择</option>
+						<option value="1">10-20A</option>
+						<option value="2">20-30A</option>
+						<option value="3">30-40A</option>
+						<option value="4">40-50A</option>
+						<option value="5">50-60A</option>
+						<option value="6">70A+</option>
+					</select>
+				</td>
                 <td class="td-to-th">&nbsp;</td>
                 <td>&nbsp;</td>
               </tr>
@@ -376,8 +377,11 @@ $('#create_button').click(function(){
 	  energy_type:energy_type
 	},function(d){
 		if(d.code == 0){
-			alert('创建成功')
-		}
+			alert('创建成功');
+			location.href = '/base';
+		} else {
+			alert('创建失败，存在相同的站点名和编号');
+		}	
 	});
 
 });

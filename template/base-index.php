@@ -25,12 +25,12 @@
           </div>
           <div class="n-check-item">
             <span class="name">县区</span>
-            <select id="distirct"><option value="0">--查询条件--</option></select>
+            <select id="district"><option value="0">--查询条件--</option></select>
           </div>
           <br/>
           <div class="n-check-item">
             <span class="name">站型</span>
-            <select><option value="0">--查询条件--</option>
+            <select id="station_type"><option value="0">--查询条件--</option>
 			<option value="1">基准站</option>
             <option value="2">节能站</option>
             <option value="3">预备站</option>
@@ -38,13 +38,21 @@
           </div>
           <div class="n-check-item">
             <span class="name">负载</span>
-            <select><option>--查询条件--</option></select>
+            <select id="overload">
+				<option value="0">--查询条件--</option>
+				<option value="1">10-20A</option>
+				<option value="2">20-30A</option>
+				<option value="3">30-40A</option>
+				<option value="4">40-50A</option>
+				<option value="5">50-60A</option>
+				<option value="6">70A+</option>
+			</select>
           </div>
           <br/>
-          <button type="button" class="btn btn-default">确定</button>
+          <button type="button" class="btn btn-default" id="query_button">确定</button>
         </div>
 
-        <div class="tl-r">
+        <div class="tl-r" style="display:none">
           <ul class="pagination">
             <li>
               <a href="#" aria-label="Previous">
@@ -102,33 +110,36 @@ $get('/address/province',{},function(d){
 $get('/project/list',{
 	},function(d){
 	   var data = d.data;
-	   var html = '';
+	   var html = '<option value="0">--查询条件--</option>';
 	   for(var i=0;i<data.length;i++){
 	      html += '<option value="'+data[i].id+'">'+data[i].projectName+'</option>';
 	   }
 	   $('#station_project').html(html);
 });
-
-$get('/station/list',{
-		start:0,
-		end:15
-	},function(d){
-		var data = d.data;
+var start = 3;
+var pageSize = 15;
+var renderOnePage = function(data){
 		var html = '';
 		for (var i=0;i<data.length;i++){
 			var _d = data[i];
 			html += '<tr>\
-					  <td class="sorting_1"><a href="/base/info/'+_d.stationId+'">'+_d.stationId+'</a></td>\
+					  <td class="sorting_1"><a href="/base/status/'+_d.stationId+'">'+_d.stationSeriseCode+'</a></td>\
 					  <td>'+_d.stationName+'</td>\
-					  <td>'+_d.stationProvince+'</td>\
-					  <td>'+_d.stationDistirct+'</td>\
-					  <td>12..6A</td>\
-					  <td>砖墙</td>\
+					  <td>'+_d.cityName+'</td>\
+					  <td>'+_d.distirctName+'</td>\
+					  <td>'+_d.energyTypeName+'</td>\
+					  <td>'+_d.buildTypeName+'</td>\
 					  <td>是</td>\
 					</tr>';
 		}
 		$('#container').html(html);
-	   
+}
+$get('/station/list',{
+		start:start,
+		end:start + pageSize
+	},function(d){
+		var data = d.data;
+		renderOnePage(data);
 });
 
 selProvince.change(function(){
@@ -158,6 +169,33 @@ selCity.change(function(){
 	});
 });
 
+$('#query_button').click(function(){
+	var project = $('#station_project').val();
+	var province = $('#province').val();
+	var city = $('#city').val();
+	var district = $('#district').val();
+	var project = $('#station_project').val();
+	var station_type = $('#station_type').val();
+	var overload = $('#overload').val();
+	
+	$get('/station/query',{
+		start:start,
+		end:start + pageSize,
+		project:project,
+		province:province,
+		city:city,
+		district:district,
+		station_type:station_type,
+		overload:overload
+	},function(d){
+		if(d.data){
+			renderOnePage(d.data);
+		}
+		if(d.data == null){
+		   alert('没有检索到数据！');
+		}
+	});
+});
   </script>
 </body>
 </html>

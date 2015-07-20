@@ -13,12 +13,14 @@ global $response_body;
  }
 $app->get('/', function () use ($app) {
 	pageview_api_auth();
-	$app->render('main.php',array());
+	$station_num = StationHandler::get_index_station_num();
+	$app->render('main.php',array('station_num'=>$station_num));
 });
 
 $app->get('/main', function () use ($app) {
 	pageview_api_auth();
-	$app->render('main.php',array());
+	$station_num = StationHandler::get_index_station_num();
+	$app->render('main.php',array('station_num'=>$station_num));
 });
 
 //登录
@@ -40,20 +42,24 @@ $app->get('/base', function () use ($app) {
 //基站当前状态
 $app->get('/base/status/:id', function ($id) use ($app) {
 	pageview_api_auth();
-	$app->render('base-status.php',array('id'=>$id));
+	$data = StationHandler::get_one_detail($id);
+	$app->render('base-status.php',array('station'=>$data,'id'=>$id));
 });
 
 //基站基础信息
 $app->get('/base/info/:id', function ($id) use ($app) {
 	pageview_api_auth();
 	$data = StationHandler::get_one_detail($id);
+	//var_dump($data['energy']);
 	$app->render('base-info.php',array('station'=>$data,'id'=>$id));
 });
 
 //基站基础信息编辑
 $app->get('/base/edit/:id', function ($id) use ($app) {
 	pageview_api_auth();
-	$app->render('base-edit.php',array('id'=>$id));
+	$data = StationHandler::get_one_detail($id,true);
+	$data_json = json_encode($data);
+	$app->render('base-edit.php',array('station_json'=>$data_json,'station'=>$data,'id'=>$id));
 });
 
 //基站创建
@@ -89,7 +95,7 @@ $app->get('/base/remote', function () use ($app) {
 //原始数据
 $app->get('/base/origindata/:id', function ($id) use ($app) {
 	pageview_api_auth();
-	$app->render('base-origindata.php',array());
+	$app->render('base-origindata.php',array('id'=>$id));
 });
 
 //告警首页

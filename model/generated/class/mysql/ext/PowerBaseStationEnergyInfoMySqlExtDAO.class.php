@@ -6,7 +6,36 @@
  * @date: 2015-06-25 11:03
  */
 class PowerBaseStationEnergyInfoMySqlExtDAO extends PowerBaseStationEnergyInfoMySqlDAO{
-
+	public function updateEnergyInfo($powerBaseStationEnergyInfo){
+		$sql = 'UPDATE power_base_station_energy_info SET price = ?, ammeter_num = ?, ammeter_num_chinamobile = ?, fee_type = ?, power_supply_type = ?, overload = ?, overload_normal = ?, sim_num = ?, esg_num = ?, ecu_num = ?, power_base_station_energy_infocol = ?, building_type = ?, ration = ?, energy_type = ? WHERE station_id = ?';
+		$sqlQuery = new SqlQuery($sql);
+		
+		$sqlQuery->setNumber($powerBaseStationEnergyInfo->price);
+		$sqlQuery->setNumber($powerBaseStationEnergyInfo->ammeterNum);
+		$sqlQuery->setNumber($powerBaseStationEnergyInfo->ammeterNumChinamobile);
+		$sqlQuery->set($powerBaseStationEnergyInfo->feeType);
+		$sqlQuery->set($powerBaseStationEnergyInfo->powerSupplyType);
+		$sqlQuery->set($powerBaseStationEnergyInfo->overload);
+		$sqlQuery->set($powerBaseStationEnergyInfo->overloadNormal);
+		$sqlQuery->set($powerBaseStationEnergyInfo->simNum);
+		$sqlQuery->set($powerBaseStationEnergyInfo->esgNum);
+		$sqlQuery->set($powerBaseStationEnergyInfo->ecuNum);
+		$sqlQuery->set($powerBaseStationEnergyInfo->powerBaseStationEnergyInfocol);
+		$sqlQuery->set($powerBaseStationEnergyInfo->buildingType);
+		$sqlQuery->set($powerBaseStationEnergyInfo->ration);
+		$sqlQuery->set($powerBaseStationEnergyInfo->energyType);
+		
+		$sqlQuery->setNumber($powerBaseStationEnergyInfo->stationId);
+		return $this->executeUpdate($sqlQuery);
+	}
+	
+	public function queryByStationIdAndEnergyType($stationId,$energyType){
+		$sql = 'SELECT * FROM power_base_station_energy_info WHERE station_id = ? AND energy_type = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($stationId);
+		$sqlQuery->setNumber($energyType);
+		return $this->getList($sqlQuery);
+	}
 	
 }
 ?>
