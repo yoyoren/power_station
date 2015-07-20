@@ -6,44 +6,68 @@
 			$res = array();
 			$total = 0;
 			foreach($ENERGY_TYPE as $key => $value){
-				$data = $dao->getNumByEnergyType($key);
-				$total = $total + intval($data);
-				array_push($res,$data);
+				if($projectId){
+					$stations = $dao->getByProjectId($projectId);
+					$station_num = count($stations);
+					$stationId = array();
+					for($i=0;$i<$station_num;$i++){
+						array_push($stationId,$stations[$i]->stationId);
+					}
+					if(count($stationId)){
+						$num = $dao->getNumByEnergyTypeAndProjectId($key,$stationId);
+					}else{
+						$num = 0;
+					}
+				}else{
+					$num = $dao->getNumByEnergyType($key);
+				}
+				$total = $total + intval($num);
+				array_push($res,$num);
 			}
 			array_push($res,$total);
 			return $res;
 		}
 		
-		public static function get_list($start,$end){
-			global $ENERGY_TYPE;
-			global $BUILDING_TYPE;
-			
+		public static function get_list($start,$end){			
 			$dao =  new PowerBaseStationMySqlDAO();
 			$exsit = $dao->queryAndPage($start,$end);
-			
-			if($exsit){
-				for($i=0;$i<count($exsit);$i++){
-					$temp = $exsit[$i];
+			$exsit = StationHandler::_get_list_extend_info($exsit);
+			return $exsit;
+		}
+		
+		//获得基站的扩展信息
+		public static function _get_list_extend_info($data){
+			global $ENERGY_TYPE;
+			global $BUILDING_TYPE;
+			if($data){
+				for($i=0;$i<count($data);$i++){
+					$temp = $data[$i];
 					$stationProvince = $temp -> stationProvince;
 					$stationCity = $temp -> stationCity;
 					$stationDistirct = $temp -> stationDistirct;
 					$cityName = AddressHandler::get_city_info($stationProvince,$stationCity);
-					$exsit[$i] -> cityName = $cityName->name;
+					$data[$i] -> cityName = $cityName->name;
 					
 					$distirctName = AddressHandler::get_district_info($stationProvince,$stationCity,$stationDistirct );
-					$exsit[$i] -> distirctName = $distirctName->name;
+					$data[$i] -> distirctName = $distirctName->name;
 					
 					$stationId = $temp -> stationId;
 					
 					$energy_dao =  new PowerBaseStationEnergyInfoMySqlDAO();
 					$station_energy_info = $energy_dao->queryByStationId($stationId)[0];
-					$exsit[$i] -> energyTypeName = $ENERGY_TYPE[$station_energy_info->energyType];
-					$exsit[$i] -> buildTypeName = $BUILDING_TYPE[$station_energy_info->buildingType];
-			
+					$data[$i] -> energyTypeName = $ENERGY_TYPE[$station_energy_info->energyType];
+					if(!$data[$i] -> energyTypeName){
+						$data[$i] -> energyTypeName = NULL_VAL_DISPLAY;
+					}
+					
+					$data[$i] -> buildTypeName = $BUILDING_TYPE[$station_energy_info->buildingType];
+					
+					if(!$data[$i] -> buildTypeName){
+						$data[$i] -> buildTypeName = NULL_VAL_DISPLAY;
+					}
 				}
+				return $data;
 			}
-			
-			return $exsit;
 		}
 		
 		public static function get_one_detail($stationId,$editMode=false){
@@ -291,9 +315,32 @@
 			//}
 		}
 		
+		//更新基站的活动状态
 		public static function updateStatus($stationId,$status){
 			$dao_station =  new PowerBaseStationMySqlDAO();
 			$dao_station->updateStatus($stationId,$status);
+		}
+		
+		//按条件查询
+		public static function query($start,$end,$query_option = array()){
+			$sql = '';
+			$sql_arr = array();
+			foreach($query_option as $key=>$value){
+				if($value){
+					array_push($sql_arr,$key.'="'.$value.'"');
+				}
+			}
+			
+			if(count($sql_arr)){
+				$sql = implode(' AND ',$sql_arr);
+				$dao_station =  new PowerBaseStationMySqlExtDAO();
+				$res = $dao_station->search($start,$end,$sql);
+				$res = StationHandler::_get_list_extend_info($res);
+			} else {
+				//无条件查询
+				$res = StationHandler::get_list($start,$end);
+			}
+			return $res;
 		}
 		
 		public static function remove(){

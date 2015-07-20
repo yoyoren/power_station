@@ -25,12 +25,12 @@
           </div>
           <div class="n-check-item">
             <span class="name">县区</span>
-            <select id="distirct"><option value="0">--查询条件--</option></select>
+            <select id="district"><option value="0">--查询条件--</option></select>
           </div>
           <br/>
           <div class="n-check-item">
             <span class="name">站型</span>
-            <select><option value="0">--查询条件--</option>
+            <select id="station_type"><option value="0">--查询条件--</option>
 			<option value="1">基准站</option>
             <option value="2">节能站</option>
             <option value="3">预备站</option>
@@ -38,7 +38,7 @@
           </div>
           <div class="n-check-item">
             <span class="name">负载</span>
-            <select>
+            <select id="overload">
 				<option value="0">--查询条件--</option>
 				<option value="1">10-20A</option>
 				<option value="2">20-30A</option>
@@ -110,7 +110,7 @@ $get('/address/province',{},function(d){
 $get('/project/list',{
 	},function(d){
 	   var data = d.data;
-	   var html = '';
+	   var html = '<option value="0">--查询条件--</option>';
 	   for(var i=0;i<data.length;i++){
 	      html += '<option value="'+data[i].id+'">'+data[i].projectName+'</option>';
 	   }
@@ -118,11 +118,7 @@ $get('/project/list',{
 });
 var start = 3;
 var pageSize = 15;
-$get('/station/list',{
-		start:start,
-		end:start + pageSize
-	},function(d){
-		var data = d.data;
+var renderOnePage = function(data){
 		var html = '';
 		for (var i=0;i<data.length;i++){
 			var _d = data[i];
@@ -137,7 +133,13 @@ $get('/station/list',{
 					</tr>';
 		}
 		$('#container').html(html);
-	   
+}
+$get('/station/list',{
+		start:start,
+		end:start + pageSize
+	},function(d){
+		var data = d.data;
+		renderOnePage(data);
 });
 
 selProvince.change(function(){
@@ -168,7 +170,31 @@ selCity.change(function(){
 });
 
 $('#query_button').click(function(){
-
+	var project = $('#station_project').val();
+	var province = $('#province').val();
+	var city = $('#city').val();
+	var district = $('#district').val();
+	var project = $('#station_project').val();
+	var station_type = $('#station_type').val();
+	var overload = $('#overload').val();
+	
+	$get('/station/query',{
+		start:start,
+		end:start + pageSize,
+		project:project,
+		province:province,
+		city:city,
+		district:district,
+		station_type:station_type,
+		overload:overload
+	},function(d){
+		if(d.data){
+			renderOnePage(d.data);
+		}
+		if(d.data == null){
+		   alert('没有检索到数据！');
+		}
+	});
 });
   </script>
 </body>

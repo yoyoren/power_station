@@ -18,6 +18,9 @@ define('STATION_TYPE_SAVING',2);
 //预备站
 define('STATION_TYPE_BACKUP',3);
 
+//默认值，空值的展示
+define('NULL_VAL_DISPLAY','n/a');
+
 	//站点类型
 	$STATION_TYPE = array(
 		'1'=>'基准站',

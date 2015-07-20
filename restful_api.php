@@ -496,6 +496,38 @@ $app->post('/station/offline', function () {
 	restful_response(RES_SUCCESS);
 });
 
+//按条件检索基站
+$app->get('/station/query', function () {
+	restful_api_auth();
+	$start = param_check_get('start');
+	$end = param_check_get('end');
+	$project = param_check_get('project','',true);
+	$province = param_check_get('province','',true);
+	$city = param_check_get('city','',true);
+	$district = param_check_get('district','',true);
+	$station_type = param_check_get('station_type','',true);
+	$overload = param_check_get('overload','',true);
+	$query_option = array(
+		'project_id'=>$project,
+		'station_province'=>$province,
+		'station_city'=>$city,
+		'station_district'=>$district,
+		'station_type'=>$station_type,
+		'overload'=>$overload
+	);
+	
+	$data = StationHandler::query($start,$end,$query_option);
+	restful_response(RES_SUCCESS,$data);
+});
+
+//获得基站的数量
+$app->get('/station/num', function () {
+	restful_api_auth();	
+	$project_id = $_COOKIE['current_project_id'];
+	$data = StationHandler::get_index_station_num($project_id);
+	restful_response(RES_SUCCESS,$data);
+});
+
 //新建项目
 $app->post('/project/add', function () {
 	restful_api_auth();

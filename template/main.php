@@ -48,7 +48,7 @@
         <h4 class="n-title">拥有基站</h4>
         <div class="n-jizhan-container">
           <img src="/static/src/img/ic-dianzhan2.png" class="ico-item"/>
-          <div class="n-table clearfix">
+          <div class="n-table clearfix" id="base_container">
             <div class="n-jizhan-item">
               <p>10-20A 类基站</p>
               <p><a href="/base"><?php echo $station_num[0]?>（台）</a></p>
@@ -87,35 +87,35 @@
           <div class="n-table clearfix">
             <div class="n-jizhan-item">
               <p>断站</p>
-              <p><a href="gaojing-index.html">3</a></p>
+              <p><a href="/warning">0</a></p>
             </div>
             <div class="n-jizhan-item">
               <p>空调故障</p>
-              <p><a href="gaojing-index.html">2</a></p>
+              <p><a href="/warning">0</a></p>
             </div>
             <div class="n-jizhan-item">
               <p>室内高温</p>
-              <p><a href="gaojing-index.html">1</a></p>
+              <p><a href="/warning">0</a></p>
             </div>
             <div class="n-jizhan-item">
               <p>恒温柜高温</p>
-              <p><a href="gaojing-index.html">2</a></p>
+              <p><a href="/warning">0</a></p>
             </div>
             <div class="n-jizhan-item">
               <p>电表故障</p>
-              <p><a href="gaojing-index.html">3</a></p>
+              <p><a href="/warning">0</a></p>
             </div>
             <div class="n-jizhan-item">
               <p>功率异常</p>
-              <p><a href="gaojing-index.html">2</a></p>
+              <p><a href="/warning">0</a></p>
             </div>
             <div class="n-jizhan-item">
               <p>远程关站</p>
-              <p><a href="gaojing-index.html">0</a></p>
+              <p><a href="/warning">0</a></p>
             </div>
             <div class="n-jizhan-item">
               <p>代理维护按钮</p>
-              <p><a href="gaojing-index.html">0</a></p>
+              <p><a href="/warning">0</a></p>
             </div>
 
 
@@ -126,6 +126,9 @@
 	
   </div>
   <script>
+	var project_list = $('#project_list');
+	var base_container = $('#base_container');
+	var base_container_a = $('#base_container').find('a');
 	$get('/project/list',{
 	},function(d){
 	   var data = d.data;
@@ -140,19 +143,27 @@
 			  $('#current_project').html(data[0].projectName);
 		   }
 	   }
-	   $('#current_project').html(getCookie('current_project_name'));
-	   $('.switch_project').click(function(){
-		  var _this = $(this);
-		  var id = _this.data('id');
-		  var name = _this.html();
-		  document.cookie = 'current_project_id=' + id;
-		  document.cookie = 'current_project_name=' + name;
-		  $('#current_project').html(name);
-	   });
-	   
-	   $('#project_list').html(html);
+	   $('#current_project').html(getCookie('current_project_name'));	   
+	   project_list.html(html);
 	});
-  
+
+	project_list.delegate('.switch_project','click',function(){
+		var _this = $(this);
+		var id = _this.data('id');
+		var name = _this.html();
+		project_list.find('button').addClass('btn-default');
+		_this.removeClass('btn-default');
+		document.cookie = 'current_project_id='+ id;
+		document.cookie = 'current_project_name='+name;
+		$('#current_project').html(name);
+		  $get('/station/num',{},function(d){
+			 var data = d.data;
+			 for(var i = 0;i<data.length;i++){
+				base_container_a[i].innerHTML = data[i] + '（台）';
+			 }
+			 
+		  });
+	});
 	
   </script>
 </body>
