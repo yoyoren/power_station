@@ -123,7 +123,7 @@ var renderOnePage = function(data){
 		for (var i=0;i<data.length;i++){
 			var _d = data[i];
 			html += '<tr>\
-					  <td class="sorting_1"><a href="/base/info/'+_d.stationId+'">'+_d.stationSeriseCode+'</a></td>\
+					  <td class="sorting_1"><a href="/base/status/'+_d.stationId+'">'+_d.stationSeriseCode+'</a></td>\
 					  <td>'+_d.stationName+'</td>\
 					  <td>'+_d.cityName+'</td>\
 					  <td>'+_d.distirctName+'</td>\

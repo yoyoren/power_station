@@ -16,7 +16,7 @@ define("RES_ACCOUNT_PASSWORD_ERROR", 10002);
 define("RES_ACCOUNT_NOT_EXIST", 10003);
 
 define("RES_USER_HAS_IN_PROJECT", 20001);  
-
+define("RES_STATION_EXSIT", 30001);
 
 //http接口返回
 function restful_response($code,$data=array()) {
@@ -371,8 +371,11 @@ $app->post('/station/add', function () {
 		$ration,
 		$energyType,
 		$airConditionTempature);
-		
-	restful_response(RES_SUCCESS);
+	if($result){
+		restful_response(RES_SUCCESS);
+	} else {
+		restful_response(RES_STATION_EXSIT);
+	}
 });
 
 //增加一个基站站点
@@ -512,15 +515,14 @@ $app->get('/station/query', function () {
 		'station_province'=>$province,
 		'station_city'=>$city,
 		'station_district'=>$district,
-		'station_type'=>$station_type,
-		'overload'=>$overload
+		'station_type'=>$station_type
 	);
-	
-	$data = StationHandler::query($start,$end,$query_option);
+		
+	$data = StationHandler::query($start,$end,$query_option,$overload);
 	restful_response(RES_SUCCESS,$data);
 });
 
-//获得基站的数量
+//获得基站的数量,首页
 $app->get('/station/num', function () {
 	restful_api_auth();	
 	$project_id = $_COOKIE['current_project_id'];

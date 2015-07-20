@@ -113,12 +113,18 @@
 			$station_energy_info->feeTypeName = $POWER_SUPPLY_TYPE[$station_energy_info->feeType];
 			$station_energy_info->buildingTypeName = $BUILDING_TYPE[$station_energy_info->buildingType];
 			$station_energy_info->energyTypeName = $ENERGY_TYPE[$station_energy_info->energyType];
-
+			$stationPrevId = intval($stationId) - 1;
+			$stationNextId = intval($stationId) + 1;
+			if($stationPrevId < 1){
+			   $stationPrevId = -1;
+			}
 			if($editMode){
 				$project_list = ProjectHandler::get_list();
 				$province_list = AddressHandler::get_province_list();
 			}
 			return array(
+				'next_id' =>$stationNextId,
+				'prev_id' =>$stationPrevId,
 				'info'=>$station_base_info,
 				'device'=>$station_device_info,
 				'energy'=>$station_energy_info,
@@ -167,7 +173,11 @@
 			if($creatTime == 0){
 				$creatTime = time();
 			}
-			$dao_station =  new PowerBaseStationMySqlDAO();	
+			$dao_station =  new PowerBaseStationMySqlExtDAO();	
+			$exsit = $dao_station->checkExist($stationName,$stationSeriseCode,$stationType);
+			if($exsit){
+				return false;
+			}
 			$station = new PowerBaseStation();
 			$station->stationName = $stationName;
 			$station->stationSeriseCode = $stationSeriseCode;
@@ -219,6 +229,7 @@
 				$station_energy_info->ration = $ration;
 				$station_energy_info->energyType = $energyType;
 				$dao_station_energy_info->insert($station_energy_info);
+				return true;
 			}
 		}
 		
@@ -259,7 +270,8 @@
 			if($creatTime == 0){
 				$creatTime = time();
 			}
-			$dao_station =  new PowerBaseStationMySqlExtDAO();	
+			$dao_station =  new PowerBaseStationMySqlExtDAO();
+						
 			$station = new PowerBaseStation();
 			$station->stationProject = $stationProject;
 			$station->stationProvince = $stationProvince;
@@ -322,7 +334,7 @@
 		}
 		
 		//按条件查询
-		public static function query($start,$end,$query_option = array()){
+		public static function query($start,$end,$query_option = array(),$overload=0){
 			$sql = '';
 			$sql_arr = array();
 			foreach($query_option as $key=>$value){
@@ -331,11 +343,32 @@
 				}
 			}
 			
-			if(count($sql_arr)){
+			if(count($sql_arr) || $overload){
 				$sql = implode(' AND ',$sql_arr);
 				$dao_station =  new PowerBaseStationMySqlExtDAO();
-				$res = $dao_station->search($start,$end,$sql);
-				$res = StationHandler::_get_list_extend_info($res);
+				
+				//过滤查询条件
+				if(count($sql_arr)){
+					$res = $dao_station->search($start,$end,$sql);
+					$res = StationHandler::_get_list_extend_info($res);
+				} else {
+					$res = StationHandler::get_list($start,$end);
+				}
+				
+				//选择要过滤负载的
+				if($overload) {
+				   $dao_station_energy_info =  new PowerBaseStationEnergyInfoMySqlExtDAO();
+				   $ret = array();
+				   for($i=0;$i<count($res);$i++){
+					 $_d = $res[$i];
+					 $station_id = $_d->stationId;
+					 $_temp = $dao_station_energy_info -> queryByStationIdAndEnergyType($station_id,$overload);
+					 if($_temp){
+						array_push($ret,$_d);
+					 }
+				   }
+				   return $ret;
+				}
 			} else {
 				//无条件查询
 				$res = StationHandler::get_list($start,$end);

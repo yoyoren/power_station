@@ -379,7 +379,9 @@ $('#create_button').click(function(){
 		if(d.code == 0){
 			alert('创建成功');
 			location.href = '/base';
-		}
+		} else {
+			alert('创建失败，存在相同的站点名和编号');
+		}	
 	});
 
 });

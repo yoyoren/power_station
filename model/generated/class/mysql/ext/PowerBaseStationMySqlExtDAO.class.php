@@ -63,5 +63,15 @@ class PowerBaseStationMySqlExtDAO extends PowerBaseStationMySqlDAO{
 		return $this->getList($sqlQuery);
 	}
 	
+	//检查是否有重复基站
+	public function checkExist($stationName,$stationSeriseCode,$stationType){
+		$sql = 'SELECT * FROM power_base_station WHERE station_name = ? AND station_serise_code = ? AND station_type = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->set($stationName);
+		$sqlQuery->set($stationSeriseCode);
+		$sqlQuery->set($stationType);
+		return $this->getList($sqlQuery);
+	}
+	
 }
 ?>

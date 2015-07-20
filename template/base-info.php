@@ -16,11 +16,18 @@
 
           <div class="fl-r">
             <div class="btn-group">
+              
+                
+				<?php 
+					 $prev_id = $station['prev_id'];
+					 if($prev_id > 1){
+						echo '<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><a href="/base/info/'.$prev_id.'" class="vl-m">前一个基站</a></button>';
+					 }
+				?>
+				
+              
               <button type="button" class="btn btn-default">
-                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><span class="vl-m">前一个基站</span>
-              </button>
-              <button type="button" class="btn btn-default">
-                <span class="vl-m">后一个基站</span><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <a href="/base/info/<?php echo $station['next_id'];?>" class="vl-m">后一个基站</a><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
               </button>
             </div>
           </div>
