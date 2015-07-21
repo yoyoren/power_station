@@ -69,13 +69,17 @@
               <p>50-60A 类基站</p>
               <p><a href="/base"><?php echo $station_num[4]?>（台）</a></p>
             </div>
-            <div class="n-jizhan-item">
-              <p>70A+ 类基站</p>
+			<div class="n-jizhan-item">
+              <p>60-70A 类基站</p>
               <p><a href="/base"><?php echo $station_num[5]?>（台）</a></p>
             </div>
             <div class="n-jizhan-item">
-              <p><em class="n-total-item">总计</em></p>
+              <p>70A+ 类基站</p>
               <p><a href="/base"><?php echo $station_num[6]?>（台）</a></p>
+            </div>
+            <div class="n-jizhan-item">
+              <p><em class="n-total-item">总计</em></p>
+              <p><a href="/base"><?php echo $station_num[7]?>（台）</a></p>
             </div>
 
 

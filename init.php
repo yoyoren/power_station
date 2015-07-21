@@ -54,7 +54,8 @@ define('NULL_VAL_DISPLAY','n/a');
 		'3'=>'30-40A',
 		'4'=>'40-50A',
 		'5'=>'50-60A',
-		'6'=>'70A+',
+		'6'=>'60-70A',
+		'7'=>'70A+',
 	);
 	
 require 'slim/Slim/Slim.php';

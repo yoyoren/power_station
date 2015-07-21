@@ -16,7 +16,7 @@
 	define('FILE_CONTENT_SIZE',56 * BYTE_1);
 	
 	class ECUHandler {
-		public static function read($path=ECU_ROOT_PATH.'test/ecu1234567-20150710-150450.engy'){
+		public static function read($path=ECU_ROOT_PATH.'test_2/ecu1234567-20150719-165538.engy'){
 			$file = fopen($path,'rb');
 			$content=fread($file,filesize($path));
 			

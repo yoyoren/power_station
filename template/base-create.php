@@ -199,7 +199,8 @@
 						<option value="3">30-40A</option>
 						<option value="4">40-50A</option>
 						<option value="5">50-60A</option>
-						<option value="6">70A+</option>
+						<option value="6">60-70A</option>
+						<option value="7">70A+</option>
 					</select>
 				</td>
                 <td class="td-to-th">&nbsp;</td>
