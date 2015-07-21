@@ -5,7 +5,7 @@
       <ul class="n-head-nav fl-l" id="header_nav">
         <li><a class="current" href="/main" id="tab_main">首页</a></li>
         <li><a href="/base" id="tab_base">基站</a></li>
-        <li><a href="/warning" id="tab_warning">告警</a></li>
+        <li><a href="/warning" id="tab_warning">故障告警</a></li>
         <li><a href="/ammeter" id="tab_ammeter">电表</a></li>
         <li><a href="/log" id="tab_log">维护</a></li>
         <li><a href="/report" id="tab_report">报表</a></li>

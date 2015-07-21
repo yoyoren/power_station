@@ -21,3 +21,6 @@ ALTER TABLE `power_ammeter_chinamobile` ADD `station_id` INT(11) NULL DEFAULT NU
 ALTER TABLE `power_ammeter_chinamobile` ADD `ammeter_normal` INT(11) NULL DEFAULT NULL AFTER `station_id`;
 ALTER TABLE `power_ammeter_chinamobile` ADD `ammeter_normal_chinamobile` INT(11) NULL DEFAULT NULL AFTER `ammeter_normal`;
 ALTER TABLE `power_ammeter_chinamobile` ADD `read_time` INT NULL DEFAULT NULL AFTER `ammeter_normal_chinamobile`;
+
+alter table power_base_station add use_energy_station varchar(200) default '0';
+alter table power_base_station add project_serise varchar(200) default '0';

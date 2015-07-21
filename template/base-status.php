@@ -34,7 +34,7 @@
         </div>
 
         <div class="nav-tabs-content">
-          <p class="table-title"><b>温度</b></p>
+          <p class="table-title"><b>温湿度</b></p>
           <div class="clearfix">
             <div class="n-wendu-item">
               <img src="/static/src/img/ic-wendu2.png" class="fl-l" style="height:120px;" />
@@ -105,7 +105,7 @@
             </div>
             <hr/>
 
-            <div class="">
+            <div class="" style="display:none">
               <p class="table-title"><b>电表状态</b></p>
               <div class="clearfix">
                 <div class="n-dian-biao-status-item">

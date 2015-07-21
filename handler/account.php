@@ -30,7 +30,11 @@ class AccountHandler {
 		$users = $data['data'];
 		for($i=0;$i<count($users);$i++){
 			$user = $users[$i];
+			
 			$project = AccountHandler::get_user_project($user['id']);
+			if($user['id'] == "1"){
+				var_dump($project);
+			}
 			if($project){
 				$res = array();
 				for($k=0;$k<count($project);$k++){

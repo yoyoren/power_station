@@ -6,8 +6,12 @@
     <?php include ('include/header.php')?>
 
     <div class="n-container">
-      <?php include ('include/nav_base.php')?>
-	  <script>$('#nav_base_8').addClass('current');</script>
+      <div class="n-nav-left">
+        <ul>
+          <li ><a href="/log"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">工作日志</span></a></li>
+          <li id="nav_base_8" class="current"><a href="/base/create"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">基站创建</a></li>
+        </ul>
+      </div>
 
       <div class="n-right-content">
         <h4 class="tab-to-title">基站创建</h4>

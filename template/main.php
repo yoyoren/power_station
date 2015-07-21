@@ -6,7 +6,7 @@
     <?php include ('include/header.php')?>
     <div class="n-container" style="padding-left:0;">
       <div class="n-mian-area">
-      <div class="clearfix" style="border-bottom:1px solid #eee;">
+      <div class="clearfix" style="border-bottom:1px solid #eee;display:none">
         <h4 class="n-title fl-l" style="padding:0; margin-right:40px;" >当前项目：<span style="color:#ff4400;" id="current_project">无</span></h4>
         <div class="btn-group fl-l" id="project_list">
 
@@ -15,7 +15,7 @@
         <a href="/account/project" style="margin-left:40px;" class="btn btn-primary">创建项目</a>
       </div>
 
-        <h4 class="n-title">能耗节约成效</h4>
+        <h4 class="n-title">节能成效</h4>
         <div class="clearfix">
           <div class="n-show-item">
             <p class="intro">节约电</p>
@@ -50,31 +50,31 @@
           <img src="/static/src/img/ic-dianzhan2.png" class="ico-item"/>
           <div class="n-table clearfix" id="base_container">
             <div class="n-jizhan-item">
-              <p>10-20A 类基站</p>
+              <p>10-20A </p>
               <p><a href="/base"><?php echo $station_num[0]?>（台）</a></p>
             </div>
             <div class="n-jizhan-item">
-              <p>20-30A 类基站</p>
+              <p>20-30A </p>
               <p><a href="/base"><?php echo $station_num[1]?>（台）</a></p>
             </div>
             <div class="n-jizhan-item">
-              <p>30-40A 类基站</p>
+              <p>30-40A </p>
               <p><a href="/base"><?php echo $station_num[2]?>（台）</a></p>
             </div>
             <div class="n-jizhan-item">
-              <p>40-50A 类基站</p>
+              <p>40-50A </p>
               <p><a href="/base"><?php echo $station_num[3]?>（台）</a></p>
             </div>
             <div class="n-jizhan-item">
-              <p>50-60A 类基站</p>
+              <p>50-60A </p>
               <p><a href="/base"><?php echo $station_num[4]?>（台）</a></p>
             </div>
 			<div class="n-jizhan-item">
-              <p>60-70A 类基站</p>
+              <p>60-70A </p>
               <p><a href="/base"><?php echo $station_num[5]?>（台）</a></p>
             </div>
             <div class="n-jizhan-item">
-              <p>70A+ 类基站</p>
+              <p>70A+ </p>
               <p><a href="/base"><?php echo $station_num[6]?>（台）</a></p>
             </div>
             <div class="n-jizhan-item">

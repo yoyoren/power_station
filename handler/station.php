@@ -1,31 +1,77 @@
 <?php
 	class StationHandler {
-		public static function get_index_station_num($projectId = 0){
+		public static function get_index_station_num_by_accountid(){
+			$accountId = $_COOKIE['user_id'];
+			$projects = AccountHandler::get_user_project($accountId);
+		}
+		//获得首页的基站数量信息
+		public static function get_index_station_num(){
 			global $ENERGY_TYPE;
 			$dao = new PowerBaseStationMySqlExtDAO();
 			$res = array();
-			$total = 0;
-			foreach($ENERGY_TYPE as $key => $value){
-				if($projectId){
-					$stations = $dao->getByProjectId($projectId);
-					$station_num = count($stations);
-					$stationId = array();
-					for($i=0;$i<$station_num;$i++){
-						array_push($stationId,$stations[$i]->stationId);
+			
+			$accountId = $_COOKIE['user_id'];
+			$projects = AccountHandler::get_user_project($accountId);
+			$owner_projects = count($projects);
+			
+			//有项目的情况
+			if($owner_projects){
+				for($k=0;$k<$owner_projects;$k++){
+					
+					//统计每个项目下面得基站数量
+					$projectId = $projects[$k]->projectId;
+					$temp = array();
+					if($projectId){
+						foreach($ENERGY_TYPE as $key => $value){
+							if($projectId){
+								$stations = $dao->getByProjectId($projectId);
+								$station_num = count($stations);
+								$stationId = array();
+								for($i=0;$i<$station_num;$i++){
+									array_push($stationId,$stations[$i]->stationId);
+								}
+								if(count($stationId)){
+									$num = $dao->getNumByEnergyTypeAndProjectId($key,$stationId);
+								}else{
+									$num = 0;
+								}
+							}else{
+								$num = $dao->getNumByEnergyType($key);
+							}
+							
+							array_push($temp,$num);
+						}
 					}
-					if(count($stationId)){
-						$num = $dao->getNumByEnergyTypeAndProjectId($key,$stationId);
-					}else{
-						$num = 0;
-					}
-				}else{
-					$num = $dao->getNumByEnergyType($key);
+					array_push($res,$temp);
 				}
-				$total = $total + intval($num);
-				array_push($res,$num);
+				$ret = array();
+				$total = 0;
+				for($k=0;$k<count($res);$k++){
+					if(count($res[$k])){
+						$_temp = $res[$k];
+						for($i=0;$i<count($_temp);$i++){
+							if($ret[$i] == null){
+								$ret[$i] = 0;
+							}
+							$ret[$i] += $_temp[$i];
+							$total = $total + $_temp[$i];
+						}
+					}
+				}
+				array_push($ret,$total);
+			} else {
+				//没有项目 全部为0
+				$ret = array();
+				$index = 0;
+				foreach($ENERGY_TYPE as $key => $value){
+					$ret[$index] = 0;
+					$index ++;
+				}
+				array_push($ret,0);
 			}
-			array_push($res,$total);
-			return $res;
+			
+			
+			return $ret;
 		}
 		
 		public static function get_list($start,$end){			

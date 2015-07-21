@@ -21,6 +21,18 @@
           </div>
 
         </div>
+		
+        <h4 class="tab-to-title">项目管理</h4>
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>项目序号</th>
+              <th>项目</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="project_list"></tbody>
+        </table>
       </div>
 
     </div>
@@ -50,6 +62,16 @@
 </div><!-- /.modal -->
 </body>
 <script>
+var project_list = $('#project_list')
+$get('/project/list',{
+	},function(d){
+	   var data = d.data;
+	   var html = '';
+	   for(var i=0;i<data.length;i++){
+	      html += '<tr><td>'+data[i].id+'</td><td data-id="'+data[i].id+'">'+data[i].projectName+'</td><td><button type="button" class="btn btn-default project_del" data-id="'+data[i].id+'">删除</button></td></tr>';
+	   }	   
+	   project_list.html(html);
+	});
 $('#create').click(function(){
 	var name = $('#p_name');
 	$.post('/project/add',{
