@@ -8,32 +8,33 @@
     <link href="/static/src/css/login.css" rel="stylesheet">
 	  <script src="/static/src/js/jquery.js"></script>
     <style type="text/css">
-body{background:url(/static/src/img/big-bg2.png) center center no-repeat;
-  background-size: cover;}
+body{background:#2c2e2f;}
     </style>
   </head>
 
   <body>
-    <h4 class="tl-c n-title">
-      <img src="/static/src/img/ic-nenghao-ico.png" class="vl-m" style="width:70px; margin-top:-8px;" />
-      <span class="vl-m">能耗云管理系统</span>
-    </h4>
-    <p class="tl-c n-intro">独一无二的大数据能耗管理平台，让节能变得更简单。</p>
-    <div class="n-container">
 
-      <form class="form-signin">
-        <h2 class="form-signin-heading">登录</h2>
-        <div class="tl-c"><em class="f-corner"></em></div>
-        <div class="inner">
-          <label for="userName" class="sr-only" id="">用户名</label>
-          <input type="text" id="username" class="form-control form-username" placeholder="用户名" required autofocus>
-          <label for="inputPassword" class="sr-only">密码</label>
-          <input type="password" id="password" class="form-control" placeholder="密码" required>
-          <button class="btn btn-lg btn-success btn-block" type="button" id="login_button">登录</button>
+  <div class="login-layout">
+      <img class="fl-l" src="/static/img/test-logo.png" style="margin-top:12px;" />
+      <div class="fl-l" style="margin-left:40px;">
+        <h4 class="n-title">能耗云管理系统</span></h4>
+        <p class="n-intro">独一无二的大数据能耗管理平台，让节能变得更简单。</p>
+        <div class="n-container">
+
+          <form class="form-signin">
+            <div class="inner">
+              <label for="userName" class="sr-only" id="">用户名</label>
+              <input type="text" id="username" class="form-control form-username" placeholder="用户名" required autofocus>
+              <label for="inputPassword" class="sr-only">密码</label>
+              <input type="password" id="password" class="form-control" placeholder="密码" required>
+              <button class="btn btn-lg btn-success btn-block" type="button" id="login_button">登录</button>
+            </div>
+          </form>
+
         </div>
-      </form>
-
+      </div>
     </div>
+
 
     <script>
 	$('#login_button').click(function(){

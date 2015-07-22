@@ -4,8 +4,13 @@
 <body>
   <div class="n-layout">
     <?php include ('include/header.php')?>
-    <div class="n-container" style="padding-left:0;">
-      <div class="n-mian-area">
+    <div class="n-container">
+      <div class="n-nav-left">
+        <ul>
+          <li class="current"><a href="javascript:void(0)"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">系统概况</span></a></li>
+        </ul>
+      </div>
+      <div class="n-right-content">
       <div class="clearfix" style="border-bottom:1px solid #eee;">
         <h4 class="n-title fl-l" style="padding:0; margin-right:40px;" >当前项目：<span style="color:#ff4400;" id="current_project">无</span></h4>
         <div class="btn-group fl-l" id="project_list">
@@ -123,7 +128,7 @@
         </div>
 
     </div>
-	
+
   </div>
   <script>
 	var project_list = $('#project_list');
@@ -143,7 +148,7 @@
 			  $('#current_project').html(data[0].projectName);
 		   }
 	   }
-	   $('#current_project').html(getCookie('current_project_name'));	   
+	   $('#current_project').html(getCookie('current_project_name'));
 	   project_list.html(html);
 	});
 
@@ -161,10 +166,10 @@
 			 for(var i = 0;i<data.length;i++){
 				base_container_a[i].innerHTML = data[i] + '（台）';
 			 }
-			 
+
 		  });
 	});
-	
+
   </script>
 </body>
 </html>
