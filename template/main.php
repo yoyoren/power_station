@@ -4,7 +4,7 @@
 <body>
   <div class="n-layout">
     <?php include ('include/header.php')?>
-    <div class="n-container" style="padding-left:0;">
+    <div class="n-container">
       <div class="n-nav-left">
         <ul>
           <li class="current"><a href="javascript:void(0)"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">系统概况</span></a></li>
