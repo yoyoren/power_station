@@ -16,7 +16,7 @@
 	define('FILE_CONTENT_SIZE',56 * BYTE_1);
 	
 	class ECUHandler {
-		public static function read($path=ECU_ROOT_PATH.'test_2/ecu1234567-20150719-165538.engy'){
+		public static function read($path=ECU_ROOT_PATH.'ecu1234567-20150717-221043.engy'){
 			$file = fopen($path,'rb');
 			$content=fread($file,filesize($path));
 			
@@ -58,10 +58,12 @@
 				array_push($file_content,array(
 					'date'=>date('Y-m-d H:i:s',bindec(substr($one_file_content,0,BYTE_4))),
 					'timestamps'=>bindec(substr($one_file_content,0,BYTE_4)),
-					'target_temperature'=>bindec(substr($one_file_content,32,BYTE_1)),
+					//'target_temperature'=>bindec(substr($one_file_content,32,BYTE_1)),
+					'target_temperature'=>bindec(substr($one_file_content,56,BYTE_1)),
 					'egy_save_status'=>bindec(substr($one_file_content,40,BYTE_1)),
 					'fault_code'=>substr($one_file_content,48,BYTE_1),
-					'relay_status'=>substr($one_file_content,56,BYTE_1),
+					//'relay_status'=>substr($one_file_content,56,BYTE_1),
+					'relay_status'=>substr($one_file_content,32,BYTE_1),
 					'elec_engy'=>array(
 						bindec(substr($one_file_content,64,BYTE_4))/100,
 						bindec(substr($one_file_content,96,BYTE_4))/100,
@@ -130,13 +132,13 @@
 		}
 		
 		//将扫描后的文件放到库里
-		public static function write($path=ECU_ROOT_PATH.'test/ecu1234567-20150710-150450.engy'){
+		public static function write($path=ECU_ROOT_PATH.'ecu1234567-20150717-221043.engy'){
 			$data = ECUHandler::read($path);
 			$data = $data['file_content'];
 			$dao =  new PowerBaseStationRuningDataMySqlDAO();
 			$current_time = time();
 			$all = count($data);
-			for($i=0;$i<1;$i++){
+			for($i=0;$i<$all;$i++){
 				$cur_data = $data[$i];
 				
 				$dao_obj = new PowerBaseStationRuningData();
@@ -161,23 +163,33 @@
 				$dao_obj->ammeterSmart = -1;
 				$dao_obj->overloadAc = -1;
 				$dao_obj->overloadDc = -1;
-				//室外温度
-				$dao_obj->temperatureOutside = $cur_data['temperature'][0];
+				
 				//室内温度
 				$dao_obj->temperatureInside = $cur_data['temperature'][1];
-				//恒温柜
-				$dao_obj->temperatureCabinet = $cur_data['temperature'][7];
+				//室外温度
+				$dao_obj->temperatureOutside = $cur_data['temperature'][0];
+				
 				//空调1
 				$dao_obj->temperatureAircondition1 = $cur_data['temperature'][3];
 				//空调2
 				$dao_obj->temperatureAircondition2 = $cur_data['temperature'][2];
+				//空调3
+				$dao_obj->temperatureAircondition3 = $cur_data['temperature'][5];
+				//空调4
+				$dao_obj->temperatureAircondition4 = $cur_data['temperature'][4];
 				
-				$dao_obj->temperatureAircondition3 = -1;
-				$dao_obj->temperatureAircondition4 = -1;
-				$dao_obj->temperatureAircondition5 = -1;
-				$dao_obj->temperatureAircondition6 = -1;
-				$dao_obj->temperatureAircondition7 = -1;
-				$dao_obj->temperatureAircondition8 = -1;
+				//蓄电池1
+				$dao_obj->temperatureAircondition5 = $cur_data['temperature'][7];
+				
+				//蓄电池2
+				$dao_obj->temperatureAircondition6 = $cur_data['temperature'][6];
+				
+				//预留
+				$dao_obj->temperatureAircondition7 = $cur_data['temperature'][9];
+				$dao_obj->temperatureAircondition8 = $cur_data['temperature'][8];
+				
+				//恒温柜
+				$dao_obj->temperatureCabinet = $cur_data['temperature'][7];
 				
 				$dao_obj->createTime = $cur_data['timestamps'];
 				
