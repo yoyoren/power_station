@@ -24,7 +24,7 @@
           </div>
           <div class="input-group-item clearfix">
             <span class="name">基站电表采集时间：</span>
-            <input type="text" class="form-control form_datetime" readonly value="2015-04-05 15:30" required  id="readTime" />
+            <input type="text" class="form-control form_datetime" value="" required  id="readTime" />
           </div>
           <div class="input-group-item tl-r">
             <button type="button" class="btn btn-default" id="show">确定</button>
