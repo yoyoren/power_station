@@ -9,14 +9,14 @@
 
       <div class="n-nav-left">
         <ul>
-          <li class="current"><a href="/ammeter"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">录入电表 - 我方</span></a></li>
-          <li><a href="/ammeter-other"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">录入电表 - 局方</a></li>
+          <li class="current"><a href="/ammeter"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">录入电表 - 杉实环境</span></a></li>
+          <li><a href="/ammeter-other"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">录入电表 - 用能公司</a></li>
 
         </ul>
       </div>
 
       <div class="n-right-content">
-        <h4 class="tab-to-title">录入电表 - 我方</h4>
+        <h4 class="tab-to-title">录入电表 - 杉实环境</h4>
         <div class="n-check-area">
           <div class="input-group-item clearfix">
             <span class="name">基站名称：</span>
@@ -24,14 +24,25 @@
           </div>
           <div class="input-group-item clearfix">
             <span class="name">基站电表采集时间：</span>
-            <input type="text" class="form-control form_datetime" readonly value="2014-04-14 12:30" required   id="readTime"/>
-          </div>
-          <div class="input-group-item clearfix">
-            <span class="name">基站电表采集值：</span>
-            <input type="text" class="form-control" required  id="du" />
+            <input type="text" class="form-control form_datetime"  value="" required   id="readTime"/>
           </div>
           <div class="input-group-item tl-r">
+            <button type="button" class="btn btn-default" id="show">确定</button>
+          </div>
+          <hr/>
+          <div style="display:none" id="biao">
+          <div class="input-group-item clearfix">
+            <span class="name">电表采集值：</span>
+            <span class="name" id="owndu"></span>
+          </div>
+          <div class="input-group-item clearfix">
+            <span class="name">基站电表抄表值：</span>
+            <input type="text" class="form-control" required value="" id="du"/>
+          </div>
+          <div class="input-group-item tl-r">
+              <input type="hidden" id="own" /><input type="hidden" id="stationId" />
             <button type="button" class="btn btn-default" id="create">确定</button>
+          </div>
           </div>
         </div>
 
@@ -39,11 +50,14 @@
         <table class="table table-bordered table-striped">
           <thead>
             <tr>
-              <th>基站</th>
+              <th>基站名称</th>
               <th>采集时间</th>
-              <th>度</th>            
+              <th>录入值</th>
+              <th>电表值</th>  
+              <th>最新E值</th>
               <th>录入人</th>
-              <th>录入时间</th>
+              <th>录入时间</th>             
+              <th>操作</th>
             </tr>
           </thead>
           <tbody id="content">
@@ -64,12 +78,12 @@
 $(function () {
     $(".form_datetime").datetimepicker({
       format: 'yyyy-mm-dd h:i',
-      language: 'cn',
-      autoclose:true 
-      
+      language: 'cn',    
+      autoclose:true, 
     });
         //显示所有项目名称
     	$get('/ammeter/ownList',{
+                r:new Date().getTime(),
             	start:0,
 		end:15
 	},function(d){
@@ -81,29 +95,59 @@ $(function () {
 			html += '<tr>\
 					  <td>'+_d.stationName+'</td>\
 					  <td>'+_d.readTime+'</td>\
-					  <td>'+_d.ammeterNormal+'</td>\
+					  <td>'+_d.ammeterNormal+'</td>\<td>'+_d.readValue+'</td>\<td>'+_d.e+'</td>\
 					  <td>'+_d.operater+'</td>\
 					  <td>'+_d.createTime+'</td>\
-					</tr>';
+					<td><button type=button class=\"btn btn-default\" onclick=del('+_d.ammeterId+')>删除</button></td></tr>';
 		}
             $('#content').html(html);
      });       
            
 });
-$('#create').click(function(){
-	$.post('/ammeter/ownAdd',{
+$('#show').click(function(){
+	$.post('/ammeter/otherShow',{
 	  stationName:$('#stationName').val(),
-          readTime:$('#readTime').val(),
-          du:$('#du').val(),
+          readTime:$('#readTime').val(),        
 	},function(d){
 		if(d.code == 0){
-                    alert('抄表成功');
-                    $('#stationName').val('');
-                    $('#du').val('');
+                    $('#biao').show();
+                    $('#owndu').html(d.data.ammeterNormal);
+                    $('#own').val(d.data.ammeterNormal);
+                    $('#stationId').val(d.data.stationId);
+                    $('#du').val(d.data.ammeterNormal);
 		}else{
                     alert('基站名称有误');
                 }
 	},'json');
 });
+$('#create').click(function(){
+	$.post('/ammeter/ownAdd',{
+	  stationId:$('#stationId').val(),
+          readTime:$('#readTime').val(),
+          own:$('#own').val(), 
+          du:$('#du').val(),
+	},function(d){
+		if(d.code == 0){
+                    alert('抄表成功');
+                    location.reload();
+		}else{
+                    alert('基站名称有误');
+                }
+	},'json');
+});
+function del(id){
+    	$.post('/ammeter/ammeterdel',{
+          flag:2,
+	  ammeterId:id,
+	},function(d){
+		if(d.code == 0){
+                    alert('删除成功');
+                    location.reload();
+		}else{
+                    alert('基站名称有误');
+                }
+	},'json');
+    
+}
 </script>
 </html>

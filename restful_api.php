@@ -2,7 +2,6 @@
 global $app;
 global $response_body;
 $request_body = $app->request->getBody();
-
 //API返回码
 define("RES_SUCCESS", 0); 
 define("RES_ERROR", 1); 
@@ -14,10 +13,8 @@ define("RES_PARAM_TYPE_ERROR", 6);
 define("RES_ACCOUNT_EXIST", 10001); 
 define("RES_ACCOUNT_PASSWORD_ERROR", 10002); 
 define("RES_ACCOUNT_NOT_EXIST", 10003);
-
 define("RES_USER_HAS_IN_PROJECT", 20001);  
 define("RES_STATION_EXSIT", 30001);
-
 //http接口返回
 function restful_response($code,$data=array()) {
  echo json_encode(array(
@@ -25,7 +22,6 @@ function restful_response($code,$data=array()) {
 	'data'=>$data,
  ));
  }
-
 //参数合法性检测
 function param_check($key,$method='post',$type='',$empty = false){
 	global $app;
@@ -68,7 +64,6 @@ function param_check($key,$method='post',$type='',$empty = false){
 	}
  }
  
-
  //增加账户
 $app->post('/account/add', function () {
 	restful_api_auth();
@@ -83,7 +78,6 @@ $app->post('/account/add', function () {
 	}
 	
 });
-
 //彻底删除一个账户（危险慎用）
 $app->post('/account/remove', function () {
 	restful_api_auth();
@@ -91,8 +85,6 @@ $app->post('/account/remove', function () {
     $result = AccountHandler::remove($accountId);
 	restful_response(RES_SUCCESS);
 });
-
-
 //更新账户信息
 $app->post('/account/updateinfo', function () {
 	$accountId = param_check('user_id');
@@ -111,7 +103,6 @@ $app->post('/account/updateinfo', function () {
 	AccountHandler::updateUserInfo($accountId,$accountType,$project_add_id,$project_remove_id);
 	restful_response(RES_SUCCESS);
 });
-
 //账户登录
 $app->post('/account/signin', function () {
 	$accountName = param_check('name');
@@ -131,7 +122,6 @@ $app->post('/account/signin', function () {
 		restful_response(RES_SUCCESS);
 	}
 });
-
 //是否登录判断
 $app->get('/account/islogin', function () {
     $result = AccountHandler::is_login();
@@ -141,7 +131,6 @@ $app->get('/account/islogin', function () {
 		restful_response(RES_NEED_LOGIN,array('login'=>false));
 	}
 });
-
 //账户登出
 $app->get('/account/logout', function () {
      global $app;
@@ -153,7 +142,6 @@ $app->get('/account/logout', function () {
 	 unset($_SESSION['user_login'.$use_id]);
 	 restful_response(RES_SUCCESS);
 });
-
 //锁定账户
 $app->post('/account/lock', function () {
 	restful_api_auth();
@@ -161,8 +149,6 @@ $app->post('/account/lock', function () {
     AccountHandler::change_account_status(1,$accountName);
 	restful_response(RES_SUCCESS);
 });
-
-
 //解锁账户
 $app->post('/account/unlock', function () {
 	restful_api_auth();
@@ -170,8 +156,6 @@ $app->post('/account/unlock', function () {
     AccountHandler::change_account_status(0,$accountName);
 	restful_response(RES_SUCCESS);
 });
-
-
 //获得注册账户列表
 $app->get('/account/list', function () {
 	restful_api_auth();
@@ -180,7 +164,6 @@ $app->get('/account/list', function () {
     $data = AccountHandler::get_list($start,$end);
 	restful_response(RES_SUCCESS,$data);
 });
-
 //获得注册账户列表 同时获得这个用户所在的项目
 $app->get('/account/list_with_project', function () {
 	restful_api_auth();
@@ -189,7 +172,6 @@ $app->get('/account/list_with_project', function () {
     $data = AccountHandler::get_list_with_project($start,$end);
 	restful_response(RES_SUCCESS,$data);
 });
-
 //给用户添加项目权限(单个项目)
 $app->post('/account/addproject', function () {
 	restful_api_auth();
@@ -202,7 +184,6 @@ $app->post('/account/addproject', function () {
 		restful_response(RES_USER_HAS_IN_PROJECT);
 	}
 });
-
 //给用户添加项目权限（批量更新）
 $app->post('/account/addproject_mass', function () {
 	restful_api_auth();
@@ -215,7 +196,6 @@ $app->post('/account/addproject_mass', function () {
 	}
 	restful_response(RES_SUCCESS);
 });
-
 //给用户的项目权限删除(单个项目)
 $app->post('/account/removeproject', function () {
 	restful_api_auth();
@@ -228,7 +208,6 @@ $app->post('/account/removeproject', function () {
 		restful_response(RES_USER_HAS_IN_PROJECT);
 	}
 });
-
 //给用户的项目权限删除(批量更新)
 $app->post('/account/removeproject_mass', function () {
 	restful_api_auth();
@@ -241,10 +220,6 @@ $app->post('/account/removeproject_mass', function () {
 	}
 	restful_response(RES_SUCCESS);
 });
-
-
-
-
 //获得用户的项目权限
 $app->get('/account/getproject', function () {
 	restful_api_auth();
@@ -252,30 +227,24 @@ $app->get('/account/getproject', function () {
     $data = AccountHandler::get_user_project($user_id);
 	restful_response(RES_SUCCESS,$data);
 });
-
-
-
 //ecu文件读取的测试接口
 $app->get('/ecu/read', function () {
 	//restful_api_auth();
 	$result = ECUHandler::read();
 	restful_response(RES_SUCCESS,$result);
 });
-
 //扫描上传ECU文件的目录
 $app->get('/ecu/scan', function () {
 	restful_api_auth();
 	$result = ECUHandler::scan();
 	restful_response(RES_SUCCESS,$result);
 });
-
 //扫描上传ECU文件的目录
 $app->get('/ecu/write', function () {
 	restful_api_auth();
 	$result = ECUHandler::write();
 	restful_response(RES_SUCCESS,$result);
 });
-
 //增加一个基站站点
 $app->post('/station/add', function () {
 	restful_api_auth();
@@ -377,14 +346,12 @@ $app->post('/station/add', function () {
 		restful_response(RES_STATION_EXSIT);
 	}
 });
-
 //增加一个基站站点
 $app->post('/station/update', function () {
 	restful_api_auth();
 	
 	//基站基本信息
 	$stationId = param_check('station_id');
-
 	$stationProject = param_check('project');
 	$stationProjectId = param_check('project_id');
 	$stationProvince = param_check('province');
@@ -472,8 +439,6 @@ $app->post('/station/update', function () {
 		
 	restful_response(RES_SUCCESS);
 });
-
-
 //基站列表
 $app->get('/station/list', function () {
 	restful_api_auth();
@@ -482,7 +447,6 @@ $app->get('/station/list', function () {
 	$data = StationHandler::get_list($start,$end);
 	restful_response(RES_SUCCESS,$data);
 });
-
 //删除基站
 $app->post('/station/online', function () {
 	restful_api_auth();
@@ -490,7 +454,6 @@ $app->post('/station/online', function () {
 	StationHandler::update($stationId,0);
 	restful_response(RES_SUCCESS);
 });
-
 //恢复基站
 $app->post('/station/offline', function () {
 	restful_api_auth();
@@ -498,7 +461,6 @@ $app->post('/station/offline', function () {
 	StationHandler::update($stationId,1);
 	restful_response(RES_SUCCESS);
 });
-
 //按条件检索基站
 $app->get('/station/query', function () {
 	restful_api_auth();
@@ -521,7 +483,6 @@ $app->get('/station/query', function () {
 	$data = StationHandler::query($start,$end,$query_option,$overload);
 	restful_response(RES_SUCCESS,$data);
 });
-
 //获得基站的数量,首页
 $app->get('/station/num', function () {
 	restful_api_auth();	
@@ -529,7 +490,6 @@ $app->get('/station/num', function () {
 	$data = StationHandler::get_index_station_num($project_id);
 	restful_response(RES_SUCCESS,$data);
 });
-
 //新建项目
 $app->post('/project/add', function () {
 	restful_api_auth();
@@ -537,14 +497,12 @@ $app->post('/project/add', function () {
 	ProjectHandler::add($name);
 	restful_response(RES_SUCCESS);
 });
-
 //项目列表
 $app->get('/project/list', function () {
 	restful_api_auth();
 	$data = ProjectHandler::get_list();
 	restful_response(RES_SUCCESS,$data);
 });
-
 //删除项目
 $app->post('/project/remove', function () {
 	restful_api_auth();
@@ -552,14 +510,12 @@ $app->post('/project/remove', function () {
 	ProjectHandler::remove($id);
 	restful_response(RES_SUCCESS);
 });
-
 //获得所有的城市数据
 $app->get('/city/all', function () {
 	 $data = file_get_contents('./data/city.json');
 	 $data = json_decode($data);
      restful_response(RES_SUCCESS,$data);
 });
-
 //获得所有的省数据
 $app->get('/address/province', function () {
 	$data = file_get_contents(ADDRESS_DATA_PATH);
@@ -573,7 +529,6 @@ $app->get('/address/province', function () {
 	}
 	restful_response(RES_SUCCESS,$res);
 });
-
 //获得所有的市数据
 $app->get('/address/city', function () {
 	$province = param_check_get('province');
@@ -587,7 +542,6 @@ $app->get('/address/city', function () {
 		}
 	}
 });
-
 //获得所有的区数据
 $app->get('/address/district', function () {
 	$province = param_check_get('province');
@@ -606,7 +560,6 @@ $app->get('/address/district', function () {
 		}
 	}
 });
-
 //显示天气
 $app->get('/weather/show', function () {
      global $app;
@@ -618,7 +571,6 @@ $app->get('/weather/show', function () {
      }
 	
 });
-
 //插入天气
 $app->post('/weather/add', function () {
      global $app;
@@ -686,11 +638,11 @@ $app->get('/ammeter/ownList', function () {
 //插入我方抄表数据
 $app->post('/ammeter/ownAdd', function () {
     global $app;
-    $stationName = param_check('stationName');
-    $readTime    = param_check('readTime').":00";
-    $ammeterNormal = param_check('du');
-    
-    $result=  AmmeterHandler::own_add($stationName, $readTime, $ammeterNormal);
+    $stationId    = param_check('stationId');
+    $readTime       = param_check('readTime').":00";
+    $readValue      = param_check('own');
+    $ammeterNormal  = param_check('du');
+    $result=  AmmeterHandler::own_add($stationId, $readTime, $ammeterNormal,$readValue);
      if(!$result){
           restful_response(RES_ERROR);
      }else{
@@ -740,4 +692,18 @@ $app->post('/ammeter/otherAdd', function () {
      }
 	
 });
+//删除抄表
+$app->post('/ammeter/ammeterdel', function () {
+    global $app;
+    $ammeterId            = param_check('ammeterId');
+    $flag                 = param_check('flag');
+    $result=  AmmeterHandler::delAmmeter($flag, $ammeterId);
+     if(!$result){
+          restful_response(RES_ERROR);
+     }else{
+          restful_response(RES_SUCCESS);
+     }
+	
+});
+	
 ?>
