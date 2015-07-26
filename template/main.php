@@ -4,12 +4,8 @@
 <body>
   <div class="n-layout">
     <?php include ('include/header.php')?>
-    <div class="n-container">
-      <div class="n-nav-left">
-        <ul>
-          <li class="current"><a href="javascript:void(0)"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">系统概况</span></a></li>
-        </ul>
-      </div>
+    <div class="n-container" style="padding-left:20px;">
+
       <div class="n-right-content">
       <div class="clearfix" style="border-bottom:1px solid #eee;">
         <h4 class="n-title fl-l" style="padding:0; margin-right:40px;" >当前项目：<span style="color:#ff4400;" id="current_project">无</span></h4>
@@ -19,7 +15,7 @@
 
         <a href="/account/project" style="margin-left:40px;" class="btn btn-primary">创建项目</a>
       </div>
-
+        <br/>
         <h4 class="n-title">能耗节约成效</h4>
         <div class="clearfix">
           <div class="n-show-item">
@@ -42,14 +38,9 @@
             <img src="/static/src/img/ic-shu2.png" style="width:52px" />
             <p class="num">100<em>亩</em></p>
           </div>
-          <!-- <div class="n-show-item" style="background:#ff4660;">
-            <p class="intro">经济效益</p>
-            <img src="img/ic-qian2.png" style="width:50px" />
-            <p class="num">1000<em>万元</em></p>
-          </div> -->
 
         </div>
-
+        <br/>
         <h4 class="n-title">拥有基站</h4>
 
         <style type="text/css">
@@ -92,7 +83,7 @@
 
           </tr>
         </table>
-
+        <br/>
         <h4 class="n-title">故障告警
           <a href="#" class="warning-ico-area">
             <span class="glyphicon glyphicon-bell"></span>

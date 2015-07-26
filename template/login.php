@@ -8,14 +8,14 @@
     <link href="/static/src/css/login.css" rel="stylesheet">
 	  <script src="/static/src/js/jquery.js"></script>
     <style type="text/css">
-body{background:#2c2e2f;}
+body{background:#f5f5f5;}
     </style>
   </head>
 
   <body>
 
   <div class="login-layout">
-      <img class="fl-l" src="/static/img/test-logo.png" style="margin-top:12px;" />
+      <img class="fl-l" src="/static/src/img/test-logo.png" style="margin-top:12px;" />
       <div class="fl-l" style="margin-left:40px;">
         <h4 class="n-title">能耗云管理系统</span></h4>
         <p class="n-intro">独一无二的大数据能耗管理平台，让节能变得更简单。</p>
