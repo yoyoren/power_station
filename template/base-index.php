@@ -7,14 +7,7 @@
 
     <div class="n-container">
       <div class="n-nav-left">
-        <ul>
-          <li class="current"><a href="javascript:void(0);"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">基站列表</span></a></li>
-        </ul>
-      </div>
-      <div class="n-right-content">
-        // <h4 class="tab-to-title">基站列表<a href="/base/create"  style="margin-left:20px;" class="btn btn-primary">创建基站</a></h4>
-      <h4 class="tab-to-title"><a href="/base/create" class="btn btn-primary">创建基站</a></h4>
-        <div class="n-check-area" style="border:1px solid #eee;">
+        <div class="n-check-area" style="color:#fff;">
           <div class="n-check-item">
             <span class="name">项目</span>
             <select id="station_project"><option>--查询条件--</option></select>
@@ -36,26 +29,31 @@
           <div class="n-check-item">
             <span class="name">站型</span>
             <select id="station_type"><option value="0">--查询条件--</option>
-			<option value="1">基准站</option>
-            <option value="2">节能站</option>
-            <option value="3">预备站</option>
-			</select>
+            <option value="1">基准站</option>
+                  <option value="2">节能站</option>
+                  <option value="3">预备站</option>
+            </select>
           </div>
           <div class="n-check-item">
             <span class="name">负载</span>
             <select id="overload">
-				<option value="0">--查询条件--</option>
-				<option value="1">10-20A</option>
-				<option value="2">20-30A</option>
-				<option value="3">30-40A</option>
-				<option value="4">40-50A</option>
-				<option value="5">50-60A</option>
-				<option value="6">70A+</option>
-			</select>
+              <option value="0">--查询条件--</option>
+              <option value="1">10-20A</option>
+              <option value="2">20-30A</option>
+              <option value="3">30-40A</option>
+              <option value="4">40-50A</option>
+              <option value="5">50-60A</option>
+              <option value="6">70A+</option>
+             </select>
           </div>
           <br/>
           <button type="button" class="btn btn-default" id="query_button">确定</button>
         </div>
+      </div>
+      <div class="n-right-content">
+        // <h4 class="tab-to-title">基站列表<a href="/base/create"  style="margin-left:20px;" class="btn btn-primary">创建基站</a></h4>
+        <h4 class="tab-to-title"><a href="/base/create" class="btn btn-primary">创建基站</a></h4>
+
 
         <div class="tl-r" style="display:none">
           <ul class="pagination">

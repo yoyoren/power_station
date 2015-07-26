@@ -51,81 +51,76 @@
         </div>
 
         <h4 class="n-title">拥有基站</h4>
-        <div class="n-jizhan-container">
-          <img src="/static/src/img/ic-dianzhan2.png" class="ico-item"/>
-          <div class="n-table clearfix" id="base_container">
-            <div class="n-jizhan-item">
-              <p>10-20A 类基站</p>
-              <p><a href="/base"><?php echo $station_num[0]?>（台）</a></p>
-            </div>
-            <div class="n-jizhan-item">
-              <p>20-30A 类基站</p>
-              <p><a href="/base"><?php echo $station_num[1]?>（台）</a></p>
-            </div>
-            <div class="n-jizhan-item">
-              <p>30-40A 类基站</p>
-              <p><a href="/base"><?php echo $station_num[2]?>（台）</a></p>
-            </div>
-            <div class="n-jizhan-item">
-              <p>40-50A 类基站</p>
-              <p><a href="/base"><?php echo $station_num[3]?>（台）</a></p>
-            </div>
-            <div class="n-jizhan-item">
-              <p>50-60A 类基站</p>
-              <p><a href="/base"><?php echo $station_num[4]?>（台）</a></p>
-            </div>
-            <div class="n-jizhan-item">
-              <p>70A+ 类基站</p>
-              <p><a href="/base"><?php echo $station_num[5]?>（台）</a></p>
-            </div>
-            <div class="n-jizhan-item">
-              <p><em class="n-total-item">总计</em></p>
-              <p><a href="/base"><?php echo $station_num[6]?>（台）</a></p>
-            </div>
 
+        <style type="text/css">
+        .table th{text-align: center;}
+        </style>
+        <table class="table table-bordered tl-c">
+          <tr>
+            <th>&nbsp;</th>
+            <th>10-20A</th>
+            <th>20-30A</th>
+            <th>30-40A</th>
+            <th>40-50A</th>
+            <th>50-60A</th>
+            <th>60-70A</th>
+            <th>70A+</th>
+            <th><em class="n-total-item">总计</em></th>
+          </tr>
+          <tr>
+            <th>砖墙</th>
+            <td><a href="/base"><?php echo $station_num[0]?>（台）</a></td>
+            <td><a href="/base"><?php echo $station_num[1]?>（台）</a></td>
+            <td><a href="/base"><?php echo $station_num[2]?>（台）</a></td>
+            <td><a href="/base"><?php echo $station_num[3]?>（台）</a></td>
+            <td><a href="/base"><?php echo $station_num[4]?>（台）</a></td>
+            <td><a href="/base"><?php echo $station_num[5]?>（台）</a></td>
+            <td><a href="#">100（台）</a></td>
+            <td><a href="/base"><?php echo $station_num[6]?>（台）</a></td>
 
-          </div>
-        </div>
-        <h4 class="n-title">告警类型及数量</h4>
-        <div class="n-jizhan-container n-jizhan-jingshi" style="background:#eee; border-radius:0;">
-          <img src="/static/src/img/ic-jingshi2.png" class="ico-item"/>
-          <div class="n-table clearfix">
-            <div class="n-jizhan-item">
-              <p>断站</p>
-              <p><a href="/warning">0</a></p>
-            </div>
-            <div class="n-jizhan-item">
-              <p>空调故障</p>
-              <p><a href="/warning">0</a></p>
-            </div>
-            <div class="n-jizhan-item">
-              <p>室内高温</p>
-              <p><a href="/warning">0</a></p>
-            </div>
-            <div class="n-jizhan-item">
-              <p>恒温柜高温</p>
-              <p><a href="/warning">0</a></p>
-            </div>
-            <div class="n-jizhan-item">
-              <p>电表故障</p>
-              <p><a href="/warning">0</a></p>
-            </div>
-            <div class="n-jizhan-item">
-              <p>功率异常</p>
-              <p><a href="/warning">0</a></p>
-            </div>
-            <div class="n-jizhan-item">
-              <p>远程关站</p>
-              <p><a href="/warning">0</a></p>
-            </div>
-            <div class="n-jizhan-item">
-              <p>代理维护按钮</p>
-              <p><a href="/warning">0</a></p>
-            </div>
+          </tr>
+          <tr>
+            <th>板房</th>
+            <td><a href="/base"><?php echo $station_num[0]?>（台）</a></td>
+            <td><a href="/base"><?php echo $station_num[1]?>（台）</a></td>
+            <td><a href="/base"><?php echo $station_num[2]?>（台）</a></td>
+            <td><a href="/base"><?php echo $station_num[3]?>（台）</a></td>
+            <td><a href="/base"><?php echo $station_num[4]?>（台）</a></td>
+            <td><a href="/base"><?php echo $station_num[5]?>（台）</a></td>
+            <td><a href="#">100（台）</a></td>
+            <td><a href="/base"><?php echo $station_num[6]?>（台）</a></td>
 
+          </tr>
+        </table>
 
-          </div>
-        </div>
+        <h4 class="n-title">故障告警
+          <a href="#" class="warning-ico-area">
+            <span class="glyphicon glyphicon-bell"></span>
+            <span class="badge badge-purple">7</span>
+          </a>
+        </h4>
+        <table class="table table-bordered tl-c">
+          <tr>
+            <th>断站</th>
+            <th>空调故障</th>
+            <th>室内高温</th>
+            <th>恒温柜高温</th>
+            <th>电表故障</th>
+            <th>功率异常</th>
+            <th>远程关站</th>
+            <th>代理维护按钮</th>
+          </tr>
+          <tr>
+            <td><a href="/warning">0</a></td>
+            <td><a href="/warning">0</a></td>
+            <td><a href="/warning">0</a></td>
+            <td><a href="/warning">0</a></td>
+            <td><a href="/warning">0</a></td>
+            <td><a href="/warning">0</a></td>
+            <td><a href="/warning">0</a></td>
+            <td><a href="/warning">0</a></td>
+          </tr>
+        </table>
 
     </div>
 

@@ -18,7 +18,9 @@
 .data-data p{height: 20px; margin-bottom: 4px;}
 </style>
       <div class="n-right-content">
-        <h4 class="tab-to-title">故障列表</h4>
+        <h4 class="tab-to-title">故障列表
+        <a href="" class="btn btn-default">全屏显示</a>
+        </h4>
         <div class="n-check-area">
           <div class="n-check-item">
             <select><option>2015</option></select>
@@ -50,6 +52,49 @@
 <style type="text/css">
 .status{color: #ff4400;}
 </style>
+        <table class="table table-bordered tl-c">
+          <tr>
+            <td>
+              断站
+            </td>
+            <td>
+              室内高温
+            </td>
+            <td>
+              恒温柜高温
+            </td>
+            <td>
+              电表故障
+            </td>
+            <td>
+              功率异常
+            </td>
+            <td>
+              远程关站
+            </td>
+            <td>
+              代理维护按钮
+            </td>
+            <td>
+              空调故障
+            </td>
+            <td>
+              温度感应故障
+            </td>
+          </tr>
+          <tr>
+            <td><b>10</b></td>
+            <td><b>10</b></td>
+            <td><b>10</b></td>
+            <td><b>10</b></td>
+            <td><b>10</b></td>
+            <td><b>10</b></td>
+            <td><b>10</b></td>
+            <td><b>10</b></td>
+            <td><b>10</b></td>
+          </tr>
+        </table>
+
         <div class="tl-r">
           <ul class="pagination">
             <li>
