@@ -8,14 +8,14 @@
 
       <div class="n-nav-left">
         <ul>
-          <li><a href="/ammeter"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">录入电表 - 我方</span></a></li>
-          <li class="current"><a href="/ammeter-other"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">录入电表 - 局方</a></li>
+          <li><a href="/ammeter"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">录入电表 - 杉实环境</span></a></li>
+          <li class="current"><a href="/ammeter-other"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">录入电表 - 用能公司</a></li>
 
         </ul>
       </div>
 
       <div class="n-right-content">
-        <h4 class="tab-to-title">录入电表 - 局方</h4>
+        <h4 class="tab-to-title">录入电表 - 用能公司</h4>
         <div class="n-check-area">
 
           <div class="input-group-item clearfix">
@@ -58,7 +58,7 @@
             </tr>
           </thead>
           <tbody id="content">
-        
+
 
           </tbody>
         </table>
@@ -76,15 +76,15 @@ $(function () {
     $(".form_datetime").datetimepicker({
       format: 'yyyy-mm-dd h:i',
       language: 'cn',
-      autoclose:true 
-      
+      autoclose:true
+
     });
         //显示所有项目名称
     	$get('/ammeter/otherList',{
             	start:0,
 		end:15
 	},function(d){
-          
+
 	   var data = d.data;
 	   var html = '';
 		for (var i=0;i<data.length;i++){
@@ -98,14 +98,14 @@ $(function () {
 					</tr>';
 		}
             $('#content').html(html);
-     });  
-	  
+     });
+
 
 });
 $('#show').click(function(){
 	$.post('/ammeter/otherShow',{
 	  stationName:$('#stationName').val(),
-          readTime:$('#readTime').val(),        
+          readTime:$('#readTime').val(),
 	},function(d){
 		if(d.code == 0){
                     $('#biao').show();
@@ -122,7 +122,7 @@ $('#create').click(function(){
 	$.post('/ammeter/otherAdd',{
 	  stationId:$('#stationId').val(),
           readTime:$('#readTime').val(),
-          own:$('#own').val(), 
+          own:$('#own').val(),
           du:$('#du').val()
 	},function(d){
 		if(d.code == 0){

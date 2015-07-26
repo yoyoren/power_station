@@ -10,7 +10,12 @@
 	  <script>$('#account_nav_1').addClass('current');</script>
       <div class="n-right-content">
         <h4 class="tab-to-title">创建项目</h4>
+
         <div class="n-check-area" style="border:0 none;">
+          <div class="input-group-item clearfix">
+            <span class="name">已有项目：</span>
+            <span style="margin-right:20px;">上海杉实</span><span style="margin-right:20px;">上海杉实</span>
+          </div>
           <div class="input-group-item clearfix">
             <span class="name">项目名称：</span>
             <input type="text" id="p_name" class="form-control" required autofocus />
