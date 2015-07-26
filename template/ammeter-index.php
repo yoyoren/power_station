@@ -39,11 +39,14 @@
         <table class="table table-bordered table-striped">
           <thead>
             <tr>
-              <th>基站</th>
+              <th>基站名称</th>
               <th>采集时间</th>
-              <th>度</th>
+              <th>录入值</th>
+              <th>电表值</th>
+              <th>最新E值</th>
               <th>录入人</th>
               <th>录入时间</th>
+              <th>操作</th>
             </tr>
           </thead>
           <tbody id="content">
