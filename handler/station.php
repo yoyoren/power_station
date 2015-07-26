@@ -4,7 +4,8 @@
 			$accountId = $_COOKIE['user_id'];
 			$projects = AccountHandler::get_user_project($accountId);
 		}
-		//获得首页的基站数量信息
+		
+		//根据用户的权限，获得首页的基站数量信息
 		public static function get_index_station_num(){
 			global $ENERGY_TYPE;
 			$dao = new PowerBaseStationMySqlExtDAO();
@@ -74,6 +75,7 @@
 			return $ret;
 		}
 		
+		//基站首页获得基站的列表
 		public static function get_list($start,$end){			
 			$dao =  new PowerBaseStationMySqlDAO();
 			$exsit = $dao->queryAndPage($start,$end);
@@ -420,6 +422,13 @@
 				$res = StationHandler::get_list($start,$end);
 			}
 			return $res;
+		}
+		
+		//从ECU同步的数据中获得基站的最新信息
+		public static function get_current_status($stationId=1){
+			$dao =  new PowerBaseStationRuningDataMySqlExtDAO();
+			$data = $dao->get_current_status($stationId);
+			return $data;
 		}
 		
 		public static function remove(){

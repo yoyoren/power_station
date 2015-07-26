@@ -530,6 +530,14 @@ $app->get('/station/num', function () {
 	restful_response(RES_SUCCESS,$data);
 });
 
+//获得基站的数量,首页
+$app->get('/station/status/:id', function ($id) use ($app) {
+	restful_api_auth();
+	$data = StationHandler::get_current_status($id);
+	restful_response(RES_SUCCESS,$data);
+});
+
+
 //新建项目
 $app->post('/project/add', function () {
 	restful_api_auth();

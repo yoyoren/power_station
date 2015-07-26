@@ -198,6 +198,13 @@ class AccountHandler {
 		return true;
 	}
 	
+	//从当删除一个项目 则从项目中移除用户
+	public static function delete_all_user_from_project($projectId){
+		$dao =  new PowerAccountAccessProjectMySqlExtDAO();
+		$dao->removeAllUserFromProject($projectId);
+		return true;
+	}
+	
 	//检测用户是否有访问项目的权限
 	public static function get_project_auth($accountId,$projectId){
 	

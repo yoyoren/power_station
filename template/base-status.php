@@ -87,7 +87,7 @@
           <hr/>
           <div class="clearfix">
             <div class="">
-              <p class="table-title"><b>能耗状态</b></p>
+              <p class="table-title"><b>负载状态</b></p>
               <div class="clearfix">
                 <div class="n-dian-biao-status-item">
                   <img src="/static/src/img/ic-nh2.png" />
@@ -104,26 +104,6 @@
               </div>
             </div>
             <hr/>
-
-            <div class="" style="display:none">
-              <p class="table-title"><b>电表状态</b></p>
-              <div class="clearfix">
-                <div class="n-dian-biao-status-item">
-                  <img src="/static/src/img/ic-dianbiao2.png" />
-                  <p>智能电表</p>
-                  <p class="num">31302.85</p>
-
-                </div>
-                <div class="n-dian-biao-status-item">
-                  <img src="/static/src/img/ic-dianbiao2.png"/>
-                  <p>基站电表</p>
-                  <p class="num">151440.31</p>
-
-                </div>
-              </div>
-
-            </div>
-
           </div>
 
         </div>

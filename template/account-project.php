@@ -74,14 +74,30 @@ $get('/project/list',{
 	});
 $('#create').click(function(){
 	var name = $('#p_name');
-	$.post('/project/add',{
+	$post('/project/add',{
 	  name:name.val()
 	},function(d){
 		if(d.code == 0){
 			alert('创建成功');
+			location.reload();
 		}
-	},'json');
+	});
 });
+
+$('body').delegate('.project_del','click',function(){
+	var _this = $(this);
+	var del = confirm('确认删除该项目？');
+	var id = _this.data('id');
+	$post('/project/remove',{
+	  id:id
+	},function(d){
+		if(d.code == 0){
+			alert('删除成功');
+			_this.parent().parent().remove();
+		}
+	});
+});
+
 </script>
 
 </html>
