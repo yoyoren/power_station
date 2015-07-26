@@ -51,7 +51,8 @@
         </div>
       </div>
       <div class="n-right-content">
-        // <h4 class="tab-to-title">基站列表<a href="/base/create"  style="margin-left:20px;" class="btn btn-primary">创建基站</a></h4>
+        <!--<h4 class="tab-to-title">基站列表<a href="/base/create"  style="margin-left:20px;" class="btn btn-primary">创建基站</a></h4>
+        -->
         <h4 class="tab-to-title"><a href="/base/create" class="btn btn-primary">创建基站</a></h4>
 
 
