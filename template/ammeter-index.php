@@ -9,14 +9,14 @@
 
       <div class="n-nav-left">
         <ul>
-          <li class="current"><a href="/ammeter"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">录入电表 - 我方</span></a></li>
-          <li><a href="/ammeter-other"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">录入电表 - 局方</a></li>
+          <li class="current"><a href="/ammeter"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">录入电表 - 杉实环境</span></a></li>
+          <li><a href="/ammeter-other"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">录入电表 - 用能公司</a></li>
 
         </ul>
       </div>
 
       <div class="n-right-content">
-        <h4 class="tab-to-title">录入电表 - 我方</h4>
+        <h4 class="tab-to-title">录入电表 - 杉实环境</h4>
         <div class="n-check-area">
           <div class="input-group-item clearfix">
             <span class="name">基站名称：</span>
@@ -39,11 +39,14 @@
         <table class="table table-bordered table-striped">
           <thead>
             <tr>
-              <th>基站</th>
+              <th>基站名称</th>
               <th>采集时间</th>
-              <th>度</th>            
+              <th>录入值</th>
+              <th>电表值</th>
+              <th>最新E值</th>
               <th>录入人</th>
               <th>录入时间</th>
+              <th>操作</th>
             </tr>
           </thead>
           <tbody id="content">
@@ -65,15 +68,15 @@ $(function () {
     $(".form_datetime").datetimepicker({
       format: 'yyyy-mm-dd h:i',
       language: 'cn',
-      autoclose:true 
-      
+      autoclose:true
+
     });
         //显示所有项目名称
     	$get('/ammeter/ownList',{
             	start:0,
 		end:15
 	},function(d){
-          
+
 	   var data = d.data;
 	   var html = '';
 		for (var i=0;i<data.length;i++){
@@ -87,8 +90,8 @@ $(function () {
 					</tr>';
 		}
             $('#content').html(html);
-     });       
-           
+     });
+
 });
 $('#create').click(function(){
 	$.post('/ammeter/ownAdd',{

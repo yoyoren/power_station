@@ -97,13 +97,14 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#4ebd21,endColor
 .n-show-item .num{position: absolute; bottom: 0; width: 100%; text-align: center; font-size: 22px;}
 .n-show-item .num em{font-size: 12px;}
 /*基站数量和告警*/
-.n-jizhan-container{padding: 20px; background: #eee; display:inline-block; padding-left: 100px; position: relative;}
-.n-jizhan-container .ico-item{position: absolute; left: 20px; top: 20px; width: 60px;}
+.n-jizhan-container{padding: 20px; background: #eee; display:inline-block; padding-left: 20px; position: relative;}
+.n-jizhan-container .ico-item{position: absolute; left: 20px; top: 20px; width: 20px;}
+.n-jizhan-title{padding-left: 26px; font-weight: bold;}
 
-.n-jizhan-container .n-table{background: #fff; padding: 10px; height: 62px;}
+.n-jizhan-container .n-table{background: #fff; padding: 10px;/* height: 62px;*/}
 .n-jizhan-item p{margin-bottom: 2px;}
 .n-jizhan-item{padding:0 20px; border-right: 1px solid #eee; text-align: center; float: left;}
-.n-jizhan-item .n-total-item{background:#ff4400; display:inline-block; padding:0 4px; border-radius:4px; color:#fff; text-align:center}
+.table .n-total-item{background:#ff4400; display:inline-block; padding:0 4px; border-radius:4px; color:#fff; text-align:center}
 .n-jizhan-item a{text-decoration: underline;}
 
 .n-jizhan-jingshi{background:#fff799;}
@@ -120,7 +121,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#4ebd21,endColor
 .n-wendu-item .num{font-size: 30px;}
 
 /* 设备状态 */
-.n-status-item{background: #eee; padding: 10px 40px; color: #333; text-align:center; margin-right: 20px; float: left; margin-bottom: 20px; border-radius: 10px; font-size: 16px;}
+.n-status-item{background: #eee; padding: 10px 40px; color: #333; text-align:center; margin-right: 20px; float: left; margin-bottom: 20px; font-size: 16px;}
 .n-status-item img{height: 24px;}
 .de-status{padding: 4px 14px; background: #666; color: #fff; border-radius: 6px;}
 .de-status.open{background: #ff7e00;}
@@ -133,3 +134,26 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#4ebd21,endColor
 /* 表格修改 */
 .table th{background: #eee;}
 .table-bordered > thead > tr > th, .table-bordered > thead > tr > td{border-bottom-width: 1px;}
+
+/* 故障告警按钮 */
+.warning-ico-area{position: relative;}
+.warning-ico-area .glyphicon{display: inline-block; font-size: 20px; color: #ff4400;}
+.warning-ico-area .badge{position: absolute; right: -4px; top: -10px; padding: 2px 6px;
+border: 2px solid #fff; background: #ff4400;}
+
+/* 天气信息 */
+.weather-container{padding:20px; background: #f5f5f5; color: #333; display: inline-block; margin-bottom: 20px;}
+.weather-container .img-con{margin-right: 20px; background: #68b828; width: 80px; line-height: 80px; height: 80px; text-align: center;
+border-radius: 50%;}
+
+.weather-container .table-con{width: 400px; padding-top: 10px;}
+.weather-container .table{border-top: 0 none; margin-bottom: 0;}
+.weather-container .table td{border-top: 0 none;}
+
+/* 温湿度 */
+.n-wendu-item{position: relative; width: 180px; padding: 10px; margin-right: 10px; border-radius: 0;}
+.n-wendu-item p{margin-bottom: 0;}
+.n-wendu-item .num{color: #68b828}
+.cpu-usage-gauge,
+.cpu-gauge2{width: 170px; height: 140px; position: absolute; left: 5px; top: 20px}
+.cpu-gauge2{left: auto; right: 5px;}

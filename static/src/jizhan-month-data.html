@@ -64,12 +64,22 @@
 
         <div class="nav-tabs-content">
           <div class="n-check-area tl-r">
-
+            <div class="btn-group">
+              <button type="button" class="btn btn-default">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><span class="vl-m">上一个月</span>
+              </button>
+              <button type="button" class="btn btn-default">
+                <span class="vl-m">下一个月</span><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+              </button>
+            </div>
             可选择月份<input size="16" type="text" value="2012-06" readonly class="date-control form-control form_datetime">
             <input type="checkbox" checked="checked" />天气
             <button type="button" class="btn btn-default" style="margin-left:30px;">确定</button>
 
           </div>
+
+          <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+          <hr>
           <table class="table table-bordered">
             <tbody>
               <tr>
@@ -154,6 +164,8 @@
 </body>
 
 <script type="text/javascript" src="js/jquery.js"></script>
+<script src="js/highchart/highcharts.js"></script>
+<script src="js/highchart/modules/exporting.js"></script>
 <script type="text/javascript" src="js/datepicker/bootstrap-datetimepicker.js"></script>
 
 <script type="text/javascript">
@@ -162,6 +174,57 @@ $(function () {
       format: 'yyyy-mm',
       language: 'cn'
     });
+
+    $('#container').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        colors:[
+                '#5cab1c',//全关
+                '#21aed1',//风机
+                '#ed8e28',//一个空调
+                '#ff4400' //两个空调
+        ],
+        title: {
+            text: '设备状态启动比例'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: '当月启动比例',
+            data: [
+                ['全关',   45.0],
+                ['风机',       26.5],
+                ['一个空调',    16.0],
+                {
+                    name: '两个空调',
+                    y: 12.5,
+                    sliced: true,
+                    selected: true
+                }
+
+            ]
+        }]
+    });
+
 
 });
     </script>
