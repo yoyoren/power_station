@@ -432,15 +432,55 @@
 			return $data;
 		}
 		
+		//从ECU同步的数据中获得基站的最新信息
+		public static function get_full_day_status($stationId=1){
+			$ret = array(
+				'power_all' => array(),
+				'power_dc' => array(),
+				'temp_inside' => array(),
+				'temp_outside' => array(),
+				'temp_cabint' => array(),
+				'temp_air_1' => array(),
+				'temp_air_2' => array(),
+				'time' => array(),
+			);
+			$dao =  new PowerBaseStationRuningDataMySqlExtDAO();
+			$data = $dao->get_full_day_status($stationId);
+			for($i=0;$i<count($data);$i++){
+				$d = $data[$i];
+				array_push($ret['power_all'],$d->powerAll);
+				array_push($ret['power_dc'],$d->powerDc);
+				array_push($ret['temp_inside'],$d->temperatureInside);
+				array_push($ret['temp_outside'],$d->temperatureOutside);
+				array_push($ret['temp_cabint'],$d->temperatureCabinet);
+				array_push($ret['temp_air_1'],$d->temperatureAircondition1);
+				array_push($ret['temp_air_2'],$d->temperatureAircondition2);
+				array_push($ret['time'],$d->createTime);
+			}
+			return $ret;
+		}
+		
 		//计算基站的实时告警情况
 		public static function cal_warning_from_runing_data($stationId=1){
-			global $WARNING_TYPE;
+			//global $WARNING_TYPE;
+			//告警类型
+			$WARNING_TYPE = array(
+				'STATION_OFFLINE'=>'断站',
+				'INSIDE_HIGH_TMP'=>'室内高温',
+				'CABINT_HIGH_TMP'=>'恒温柜高温',
+				'AMATER_ERROR'=>'电表故障',
+				'AC_ERROR'=>'功率异常',
+				'REMOTE_CLOSE_STATION'=>'远程关站',
+				'PROXY'=>'代理维护按钮',
+				'AIR_CONDITION_ERROR'=>'空调故障',
+				'TEMPATURE_ERROR'=>'温度感应故障',
+			);
 			$current_date = time();
 			//先获得该基站的最新数据
 			$dao =  new PowerBaseStationRuningDataMySqlExtDAO();
 			$data = $dao->get_current_status($stationId);
 			$ret = array();
-			
+			//var_dump($data);
 			//室内高温
 			if($data->temperatureInside > 38){
 				$ret['INSIDE_HIGH_TMP'] = $WARNING_TYPE['INSIDE_HIGH_TMP'];
@@ -449,6 +489,26 @@
 			//基站断站
 			if($current_date - $data->createTime > 300){
 				$ret['STATION_OFFLINE'] = $WARNING_TYPE['STATION_OFFLINE'];
+			}
+			
+			//恒温柜高温
+			if($data->temperatureCabinet > 32){
+				$ret['CABINT_HIGH_TMP'] = $WARNING_TYPE['CABINT_HIGH_TMP'];
+			}
+			
+			//无总能耗／无DC能耗／总能耗小于DC
+			//电表故障
+			if(!$data->energyAll || !$data->energyDc || $data->energyAll < $data->energyDc){
+				$ret['AMATER_ERROR'] = $WARNING_TYPE['AMATER_ERROR'];
+			}
+			//空调温度大于20度（开）
+			if($data->temperatureAircondition1>20 || $data->temperatureAircondition2>20){
+				$ret['AIR_CONDITION_ERROR'] = $WARNING_TYPE['AIR_CONDITION_ERROR'];
+			}
+			
+			//温度感应故障
+			if(!$data->temperatureInside || !$data->temperatureOutside){
+				$ret['TEMPATURE_ERROR'] = $WARNING_TYPE['TEMPATURE_ERROR'];
 			}
 
 			return $ret;

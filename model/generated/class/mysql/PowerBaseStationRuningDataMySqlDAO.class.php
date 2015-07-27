@@ -636,6 +636,10 @@ class PowerBaseStationRuningDataMySqlDAO implements PowerBaseStationRuningDataDA
 		$powerBaseStationRuningData->temperatureAircondition7 = $row['temperature_aircondition_7'];
 		$powerBaseStationRuningData->temperatureAircondition8 = $row['temperature_aircondition_8'];
 		$powerBaseStationRuningData->createTime = $row['create_time'];
+		$powerBaseStationRuningData->energyAll = $row['energy_all'];
+		$powerBaseStationRuningData->energyDc = $row['energy_dc'];
+		$powerBaseStationRuningData->powerAll = $row['power_all'];
+		$powerBaseStationRuningData->powerDc = $row['power_dc'];
 
 		return $powerBaseStationRuningData;
 	}

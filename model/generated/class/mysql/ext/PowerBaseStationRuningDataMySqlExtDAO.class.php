@@ -15,5 +15,13 @@ class PowerBaseStationRuningDataMySqlExtDAO extends PowerBaseStationRuningDataMy
 		return $this->getRow($sqlQuery);
 	}
 	
+	public function get_full_day_status($stationId){
+		$count = 60 * 24;
+		$sql = 'SELECT * FROM power_base_station_runing_data WHERE station_id = ? ORDER BY runing_data_id DESC limit 0,'.$count ;
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($stationId);
+		return $this->getList($sqlQuery);
+	}
+	
 }
 ?>

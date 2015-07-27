@@ -59,16 +59,27 @@ define('NULL_VAL_DISPLAY','n/a');
 	);
 	
 	//告警类型
+	define('WARNING_STATION_OFFLINE',1);
+	define('WARNING_INSIDE_HIGH_TMP',2);
+	define('WARNING_CABINT_HIGH_TMP',3);
+	define('WARNING_AMATER_ERROR',4);
+	define('WARNING_AC_ERROR',5);
+	define('WARNING_REMOTE_CLOSE_STATION',6);
+	define('WARNING_PROXY',7);
+	define('WARNING_AIR_CONDITION_ERROR',8);
+	define('WARNING_TEMPATURE_ERROR',9);
+	
+	//告警类型
 	$WARNING_TYPE = array(
-		'STATION_OFFLINE'=>'断站',
-		'INSIDE_HIGH_TMP'=>'室内高温',
-		'CABINT_HIGH_TMP'=>'恒温柜高温',
-		'AMATER_ERROR'=>'电表故障',
-		'AC_ERROR'=>'功率异常',
-		'REMOTE_CLOSE_STATION'=>'远程关站',
-		'PROXY'=>'代理维护按钮',
-		'AIR_CONDITION_ERROR'=>'空调故障',
-		'TEMPATURE_ERROR'=>'温度感应故障',
+		'1'=>'断站',
+		'2'=>'室内高温',
+		'3'=>'恒温柜高温',
+		'4'=>'电表故障',
+		'5'=>'功率异常',
+		'6'=>'远程关站',
+		'7'=>'代理维护按钮',
+		'8'=>'空调故障',
+		'9'=>'温度感应故障',
 	);
 	
 require 'slim/Slim/Slim.php';
