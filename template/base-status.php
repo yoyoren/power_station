@@ -12,9 +12,9 @@
 
       <div class="n-right-content">
         <h4 class="tab-to-title">当前状态
-          <a href="#" class="warning-ico-area">
+          <a href="#" class="warning-ico-area" style="display:none">
             <span class="glyphicon glyphicon-bell"></span>
-            <span class="badge badge-purple">7</span>
+            <span class="badge badge-purple" >7</span>
           </a>
         </h4>
         <div class="current-name-area clearfix">
@@ -49,19 +49,19 @@
                 <tr>
                   <td>
                     高温<br/>
-                    <b>33℃</b>
+                    <b><?php echo $weather->h_tmp;?>℃</b>
                   </td>
                   <td>
                     低温<br/>
-                    <b>23℃</b>
+                    <b><?php echo $weather->l_tmp;?>℃</b>
                   </td>
                   <td>
                     日照<br/>
-                    <b>多云</b>
+                    <b><?php echo $weather->weather;?></b>
                   </td>
                   <td>
                     风力<br/>
-                    <b>2级</b>
+                    <b><?php echo $weather->WS;?></b>
                   </td>
                 </tr>
 
@@ -75,13 +75,13 @@
             <div class="n-wendu-item">
 
               <div id="other-stats" style="min-height: 160px">
-                <div class="cpu-usage-gauge" data="30"></div>
+                <div class="cpu-usage-gauge" data="30" id="inside_display"></div>
               </div>
 
               <div class="fl-l" style="padding:0 0 0 20px;;">
-                <p class="num">27.9℃</p>
+                <p class="num" id="inside_tmp">0℃</p>
                 <p>室内温度</p>
-                <p class="num">80%</p>
+                <p class="num" id="inside_hum">0%</p>
                 <p>室内湿度</p>
               </div>
 
@@ -89,56 +89,51 @@
 
             <div class="n-wendu-item">
               <div id="other-stats" style="min-height: 160px">
-                <div class="cpu-usage-gauge" data="20"></div>
+                <div class="cpu-usage-gauge" data="20"  id="outside_display"></div>
               </div>
               <div class="fl-l" style="padding:0 0 0 20px;;">
-                <p class="num">27.9℃</p>
+                <p class="num" id="outside_tmp">0℃</p>
                 <p>室外温度</p>
-                <p class="num">80%</p>
-                <p>室内湿度</p>
+                <p class="num" id="outside_hum">0%</p>
+                <p>室外湿度</p>
               </div>
 
             </div>
 
             <div class="n-wendu-item">
               <div id="other-stats" style="min-height: 160px">
-                <div class="cpu-usage-gauge" data="40"></div>
+                <div class="cpu-usage-gauge" data="40" id="cabint_display"></div>
               </div>
               <div class="fl-l" style="padding:0 0 0 20px;;">
-                <p class="num">27.9℃</p>
+                <p class="num" id="cabint_tmp">0℃</p>
                 <p>恒温柜温度</p>
-                <p class="num">80%</p>
-                <p>恒温柜湿度</p>
+                
               </div>
 
             </div>
 
             <div class="n-wendu-item">
               <div id="other-stats" style="min-height: 160px">
-                <div class="cpu-usage-gauge" data="50"></div>
+                <div class="cpu-usage-gauge"  id="air_1_display" data="50"></div>
               </div>
               <div class="fl-l" style="padding:0 0 0 20px;;">
-                <p class="num">27.9℃</p>
+                <p class="num" id="air_1_tmp">0℃</p>
                 <p>空调一温度</p>
-                <p class="num">80%</p>
-                <p>空调一湿度</p>
+                
               </div>
 
             </div>
 
             <div class="n-wendu-item">
               <div id="other-stats" style="min-height: 160px">
-                <div class="cpu-usage-gauge" data="80"></div>
+                <div class="cpu-usage-gauge"  id="air_2_display" data="80"></div>
               </div>
               <div class="fl-l" style="padding:0 0 0 20px;;">
-                <p class="num">27.9℃</p>
+                <p class="num" id="air_2_tmp">0℃</p>
                 <p>空调二温度</p>
-                <p class="num">80%</p>
-                <p>空调二湿度</p>
+                
               </div>
-
             </div>
-
           </div>
           <hr/>
 
@@ -202,19 +197,14 @@
 
   </div>
 </body>
-
-<script src="/static/src/js/jquery.js"></script>
 <script src="/static/src/js/devexpress-web-14.1/js/globalize.min.js"></script>
 <script src="/static/src/js/devexpress-web-14.1/js/dx.chartjs.js"></script>
-<script type="text/javascript">
+<script>window.device_status = <?php echo json_encode($status)?></script>
+<script>
 jQuery(document).ready(function($)
 {
-  // CPU Usage Gauge
-  var dataItem =$(".cpu-usage-gauge");
-  for(var i =0; i<dataItem.length;i++){
-    var data = $(dataItem[i]).attr('data');
-    $(dataItem[i]).dxCircularGauge({
-    //var dataValue = $(this).attr('data');
+  var draw_1 = function(el,value){
+	el.dxCircularGauge({
       scale: {
         startValue: 0,
         endValue: 100,
@@ -232,7 +222,7 @@ jQuery(document).ready(function($)
           { startValue: 75, endValue: 100, color: "#d5080f" },
         ],
       },
-      value: data,
+      value: value,
       valueIndicator: {
         offset: 10,
         color: 'red',
@@ -240,8 +230,25 @@ jQuery(document).ready(function($)
         spindleSize: 12
       }
     });
-
   }
+  draw_1($('#inside_display'),window.device_status.temperatureInside);
+  $('#inside_tmp').html(window.device_status.temperatureInside+'℃');
+  
+  draw_1($('#outside_display'),window.device_status.temperatureOutside);
+  $('#outside_tmp').html(window.device_status.temperatureOutside+'℃');
+  
+  draw_1($('#air_1_display'),window.device_status.temperatureAircondition1);
+  $('#air_1_tmp').html(window.device_status.temperatureAircondition1+'℃');
+  
+  draw_1($('#air_2_display'),window.device_status.temperatureAircondition2);
+  $('#air_2_tmp').html(window.device_status.temperatureAircondition2+'℃');
+  
+  $('#inside_hum').html(window.device_status.wetInside + '%');
+  $('#outside_hum').html(window.device_status.wetOutside  + '%');
+  // CPU Usage Gauge
+  draw_1($('#cabint_display'),window.device_status.temperatureCabinet);
+  $('#cabint_tmp').html(window.device_status.temperatureCabinet+'℃');
+  
 
   var dataItemPower =$(".cpu-gauge2");
   for(var i =0; i<dataItemPower.length;i++){

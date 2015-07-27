@@ -537,6 +537,13 @@ $app->get('/station/status/:id', function ($id) use ($app) {
 	restful_response(RES_SUCCESS,$data);
 });
 
+//用最新一条数据计算出基站当前存在的告警
+$app->get('/station/warning/:id', function ($id) use ($app) {
+	restful_api_auth();
+	$data = StationHandler::cal_warning_from_runing_data($id);
+	restful_response(RES_SUCCESS,$data);
+});
+
 
 //新建项目
 $app->post('/project/add', function () {
@@ -630,14 +637,25 @@ $app->get('/weather/show', function () {
 //插入天气
 $app->post('/weather/add', function () {
      global $app;
-     $result=WeatherHandler::add_weather();
+     $result = WeatherHandler::add_weather();
      if(!$result){
           restful_response(RES_ERROR);
      }else{
           restful_response(RES_SUCCESS,$result);
      }
-	
 });
+
+$app->get('/weather/get', function () {
+     global $app;
+     $result = WeatherHandler::get_weather_baidu('上海');
+     if(!$result){
+          restful_response(RES_ERROR);
+     }else{
+          restful_response(RES_SUCCESS,$result);
+     }
+});
+
+
 //日志列表
 $app->get('/log/list', function () {
     global $app;

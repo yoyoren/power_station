@@ -58,6 +58,19 @@ define('NULL_VAL_DISPLAY','n/a');
 		'7'=>'70A+',
 	);
 	
+	//告警类型
+	$WARNING_TYPE = array(
+		'STATION_OFFLINE'=>'断站',
+		'INSIDE_HIGH_TMP'=>'室内高温',
+		'CABINT_HIGH_TMP'=>'恒温柜高温',
+		'AMATER_ERROR'=>'电表故障',
+		'AC_ERROR'=>'功率异常',
+		'REMOTE_CLOSE_STATION'=>'远程关站',
+		'PROXY'=>'代理维护按钮',
+		'AIR_CONDITION_ERROR'=>'空调故障',
+		'TEMPATURE_ERROR'=>'温度感应故障',
+	);
+	
 require 'slim/Slim/Slim.php';
 require 'model/generated/include_dao.php';
 require 'handler/init.php';

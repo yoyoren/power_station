@@ -42,8 +42,10 @@ $app->get('/base', function () use ($app) {
 //基站当前状态
 $app->get('/base/status/:id', function ($id) use ($app) {
 	pageview_api_auth();
-	$data = StationHandler::get_one_detail($id);
-	$app->render('base-status.php',array('station'=>$data,'id'=>$id));
+	$station = StationHandler::get_one_detail($id);
+	$status = StationHandler::get_current_status(1);
+	$weather = WeatherHandler::get_weather_baidu($station['info']->stationCityName)->retData;
+	$app->render('base-status.php',array('weather'=>$weather,'station'=>$station,'status'=>$status,'id'=>$id));
 });
 
 //基站基础信息
@@ -58,6 +60,7 @@ $app->get('/base/info/:id', function ($id) use ($app) {
 $app->get('/base/edit/:id', function ($id) use ($app) {
 	pageview_api_auth();
 	$data = StationHandler::get_one_detail($id,true);
+	
 	$data_json = json_encode($data);
 	$app->render('base-edit.php',array('station_json'=>$data_json,'station'=>$data,'id'=>$id));
 });

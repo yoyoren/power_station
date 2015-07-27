@@ -118,6 +118,7 @@
 			}
 		}
 		
+		//获得基站的详细数据
 		public static function get_one_detail($stationId,$editMode=false){
 			global $STATION_TYPE;
 			global $POWER_SUPPLY_TYPE;
@@ -429,6 +430,28 @@
 			$dao =  new PowerBaseStationRuningDataMySqlExtDAO();
 			$data = $dao->get_current_status($stationId);
 			return $data;
+		}
+		
+		//计算基站的实时告警情况
+		public static function cal_warning_from_runing_data($stationId=1){
+			global $WARNING_TYPE;
+			$current_date = time();
+			//先获得该基站的最新数据
+			$dao =  new PowerBaseStationRuningDataMySqlExtDAO();
+			$data = $dao->get_current_status($stationId);
+			$ret = array();
+			
+			//室内高温
+			if($data->temperatureInside > 38){
+				$ret['INSIDE_HIGH_TMP'] = $WARNING_TYPE['INSIDE_HIGH_TMP'];
+			}
+			
+			//基站断站
+			if($current_date - $data->createTime > 300){
+				$ret['STATION_OFFLINE'] = $WARNING_TYPE['STATION_OFFLINE'];
+			}
+
+			return $ret;
 		}
 		
 		public static function remove(){
