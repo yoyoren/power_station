@@ -62,8 +62,8 @@ class PowerBaseStationDeviceInfoMySqlDAO implements PowerBaseStationDeviceInfoDA
 		
 		$sqlQuery->setNumber($powerBaseStationDeviceInfo->stationId);
 		$sqlQuery->setNumber($powerBaseStationDeviceInfo->airConditionNum);
-		$sqlQuery->setNumber($powerBaseStationDeviceInfo->tempatureOutside);
-		$sqlQuery->setNumber($powerBaseStationDeviceInfo->tempatureInside);
+		$sqlQuery->set($powerBaseStationDeviceInfo->tempatureOutside);
+		$sqlQuery->set($powerBaseStationDeviceInfo->tempatureInside);
 		$sqlQuery->set($powerBaseStationDeviceInfo->fanOutType);
 		$sqlQuery->set($powerBaseStationDeviceInfo->fanInType);
 		$sqlQuery->setNumber($powerBaseStationDeviceInfo->cabinetNum);
@@ -88,8 +88,8 @@ class PowerBaseStationDeviceInfoMySqlDAO implements PowerBaseStationDeviceInfoDA
 		
 		$sqlQuery->setNumber($powerBaseStationDeviceInfo->stationId);
 		$sqlQuery->setNumber($powerBaseStationDeviceInfo->airConditionNum);
-		$sqlQuery->setNumber($powerBaseStationDeviceInfo->tempatureOutside);
-		$sqlQuery->setNumber($powerBaseStationDeviceInfo->tempatureInside);
+		$sqlQuery->set($powerBaseStationDeviceInfo->tempatureOutside);
+		$sqlQuery->set($powerBaseStationDeviceInfo->tempatureInside);
 		$sqlQuery->set($powerBaseStationDeviceInfo->fanOutType);
 		$sqlQuery->set($powerBaseStationDeviceInfo->fanInType);
 		$sqlQuery->setNumber($powerBaseStationDeviceInfo->cabinetNum);

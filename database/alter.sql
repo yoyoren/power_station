@@ -24,3 +24,34 @@ ALTER TABLE `power_ammeter_chinamobile` ADD `read_time` INT NULL DEFAULT NULL AF
 
 alter table power_base_station add use_energy_station varchar(200) default '0';
 alter table power_base_station add project_serise varchar(200) default '0';
+
+
+alter table power_base_station_energy_info modify column price varchar(200);
+alter table power_base_station_energy_info modify column ammeter_num varchar(200);
+alter table power_base_station_energy_info modify column ammeter_num_chinamobile varchar(200);
+
+alter table power_base_station_device_info modify column tempature_outside varchar(200);
+alter table power_base_station_device_info modify column tempature_inside varchar(200);
+
+
+alter table power_base_station_runing_data modify column wet_inside double;
+alter table power_base_station_runing_data modify column wet_outside double;
+alter table power_base_station_runing_data modify column ammeter_normal double;
+alter table power_base_station_runing_data modify column ammeter_smart double;
+alter table power_base_station_runing_data modify column overload_ac double;
+alter table power_base_station_runing_data modify column overload_dc double;
+alter table power_base_station_runing_data modify column temperature_inside double;
+alter table power_base_station_runing_data modify column temperature_outside double;
+alter table power_base_station_runing_data modify column temperature_cabinet double;
+alter table power_base_station_runing_data modify column temperature_aircondition_1 double;
+alter table power_base_station_runing_data modify column temperature_aircondition_2 double;
+alter table power_base_station_runing_data modify column temperature_aircondition_3 double;
+alter table power_base_station_runing_data modify column temperature_aircondition_4 double;
+alter table power_base_station_runing_data modify column temperature_aircondition_5 double;
+alter table power_base_station_runing_data modify column temperature_aircondition_6 double;
+alter table power_base_station_runing_data modify column temperature_aircondition_7 double;
+alter table power_base_station_runing_data modify column temperature_aircondition_8 double;
+alter table power_base_station_runing_data modify column energy_all double;
+alter table power_base_station_runing_data modify column energy_dc double;
+alter table power_base_station_runing_data modify column power_all double;
+alter table power_base_station_runing_data modify column power_dc double;

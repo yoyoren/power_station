@@ -126,7 +126,7 @@ $get('/project/list',{
 	   $('#station_project').html(html);
 });
 var start = 3;
-var pageSize = 15;
+var pageSize = 100;
 var renderOnePage = function(data){
 		var html = '';
 		for (var i=0;i<data.length;i++){
@@ -188,8 +188,8 @@ $('#query_button').click(function(){
 	var overload = $('#overload').val();
 
 	$get('/station/query',{
-		start:start,
-		end:start + pageSize,
+		start:0,
+		end:pageSize,
 		project:project,
 		province:province,
 		city:city,

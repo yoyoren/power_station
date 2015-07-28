@@ -45,38 +45,7 @@
         <div class="n-jizhan-container">
           <img src="/static/src/img/ic-dianzhan2.png" class="ico-item"/>
           <div class="n-table clearfix" id="base_container">
-            <div class="n-jizhan-item">
-              <p>10-20A </p>
-              <p><a href="/base"><?php echo $station_num[0]?>（台）</a></p>
-            </div>
-            <div class="n-jizhan-item">
-              <p>20-30A </p>
-              <p><a href="/base"><?php echo $station_num[1]?>（台）</a></p>
-            </div>
-            <div class="n-jizhan-item">
-              <p>30-40A </p>
-              <p><a href="/base"><?php echo $station_num[2]?>（台）</a></p>
-            </div>
-            <div class="n-jizhan-item">
-              <p>40-50A </p>
-              <p><a href="/base"><?php echo $station_num[3]?>（台）</a></p>
-            </div>
-            <div class="n-jizhan-item">
-              <p>50-60A </p>
-              <p><a href="/base"><?php echo $station_num[4]?>（台）</a></p>
-            </div>
-			<div class="n-jizhan-item">
-              <p>60-70A </p>
-              <p><a href="/base"><?php echo $station_num[5]?>（台）</a></p>
-            </div>
-            <div class="n-jizhan-item">
-              <p>70A+ </p>
-              <p><a href="/base"><?php echo $station_num[6]?>（台）</a></p>
-            </div>
-            <div class="n-jizhan-item">
-              <p><em class="n-total-item">总计</em></p>
-              <p><a href="/base"><?php echo $station_num[7]?>（台）</a></p>
-            </div>
+           
 
 
         <style type="text/css">
@@ -95,27 +64,27 @@
             <th><em class="n-total-item">总计</em></th>
           </tr>
           <tr>
-            <th>砖墙</th>
-            <td><a href="/base"><?php echo $station_num[0]?>（台）</a></td>
-            <td><a href="/base"><?php echo $station_num[1]?>（台）</a></td>
-            <td><a href="/base"><?php echo $station_num[2]?>（台）</a></td>
-            <td><a href="/base"><?php echo $station_num[3]?>（台）</a></td>
-            <td><a href="/base"><?php echo $station_num[4]?>（台）</a></td>
-            <td><a href="/base"><?php echo $station_num[5]?>（台）</a></td>
-            <td><a href="#">100（台）</a></td>
-            <td><a href="/base"><?php echo $station_num[6]?>（台）</a></td>
+            <th>板房</th>
+            <td><a href="/base"><?php echo $station_num_1[0]?>（台）</a></td>
+            <td><a href="/base"><?php echo $station_num_1[1]?>（台）</a></td>
+            <td><a href="/base"><?php echo $station_num_1[2]?>（台）</a></td>
+            <td><a href="/base"><?php echo $station_num_1[3]?>（台）</a></td>
+            <td><a href="/base"><?php echo $station_num_1[4]?>（台）</a></td>
+            <td><a href="/base"><?php echo $station_num_1[5]?>（台）</a></td>
+            <td><a href="/base"><?php echo $station_num_1[6]?>（台）</a></td>
+            <td><a href="/base"><?php echo $station_num_1[7]?>（台）</a></td>
 
           </tr>
           <tr>
-            <th>板房</th>
-            <td><a href="/base"><?php echo $station_num[0]?>（台）</a></td>
-            <td><a href="/base"><?php echo $station_num[1]?>（台）</a></td>
-            <td><a href="/base"><?php echo $station_num[2]?>（台）</a></td>
-            <td><a href="/base"><?php echo $station_num[3]?>（台）</a></td>
-            <td><a href="/base"><?php echo $station_num[4]?>（台）</a></td>
-            <td><a href="/base"><?php echo $station_num[5]?>（台）</a></td>
-            <td><a href="#">100（台）</a></td>
-            <td><a href="/base"><?php echo $station_num[6]?>（台）</a></td>
+            <th>砖墙</th>
+            <td><a href="/base"><?php echo $station_num_2[0]?>（台）</a></td>
+            <td><a href="/base"><?php echo $station_num_2[1]?>（台）</a></td>
+            <td><a href="/base"><?php echo $station_num_2[2]?>（台）</a></td>
+            <td><a href="/base"><?php echo $station_num_2[3]?>（台）</a></td>
+            <td><a href="/base"><?php echo $station_num_2[4]?>（台）</a></td>
+            <td><a href="/base"><?php echo $station_num_2[5]?>（台）</a></td>
+            <td><a href="/base"><?php echo $station_num_2[6]?>（台）</a></td>
+            <td><a href="/base"><?php echo $station_num_2[7]?>（台）</a></td>
 
           </tr>
         </table>

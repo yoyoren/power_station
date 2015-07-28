@@ -161,7 +161,7 @@
           </div>
 
           <hr/>
-          <p class="table-title"><b>能耗状态</b></p>
+          <p class="table-title"><b>负载状态</b></p>
           <div class="clearfix">
             <div class="n-wendu-item">
               <div id="other-stats" style="min-height: 160px">

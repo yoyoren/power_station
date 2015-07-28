@@ -60,9 +60,9 @@ class PowerBaseStationEnergyInfoMySqlDAO implements PowerBaseStationEnergyInfoDA
 		$sql = 'INSERT INTO power_base_station_energy_info (price, ammeter_num, ammeter_num_chinamobile, fee_type, power_supply_type, overload, overload_normal, sim_num, esg_num, ecu_num, power_base_station_energy_infocol, station_id, building_type, ration, energy_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($powerBaseStationEnergyInfo->price);
-		$sqlQuery->setNumber($powerBaseStationEnergyInfo->ammeterNum);
-		$sqlQuery->setNumber($powerBaseStationEnergyInfo->ammeterNumChinamobile);
+		$sqlQuery->set($powerBaseStationEnergyInfo->price);
+		$sqlQuery->set($powerBaseStationEnergyInfo->ammeterNum);
+		$sqlQuery->set($powerBaseStationEnergyInfo->ammeterNumChinamobile);
 		$sqlQuery->set($powerBaseStationEnergyInfo->feeType);
 		$sqlQuery->set($powerBaseStationEnergyInfo->powerSupplyType);
 		$sqlQuery->set($powerBaseStationEnergyInfo->overload);
@@ -91,9 +91,9 @@ class PowerBaseStationEnergyInfoMySqlDAO implements PowerBaseStationEnergyInfoDA
 		$sql = 'UPDATE power_base_station_energy_info SET price = ?, ammeter_num = ?, ammeter_num_chinamobile = ?, fee_type = ?, power_supply_type = ?, overload = ?, overload_normal = ?, sim_num = ?, esg_num = ?, ecu_num = ?, power_base_station_energy_infocol = ?, station_id = ? WHERE id = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->setNumber($powerBaseStationEnergyInfo->price);
-		$sqlQuery->setNumber($powerBaseStationEnergyInfo->ammeterNum);
-		$sqlQuery->setNumber($powerBaseStationEnergyInfo->ammeterNumChinamobile);
+		$sqlQuery->set($powerBaseStationEnergyInfo->price);
+		$sqlQuery->set($powerBaseStationEnergyInfo->ammeterNum);
+		$sqlQuery->set($powerBaseStationEnergyInfo->ammeterNumChinamobile);
 		$sqlQuery->set($powerBaseStationEnergyInfo->feeType);
 		$sqlQuery->set($powerBaseStationEnergyInfo->powerSupplyType);
 		$sqlQuery->set($powerBaseStationEnergyInfo->overload);

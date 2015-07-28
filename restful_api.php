@@ -544,6 +544,22 @@ $app->get('/station/warning/:id', function ($id) use ($app) {
 	restful_response(RES_SUCCESS,$data);
 });
 
+$app->get('/station/origindata/:id', function ($id) use ($app) {
+	restful_api_auth();
+	//时间戳
+	$time = param_check_get('time');
+	$data = StationHandler::get_origin_data_by_time($id,$time);
+	restful_response(RES_SUCCESS,$data);
+});
+
+//获得基站最新的数据
+$app->get('/station/last/origindata/:id', function ($id) use ($app) {
+	restful_api_auth();
+	//时间戳
+	$data = StationHandler::get_origin_data_by_time($id,-2);
+	restful_response(RES_SUCCESS,$data);
+});
+
 
 //新建项目
 $app->post('/project/add', function () {

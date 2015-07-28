@@ -13,14 +13,16 @@ global $response_body;
  }
 $app->get('/', function () use ($app) {
 	pageview_api_auth();
-	$station_num = StationHandler::get_index_station_num();
-	$app->render('main.php',array('station_num'=>$station_num));
+	$station_num_1 = StationHandler::get_index_station_num(1);
+	$station_num_2 = StationHandler::get_index_station_num(2);
+	$app->render('main.php',array('station_num_1'=>$station_num_1,'station_num_2'=>$station_num_2));
 });
 
 $app->get('/main', function () use ($app) {
 	pageview_api_auth();
-	$station_num = StationHandler::get_index_station_num();
-	$app->render('main.php',array('station_num'=>$station_num));
+	$station_num_1 = StationHandler::get_index_station_num(1);
+	$station_num_2 = StationHandler::get_index_station_num(2);
+	$app->render('main.php',array('station_num_1'=>$station_num_1,'station_num_2'=>$station_num_2));
 });
 
 //登录
@@ -91,9 +93,9 @@ $app->get('/base/year/:id', function ($id) use ($app) {
 });
 
 //远程控制
-$app->get('/base/remote', function () use ($app) {
+$app->get('/base/remote/:id', function ($id) use ($app) {
 	pageview_api_auth();
-	$app->render('base-remote.php',array());
+	$app->render('base-remote.php',array('id'=>$id));
 });
 
 //原始数据

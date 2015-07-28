@@ -346,8 +346,7 @@ $('#create_button').click(function(){
 	var building_type = $('#building_type').val();
 	var ration = $('#ration').val();
 	var energy_type = $('#energy_type').val();
-
-	$post('/station/add',{
+	var postData = {
 	  name:name,
 	  code:code,
 	  type:type,
@@ -380,12 +379,23 @@ $('#create_button').click(function(){
 	  building_type:building_type,
 	  ration:ration,
 	  energy_type:energy_type
-	},function(d){
+	};
+	for(var i in postData){
+		if(!postData[i]){
+			alert('字段'+i+'不能为空');
+			return;
+		}
+	}
+	$post('/station/add',postData,function(d){
 		if(d.code == 0){
 			alert('创建成功');
 			location.href = '/base';
 		} else {
-			alert('创建失败，存在相同的站点名和编号');
+			if(d.data.PARAM_EMPTY){
+				alert('创建失败，缺少参数' + d.data.PARAM_EMPTY);
+			} else {	
+				alert('创建失败，存在相同的站点名和编号');
+			}
 		}	
 	});
 

@@ -6,7 +6,7 @@
 		}
 		
 		//根据用户的权限，获得首页的基站数量信息
-		public static function get_index_station_num(){
+		public static function get_index_station_num($buildingType=1){
 			global $ENERGY_TYPE;
 			$dao = new PowerBaseStationMySqlExtDAO();
 			$res = array();
@@ -23,6 +23,7 @@
 					$projectId = $projects[$k]->projectId;
 					$temp = array();
 					if($projectId){
+						
 						foreach($ENERGY_TYPE as $key => $value){
 							if($projectId){
 								$stations = $dao->getByProjectId($projectId);
@@ -31,13 +32,14 @@
 								for($i=0;$i<$station_num;$i++){
 									array_push($stationId,$stations[$i]->stationId);
 								}
+								
 								if(count($stationId)){
-									$num = $dao->getNumByEnergyTypeAndProjectId($key,$stationId);
+									$num = $dao->getNumByEnergyTypeAndProjectIdAndBuildingType($key,$stationId,$buildingType);
 								}else{
 									$num = 0;
 								}
 							}else{
-								$num = $dao->getNumByEnergyType($key);
+								$num = $dao->getNumByEnergyTypeAndBuildType($key,$buildingType);
 							}
 							
 							array_push($temp,$num);
@@ -157,11 +159,19 @@
 			//获得站点的能耗信息
 			$dao =  new PowerBaseStationEnergyInfoMySqlDAO();
 			$station_energy_info = $dao->queryByStationId($stationId)[0];
-			
-			$station_energy_info->powerSupplyTypeName = $POWER_SUPPLY_TYPE[$station_energy_info->powerSupplyType];
-			$station_energy_info->feeTypeName = $POWER_SUPPLY_TYPE[$station_energy_info->feeType];
-			$station_energy_info->buildingTypeName = $BUILDING_TYPE[$station_energy_info->buildingType];
-			$station_energy_info->energyTypeName = $ENERGY_TYPE[$station_energy_info->energyType];
+			//var_dump($station_energy_info->powerSupplyType);
+			if($station_energy_info->powerSupplyType){
+				$station_energy_info->powerSupplyTypeName = $POWER_SUPPLY_TYPE[$station_energy_info->powerSupplyType];
+			}
+			if($station_energy_info->feeType){
+				$station_energy_info->feeTypeName = $POWER_SUPPLY_TYPE[$station_energy_info->feeType];
+			}
+			if($station_energy_info->buildingType){
+				$station_energy_info->buildingTypeName = $BUILDING_TYPE[$station_energy_info->buildingType];
+			}
+			if($station_energy_info->energyType){
+				$station_energy_info->energyTypeName = $ENERGY_TYPE[$station_energy_info->energyType];
+			}
 			$stationPrevId = intval($stationId) - 1;
 			$stationNextId = intval($stationId) + 1;
 			if($stationPrevId < 1){
@@ -458,6 +468,13 @@
 				array_push($ret['time'],$d->createTime);
 			}
 			return $ret;
+		}
+		
+		//按照时间查看基站的原始数据
+		public static function get_origin_data_by_time($stationId=1,$time){
+			$dao =  new PowerBaseStationRuningDataMySqlExtDAO();
+			$data = $dao->get_origin_data_by_time($stationId,$time);
+			return $data;
 		}
 		
 		//计算基站的实时告警情况

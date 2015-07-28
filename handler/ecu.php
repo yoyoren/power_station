@@ -134,11 +134,12 @@
 		//将扫描后的文件放到库里
 		public static function write($path=ECU_ROOT_PATH.'ecu1234567-20150717-221043.engy'){
 			$data = ECUHandler::read($path);
+			//var_dump($data);
 			$data = $data['file_content'];
 			$dao =  new PowerBaseStationRuningDataMySqlDAO();
 			$current_time = time();
 			$all = count($data);
-			for($i=0;$i<$all;$i++){
+			for($i=0;$i<1;$i++){
 				$cur_data = $data[$i];
 				
 				$dao_obj = new PowerBaseStationRuningData();
@@ -199,6 +200,7 @@
 				
 				$dao_obj->energyAll = $cur_data['elec_engy'][0];
 				$dao_obj->energyDc = $cur_data['elec_engy'][1];
+				//var_dump($dao_obj);
 				$dao->insert($dao_obj);
 				
 			}

@@ -30,9 +30,9 @@
         <div class="nav-tabs-content">
           <div class="n-check-area tl-r">
 
-            选择日期<input size="16" type="text" value="2012" style="width:180px;" readonly class="date-control form-control form_datetime">
+            选择日期<input size="16" type="text" style="width:180px;" id="query_date" readonly class="date-control form-control form_datetime">
 
-            <button type="button" class="btn btn-default" style="margin-left:30px;">确定</button>
+            <button type="button" class="btn btn-default" style="margin-left:30px;" id="query_button">确定</button>
             <div style="margin-top:10px;">
               <input type="checkbox" class="checkbox-item" checked="checked" />温度
               <input type="checkbox" class="checkbox-item" checked="checked" />湿度
@@ -43,7 +43,7 @@
 
           </div>
           <table class="table table-bordered">
-            <tbody>
+            
               <tr>
                 <th>采集时间</th>
                 <th>室内温度</th>
@@ -64,7 +64,7 @@
               </tr>
 
               <tr>
-                <td>每分钟更新一次</td>
+                <td>默认展示最新100条状态</td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
@@ -81,7 +81,7 @@
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
               </tr>
-
+			<tbody id="data_container">
             </tbody>
           </table>
 
@@ -98,8 +98,76 @@
 <script type="text/javascript">
 $(function () {
     $(".form_datetime").datetimepicker({
-      language: 'cn'
+      language: 'cn',
+	  format:'yyyy-mm-dd',
+	  minView:2,
+	  autoclose:true
     });
+	
+	$('#query_button').click(function(){
+		var time = $('#query_date').val();
+		time = new Date(time).getTime();
+		time = time/1000;
+		$get('/station/origindata/' + stationId,{
+			time:time
+		},function(d){
+		if(d.code == 0){
+			var html = '';
+			for(var i=0;i<d.data.length;i++){
+				var _d = d.data[i];
+				html += '<tr>\
+							<td>'+new Date(_d.createTime * 1000)+'</td>\
+							<td>'+_d.temperatureInside+'</td>\
+							<td>'+_d.temperatureOutside+'</td>\
+							<td>'+_d.temperatureCabinet+'</td>\
+							<td>'+[_d.temperatureAircondition1,_d.temperatureAircondition1].join(',')+'</td>\
+							<td>'+_d.wetInside+'</td>\
+							<td>'+_d.wetOutside+'</td>\
+							<td>'+_d.deviceStatusFan+'</td>\
+							<td>'+_d.deviceStatusCabinet+'</td>\
+							<td>'+_d.deviceStatusVentilator+'</td>\
+							<td>'+[_d.deviceStatus1,_d.deviceStatus2].join(',')+'</td>\
+							<td>'+_d.workingStatus+'</td>\
+							<td>'+_d.powerAll+'</td>\
+							<td>'+_d.powerDc+'</td>\
+							<td>'+_d.energyAll+'</td>\
+							<td>'+_d.energyDc+'</td>\
+						</tr>';
+			}
+			$('#data_container').html(html);
+		}
+	});
+	});
+	var stationId = 1;
+	$get('/station/last/origindata/' + stationId,{
+		time :-2
+	},function(d){
+		if(d.code == 0){
+			var html = '';
+			for(var i=0;i<d.data.length;i++){
+				var _d = d.data[i];
+				html += '<tr>\
+							<td>'+new Date(_d.createTime * 1000)+'</td>\
+							<td>'+_d.temperatureInside+'</td>\
+							<td>'+_d.temperatureOutside+'</td>\
+							<td>'+_d.temperatureCabinet+'</td>\
+							<td>'+[_d.temperatureAircondition1,_d.temperatureAircondition1].join(',')+'</td>\
+							<td>'+_d.wetInside+'</td>\
+							<td>'+_d.wetOutside+'</td>\
+							<td>'+_d.deviceStatusFan+'</td>\
+							<td>'+_d.deviceStatusCabinet+'</td>\
+							<td>'+_d.deviceStatusVentilator+'</td>\
+							<td>'+[_d.deviceStatus1,_d.deviceStatus2].join(',')+'</td>\
+							<td>'+_d.workingStatus+'</td>\
+							<td>'+_d.powerAll+'</td>\
+							<td>'+_d.powerDc+'</td>\
+							<td>'+_d.energyAll+'</td>\
+							<td>'+_d.energyDc+'</td>\
+						</tr>';
+			}
+			$('#data_container').append(html);
+		}
+	});
 
 });
     </script>

@@ -23,5 +23,28 @@ class PowerBaseStationRuningDataMySqlExtDAO extends PowerBaseStationRuningDataMy
 		return $this->getList($sqlQuery);
 	}
 	
+	//按天为单位获得原始数据
+	public function get_origin_data_by_time($stationId,$time){
+		if($time == -1){
+			$sql = 'SELECT * FROM power_base_station_runing_data WHERE station_id = ? ORDER BY runing_data_id DESC limit 0,1';
+		}else if($time == -2){
+			$sql = 'SELECT * FROM power_base_station_runing_data WHERE station_id = ? ORDER BY runing_data_id DESC limit 0,100';
+		} else {
+			$time_end = $time + 24 * 60 *60;
+			$sql = 'SELECT * FROM power_base_station_runing_data WHERE station_id = ? AND create_time > '.$time.' AND create_time < '.$time_end.' ORDER BY runing_data_id DESC';
+		}
+		
+		
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($stationId);
+		if($time == -1){
+			return $this->getRow($sqlQuery);
+		}else{
+			return $this->getList($sqlQuery);
+		}
+	}
+	
+	
+	
 }
 ?>
