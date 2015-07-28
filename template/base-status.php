@@ -168,18 +168,17 @@
           <hr/>
           <p class="table-title"><b>能耗状态</b></p>
           <div class="clearfix">
-            <div class="n-wendu-item">
+            <div class="n-wendu-item" style="height:auto;">
               <div id="other-stats" style="min-height: 160px">
                 <div class="cpu-gauge2" data="34"></div>
               </div>
               <div style="padding:0 0 0 20px;;">
                 <p class="num">34A</p>
                 <p>基准能耗</p>
-
               </div>
             </div>
 
-            <div class="n-wendu-item">
+            <div class="n-wendu-item" style="height:auto;">
               <div id="other-stats" style="min-height: 160px">
                 <div class="cpu-gauge2" data="39"></div>
               </div>
