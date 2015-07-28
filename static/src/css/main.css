@@ -11,7 +11,8 @@ background:-moz-linear-gradient(top, #4ebd21,#059953);
 filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#4ebd21,endColorstr=#059953,grandientType=0);}*/
 .n-logo{font-size: 18px; line-height: 56px; width: 154px;}
 .n-logo{text-shadow:0 1px 1px #666; font-weight: bold; margin-left: 20px;}
-.ico-logo{display: inline-block; width: 22px; height: 20px; vertical-align: -6px; margin-right: 4px;}
+.ico-logo{display: inline-block; width: 22px; height: 20px; vertical-align: -6px; margin-right: 4px;
+background-color: #fff;}
 
 .n-head-nav{overflow: hidden; padding-top: 16px; margin-left: 60px; width: 620px;}
 .n-head-nav li{float: left; text-align: center; margin-right: 20px;}
@@ -51,6 +52,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#4ebd21,endColor
 /* 图标 */
 .glyphicon{vertical-align: middle; margin-right: 8px; color: #666; display: none; width: 16px;}
 
+.datetimepicker .glyphicon{display: inline-block;}
 /* 右边主内容区 */
 
 .n-right-content{height: 100%; overflow: auto; padding-right: 20px;}
@@ -116,7 +118,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#4ebd21,endColor
 .n-new-time p{font-size: 20px; font-weight: bold;}
 .n-new-time span{}
 
-.n-wendu-item{float: left; padding: 10px 20px; background:#eee; border-radius: 10px; margin-right: 20px; color: #333; margin-bottom: 20px;}
+.n-wendu-item{float: left; padding: 10px 20px; background:#eee; border-radius: 10px; margin-right: 20px; color: #333; margin-bottom: 20px; height: 304px;}
 .n-wendu-item p{font-weight: bold;}
 .n-wendu-item .num{font-size: 30px;}
 
