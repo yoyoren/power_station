@@ -52,6 +52,7 @@ background-color: #fff;}
 /* 图标 */
 .glyphicon{vertical-align: middle; margin-right: 8px; color: #666; display: none; width: 16px;}
 
+.datetimepicker .glyphicon{display: inline-block;}
 /* 右边主内容区 */
 
 .n-right-content{height: 100%; overflow: auto; padding-right: 20px;}
