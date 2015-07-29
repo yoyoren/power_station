@@ -661,7 +661,7 @@ $app->post('/weather/add', function () {
      }
 });
 
-$app->get('/weather/get', function () {
+$app->get('/weather/baidu/get', function () {
      global $app;
      $result = WeatherHandler::get_weather_baidu('上海');
      if(!$result){

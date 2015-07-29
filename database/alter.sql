@@ -55,3 +55,5 @@ alter table power_base_station_runing_data modify column energy_all double;
 alter table power_base_station_runing_data modify column energy_dc double;
 alter table power_base_station_runing_data modify column power_all double;
 alter table power_base_station_runing_data modify column power_dc double;
+
+alter table power_weather modify column wind varchar(200);
