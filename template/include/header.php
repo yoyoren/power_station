@@ -1,6 +1,6 @@
 <div class="n-head clearfix">
       <div class="n-logo fl-l" id="header_logo">
-        <img class="ico-logo" src="/static/src/img/ic-nenghao2.png" /><span class="vl-m">能耗管理云系统</span>
+        <img class="ico-logo" src="/static/src/img/lv-logo.png" width="20px;" /><span class="vl-m">能耗管理云系统</span>
       </div>
       <ul class="n-head-nav fl-l" id="header_nav">
         <li><a class="current" href="/main" id="tab_main">首页</a></li>

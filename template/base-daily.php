@@ -108,39 +108,42 @@ $(function () {
                 '#ff4400' //两个空调
         ],
         xAxis: {
-            categories: ['00:00', '00:10', '00:20', '00:30', '00:40', '00:50', '01:00', '01:10', '01:20', '01:30', '01:40', '01:50', '02:00', '02:10', '02:20', '02:30', '02:40', '02:50', '03:00', '03:10','03:20', '03:30', '03:40', '03:50', '04:00', '04:10', '04:20', '04:30', '04:40', '04:50', '05:00', '05:10', '05:20', '05:30', '05:40', '05:50', '06:00', '06:10', '06:20', '06:30','06:40', '06:50', '07:00', '07:10', '07:20', '07:30', '07:40', '07:50', '08:00', '08:10', '08:20', '08:30', '08:40', '08:50', '09:00', '09:10', '09:20', '09:30', '09:40', '09:50','10:00', '10:10', '10:20', '10:30', '10:40', '10:50', '11:00', '11:10', '11:20', '11:30', '11:40', '11:50', '12:00', '12:10', '12:20', '12:30', '12:40', '12:50', '13:00', '13:10','13:20', '13:30', '13:40', '13:50', '14:00', '14:10', '14:20', '14:30', '14:40', '14:50', '15:00', '15:10', '15:20', '15:30', '15:40', '15:50', '16:00', '16:10', '16:20', '16:30'],
+            categories: ['00:00', '00:20', '00:40', '01:00', '01:20', '01:40', '02:00', '02:20', '02:40', '03:00', '03:20', '03:40', '04:00',  '04:20',  '04:40','05:00',  '05:20',  '05:40', '06:00', '06:20', '06:40', '07:00', '07:20', '07:40', '08:00',  '08:20', '08:40', '09:00', '09:20','09:40','10:00', '10:20', '10:40', '11:00','11:20', '11:40', '12:00', '12:20', '12:40', '13:00', '13:20', '13:40', '14:00', '14:20', '14:40','15:00', '15:20', '15:40', '16:00', '16:20','16:40', '17:00','17:20', '17:40', '18:00', '18:20', '18:40', '19:00', '19:20', '19:40', '20:00', '20:20', '20:40', '21:00', '21:20', '21:40', '22:00', '22:20', '22:40', '23:00' ,'23:20',  '23:40','24:00'],
             labels: {
               step:12
             }
         },
         yAxis: {
             min: 0,
+            max:10,
             title: {
                 text: ''
             }
         },
         tooltip: {
-            pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+            // pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+            pointFormat: '当前启动状态是：<b><span style="color:{series.color}">{series.name}</span></b><br/>',
             shared: true
         },
         plotOptions: {
             column: {
-                stacking: 'percent'
+                stacking: 'normal'
             }
         },
         series: [{
             name: '全关',
-            data: [0,0,0,0,0,10,10,10,10,0,0,0,0,0,10,10,10,10,0,0,0,0,0,10,10,10,10,0,0,0,0,0,10,10,10,10,0,0,0,0,0,10,10,10,10,0,0,0,0,0,10,10,10,10,0,0,0,0,0,10,10,10,10]
+            data: [null,null,null,null,null,6,6,6,6,null,null,null,null,null,6,6,6,6,null,null,null,null,null,6,6,6,6,null,null,null,null,null,6,6,6,6,null,null,null,null,null,6,6,6,6,null,null,null,null,null,6,6,6,6,null,null,null,null,null,6,6,6,6,6,6,6,6,6,6,6,6,6,6,]
         }, {
             name: '风机',
-            data: [10,10,0,0,0,0,0,0,0,10,10,0,0,0,0,0,0,0,10,10,0,0,0,0,0,0,0,10,10,0,0,0,0,0,0,0,10,10,0,0,0,0,0,0,0,10,10,0,0,0,0,0,0,0,10,10,0,0,0,0,0,0,0]
+            data: [6,6,null,null,null,null,null,null,null,6,6,null,null,null,null,null,null,null,6,6,null,null,null,null,null,null,null,6,6,null,null,null,null,null,null,null,6,6,null,null,null,null,null,null,null,6,6,null,null,null,null,null,null,null,6,6,null,null,null,null,null,null,null]
         }, {
             name: '一个空调',
-            data: [0,0,0,10,10,0,0,0,0,0,0,0,10,10,0,0,0,0,0,0,0,10,10,0,0,0,0,0,0,0,10,10,0,0,0,0,0,0,0,10,10,0,0,0,0,0,0,0,10,10,0,0,0,0,0,0,0,10,10,0,0,0,0]
+            data: [null,null,null,6,6,null,null,null,null,null,null,null,6,6,null,null,null,null,null,null,null,6,6,null,null,null,null,null,null,null,6,6,null,null,null,null,null,null,null,6,6,null,null,null,null,null,null,null,6,6,null,null,null,null,null,null,null,6,6,null,null,null,null]
         }, {
             name: '二个空调',
-            data: [0,0,10,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0]
+            data: [null,null,6,null,null,null,null,null,null,null,null,6,null,null,null,null,null,null,null,null,6,null,null,null,null,null,null,null,null,6,null,null,null,null,null,null,null,null,6,null,null,null,null,null,null,null,null,6,null,null,null,null,null,null,null,null,6,null,null,null,null,null,null]
         }]
+
     });
 
 	var time = [];
@@ -164,6 +167,10 @@ $(function () {
         title: {
             text: '基站总功率和DC功率'
         },
+        colors:[
+            '#4989c4',
+            '#333'
+        ],
         xAxis: {
             categories: time,
 			labels: {
