@@ -42,8 +42,7 @@
         </div>
         <br/>
         <h4 class="n-title">拥有基站</h4>
-        <div class="n-jizhan-container">
-          <img src="/static/src/img/ic-dianzhan2.png" class="ico-item"/>
+        <div>
           <div class="n-table clearfix" id="base_container">
            
 
