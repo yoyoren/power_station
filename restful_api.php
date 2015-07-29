@@ -671,12 +671,21 @@ $app->get('/weather/baidu/get', function () {
      }
 });
 
+$app->get('/weather/month/get', function () {
+     global $app;
+	 $province = param_check_get('province');
+     $city = param_check_get('city');
+	 $startMonth = param_check_get('time');
+     $result = WeatherHandler::get_weather_by_month($startMonth,$province,$city);
+     restful_response(RES_SUCCESS,$result);
+});
+
 
 //日志列表
 $app->get('/log/list', function () {
     global $app;
     $start = param_check_get('start');
-     $end = param_check_get('end');
+    $end = param_check_get('end');
     $result=LogHandler::show_log($start, $end);
      if(!$result){
           restful_response(RES_ERROR);

@@ -160,6 +160,7 @@ $(function () {
 		_t = new Date(_t);
 		time.push(_t.getHours() + ':' +_t.getMinutes());
 	}
+	
     $('#container').highcharts({
         chart: {
             type: 'area'
@@ -205,12 +206,12 @@ $(function () {
                 }
             }
         },
-        series: [{
+        series: [ {
             name: '总功率',
-            data: window.data['power_all']
-        }, {
-            name: 'DC功率',
             data: window.data['power_dc']
+        },{
+            name: 'DC功率',
+            data: window.data['power_all']
         }]
     });
 

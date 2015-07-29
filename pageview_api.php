@@ -53,9 +53,9 @@ $app->get('/base/status/:id', function ($id) use ($app) {
 //基站基础信息
 $app->get('/base/info/:id', function ($id) use ($app) {
 	pageview_api_auth();
-	$data = StationHandler::get_one_detail($id);
+	$station = StationHandler::get_one_detail($id);
 	//var_dump($data['energy']);
-	$app->render('base-info.php',array('station'=>$data,'id'=>$id));
+	$app->render('base-info.php',array('station'=>$station,'id'=>$id));
 });
 
 //基站基础信息编辑
@@ -83,7 +83,8 @@ $app->get('/base/daily/:id', function ($id) use ($app) {
 //月报数据
 $app->get('/base/month/:id', function ($id) use ($app) {
 	pageview_api_auth();
-	$app->render('base-month.php',array('id'=>$id));
+	$station = StationHandler::get_one_detail($id);
+	$app->render('base-month.php',array('id'=>$id,'station'=>$station));
 });	
 
 //年报数据

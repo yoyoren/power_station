@@ -60,6 +60,15 @@ class WeatherHandler {
 		return $weatherinfo;
     }
 	
+	public function get_weather_by_month($startMonth = -1,$province,$city){
+		$dao =  new PowerWeatherMySqlExtDAO();
+		if($startMonth == -1){
+		   $startMonth = strtotime(date('Ym'));
+		}
+		$data = $dao -> get_weather_by_month($startMonth,$province,$city);
+		return $data;
+	}
+	
       //获取地区天气信息
      public function get_weather($district='上海'){        
 		
