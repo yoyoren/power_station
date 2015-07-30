@@ -208,10 +208,10 @@ $(function () {
         },
         series: [ {
             name: '总功率',
-            data: window.data['power_dc']
+            data: window.data['power_all']
         },{
             name: 'DC功率',
-            data: window.data['power_all']
+            data: window.data['power_dc']
         }]
     });
 
