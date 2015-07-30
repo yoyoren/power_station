@@ -21,22 +21,22 @@
           <div class="n-show-item">
             <p class="intro">节约电</p>
             <img src="/static/src/img/ic-deng2.png" style="margin-top:-10px;" />
-            <p class="num">1000<em>度</em></p>
+            <p class="num"><span id="start_num"></span><em>度</em></p>
           </div>
           <div class="n-show-item">
             <p class="intro">节约标准煤</p>
             <img src="/static/src/img/ic-huo2.png" style="width:56px" />
-            <p class="num">10000*0.4<em>千克</em></p>
+            <p class="num" id=""><span id="start_num_mei"></span><em>千克</em></p>
           </div>
           <div class="n-show-item">
             <p class="intro">减少碳排放</p>
             <img src="/static/src/img/ic-paifang2.png" style="width:60px" />
-            <p class="num">10000*0.272<em>千克</em></p>
+            <p class="num"  id=""><span id="start_num_co"></span><em>千克</em></p>
           </div>
           <div class="n-show-item">
             <p class="intro">造林</p>
             <img src="/static/src/img/ic-shu2.png" style="width:52px" />
-            <p class="num">100<em>亩</em></p>
+            <p class="num" id=""><span id="start_num_tree"></span><em>亩</em></p>
           </div>
 
         </div>
@@ -121,6 +121,52 @@
 
   </div>
   <script>
+	
+	var start_num = 698421.87;
+	var old_num = 0;
+	var timer = 0;
+	var cal = function(start_num){
+		if(old_num == 0){
+		    old_num = start_num;
+		    var start_num_mei = (start_num*0.1229/1000).toFixed(2);
+			var start_num_co = (start_num*0.785/1000).toFixed(2);
+			var start_num_tree = 269;
+			$("#start_num").html(start_num);
+			$("#start_num_mei").html(start_num_mei);
+			$("#start_num_co").html(start_num_co);
+		}else{
+		   var distance = (start_num - old_num)/10;
+		   timer = setInterval(function(){
+				if(old_num < start_num){
+				   old_num = parseFloat(old_num);
+				   old_num += distance;
+				   old_num = old_num.toFixed(2);
+				   $("#start_num").html(old_num);
+				}else{
+				   old_num = start_num;
+				   $("#start_num").html(start_num);
+				   var start_num_mei = (start_num*0.1229/1000).toFixed(2);
+				   var start_num_co = (start_num*0.785/1000).toFixed(2);
+				   var start_num_tree = 269;
+					$("#start_num").html(start_num);
+					$("#start_num_mei").html(start_num_mei);
+					$("#start_num_co").html(start_num_co);
+				   clearInterval(timer);
+				}
+			},10);
+		}
+		
+		
+		$("#start_num_tree").html(start_num_tree);
+	}
+	cal(start_num);
+	setInterval(function(){
+		start_num = parseFloat(start_num);
+		start_num+=0.19;
+		start_num = start_num.toFixed(2);
+		cal(start_num);
+	},5000);
+	
 	var project_list = $('#project_list');
 	var base_container = $('#base_container');
 	var base_container_a = $('#base_container').find('a');

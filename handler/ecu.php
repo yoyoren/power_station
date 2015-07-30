@@ -13,10 +13,10 @@
 	define('FILE_VERSION_SIZE',BYTE_4);
 	
 	//ECU数据中一个数据体是56个字节
-	define('FILE_CONTENT_SIZE',56 * BYTE_1);
+	define('FILE_CONTENT_SIZE',72 * BYTE_1);
 	
 	class ECUHandler {
-		public static function read($path=ECU_ROOT_PATH.'ecu1234567-20150717-221043.engy'){
+		public static function read($path=ECU_ROOT_PATH.'beijing/ecu1234567-20150728-221152.engy'){
 			$file = fopen($path,'rb');
 			$content=fread($file,filesize($path));
 			
@@ -95,8 +95,8 @@
 		
 			for($i = 0;$i < $file_count; $i++){
 				$one_file_content = substr($decode_content,$head_poiner,FILE_CONTENT_SIZE);
-				$current_file = array_slice($decode_content_arr,$head_index,56);
-				$head_index += 56;
+				$current_file = array_slice($decode_content_arr,$head_index,72);
+				$head_index += 72;
 			
 				array_push($file_content,array(
 					'date'=>date('Y-m-d H:i:s',bindec(substr($one_file_content,0,BYTE_4))),
@@ -125,45 +125,51 @@
 					'air_condition_2_status'=>$current_file[7][3],
 					'air_condition_3_status'=>$current_file[7][2],
 					'air_condition_4_status'=>$current_file[7][1],
-
+					//电能数据4组：每组4字节
 					'elec_engy'=>array(
 						bindec(substr($one_file_content,64,BYTE_4))/100,
 						bindec(substr($one_file_content,96,BYTE_4))/100,
-						//bindec(substr($one_file_content,128,BYTE_4))/100,
-						//bindec(substr($one_file_content,160,BYTE_4))/100,
+						bindec(substr($one_file_content,128,BYTE_4))/100,
+						bindec(substr($one_file_content,160,BYTE_4))/100,
 					),
-					//23
-					
+					//功率数据4组：每组4字节
 					'elec_power'=>array(
-						bindec(substr($one_file_content,208,BYTE_2)),
-						bindec(substr($one_file_content,192,BYTE_2)),
-						
+						bindec(substr($one_file_content,192,BYTE_4)),
+						bindec(substr($one_file_content,224,BYTE_4)),
+						bindec(substr($one_file_content,256,BYTE_4)),
+						bindec(substr($one_file_content,288,BYTE_4)),
+					),
+					//电流数据4组：每组2字节
+					'current'=>array(
+						bindec($current_file['41'].$current_file['40']),
+						bindec($current_file['43'].$current_file['42']),
+						bindec($current_file['45'].$current_file['44']),
+						bindec($current_file['47'].$current_file['46']),
 						//bindec(substr($one_file_content,224,BYTE_2)),
 						//bindec(substr($one_file_content,240,BYTE_2)),
 					),
-					//31
-					
+					//温度10组：每组温度2字节
 					'temperature'=>array(
 						//室内
-						bindec($current_file['33'].$current_file['32'])/100,
+						bindec($current_file['49'].$current_file['48'])/100,
 						//室外
-						bindec($current_file['35'].$current_file['34'])/100,
+						bindec($current_file['51'].$current_file['50'])/100,
 						//空调1
-						bindec($current_file['37'].$current_file['36'])/100,
+						bindec($current_file['53'].$current_file['52'])/100,
 						//空调2
-						bindec($current_file['39'].$current_file['38'])/100,
+						bindec($current_file['55'].$current_file['54'])/100,
 						//空调3
-						bindec($current_file['41'].$current_file['40'])/100,
+						bindec($current_file['57'].$current_file['56'])/100,
 						//空调4
-						bindec($current_file['43'].$current_file['42'])/100,
+						bindec($current_file['59'].$current_file['58'])/100,
 						//蓄电池1
-						bindec($current_file['45'].$current_file['44'])/100,
+						bindec($current_file['61'].$current_file['60'])/100,
 						//蓄电池2
-						bindec($current_file['47'].$current_file['46'])/100,
+						bindec($current_file['63'].$current_file['62'])/100,
 						
 						//预留
-						bindec($current_file['49'].$current_file['48'])/100,
-						bindec($current_file['51'].$current_file['50'])/100,
+						bindec($current_file['65'].$current_file['48'])/100,
+						bindec($current_file['67'].$current_file['50'])/100,
 					),
 					/*
 					'temperature'=>array(
@@ -181,13 +187,13 @@
 					*/
 					
 					'humidity'=>array(
-						bindec($current_file['52']),
-						bindec($current_file['53']),
+						bindec($current_file['68']),
+						bindec($current_file['69']),
 					),
 					
 					'reserved'=>array(
-						bindec($current_file['54']),
-						bindec($current_file['55']),
+						bindec($current_file['70']),
+						bindec($current_file['71']),
 					)
 					
 				));

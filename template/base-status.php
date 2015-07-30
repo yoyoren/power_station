@@ -139,24 +139,28 @@
 
           <p class="table-title"><b>设备状态</b></p>
           <div class="clearfix">
-            <div class="n-status-item">
+            <div class="n-status-item" id="device_fan">
               <p>新风</p>
               <!-- <img src="img/ic-off.png"/> -->
-              <p class="de-status">关闭</p>
+              <p class="de-status open" style="display:none">工作</p>
+			  <p class="de-status onclose" style="display:none">关闭</p>
             </div>
-            <div class="n-status-item">
+            <div class="n-status-item" id="device_air_1">
               <p>空调1</p>
               <!-- <img src="img/ic-off.png"/> -->
-              <p class="de-status">关闭</p>
+              <p class="de-status open" style="display:none">工作</p>
+			  <p class="de-status onclose" style="display:none">关闭</p>
             </div>
-            <div class="n-status-item">
+            <div class="n-status-item"  id="device_air_2">
               <p>空调2</p>
               <!-- <img src="img/ic-on.png"/> -->
-              <p class="de-status open">工作</p>
+              <p class="de-status open" style="display:none">工作</p>
+			  <p class="de-status onclose" style="display:none">关闭</p>
             </div>
-            <div class="n-status-item">
+            <div class="n-status-item"  id="device_cabint">
               <p>恒温柜</p>
-              <p class="de-status open">工作</p>
+              <p class="de-status open" style="display:none">工作</p>
+			  <p class="de-status onclose" style="display:none">关闭</p>
             </div>
           </div>
 
@@ -248,6 +252,30 @@ jQuery(document).ready(function($)
   draw_1($('#cabint_display'),window.device_status.temperatureCabinet);
   $('#cabint_tmp').html(window.device_status.temperatureCabinet+'℃');
   
+  
+  if(window.device_status.deviceStatus1 == '1'){
+	$("#device_air_1").find('.open').show();
+  }else{
+	$("#device_air_1").find('.onclose').show();
+  }
+  
+  if(window.device_status.deviceStatus2 == '1'){
+	$("#device_air_2").find('.open').show();
+  }else{
+	$("#device_air_2").find('.onclose').show();
+  }
+  
+  if(window.device_status.deviceStatusFan == '1'){
+	$("#device_fan").find('.open').show();
+  }else{
+	$("#device_fan").find('.onclose').show();
+  }
+  
+  if(window.device_status.deviceStatusCabinet == '1'){
+	$("#device_cabint").find('.open').show();
+  }else{
+	$("#device_cabint").find('.onclose').show();
+  }
 
   var dataItemPower =$(".cpu-gauge2");
   for(var i =0; i<dataItemPower.length;i++){
