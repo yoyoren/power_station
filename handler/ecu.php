@@ -16,7 +16,8 @@
 	define('FILE_CONTENT_SIZE',72 * BYTE_1);
 	
 	class ECUHandler {
-		public static function read($path=ECU_ROOT_PATH.'beijing/ecu1234567-20150728-221152.engy'){
+	///ecu/site/laogang/ecu1234567-20150726-200729.engy
+		public static function read($path=ECU_ROOT_PATH.'CUSHSHPD00040/ecu1234567-20150814-085339.engy'){
 			$file = fopen($path,'rb');
 			$content=fread($file,filesize($path));
 			
@@ -127,9 +128,9 @@
 					'air_condition_4_status'=>$current_file[7][1],
 					//电能数据4组：每组4字节
 					'elec_engy'=>array(
-						bindec(substr($one_file_content,64,BYTE_4))/100,
-						bindec(substr($one_file_content,96,BYTE_4))/100,
-						bindec(substr($one_file_content,128,BYTE_4))/100,
+						bindec(substr($one_file_content,64,BYTE_4))/1000,
+						bindec(substr($one_file_content,96,BYTE_4))/1000,
+						bindec(substr($one_file_content,128,BYTE_4))/1000,
 						bindec(substr($one_file_content,160,BYTE_4))/100,
 					),
 					//功率数据4组：每组4字节
@@ -210,7 +211,7 @@
 		
 		
 		//扫描目录
-		public static function scan(){
+		public static function scan($siteName){
 			$res = array();
 			$stations = scandir(ECU_ROOT_PATH);
 			$counts = count($stations);
@@ -219,8 +220,15 @@
 				if(is_dir(ECU_ROOT_PATH.'/'.$dir) && !is_dir($dir)){
 					$station_data = scandir(ECU_ROOT_PATH.'/'.$dir);
 					for($k=0;$k<count($station_data);$k++){
-						if(!is_dir(ECU_ROOT_PATH.$dir.'/'.$station_data[$k])){
-							array_push($res,ECU_ROOT_PATH.$dir.'/'.$station_data[$k]);
+						
+						if($siteName){
+							if(!is_dir(ECU_ROOT_PATH.$dir.'/'.$station_data[$k])&& $dir == $siteName){
+								array_push($res,ECU_ROOT_PATH.$dir.'/'.$station_data[$k]);
+							}
+						} else {
+							if(!is_dir(ECU_ROOT_PATH.$dir.'/'.$station_data[$k]) ){
+								array_push($res,ECU_ROOT_PATH.$dir.'/'.$station_data[$k]);
+							}
 						}
 					}
 				}
@@ -228,10 +236,25 @@
 			return $res;
 		}
 		
+		public static function write_dir($siteName = 'CUSHSHPD00040'){
+			$files = ECUHandler::scan($siteName);
+			for($i =0;$i<count($files);$i++){
+				ECUHandler::write($files[$i]);
+			}
+			return array();
+		}
+		
 		//将扫描后的文件放到库里
 		public static function write($path=ECU_ROOT_PATH.'ecu1234567-20150717-221043.engy'){
-			$data = ECUHandler::read($path);
-		
+			try{
+				$data = ECUHandler::read($path);
+			}catch(Exception $ex){
+			
+			}
+			if(!$data){
+				return;
+			}
+			//var_dump($path);
 			$data = $data['file_content'];
 			$dao =  new PowerBaseStationRuningDataMySqlDAO();
 			$current_time = time();
@@ -292,7 +315,7 @@
 				$dao_obj->temperatureCabinet = $cur_data['temperature'][6];
 				
 				$dao_obj->createTime = $cur_data['timestamps'];
-				
+				//var_dump($cur_data['timestamps']);
 				//新增
 				$dao_obj->energyAll = $cur_data['elec_engy'][0];
 				$dao_obj->energyDc = $cur_data['elec_engy'][1];

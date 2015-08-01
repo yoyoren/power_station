@@ -544,6 +544,7 @@ $app->get('/station/warning/:id', function ($id) use ($app) {
 	restful_response(RES_SUCCESS,$data);
 });
 
+//获得基站的原始数据
 $app->get('/station/origindata/:id', function ($id) use ($app) {
 	restful_api_auth();
 	//时间戳
@@ -560,6 +561,25 @@ $app->get('/station/last/origindata/:id', function ($id) use ($app) {
 	restful_response(RES_SUCCESS,$data);
 });
 
+//获得基站谋天的数据
+$app->get('/station/oneday', function () use ($app) {
+	restful_api_auth();
+	//时间戳
+	$time = param_check_get('time');
+	$time = intval($time);
+	$data = StationHandler::get_one_day_status(1,$time);
+	restful_response(RES_SUCCESS,$data);
+});
+
+//获得基站月报的数据
+$app->get('/station/onemonth', function () use ($app) {
+	restful_api_auth();
+	//时间戳
+	//$time = param_check_get('time');
+	//$time = intval($time);
+	$data = StationHandler::get_one_month_status(1,$time);
+	restful_response(RES_SUCCESS,$data);
+});
 
 //新建项目
 $app->post('/project/add', function () {

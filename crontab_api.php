@@ -22,4 +22,15 @@
 			restful_response(RES_FAIL);
 		}
 	});
+	
+	//
+	$app->get('/crontab/ecu/sync', function () use ($app) {
+		//crontab_api_auth();
+		$res = ECUHandler::write_dir();
+		if($res){
+			restful_response(RES_SUCCESS,$res);
+		}else{
+			restful_response(RES_FAIL);
+		}
+	});
 ?>

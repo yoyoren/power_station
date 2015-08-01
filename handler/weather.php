@@ -65,6 +65,9 @@ class WeatherHandler {
 		if($startMonth == -1){
 		   $startMonth = strtotime(date('Ym'));
 		}
+		
+		//减去一秒保证能获得0点的数据
+		$startMonth  -= 1;
 		$data = $dao -> get_weather_by_month($startMonth,$province,$city);
 		return $data;
 	}

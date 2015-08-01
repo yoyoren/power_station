@@ -76,7 +76,9 @@ $app->get('/base/create', function () use ($app) {
 //日报数据
 $app->get('/base/daily/:id', function ($id) use ($app) {
 	pageview_api_auth();
-	$data = StationHandler::get_full_day_status(1);
+	//$data = StationHandler::get_full_day_status(1);
+	$data = StationHandler::get_one_day_status(1);
+	
 	$app->render('base-daily.php',array('id'=>$id,'data'=>$data));
 });	
 

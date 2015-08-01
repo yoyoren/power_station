@@ -12,7 +12,11 @@
         </ul>
       </div>
       <div class="n-right-content">
+	  
       <h4 class="tab-to-title"><a href="/base/create" class="btn btn-primary">创建基站</a></h4>
+	  <div class="alert alert-success" role="alert" id="loading_tip">
+		  <strong></strong> 数据正在加载...
+	 </div>
           <div class="n-check-item">
             <span class="name">项目</span>
             <select id="station_project"><option>--查询条件--</option></select>
@@ -142,6 +146,7 @@ var renderOnePage = function(data){
 					</tr>';
 		}
 		$('#container').html(html);
+		$('#loading_tip').hide();
 }
 $get('/station/list',{
 		start:start,

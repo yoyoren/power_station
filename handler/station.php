@@ -452,7 +452,11 @@
 				'temp_cabint' => array(),
 				'temp_air_1' => array(),
 				'temp_air_2' => array(),
+				'temp_air_1_status'=>array(),
+				'temp_air_2_status'=>array(),
+				'temp_fan_status'=>array(),
 				'time' => array(),
+				
 			);
 			$dao =  new PowerBaseStationRuningDataMySqlExtDAO();
 			$data = $dao->get_full_day_status($stationId);
@@ -465,10 +469,83 @@
 				array_push($ret['temp_cabint'],$d->temperatureCabinet);
 				array_push($ret['temp_air_1'],$d->temperatureAircondition1);
 				array_push($ret['temp_air_2'],$d->temperatureAircondition2);
+				array_push($ret['temp_air_1_status'],$d->deviceStatus1);
+				array_push($ret['temp_air_2_status'],$d->deviceStatus2);
+				array_push($ret['temp_fan_status'],$d->deviceStatusFan);
 				array_push($ret['time'],$d->createTime);
 			}
 			return $ret;
 		}
+		
+		//从ECU同步的数据中获得基站的最新信息 不同的是 这个方法不会强制拉1440条数据
+		public static function get_one_day_status($stationId=1,$start_time=0){
+			$ret = array(
+				'power_all' => array(),
+				'power_dc' => array(),
+				'temp_inside' => array(),
+				'temp_outside' => array(),
+				'temp_cabint' => array(),
+				'temp_air_1' => array(),
+				'temp_air_2' => array(),
+				'temp_air_1_status'=>array(),
+				'temp_air_2_status'=>array(),
+				'temp_fan_status'=>array(),
+				'time' => array(),
+				'current_date'=>strtotime(date("y-m-d",time())),
+			);
+			$dao =  new PowerBaseStationRuningDataMySqlExtDAO();
+
+			if($start_time == 0){
+				$start_time = date("y-m-d",time());
+				$start_time = strtotime($start_time);
+			}
+			$end_time = $start_time + 24*60*60;
+			$data = $dao->get_one_day_status($stationId,$start_time,$end_time);
+			for($i=0;$i<count($data);$i++){
+				$d = $data[$i];
+				array_push($ret['power_all'],$d->powerAll);
+				array_push($ret['power_dc'],$d->powerDc);
+				array_push($ret['temp_inside'],$d->temperatureInside);
+				array_push($ret['temp_outside'],$d->temperatureOutside);
+				array_push($ret['temp_cabint'],$d->temperatureCabinet);
+				array_push($ret['temp_air_1'],$d->temperatureAircondition1);
+				array_push($ret['temp_air_2'],$d->temperatureAircondition2);
+				array_push($ret['temp_air_1_status'],$d->deviceStatus1);
+				array_push($ret['temp_air_2_status'],$d->deviceStatus2);
+				array_push($ret['temp_fan_status'],$d->deviceStatusFan);
+				array_push($ret['time'],$d->createTime);
+			}
+			return $ret;
+		}
+		
+		//月报数据
+		public static function get_one_month_status($stationId=1,$start_time=0){
+			$dao =  new PowerBaseStationRuningDataMySqlExtDAO();
+			$res = array();
+			if($start_time == 0 || $start_time == NULL){
+				$start_time = date("Y-m",time());
+				$start_time = strtotime($start_time);
+			}
+
+			$end_time = $start_time + 24*60*60;
+			//计算一天的数据效能
+			$data = $dao->get_one_day_status($stationId,$start_time,$end_time);
+			if($data){
+				$start_data = $data[0];
+				$end_data = $data[count($data) -  1];
+				array_push($res,array(
+					'energyAll'=>$end_data->energyAll - $start_data->energyAll,
+					'energyDc'=>$end_data->energyDc - $start_data->energyDc,
+					'powerAll'=>$end_data->powerAll - $start_data->powerAll,
+					'powerDc'=>$end_data->energyAll - $start_data->powerDc,
+					'energyAll'=>$end_data->energyAll - $start_data->energyAll,
+					'energyAll'=>$end_data->energyAll - $start_data->energyAll,
+					'start_time' =>$start_time,
+				));
+			}
+			return $res;
+		}
+		
 		
 		//按照时间查看基站的原始数据
 		public static function get_origin_data_by_time($stationId=1,$time){
