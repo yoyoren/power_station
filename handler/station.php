@@ -526,22 +526,27 @@
 				$start_time = date("Y-m",time());
 				$start_time = strtotime($start_time);
 			}
-
-			$end_time = $start_time + 24*60*60;
-			//计算一天的数据效能
-			$data = $dao->get_one_day_status($stationId,$start_time,$end_time);
-			if($data){
-				$start_data = $data[0];
-				$end_data = $data[count($data) -  1];
-				array_push($res,array(
-					'energyAll'=>$end_data->energyAll - $start_data->energyAll,
-					'energyDc'=>$end_data->energyDc - $start_data->energyDc,
-					'powerAll'=>$end_data->powerAll - $start_data->powerAll,
-					'powerDc'=>$end_data->energyAll - $start_data->powerDc,
-					'energyAll'=>$end_data->energyAll - $start_data->energyAll,
-					'energyAll'=>$end_data->energyAll - $start_data->energyAll,
-					'start_time' =>$start_time,
-				));
+			$end_time = 0;
+			for($i=0;$i<30;$i++){
+				$end_time = $start_time + 24*60*60;
+				
+				//计算一天的数据效能
+				$data = $dao->get_one_day_status($stationId,$start_time,$end_time);
+				
+				if($data){
+					$start_data = $data[0];
+					$end_data = $data[count($data) -  1];
+					array_push($res,array(
+						'energyAll'=>$end_data->energyAll - $start_data->energyAll,
+						'energyDc'=>$end_data->energyDc - $start_data->energyDc,
+						'powerAll'=>$end_data->powerAll - $start_data->powerAll,
+						'powerDc'=>$end_data->energyAll - $start_data->powerDc,
+						'energyAll'=>$end_data->energyAll - $start_data->energyAll,
+						'energyAll'=>$end_data->energyAll - $start_data->energyAll,
+						'start_time' =>$start_time,
+					));
+				}
+				$start_time += 24*60*60;
 			}
 			return $res;
 		}
@@ -606,6 +611,13 @@
 			}
 
 			return $ret;
+		}
+		
+		
+		public static function get_station_by_station_name($name){
+			$dao = new PowerBaseStationMySqlDAO();
+			$data = $dao->queryByStationSeriseCode($name);
+			return $data[0];
 		}
 		
 		public static function remove(){

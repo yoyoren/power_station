@@ -238,14 +238,19 @@
 		
 		public static function write_dir($siteName = 'CUSHSHPD00040'){
 			$files = ECUHandler::scan($siteName);
-			for($i =0;$i<count($files);$i++){
-				ECUHandler::write($files[$i]);
+			$stationInfo = $dao->queryByStationSeriseCode($siteName);
+			$stationId = 1;
+			if($stationInfo){
+			   $stationId = $stationInfo->stationId;
+			}
+			for($i = 0;$i<count($files);$i++){
+				ECUHandler::write($files[$i],$stationId);
 			}
 			return array();
 		}
 		
 		//将扫描后的文件放到库里
-		public static function write($path=ECU_ROOT_PATH.'ecu1234567-20150717-221043.engy'){
+		public static function write($path=ECU_ROOT_PATH.'ecu1234567-20150717-221043.engy',$stationId=1){
 			try{
 				$data = ECUHandler::read($path);
 			}catch(Exception $ex){
@@ -254,7 +259,7 @@
 			if(!$data){
 				return;
 			}
-			//var_dump($path);
+
 			$data = $data['file_content'];
 			$dao =  new PowerBaseStationRuningDataMySqlDAO();
 			$current_time = time();
@@ -279,7 +284,7 @@
 				$dao_obj->deviceStatusFan = $cur_data['fan_status'];
 				$dao_obj->deviceStatusCabinet = $cur_data['battery_air_status'];
 				$dao_obj->deviceStatusVentilator = $cur_data['battery_fan_status'];
-				$dao_obj->stationId = 1;
+				$dao_obj->stationId = $stationId;
 				$dao_obj->wetInside = $cur_data['humidity'][0];
 				$dao_obj->wetOutside = $cur_data['humidity'][1];
 				$dao_obj->ammeterNormal = -1;

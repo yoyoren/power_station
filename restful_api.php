@@ -575,11 +575,20 @@ $app->get('/station/oneday', function () use ($app) {
 $app->get('/station/onemonth', function () use ($app) {
 	restful_api_auth();
 	//时间戳
-	//$time = param_check_get('time');
-	//$time = intval($time);
+	$time = param_check_get('time');
+	$time = intval($time);
 	$data = StationHandler::get_one_month_status(1,$time);
 	restful_response(RES_SUCCESS,$data);
 });
+
+//获得基站月报的数据
+$app->get('/station/getbyname', function () use ($app) {
+	restful_api_auth();
+	$name = param_check_get('name');
+	$data = StationHandler::get_station_by_station_name($name);
+	restful_response(RES_SUCCESS,$data);
+});
+
 
 //新建项目
 $app->post('/project/add', function () {

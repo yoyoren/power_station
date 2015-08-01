@@ -130,7 +130,7 @@ $get('/project/list',{
 	   $('#station_project').html(html);
 });
 var start = 3;
-var pageSize = 100;
+var pageSize = 400;
 var renderOnePage = function(data){
 		var html = '';
 		for (var i=0;i<data.length;i++){
