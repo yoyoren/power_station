@@ -1,13 +1,44 @@
 <!DOCTYPE html>
 <html>
- <?php include ('include/head_script.php')?>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  <title>报表</title>
+  <link rel="stylesheet" type="text/css" href="css/base.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.css">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" type="text/css" href="css/table.css">
+
+</head>
 <body>
-<link rel="stylesheet" type="text/css" href="/static/src/css/table.css">
   <div class="n-layout">
-    <?php include ('include/header.php')?>
+    <div class="n-head clearfix">
+      <div class="n-logo fl-l">
+        <img class="ico-logo" src="img/ic-nenghao2.png" /><span class="vl-m">能耗管理云系统</span>
+      </div>
+      <ul class="n-head-nav fl-l">
+        <li><a href="main.html">首页</a></li>
+        <li><a href="jizhan-index.html">基站</a></li>
+        <li><a href="gaojing-index.html">告警</a></li>
+        <li><a href="dianbiao-my.html">电表</a></li>
+        <li><a href="weihu-note.html">维护</a></li>
+        <li><a class="current" href="table-index.html">报表</a></li>
+        <li><a href="account-create.html">账户</a></li>
+      </ul>
+      <div class="n-logout fl-r">你好，管理员，<span class="name">梅梅哇</span><a href="" class="func">退出</a></div>
+    </div>
+
     <div class="n-container">
-      <?php include ('include/nav_report.php')?>
-      <script>$('#nav_report_0').addClass('current');</script>
+
+      <div class="n-nav-left">
+        <ul>
+          <li class="current"><a href="table-index.html"><span class="vl-m">月节能报表（表一）</span></a></li>
+          <li><a href="table-jizhun.html"><span class="vl-m">基准站报表（表2）</span></a></li>
+          <li class="is-child"><a href="table-other.html"><span class="vl-m">客户记录管理</span></a></li>
+          <li><a href="table-e.html"><span class="vl-m">电表E值（表3）</span></a></li>
+          <li><a href="table-yichang.html"><span class="vl-m">异常能耗修正（表4）</span></a></li>
+        </ul>
+      </div>
 
       <div class="n-right-content" style="padding:20px 20px 20px 0; overflow:hidden;">
         <div style="height:100%; overflow:auto; padding-right:20px;">

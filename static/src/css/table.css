@@ -1,0 +1,6 @@
+.table th,
+.table .th{text-align: center; font-weight: bold;}
+.table td{min-width: 80px; vertical-align: middle !important; text-align: center;}
+td.has-bg{background: rgba(250,184,184,1);}
+td.has-bg2{background: #eeece1;}
+.leave-mes{text-align: center; font-weight: bold;}
