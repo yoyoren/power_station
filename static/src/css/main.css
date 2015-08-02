@@ -165,3 +165,8 @@ li.is-child{padding-left: 60px;
   border-bottom: 1px solid #000;
   height: 30px;
   line-height: 30px;}
+/* 报表查询 */
+.report-check-area{padding:0; margin-bottom:0; margin-top:-54px;}
+.report-check-area .n-check-item{width:auto; margin-right:40px;}
+.report-check-area .name{width:auto;}
+.report-check-area .form-control{display:inline-block;}

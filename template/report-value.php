@@ -9,11 +9,37 @@
       <?php include ('include/nav_report.php')?>
       <script>$('#nav_report_3').addClass('current');</script>
 
-      <div class="n-right-content" style="padding:20px 20px 20px 0; overflow:hidden;">
-        <div style="height:100%; overflow:auto; padding-right:20px;">
+      <div class="n-right-content" style="padding:74px 20px 20px 0; overflow:hidden;">
+        <div class="n-check-area report-check-area">
+          <div class="n-check-item">
+            <span class="name">项目</span>
+            <select><option>上海联通</option></select>
+          </div>
+          <div class="n-check-item">
+            年份与月份
+            <input type="text" class="form-control form_datetime" readonly="" value="2015-04" required="" style="width:80px;">
+          </div>
+          <div class="n-check-item">
+            <span class="name">区县</span>
+            <select>
+              <option>全部</option>
+              <option>浦东</option>
+              <option>南汇</option>
+            </select>
+          </div>
+          <div class="n-check-item">
+            <span class="name">数据来源</span>
+            <select>
+              <option>杉实</option>
+              <option>联通</option>
+            </select>
+          </div>
+          <button type="button" class="btn btn-default" id="sub_check">确定</button>
+        </div>
+        <div style="height:100%; overflow:auto; padding-right:20px; display:none;" id="show_table">
           <table class="table table-bordered">
             <tr>
-              <th colspan="10">电表核准系数e(数据来源-用能公司)  (2015年02月01日 - 2015年02月28日) </th>
+              <th colspan="10">电表核准系数e(数据来源-上海杉实)  (2015年02月01日 - 2015年02月28日) </th>
             </tr>
             <tr>
               <td class="th">1</td>
@@ -132,7 +158,7 @@
 
           <table class="table table-bordered">
             <tr>
-              <th colspan="10">电表核准系数e(数据来源-上海杉实)  (2015年02月01日 - 2015年02月28日) </th>
+              <th colspan="10">电表核准系数e(数据来源-用能公司)  (2015年02月01日 - 2015年02月28日) </th>
             </tr>
             <tr>
               <td class="th">1</td>
@@ -256,4 +282,20 @@
     </div>
   </div>
 </body>
+<script type="text/javascript" src="/static/src/js/datepicker/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript">
+$('.form_datetime').datetimepicker( {
+  format: 'yyyy-mm',
+  weekStart: 1,
+  autoclose: true,
+  startView: 3,
+  minView: 3,
+  forceParse: false,
+  language: 'cn'
+});
+
+$('#sub_check').bind('click',function(){
+  $('#show_table').show();
+})
+</script>
 </html>
