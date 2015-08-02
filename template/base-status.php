@@ -81,8 +81,6 @@
               <div class="fl-l" style="padding:0 0 0 20px;;">
                 <p class="num">27.9℃</p>
                 <p>室内温度</p>
-                <p class="num">80%</p>
-                <p>室内湿度</p>
               </div>
 
             </div>
@@ -94,8 +92,6 @@
               <div class="fl-l" style="padding:0 0 0 20px;;">
                 <p class="num">27.9℃</p>
                 <p>室外温度</p>
-                <p class="num">80%</p>
-                <p>室内湿度</p>
               </div>
 
             </div>
@@ -107,8 +103,6 @@
               <div class="fl-l" style="padding:0 0 0 20px;;">
                 <p class="num">27.9℃</p>
                 <p>恒温柜温度</p>
-                <p class="num">80%</p>
-                <p>恒温柜湿度</p>
               </div>
 
             </div>
@@ -120,8 +114,6 @@
               <div class="fl-l" style="padding:0 0 0 20px;;">
                 <p class="num">27.9℃</p>
                 <p>空调一温度</p>
-                <p class="num">80%</p>
-                <p>空调一湿度</p>
               </div>
 
             </div>
@@ -133,8 +125,19 @@
               <div class="fl-l" style="padding:0 0 0 20px;;">
                 <p class="num">27.9℃</p>
                 <p>空调二温度</p>
+              </div>
+
+            </div>
+
+            <div class="n-wendu-item">
+
+              <div id="other-stats" style="min-height: 160px">
+                <div class="cpu-usage-gauge" data="80"></div>
+              </div>
+
+              <div class="fl-l" style="padding:0 0 0 20px;;">
                 <p class="num">80%</p>
-                <p>空调二湿度</p>
+                <p>室内湿度</p>
               </div>
 
             </div>
