@@ -51,12 +51,12 @@ function param_check($key,$method='post',$type='',$empty = false){
 	return $val;
  }
  
- function param_check_get($key,$type=''){
-	return param_check($key,'get',$type);
+ function param_check_get($key,$type='',$empty=false){
+	return param_check($key,'get',$type,$empty);
  }
  
- function param_check_post($key,$type=''){
-	return param_check($key,'post',$type);
+ function param_check_post($key,$type='',$empty=false){
+	return param_check($key,'post',$type,$empty);
  }
  
  //API登陆身份验证
@@ -510,6 +510,7 @@ $app->get('/station/query', function () {
 	$district = param_check_get('district','',true);
 	$station_type = param_check_get('station_type','',true);
 	$overload = param_check_get('overload','',true);
+	$building_type = param_check_get('building_type','',true);
 	$query_option = array(
 		'project_id'=>$project,
 		'station_province'=>$province,
@@ -518,7 +519,7 @@ $app->get('/station/query', function () {
 		'station_type'=>$station_type
 	);
 		
-	$data = StationHandler::query($start,$end,$query_option,$overload);
+	$data = StationHandler::query($start,$end,$query_option,$overload,$building_type);
 	restful_response(RES_SUCCESS,$data);
 });
 
@@ -589,6 +590,30 @@ $app->get('/station/getbyname', function () use ($app) {
 	restful_response(RES_SUCCESS,$data);
 });
 
+//获得告警的数据
+$app->get('/warning/list', function () use ($app) {
+	restful_api_auth();
+	$page = param_check_get('page');
+	$pagesize = param_check_get('pagesize');
+	$data = WarningHandler::get_list(-1,$page,$pagesize);
+	restful_response(RES_SUCCESS,$data);
+});
+
+//按条件检索告警
+$app->get('/warning/query', function () {
+	restful_api_auth();
+	$start = param_check_get('start');
+	$pagesize = param_check_get('pagesize');
+	$create_time = param_check_get('create_time','',true);
+	$warning_status = param_check_get('warning_status','',true);
+	$warning_type = param_check_get('warning_type','',true);
+	$query_option = array(
+		'warning_status'=>$warning_status,
+		'warning_type'=>$warning_type
+	);
+	$data = WarningHandler::query($start,$pagesize,$query_option,$create_time);
+	restful_response(RES_SUCCESS,$data);
+});
 
 //新建项目
 $app->post('/project/add', function () {

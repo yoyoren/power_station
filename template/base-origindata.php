@@ -100,35 +100,35 @@
 
 <script type="text/javascript">
 function getNowFormatDate(day) { 
-day = new Date(day);
-var Year = 0; 
-var Month = 0; 
-var Day = 0; 
-var CurrentDate = ""; 
+	day = new Date(day);
+	var Year = 0; 
+	var Month = 0; 
+	var Day = 0; 
+	var CurrentDate = ""; 
 
-Year= day.getFullYear();
-Month= day.getMonth()+1; 
-Day = day.getDate(); 
-CurrentDate += Year + "-"; 
-if (Month >= 10 ) 
-{ 
-CurrentDate += Month + "-"; 
-} 
-else 
-{ 
-CurrentDate += "0" + Month + "-"; 
-} 
-if (Day >= 10 ) 
-{ 
-CurrentDate += Day ; 
-} 
-else 
-{ 
-CurrentDate += "0" + Day ; 
-} 
+	Year= day.getFullYear();
+	Month= day.getMonth()+1; 
+	Day = day.getDate(); 
+	CurrentDate += Year + "-"; 
+	if (Month >= 10 ) 
+	{ 
+	CurrentDate += Month + "-"; 
+	} 
+	else 
+	{ 
+	CurrentDate += "0" + Month + "-"; 
+	} 
+	if (Day >= 10 ) 
+	{ 
+	CurrentDate += Day ; 
+	} 
+	else 
+	{ 
+	CurrentDate += "0" + Day ; 
+	} 
 
-CurrentDate+= ' ' + day.getHours() + ':' + day.getMinutes();
-return CurrentDate; 
+	CurrentDate+= ' ' + day.getHours() + ':' + day.getMinutes();
+	return CurrentDate; 
 } 
 $(function () {
     $(".form_datetime").datetimepicker({

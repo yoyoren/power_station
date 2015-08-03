@@ -29,11 +29,19 @@ class PowerBaseStationEnergyInfoMySqlExtDAO extends PowerBaseStationEnergyInfoMy
 		return $this->executeUpdate($sqlQuery);
 	}
 	
-	public function queryByStationIdAndEnergyType($stationId,$energyType){
-		$sql = 'SELECT * FROM power_base_station_energy_info WHERE station_id = ? AND energy_type = ?';
-		$sqlQuery = new SqlQuery($sql);
-		$sqlQuery->setNumber($stationId);
-		$sqlQuery->setNumber($energyType);
+	public function queryByStationIdAndEnergyTypeAndBuildingType($stationId,$energyType,$buildingType){
+		if($buildingType==-1){
+			$sql = 'SELECT * FROM power_base_station_energy_info WHERE station_id = ? AND energy_type = ?';
+			$sqlQuery = new SqlQuery($sql);
+			$sqlQuery->setNumber($stationId);
+			$sqlQuery->setNumber($energyType);
+		}else{
+			$sql = 'SELECT * FROM power_base_station_energy_info WHERE station_id = ? AND energy_type = ? AND building_type = ?';
+			$sqlQuery = new SqlQuery($sql);
+			$sqlQuery->setNumber($stationId);
+			$sqlQuery->setNumber($energyType);
+			$sqlQuery->setNumber($buildingType);
+		}
 		return $this->getList($sqlQuery);
 	}
 	

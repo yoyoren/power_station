@@ -23,14 +23,18 @@
 		}
 	});
 	
-	//
+	//ECU历史数据同步
 	$app->get('/crontab/ecu/sync', function () use ($app) {
 		//crontab_api_auth();
 		$res = ECUHandler::write_dir();
-		if($res){
-			restful_response(RES_SUCCESS,$res);
-		}else{
-			restful_response(RES_FAIL);
-		}
+		restful_response(RES_SUCCESS,$res);
+	});
+	
+	//告警历史数据计算
+	$app->get('/crontab/warning/sync', function () use ($app) {
+		//crontab_api_auth();
+		$res = StationHandler::cal_warning_from_history_running_data();
+		restful_response(RES_SUCCESS,$res);
+		
 	});
 ?>

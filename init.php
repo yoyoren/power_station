@@ -69,6 +69,9 @@ define('NULL_VAL_DISPLAY','n/a');
 	define('WARNING_AIR_CONDITION_ERROR',8);
 	define('WARNING_TEMPATURE_ERROR',9);
 	
+	define('WARNING_CLOSE',1);
+	define('WARNING_OPEN',1);
+	
 	//告警类型
 	$WARNING_TYPE = array(
 		'1'=>'断站',

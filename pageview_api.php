@@ -112,13 +112,24 @@ $app->get('/base/origindata/:id', function ($id) use ($app) {
 //告警首页
 $app->get('/warning', function () use ($app) {
 	pageview_api_auth();
-	$app->render('warning-index.php',array());
+	global $WARNING_TYPE;
+	$warning_num = WarningHandler::get_count_by_type();
+	$app->render('warning-index.php',array(
+		'warning_num'=>$warning_num,
+		'WARNING_TYPE'=>$WARNING_TYPE
+	));
 });
 
 //告警策略
 $app->get('/warning/rule', function () use ($app) {
 	pageview_api_auth();
 	$app->render('warning-rule.php',array());
+});
+
+//告警策略
+$app->get('/warning/fullscreen', function () use ($app) {
+	pageview_api_auth();
+	$app->render('warning-fullscreen.php',array());
 });
 
 //电表首页

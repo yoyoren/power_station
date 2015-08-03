@@ -61,14 +61,14 @@
             </tr>
             <tr>
               <th>砖墙</th>
-              <td><a href="/base"><?php echo $station_num_1[0]?>（台）</a></td>
-              <td><a href="/base"><?php echo $station_num_1[1]?>（台）</a></td>
-              <td><a href="/base"><?php echo $station_num_1[2]?>（台）</a></td>
-              <td><a href="/base"><?php echo $station_num_1[3]?>（台）</a></td>
-              <td><a href="/base"><?php echo $station_num_1[4]?>（台）</a></td>
-              <td><a href="/base"><?php echo $station_num_1[5]?>（台）</a></td>
-              <td><a href="/base"><?php echo $station_num_1[6]?>（台）</a></td>
-              <td><a href="/base"><?php echo $station_num_1[7]?>（台）</a></td>
+              <td><a href="/base?building=1&energy=1"><?php echo $station_num_1[0]?>（台）</a></td>
+              <td><a href="/base?building=1&energy=2"><?php echo $station_num_1[1]?>（台）</a></td>
+              <td><a href="/base?building=1&energy=3"><?php echo $station_num_1[2]?>（台）</a></td>
+              <td><a href="/base?building=1&energy=4"><?php echo $station_num_1[3]?>（台）</a></td>
+              <td><a href="/base?building=1&energy=5"><?php echo $station_num_1[4]?>（台）</a></td>
+              <td><a href="/base?building=1&energy=6"><?php echo $station_num_1[5]?>（台）</a></td>
+              <td><a href="/base?building=1&energy=7"><?php echo $station_num_1[6]?>（台）</a></td>
+              <td><a href="/base?building=1&energy=8"><?php echo $station_num_1[7]?>（台）</a></td>
             </tr>
             <tr>
               <th>板房</th>
@@ -120,8 +120,10 @@
 
   </div>
   <script>
-	
-	var start_num = 698421.87;
+	var startTime =  new Date('2015-08-01').getTime();
+	var currentTime = new Date().getTime();
+
+	var start_num = (698421.87 + ((currentTime - startTime) /1000) * 0.19).toFixed(2);
 	var old_num = 0;
 	var timer = 0;
 	var cal = function(start_num){

@@ -39,8 +39,8 @@
             <span class="name">站型</span>
             <select id="station_type"><option value="0">--查询条件--</option>
             <option value="1">基准站</option>
-                  <option value="2">节能站</option>
-                  <option value="3">预备站</option>
+            <option value="2">节能站</option>
+             <option value="3">预备站</option>
             </select>
           </div>
           <div class="n-check-item">
@@ -54,6 +54,13 @@
               <option value="5">50-60A</option>
               <option value="6">70A+</option>
              </select>
+          </div>
+		  <div class="n-check-item">
+            <span class="name">建筑类型</span>
+            <select id="building_type"><option value="-1">--查询条件--</option>
+             <option value="1">板房</option>
+			 <option value="2">砖墙</option>
+            </select>
           </div>
           <br/>
           <button type="button" class="btn btn-default" id="query_button">确定</button>
@@ -110,7 +117,16 @@
   <script>
 var selProvince = $('#province');
 var selCity = $('#city');
-var selDistirct = $('#distirct');
+var selDistirct = $('#district');
+var params = location.href.split('?')[1];
+if(params){
+   var building_type = params.split('building=')[1];
+   building_type = building_type.split('&')[0];
+   
+   var energy_type = params.split('energy=')[1];
+   energy_type = energy_type.split('&')[0];
+}
+
 $get('/address/province',{},function(d){
 	var data = d.data;
 	var html = '<option value="0">--查询条件--</option>';
@@ -129,7 +145,7 @@ $get('/project/list',{
 	   }
 	   $('#station_project').html(html);
 });
-var start = 3;
+var start = 0;
 var pageSize = 400;
 var renderOnePage = function(data){
 		var html = '';
@@ -148,14 +164,32 @@ var renderOnePage = function(data){
 		$('#container').html(html);
 		$('#loading_tip').hide();
 }
-$get('/station/list',{
+
+if(energy_type || building_type){
+	$('#overload').val(energy_type);
+	$('#building_type').val(building_type);
+	$get('/station/query',{
+		start:0,
+		end:pageSize,
+		building_type:building_type,
+		overload:energy_type
+	},function(d){
+		if(d.data){
+			renderOnePage(d.data);
+		}
+		if(d.data == null){
+		   alert('没有检索到数据！');
+		}
+	});
+}else{
+	$get('/station/list',{
 		start:start,
 		end:start + pageSize
 	},function(d){
-		var data = d.data;
-		renderOnePage(data);
-});
-
+			var data = d.data;
+			renderOnePage(data);
+	});
+}
 selProvince.change(function(){
 	$get('/address/city',{
 		province:$(this).val()
@@ -190,6 +224,7 @@ $('#query_button').click(function(){
 	var district = $('#district').val();
 	var project = $('#station_project').val();
 	var station_type = $('#station_type').val();
+	var building_type = $('#building_type').val();
 	var overload = $('#overload').val();
 
 	$get('/station/query',{
@@ -200,6 +235,7 @@ $('#query_button').click(function(){
 		city:city,
 		district:district,
 		station_type:station_type,
+		building_type:building_type,
 		overload:overload
 	},function(d){
 		if(d.data){

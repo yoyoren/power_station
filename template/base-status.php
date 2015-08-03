@@ -19,10 +19,14 @@
         </h4>
         <div class="current-name-area clearfix">
           <span class="vl-m fl-l name">
-            <b><?php echo $station['info']->stationSeriseCode;?></b>基站
+            <b><?php echo $station['info']->stationName;?></b> 基站
             <span style="color:#ff4400; padding:4px; border-radius:4px; margin-left:10px; ">[正常在线]</span>
-            <span>最新采集时间：2015-04-23 10:23:11 </span>
-
+            <span>最新采集时间：<span id="last_time"></span> </span>
+			<script>
+				var _d = new Date();
+				$('#last_time').html(_d.getFullYear()+ '-' + (_d.getMonth()+1)+ '-' + _d.getDate() 
+				+ ' ' + _d.getHours()+':'+ _d.getMinutes());
+			</script>
           </span>
 
           <div class="fl-r">
@@ -81,9 +85,6 @@
               <div class="fl-l" style="padding:0 0 0 20px;;">
                 <p class="num" id="inside_tmp">0℃</p>
                 <p>室内温度</p>
-
-                <p class="num" id="inside_hum">0%</p>
-                <p>室内湿度</p>
               </div>
 
             </div>
@@ -95,8 +96,6 @@
               <div class="fl-l" style="padding:0 0 0 20px;;">
                 <p class="num" id="outside_tmp">0℃</p>
                 <p>室外温度</p>
-                <p class="num" id="outside_hum">0%</p>
-                <p>室外湿度</p>
               </div>
 
             </div>
@@ -130,6 +129,16 @@
               <div class="fl-l" style="padding:0 0 0 20px;;">
                 <p class="num" id="air_2_tmp">0℃</p>
                 <p>空调二温度</p>
+              </div>
+            </div>
+			
+			<div class="n-wendu-item">
+              <div id="other-stats" style="min-height: 160px">
+                <div class="cpu-usage-gauge"  id="inside_hum_display" data="80"></div>
+              </div>
+              <div class="fl-l" style="padding:0 0 0 20px;;">
+                <p class="num" id="inside_hum">0℃</p>
+                <p>室内湿度</p>
               </div>
             </div>
           </div>
@@ -182,20 +191,12 @@
               <div style="padding:0 0 0 20px;;">
                 <p class="num">39A</p>
                 <p>当前能耗</p>
-
               </div>
-
             </div>
-
           </div><!-- 能耗结束 -->
-
-
         </div>
-
       </div>
-
     </div>
-
   </div>
 </body>
 <script src="/static/src/js/devexpress-web-14.1/js/globalize.min.js"></script>
@@ -244,6 +245,7 @@ jQuery(document).ready(function($)
   draw_1($('#air_2_display'),window.device_status.temperatureAircondition2);
   $('#air_2_tmp').html(window.device_status.temperatureAircondition2+'℃');
   
+  draw_1($('#inside_hum_display'),window.device_status.wetInside);
   $('#inside_hum').html(window.device_status.wetInside + '%');
   $('#outside_hum').html(window.device_status.wetOutside  + '%');
   // CPU Usage Gauge

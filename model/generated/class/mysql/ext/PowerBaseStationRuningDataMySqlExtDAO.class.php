@@ -55,6 +55,12 @@ class PowerBaseStationRuningDataMySqlExtDAO extends PowerBaseStationRuningDataMy
 		}
 	}
 	
+	public function queryByPage($start,$pagesize){
+		$sql = 'SELECT * FROM power_base_station_runing_data LIMIT '.$start.','.$pagesize.'';
+		$sqlQuery = new SqlQuery($sql);
+		return $this->getList($sqlQuery);
+	}
+	
 	
 	
 }
