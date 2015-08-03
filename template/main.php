@@ -61,14 +61,14 @@
             </tr>
             <tr>
               <th>砖墙</th>
-              <td><a href="/base"><?php echo $station_num[0]?>（台）</a></td>
-              <td><a href="/base"><?php echo $station_num[1]?>（台）</a></td>
-              <td><a href="/base"><?php echo $station_num[2]?>（台）</a></td>
-              <td><a href="/base"><?php echo $station_num[3]?>（台）</a></td>
-              <td><a href="/base"><?php echo $station_num[4]?>（台）</a></td>
-              <td><a href="/base"><?php echo $station_num[5]?>（台）</a></td>
-              <td><a href="/base"><?php echo $station_num[6]?>（台）</a></td>
-              <td><a href="/base"><?php echo $station_num[7]?>（台）</a></td>
+              <td><a href="/base"><?php echo $station_num_1[0]?>（台）</a></td>
+              <td><a href="/base"><?php echo $station_num_1[1]?>（台）</a></td>
+              <td><a href="/base"><?php echo $station_num_1[2]?>（台）</a></td>
+              <td><a href="/base"><?php echo $station_num_1[3]?>（台）</a></td>
+              <td><a href="/base"><?php echo $station_num_1[4]?>（台）</a></td>
+              <td><a href="/base"><?php echo $station_num_1[5]?>（台）</a></td>
+              <td><a href="/base"><?php echo $station_num_1[6]?>（台）</a></td>
+              <td><a href="/base"><?php echo $station_num_1[7]?>（台）</a></td>
             </tr>
             <tr>
               <th>板房</th>
