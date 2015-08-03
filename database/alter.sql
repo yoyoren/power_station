@@ -16,6 +16,7 @@ ALTER TABLE `power_base_station_log` CHANGE `current_value` `current_value` VARC
 ALTER TABLE `power_ammeter` ADD `station_id` INT(11) NULL DEFAULT NULL AFTER `ammeter_id`;
 ALTER TABLE `power_ammeter` ADD `ammeter_normal` INT(11) NULL DEFAULT NULL AFTER `station_id`;
 ALTER TABLE `power_ammeter` ADD `read_time` INT NULL DEFAULT NULL AFTER `ammeter_normal`;
+ALTER TABLE `power_ammeter` ADD `read_value` INT NULL DEFAULT NULL AFTER `read_time`;
 
 ALTER TABLE `power_ammeter_chinamobile` ADD `station_id` INT(11) NULL DEFAULT NULL AFTER `ammeter_id`;
 ALTER TABLE `power_ammeter_chinamobile` ADD `ammeter_normal` INT(11) NULL DEFAULT NULL AFTER `station_id`;
