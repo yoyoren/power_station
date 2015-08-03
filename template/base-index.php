@@ -12,16 +12,16 @@
         </ul>
       </div>
       <div class="n-right-content">
-	  
+
       <h4 class="tab-to-title"><a href="/base/create" class="btn btn-primary">创建基站</a></h4>
-	  <div class="alert alert-success" role="alert" id="loading_tip">
-		  <strong></strong> 数据正在加载...
-	 </div>
+  	  <div class="alert alert-success" role="alert" id="loading_tip">
+  		  <strong></strong> 数据正在加载...
+  	  </div>
+      <div style="padding-bottom:10px;">
           <div class="n-check-item">
             <span class="name">项目</span>
             <select id="station_project"><option>--查询条件--</option></select>
           </div>
-          <br/>
           <div class="n-check-item">
             <span class="name">省</span>
             <select id="province"><option value="0">--查询条件--</option></select>
@@ -55,15 +55,15 @@
               <option value="6">70A+</option>
              </select>
           </div>
-		  <div class="n-check-item">
-            <span class="name">建筑类型</span>
-            <select id="building_type"><option value="-1">--查询条件--</option>
-             <option value="1">板房</option>
-			 <option value="2">砖墙</option>
-            </select>
+    		  <div class="n-check-item">
+                <span class="name">建筑类型</span>
+                <select id="building_type"><option value="-1">--查询条件--</option>
+                 <option value="1">板房</option>
+    			       <option value="2">砖墙</option>
+                </select>
           </div>
-          <br/>
           <button type="button" class="btn btn-default" id="query_button">确定</button>
+      </div>
 		  <table class="table table-bordered table-striped" role="grid">
           <thead>
             <tr>
@@ -81,7 +81,7 @@
           </tbody>
         </table>
         </div>
-		
+
       </div>
       <div class="n-right-content">
         <div class="tl-r">
@@ -148,7 +148,7 @@ var params = location.href.split('?')[1];
 if(params){
    var building_type = params.split('building=')[1];
    building_type = building_type.split('&')[0];
-   
+
    var energy_type = params.split('energy=')[1];
    energy_type = energy_type.split('&')[0];
 }
@@ -190,7 +190,7 @@ var renderList = function(init){
 				for(var i=1;i<=totalPage;i++){
 					pageHTML +='<li data-index="'+(i-1)+'"><a href="#">'+i+'</a></li>';
 				}
-				
+
 				$('#page_container').html(pageHTML);
 			}
 			renderOnePage(data);
@@ -237,7 +237,7 @@ $('#query_button').click(function(){
 	var building_type = $('#building_type').val();
 	var overload = $('#overload').val();
     $('#loading_tip').show();
-	
+
 	$get('/station/query',{
 		start:0,
 		end:pageQuery,

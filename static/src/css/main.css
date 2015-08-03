@@ -9,7 +9,7 @@ body{overflow: auto;}
 /*.n-head{background:-webkit-gradient(linear, 0 0, 0 100%, from(#4ebd21), to(#059953));
 background:-moz-linear-gradient(top, #4ebd21,#059953);
 filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#4ebd21,endColorstr=#059953,grandientType=0);}*/
-.n-logo{font-size: 18px; line-height: 56px; width: 154px;}
+.n-logo{font-size: 18px; line-height: 56px; width: 174px;}
 .n-logo{text-shadow:0 1px 1px #666; font-weight: bold; margin-left: 20px;}
 .ico-logo{display: inline-block; width: 22px; height: 20px; vertical-align: -6px; margin-right: 4px;
 background-color: #fff;}

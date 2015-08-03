@@ -7,7 +7,7 @@
   <link rel="stylesheet" type="text/css" href="/static/src/css/bootstrap.css">
   <link rel="stylesheet" type="text/css" href="/static/src/css/main.css">
   <script type="text/javascript" src="/static/src/js/portfolio/js/jquery.js"></script>
-  <script type="text/javascript" src="/static/src/js/portfolio/js/jquery.easing.min.js"></script>
+  <script type="text/javascript" src="/static/src/js/portfolio/js/jQuery.easing.min.js"></script>
   <script type="text/javascript" src="/static/src/js/portfolio/js/jquery.quicksand.min.js"></script>
   <script type="text/javascript" src="/static/src/js/portfolio/js/jquery.sortportfolio.min.js"></script>
   <link href="/static/src/js/portfolio/css/animate.css" rel="stylesheet" type="text/css" />

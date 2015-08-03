@@ -67,7 +67,7 @@ $app->get('/base/status/:id', function ($id) use ($app) {
 			$online = true;
 		}
 	}
-	
+
 	$weather = WeatherHandler::get_weather_baidu($station['info']->stationCityName)->retData;
 	$warning_num = WarningHandler::get_count_by_station_id($test_id);
 	$app->render('base-status.php',array(
@@ -92,7 +92,7 @@ $app->get('/base/info/:id', function ($id) use ($app) {
 $app->get('/base/edit/:id', function ($id) use ($app) {
 	pageview_api_auth();
 	$data = StationHandler::get_one_detail($id,true);
-	
+
 	$data_json = json_encode($data);
 	$app->render('base-edit.php',array('station_json'=>$data_json,'station'=>$data,'id'=>$id));
 });
@@ -108,9 +108,9 @@ $app->get('/base/daily/:id', function ($id) use ($app) {
 	pageview_api_auth();
 	//$data = StationHandler::get_full_day_status(1);
 	$data = StationHandler::get_one_day_status($id);
-	
+
 	$app->render('base-daily.php',array('id'=>$id,'data'=>$data));
-});	
+});
 
 
 //月报数据
@@ -118,7 +118,7 @@ $app->get('/base/month/:id', function ($id) use ($app) {
 	pageview_api_auth();
 	$station = StationHandler::get_one_detail($id);
 	$app->render('base-month.php',array('id'=>$id,'station'=>$station));
-});	
+});
 
 
 //年报数据
@@ -186,25 +186,25 @@ $app->get('/report', function () use ($app) {
 });
 
 //报表-基准站表
-$app->get('/report', function () use ($app) {
+$app->get('/report/base', function () use ($app) {
 	pageview_api_auth();
 	$app->render('report-base.php',array());
 });
 
 //报表-客户记录管理
-$app->get('/report', function () use ($app) {
+$app->get('/report/record', function () use ($app) {
 	pageview_api_auth();
 	$app->render('report-record.php',array());
 });
 
 //报表-电表e值
-$app->get('/report', function () use ($app) {
+$app->get('/report/value', function () use ($app) {
 	pageview_api_auth();
 	$app->render('report-value.php',array());
 });
 
 //报表-异常修正
-$app->get('/report', function () use ($app) {
+$app->get('/report/change', function () use ($app) {
 	pageview_api_auth();
 	$app->render('report-change.php',array());
 });
