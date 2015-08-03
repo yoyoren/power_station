@@ -58,7 +58,7 @@ $app->get('/base', function () use ($app) {
 //基站当前状态
 $app->get('/base/status/:id', function ($id) use ($app) {
 	pageview_api_auth();
-	$test_id = 1;
+	$test_id = $id;
 	$station = StationHandler::get_one_detail($id);
 	$status = StationHandler::get_current_status($test_id);
 	$weather = WeatherHandler::get_weather_baidu($station['info']->stationCityName)->retData;
@@ -99,7 +99,7 @@ $app->get('/base/create', function () use ($app) {
 $app->get('/base/daily/:id', function ($id) use ($app) {
 	pageview_api_auth();
 	//$data = StationHandler::get_full_day_status(1);
-	$data = StationHandler::get_one_day_status(1);
+	$data = StationHandler::get_one_day_status($id);
 	
 	$app->render('base-daily.php',array('id'=>$id,'data'=>$data));
 });	
