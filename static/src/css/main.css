@@ -93,7 +93,7 @@ background-color: #fff;}
 .n-mian-area{padding: 20px;}
 .n-mian-area .n-title{padding-top: 20px;}
 
-.n-show-item{width: 200px; position: relative; height: 140px; background: #4bb385; color: #fff; text-align: center; float: left; margin-right: 10px; border-radius: 10px;}
+.n-show-item{width: 200px; position: relative; height: 140px; background: #4bb385; color: #fff; text-align: center; float: left; margin-right: 30px; border-radius: 10px;}
 .n-show-item img{display: block; width: 80px; margin: 0 auto;}
 .n-show-item .intro{font-size: 16px; padding-top: 8px; font-weight: bold;}
 .n-show-item .num{position: absolute; bottom: 0; width: 100%; text-align: center; font-size: 22px;}
@@ -118,7 +118,7 @@ background-color: #fff;}
 .n-new-time p{font-size: 20px; font-weight: bold;}
 .n-new-time span{}
 
-.n-wendu-item{float: left; padding: 10px 20px; background:#eee; border-radius: 10px; margin-right: 20px; color: #333; margin-bottom: 20px; height: 304px;}
+.n-wendu-item{float: left; padding: 10px 20px; background:#eee; border-radius: 10px; margin-right: 20px; color: #333; margin-bottom: 20px; height: 250px;}
 .n-wendu-item p{font-weight: bold;}
 .n-wendu-item .num{font-size: 30px;}
 
@@ -159,3 +159,14 @@ border-radius: 50%;}
 .cpu-usage-gauge,
 .cpu-gauge2{width: 170px; height: 140px; position: absolute; left: 5px; top: 20px}
 .cpu-gauge2{left: auto; right: 5px;}
+
+/* 子菜单 */
+li.is-child{padding-left: 60px;
+  border-bottom: 1px solid #000;
+  height: 30px;
+  line-height: 30px;}
+/* 报表查询 */
+.report-check-area{padding:0; margin-bottom:0; margin-top:-54px;}
+.report-check-area .n-check-item{width:auto; margin-right:40px;}
+.report-check-area .name{width:auto;}
+.report-check-area .form-control{display:inline-block;}

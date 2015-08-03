@@ -82,12 +82,14 @@ $app->get('/base/daily/:id', function ($id) use ($app) {
 	$app->render('base-daily.php',array('id'=>$id,'data'=>$data));
 });	
 
+
 //月报数据
 $app->get('/base/month/:id', function ($id) use ($app) {
 	pageview_api_auth();
 	$station = StationHandler::get_one_detail($id);
 	$app->render('base-month.php',array('id'=>$id,'station'=>$station));
 });	
+
 
 //年报数据
 $app->get('/base/year/:id', function ($id) use ($app) {
@@ -136,10 +138,34 @@ $app->get('/log', function () use ($app) {
 	$app->render('log-index.php',array());
 });
 
-//报表首页
+//报表首页-月节能表
 $app->get('/report', function () use ($app) {
 	pageview_api_auth();
 	$app->render('report-index.php',array());
+});
+
+//报表-基准站表
+$app->get('/report', function () use ($app) {
+	pageview_api_auth();
+	$app->render('report-base.php',array());
+});
+
+//报表-客户记录管理
+$app->get('/report', function () use ($app) {
+	pageview_api_auth();
+	$app->render('report-record.php',array());
+});
+
+//报表-电表e值
+$app->get('/report', function () use ($app) {
+	pageview_api_auth();
+	$app->render('report-value.php',array());
+});
+
+//报表-异常修正
+$app->get('/report', function () use ($app) {
+	pageview_api_auth();
+	$app->render('report-change.php',array());
 });
 
 //账户首页，账户管理

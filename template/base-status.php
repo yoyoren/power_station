@@ -81,6 +81,7 @@
               <div class="fl-l" style="padding:0 0 0 20px;;">
                 <p class="num" id="inside_tmp">0℃</p>
                 <p>室内温度</p>
+
                 <p class="num" id="inside_hum">0%</p>
                 <p>室内湿度</p>
               </div>
@@ -107,7 +108,6 @@
               <div class="fl-l" style="padding:0 0 0 20px;;">
                 <p class="num" id="cabint_tmp">0℃</p>
                 <p>恒温柜温度</p>
-                
               </div>
 
             </div>
@@ -119,7 +119,6 @@
               <div class="fl-l" style="padding:0 0 0 20px;;">
                 <p class="num" id="air_1_tmp">0℃</p>
                 <p>空调一温度</p>
-                
               </div>
 
             </div>
@@ -131,7 +130,6 @@
               <div class="fl-l" style="padding:0 0 0 20px;;">
                 <p class="num" id="air_2_tmp">0℃</p>
                 <p>空调二温度</p>
-                
               </div>
             </div>
           </div>

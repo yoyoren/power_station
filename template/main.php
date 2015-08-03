@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
  <?php include ('include/head_script.php')?>
-<body>
+<body style="background:#f5f5f5;">
   <div class="n-layout">
     <?php include ('include/header.php')?>
     <div class="n-container" style="padding-left:20px;">
@@ -15,68 +15,64 @@
 
         <a href="/account/project" style="margin-left:40px;" class="btn btn-primary">创建项目</a>
       </div>
-        <br/>
-        <h4 class="n-title">能耗节约成效</h4>
-        <div class="clearfix">
-          <div class="n-show-item">
-            <p class="intro">节约电</p>
-            <img src="/static/src/img/ic-deng2.png" style="margin-top:-10px;" />
-            <p class="num"><span id="start_num"></span><em>度</em></p>
+        <div style="background:#fff; padding:20px;">
+          <h4 class="n-title">能耗节约成效</h4>
+          <div class="clearfix" style="padding-bottom:20px;">
+            <div class="n-show-item" style="background:#0099e1;">
+              <p class="intro">节约电</p>
+              <img src="/static/src/img/ic-deng2.png" style="margin-top:-10px;" />
+               <p class="num"><span id="start_num"></span><em>度</em></p>
+            </div>
+            <div class="n-show-item" style="background:#ff4660;">
+              <p class="intro">节约标准煤</p>
+              <img src="/static/src/img/ic-huo2.png" style="width:56px" />
+              <p class="num" id=""><span id="start_num_mei"></span><em>千克</em></p>
+            </div>
+            <div class="n-show-item" style="background:#cca402;">
+              <p class="intro">减少碳排放</p>
+              <img src="/static/src/img/ic-paifang2.png" style="width:60px" />
+              <p class="num"  id=""><span id="start_num_co"></span><em>千克</em></p>
+            </div>
+            <div class="n-show-item" style="background:#4ebd21;">
+              <p class="intro">造林</p>
+              <img src="/static/src/img/ic-shu2.png" style="width:52px" />
+              <p class="num" id=""><span id="start_num_tree"></span><em>亩</em></p>
+            </div>
           </div>
-          <div class="n-show-item">
-            <p class="intro">节约标准煤</p>
-            <img src="/static/src/img/ic-huo2.png" style="width:56px" />
-            <p class="num" id=""><span id="start_num_mei"></span><em>千克</em></p>
-          </div>
-          <div class="n-show-item">
-            <p class="intro">减少碳排放</p>
-            <img src="/static/src/img/ic-paifang2.png" style="width:60px" />
-            <p class="num"  id=""><span id="start_num_co"></span><em>千克</em></p>
-          </div>
-          <div class="n-show-item">
-            <p class="intro">造林</p>
-            <img src="/static/src/img/ic-shu2.png" style="width:52px" />
-            <p class="num" id=""><span id="start_num_tree"></span><em>亩</em></p>
-          </div>
-
         </div>
-        <br/>
-        <h4 class="n-title">拥有基站</h4>
-        <div>
-          <div class="n-table clearfix" id="base_container">
-           
 
+        <div style="background:#fff; padding:20px; margin-top:20px;">
+          <h4 class="n-title">拥有基站</h4>
 
-        <style type="text/css">
-        .table th{text-align: center;}
-        </style>
-        <table class="table table-bordered tl-c">
-          <tr>
-            <th>&nbsp;</th>
-            <th>10-20A</th>
-            <th>20-30A</th>
-            <th>30-40A</th>
-            <th>40-50A</th>
-            <th>50-60A</th>
-            <th>60-70A</th>
-            <th>70A+</th>
-            <th><em class="n-total-item">总计</em></th>
-          </tr>
-          <tr>
-            <th>板房</th>
-            <td><a href="/base"><?php echo $station_num_1[0]?>（台）</a></td>
-            <td><a href="/base"><?php echo $station_num_1[1]?>（台）</a></td>
-            <td><a href="/base"><?php echo $station_num_1[2]?>（台）</a></td>
-            <td><a href="/base"><?php echo $station_num_1[3]?>（台）</a></td>
-            <td><a href="/base"><?php echo $station_num_1[4]?>（台）</a></td>
-            <td><a href="/base"><?php echo $station_num_1[5]?>（台）</a></td>
-            <td><a href="/base"><?php echo $station_num_1[6]?>（台）</a></td>
-            <td><a href="/base"><?php echo $station_num_1[7]?>（台）</a></td>
-
-          </tr>
-          <tr>
-            <th>砖墙</th>
-            <td><a href="/base"><?php echo $station_num_2[0]?>（台）</a></td>
+          <style type="text/css">
+          .table th{text-align: center;}
+          </style>
+          <table class="table table-bordered tl-c">
+            <tr>
+              <th>&nbsp;</th>
+              <th>10-20A</th>
+              <th>20-30A</th>
+              <th>30-40A</th>
+              <th>40-50A</th>
+              <th>50-60A</th>
+              <th>60-70A</th>
+              <th>70A+</th>
+              <th><em class="n-total-item">总计</em></th>
+            </tr>
+            <tr>
+              <th>砖墙</th>
+              <td><a href="/base"><?php echo $station_num[0]?>（台）</a></td>
+              <td><a href="/base"><?php echo $station_num[1]?>（台）</a></td>
+              <td><a href="/base"><?php echo $station_num[2]?>（台）</a></td>
+              <td><a href="/base"><?php echo $station_num[3]?>（台）</a></td>
+              <td><a href="/base"><?php echo $station_num[4]?>（台）</a></td>
+              <td><a href="/base"><?php echo $station_num[5]?>（台）</a></td>
+              <td><a href="/base"><?php echo $station_num[6]?>（台）</a></td>
+              <td><a href="/base"><?php echo $station_num[7]?>（台）</a></td>
+            </tr>
+            <tr>
+              <th>板房</th>
+             <td><a href="/base"><?php echo $station_num_2[0]?>（台）</a></td>
             <td><a href="/base"><?php echo $station_num_2[1]?>（台）</a></td>
             <td><a href="/base"><?php echo $station_num_2[2]?>（台）</a></td>
             <td><a href="/base"><?php echo $station_num_2[3]?>（台）</a></td>
@@ -85,37 +81,40 @@
             <td><a href="/base"><?php echo $station_num_2[6]?>（台）</a></td>
             <td><a href="/base"><?php echo $station_num_2[7]?>（台）</a></td>
 
-          </tr>
-        </table>
-        <br/>
-        <h4 class="n-title">故障告警
-          <a href="#" class="warning-ico-area">
-            <span class="glyphicon glyphicon-bell"></span>
-            <span class="badge badge-purple">7</span>
-          </a>
-        </h4>
-        <table class="table table-bordered tl-c">
-          <tr>
-            <th>断站</th>
-            <th>空调故障</th>
-            <th>室内高温</th>
-            <th>恒温柜高温</th>
-            <th>电表故障</th>
-            <th>功率异常</th>
-            <th>远程关站</th>
-            <th>代理维护按钮</th>
-          </tr>
-          <tr>
-            <td><a href="/warning">0</a></td>
-            <td><a href="/warning">0</a></td>
-            <td><a href="/warning">0</a></td>
-            <td><a href="/warning">0</a></td>
-            <td><a href="/warning">0</a></td>
-            <td><a href="/warning">0</a></td>
-            <td><a href="/warning">0</a></td>
-            <td><a href="/warning">0</a></td>
-          </tr>
-        </table>
+            </tr>
+          </table>
+        </div>
+
+        <div style="background:#fff; padding:20px; margin-top:20px; margin-bottom:40px;">
+          <h4 class="n-title">故障告警
+            <a href="#" class="warning-ico-area">
+              <span class="glyphicon glyphicon-bell"></span>
+              <span class="badge badge-purple">7</span>
+            </a>
+          </h4>
+          <table class="table table-bordered tl-c">
+            <tr>
+              <th>断站</th>
+              <th>空调故障</th>
+              <th>室内高温</th>
+              <th>恒温柜高温</th>
+              <th>电表故障</th>
+              <th>功率异常</th>
+              <th>远程关站</th>
+              <th>代理维护按钮</th>
+            </tr>
+            <tr>
+              <td><a href="/warning">0</a></td>
+              <td><a href="/warning">0</a></td>
+              <td><a href="/warning">0</a></td>
+              <td><a href="/warning">0</a></td>
+              <td><a href="/warning">0</a></td>
+              <td><a href="/warning">0</a></td>
+              <td><a href="/warning">0</a></td>
+              <td><a href="/warning">0</a></td>
+            </tr>
+          </table>
+        </div>
 
     </div>
 
