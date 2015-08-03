@@ -84,48 +84,19 @@
 		
       </div>
       <div class="n-right-content">
-        <!--<h4 class="tab-to-title">基站列表<a href="/base/create"  style="margin-left:20px;" class="btn btn-primary">创建基站</a></h4>
-        -->
-		
-        <div class="tl-r" style="display:none">
-          <ul class="pagination">
-            <li>
-              <a href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-              </a>
-            </li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li>
-              <a href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-              </a>
-            </li>
+        <div class="tl-r">
+          <ul class="pagination" id="page_container">
+
           </ul>
         </div>
-
-        
-
       </div>
-
     </div>
-
   </div>
   <script>
 var selProvince = $('#province');
 var selCity = $('#city');
 var selDistirct = $('#district');
-var params = location.href.split('?')[1];
-if(params){
-   var building_type = params.split('building=')[1];
-   building_type = building_type.split('&')[0];
-   
-   var energy_type = params.split('energy=')[1];
-   energy_type = energy_type.split('&')[0];
-}
+
 
 $get('/address/province',{},function(d){
 	var data = d.data;
@@ -145,51 +116,7 @@ $get('/project/list',{
 	   }
 	   $('#station_project').html(html);
 });
-var start = 0;
-var pageSize = 400;
-var renderOnePage = function(data){
-		var html = '';
-		for (var i=0;i<data.length;i++){
-			var _d = data[i];
-			html += '<tr>\
-					  <td class="sorting_1"><a href="/base/status/'+_d.stationId+'">'+_d.stationSeriseCode+'</a></td>\
-					  <td>'+_d.stationName+'</td>\
-					  <td>'+_d.cityName+'</td>\
-					  <td>'+_d.distirctName+'</td>\
-					  <td>'+_d.energyTypeName+'</td>\
-					  <td>'+_d.buildTypeName+'</td>\
-					  <td>是</td>\
-					</tr>';
-		}
-		$('#container').html(html);
-		$('#loading_tip').hide();
-}
 
-if(energy_type || building_type){
-	$('#overload').val(energy_type);
-	$('#building_type').val(building_type);
-	$get('/station/query',{
-		start:0,
-		end:pageSize,
-		building_type:building_type,
-		overload:energy_type
-	},function(d){
-		if(d.data){
-			renderOnePage(d.data);
-		}
-		if(d.data == null){
-		   alert('没有检索到数据！');
-		}
-	});
-}else{
-	$get('/station/list',{
-		start:start,
-		end:start + pageSize
-	},function(d){
-			var data = d.data;
-			renderOnePage(data);
-	});
-}
 selProvince.change(function(){
 	$get('/address/city',{
 		province:$(this).val()
@@ -217,6 +144,86 @@ selCity.change(function(){
 	});
 });
 
+var params = location.href.split('?')[1];
+if(params){
+   var building_type = params.split('building=')[1];
+   building_type = building_type.split('&')[0];
+   
+   var energy_type = params.split('energy=')[1];
+   energy_type = energy_type.split('&')[0];
+}
+
+var start = 0;
+var pageSize = 20;
+var pageQuery = 100;
+var renderOnePage = function(data){
+		var html = '';
+		for (var i=0;i<data.length;i++){
+			var _d = data[i];
+			html += '<tr>\
+					  <td class="sorting_1"><a href="/base/status/'+_d.stationId+'">'+_d.stationSeriseCode+'</a></td>\
+					  <td>'+_d.stationName+'</td>\
+					  <td>'+_d.cityName+'</td>\
+					  <td>'+_d.distirctName+'</td>\
+					  <td>'+_d.energyTypeName+'</td>\
+					  <td>'+_d.buildTypeName+'</td>\
+					  <td>是</td>\
+					</tr>';
+		}
+		$('#container').html(html);
+		$('#loading_tip').hide();
+}
+
+//非搜索的基站列表
+var currentPage = 0;
+var renderList = function(init){
+	$get('/station/list',{
+		start:currentPage * pageSize,
+		pagesize:pageSize
+	},function(d){
+			var data = d.data.data;
+			if(init){
+				total = parseInt(d.data.count);
+				totalPage = Math.floor(total/pageSize) + 1;
+				var pageHTML = '';
+				for(var i=1;i<=totalPage;i++){
+					pageHTML +='<li data-index="'+(i-1)+'"><a href="#">'+i+'</a></li>';
+				}
+				
+				$('#page_container').html(pageHTML);
+			}
+			renderOnePage(data);
+	});
+}
+
+//从首页过来的条件查询
+if(energy_type || building_type){
+	$('#overload').val(energy_type);
+	$('#building_type').val(building_type);
+	$get('/station/query',{
+		start:0,
+		end:pageQuery,
+		building_type:building_type,
+		overload:energy_type
+	},function(d){
+		if(d.data){
+			renderOnePage(d.data);
+			$('#page_container').hide();
+		}
+		if(d.data == null){
+		   alert('没有检索到数据！');
+		}
+	});
+}else{
+	renderList(true);
+}
+
+$('#page_container').delegate('li','click',function(){
+		var page = $(this).data('index');
+		currentPage = page;
+		renderList();
+});
+
 $('#query_button').click(function(){
 	var project = $('#station_project').val();
 	var province = $('#province').val();
@@ -229,7 +236,7 @@ $('#query_button').click(function(){
 
 	$get('/station/query',{
 		start:0,
-		end:pageSize,
+		end:pageQuery,
 		project:project,
 		province:province,
 		city:city,
@@ -240,6 +247,7 @@ $('#query_button').click(function(){
 	},function(d){
 		if(d.data){
 			renderOnePage(d.data);
+			$('#page_container').hide();
 		}
 		if(d.data == null){
 		   alert('没有检索到数据！');

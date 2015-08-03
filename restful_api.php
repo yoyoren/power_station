@@ -478,8 +478,8 @@ $app->post('/station/update', function () {
 $app->get('/station/list', function () {
 	restful_api_auth();
 	$start = param_check_get('start');
-	$end = param_check_get('end');
-	$data = StationHandler::get_list($start,$end);
+	$pagesize = param_check_get('pagesize');
+	$data = StationHandler::get_list($start,$pagesize,true);
 	restful_response(RES_SUCCESS,$data);
 });
 

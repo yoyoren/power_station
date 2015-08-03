@@ -33,7 +33,10 @@
 	//告警历史数据计算
 	$app->get('/crontab/warning/sync', function () use ($app) {
 		//crontab_api_auth();
-		$res = StationHandler::cal_warning_from_history_running_data();
+		$start = param_check_get('start');
+		$pagesize = param_check_get('pagesize');
+		$station_id = 1;
+		$res = StationHandler::cal_warning_from_history_running_data($station_id,$start,$pagesize);
 		restful_response(RES_SUCCESS,$res);
 		
 	});

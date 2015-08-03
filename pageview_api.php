@@ -61,6 +61,13 @@ $app->get('/base/status/:id', function ($id) use ($app) {
 	$test_id = $id;
 	$station = StationHandler::get_one_detail($id);
 	$status = StationHandler::get_current_status($test_id);
+	$online = false;
+	if($status->createTime){
+		if(time() - $status->createTime < 300 ){
+			$online = true;
+		}
+	}
+	
 	$weather = WeatherHandler::get_weather_baidu($station['info']->stationCityName)->retData;
 	$warning_num = WarningHandler::get_count_by_station_id($test_id);
 	$app->render('base-status.php',array(
@@ -68,7 +75,8 @@ $app->get('/base/status/:id', function ($id) use ($app) {
 	'station'=>$station,
 	'status'=>$status,
 	'id'=>$id,
-	'warning_num'=>$warning_num
+	'warning_num'=>$warning_num,
+	'online'=>$online
 	));
 });
 

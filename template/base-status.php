@@ -20,7 +20,9 @@
         <div class="current-name-area clearfix">
           <span class="vl-m fl-l name">
             <b><?php echo $station['info']->stationName;?></b> 基站
-            <span style="color:#ff4400; padding:4px; border-radius:4px; margin-left:10px; ">[正常在线]</span>
+            <span style="color:#ff4400; padding:4px; border-radius:4px; margin-left:10px; ">
+			<?php if($online){echo '[正常在线]';} else {echo '[离线]';}?>
+			</span>
             <span>最新采集时间：<span id="last_time"></span> </span>
 			<script>
 				var _d = new Date();

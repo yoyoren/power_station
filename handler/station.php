@@ -77,11 +77,62 @@
 			return $ret;
 		}
 		
+		//按条件查询
+		public static function query($start,$pagesize,$query_option = array(),$overload=0,$building_type=-1){
+			$sql = '';
+			$sql_arr = array();
+			foreach($query_option as $key=>$value){
+				if($value){
+					array_push($sql_arr,$key.'="'.$value.'"');
+				}
+			}
+			
+			if(count($sql_arr) || $overload || $building_type!=-1){
+				$sql = implode(' AND ',$sql_arr);
+				$dao_station =  new PowerBaseStationMySqlExtDAO();
+				
+				//过滤查询条件
+				if(count($sql_arr)){
+					$res = $dao_station->search($start,$pagesize,$sql);
+					$res = StationHandler::_get_list_extend_info($res);
+				} else {
+					$res = StationHandler::get_list($start,$pagesize);
+				}
+				//var_dump($building_type);
+				//选择要过滤负载的
+				if($overload || $building_type!=-1) {
+				   $dao_station_energy_info =  new PowerBaseStationEnergyInfoMySqlExtDAO();
+				   $ret = array();
+				   for($i=0;$i<count($res);$i++){
+					 $_d = $res[$i];
+					 $station_id = $_d->stationId;
+					 $_temp = $dao_station_energy_info -> queryByStationIdAndEnergyTypeAndBuildingType($station_id,$overload,$building_type);
+					 if($_temp){
+						array_push($ret,$_d);
+					 }
+				   }
+				   return $ret;
+				}				
+			} else {
+				//无条件查询
+				$res = StationHandler::get_list($start,$pagesize);
+			}
+			return $res;
+		}
+		
 		//基站首页获得基站的列表
-		public static function get_list($start,$end){			
-			$dao =  new PowerBaseStationMySqlDAO();
-			$exsit = $dao->queryAndPage($start,$end);
+		//getcount是否获查询结果的得总数
+		public static function get_list($start,$pagesize,$getcount = false){			
+			$dao =  new PowerBaseStationMySqlExtDAO();
+			$exsit = $dao->queryAndPage($start,$pagesize);
 			$exsit = StationHandler::_get_list_extend_info($exsit);
+			if($getcount == true){
+				$count = $dao->get_count();
+				return array(
+					'data'=>$exsit,
+					'count'=>$count,
+				);
+			}
 			return $exsit;
 		}
 		
@@ -392,48 +443,7 @@
 			$dao_station->updateStatus($stationId,$status);
 		}
 		
-		//按条件查询
-		public static function query($start,$end,$query_option = array(),$overload=0,$building_type=-1){
-			$sql = '';
-			$sql_arr = array();
-			foreach($query_option as $key=>$value){
-				if($value){
-					array_push($sql_arr,$key.'="'.$value.'"');
-				}
-			}
-			
-			if(count($sql_arr) || $overload || $building_type!=-1){
-				$sql = implode(' AND ',$sql_arr);
-				$dao_station =  new PowerBaseStationMySqlExtDAO();
-				
-				//过滤查询条件
-				if(count($sql_arr)){
-					$res = $dao_station->search($start,$end,$sql);
-					$res = StationHandler::_get_list_extend_info($res);
-				} else {
-					$res = StationHandler::get_list($start,$end);
-				}
-				//var_dump($building_type);
-				//选择要过滤负载的
-				if($overload || $building_type!=-1) {
-				   $dao_station_energy_info =  new PowerBaseStationEnergyInfoMySqlExtDAO();
-				   $ret = array();
-				   for($i=0;$i<count($res);$i++){
-					 $_d = $res[$i];
-					 $station_id = $_d->stationId;
-					 $_temp = $dao_station_energy_info -> queryByStationIdAndEnergyTypeAndBuildingType($station_id,$overload,$building_type);
-					 if($_temp){
-						array_push($ret,$_d);
-					 }
-				   }
-				   return $ret;
-				}				
-			} else {
-				//无条件查询
-				$res = StationHandler::get_list($start,$end);
-			}
-			return $res;
-		}
+		
 		
 		//从ECU同步的数据中获得基站的最新信息
 		public static function get_current_status($stationId=1){
@@ -615,7 +625,7 @@
 		
 		
 		//获得历史数据里面的告警信息
-		public static function cal_warning_from_history_running_data($stationId=1){
+		public static function cal_warning_from_history_running_data($stationId=1,$start=100,$pagesize=500){
 			//global $WARNING_TYPE;
 			//告警类型
 			$WARNING_TYPE_DESC = array(
@@ -643,7 +653,7 @@
 			$current_date = time();
 			//先获得该基站的最新数据
 			$dao =  new PowerBaseStationRuningDataMySqlExtDAO();
-			$history_data = $dao->queryByPage(100,500);
+			$history_data = $dao->queryByPage($start,$pagesize);
 			for($i=0;$i<count($history_data);$i++){
 				$warning_dao =  new PowerStationWarningMySqlDAO();
 				$data = $history_data[$i];

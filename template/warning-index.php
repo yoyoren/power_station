@@ -58,6 +58,7 @@
           <div class="n-check-item">
             <span class="name">告警类型</span>
             <select id="warning_type">
+				<option value="0">请选择</option>
 				<?php
 					foreach($WARNING_TYPE as $key=>$val){
 						echo '<option value="'.$key.'">'.$val.'</option>';

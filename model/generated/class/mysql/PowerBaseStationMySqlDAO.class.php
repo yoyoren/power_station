@@ -6,6 +6,7 @@
  * @date: 2015-06-29 10:45
  */
 class PowerBaseStationMySqlDAO implements PowerBaseStationDAO{
+	
 	//更新基站的状态
 	public function updateStatus($stationId,$status){
 		$sql = 'UPDATE power_base_station SET status = ? WHERE station_id = ?';
@@ -15,12 +16,11 @@ class PowerBaseStationMySqlDAO implements PowerBaseStationDAO{
 		return $this->executeUpdate($sqlQuery);
 	}
 	
-	public function queryAndPage($start,$end){
-		$sql = 'SELECT * FROM power_base_station limit '.$start.','.$end;
+	public function queryAndPage($start,$pagesize){
+		$sql = 'SELECT * FROM power_base_station limit '.$start.','.$pagesize;
 		$sqlQuery = new SqlQuery($sql);
 		return $this->getList($sqlQuery);
 	}
-	
 	/**
 	 * Get Domain object by primry key
 	 *
