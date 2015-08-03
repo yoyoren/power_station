@@ -216,10 +216,8 @@ $(function () {
 				}
 			},
 			yAxis: {
-				min: 0,
-				max:10,
-				title: {
-					text: ''
+				labels: {
+				  enabled: false
 				}
 			},
 			tooltip: {
@@ -242,7 +240,6 @@ $(function () {
 				data: air_1_status}, {
 				name: '二个空调',
 				data: air_2_status}]
-
 		});
 		
 		$('#container').highcharts({
@@ -298,6 +295,7 @@ $(function () {
 				data: window.data['power_dc']
 			}]
 		});
+
 
 		$('#container2').highcharts({
 			chart: {

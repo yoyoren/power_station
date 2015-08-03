@@ -15,7 +15,7 @@
 
         <a href="/account/project" style="margin-left:40px;" class="btn btn-primary">创建项目</a>
       </div>
-        <div style="background:#fff; padding:20px;">
+        <div style="background:#fff; padding:20px; margin-top:20px;">
           <h4 class="n-title">能耗节约成效</h4>
           <div class="clearfix" style="padding-bottom:20px;">
             <div class="n-show-item" style="background:#0099e1;">
