@@ -686,11 +686,11 @@ $app->get('/ammeter/ownList', function () {
 //插入我方抄表数据
 $app->post('/ammeter/ownAdd', function () {
     global $app;
-    $stationId    = param_check('stationId');
-    $readTime       = param_check('readTime').":00";
-    $readValue      = param_check('own');
-    $ammeterNormal  = param_check('du');
-    $result=  AmmeterHandler::own_add($stationId, $readTime, $ammeterNormal,$readValue);
+    $stationName = param_check('stationName');
+    $readTime    = param_check('readTime').":00";
+    $ammeterNormal = param_check('du');
+    
+    $result=  AmmeterHandler::own_add($stationName, $readTime, $ammeterNormal);
      if(!$result){
           restful_response(RES_ERROR);
      }else{
@@ -733,19 +733,6 @@ $app->post('/ammeter/otherAdd', function () {
     $ammeterNormalChinamobile  = param_check('du');
     
     $result=  AmmeterHandler::other_add($stationId, $readTime, $ammeterNormal, $ammeterNormalChinamobile);
-     if(!$result){
-          restful_response(RES_ERROR);
-     }else{
-          restful_response(RES_SUCCESS);
-     }
-	
-});
-//删除抄表
-$app->post('/ammeter/ammeterdel', function () {
-    global $app;
-    $ammeterId            = param_check('ammeterId');
-    $flag                 = param_check('flag');
-    $result=  AmmeterHandler::delAmmeter($flag, $ammeterId);
      if(!$result){
           restful_response(RES_ERROR);
      }else{
