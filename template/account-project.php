@@ -12,7 +12,7 @@
         <h4 class="tab-to-title">创建项目</h4>
 
         <div class="n-check-area" style="border:0 none;">
-          <div class="input-group-item clearfix">
+          <div class="input-group-item clearfix" style="display:none">
             <span class="name">已有项目：</span>
             <span style="margin-right:20px;">上海杉实</span><span style="margin-right:20px;">上海杉实</span>
           </div>

@@ -85,6 +85,13 @@ window.station = <? echo json_encode($station)?>
 $(function () {
 	var currentMonth = new Date((new Date()).getFullYear() +'-' + ((new Date()).getMonth()+1)).getTime()/1000;
 	var renderPage = function(month){
+		var time = currentMonth - 8*3600;
+		$get('/station/onemonth',{
+			time : time
+		},function(d){
+		
+		});
+		
 		$get('/weather/month/get',{
 			time:month,
 			province:window.station.info.stationProvince,
