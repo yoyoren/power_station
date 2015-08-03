@@ -5,94 +5,44 @@
     <title>登录页</title>
     <link href="css/base.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
-<style type="text/css">
-html{height: 100%; overflow: hidden;}
-body {
-  padding-top: 40px;
-  padding-bottom: 40px;
-  height: 100%;
-  box-sizing:border-box;
-  background:url(img/big-bg2.png) center center no-repeat;
-  background-size: cover;
-}
-
-.form-signin {
-  max-width: 380px;
-  padding: 15px;
-  margin: 0 auto;
-}
-/*.form-signin .form-signin-heading,*/
-.form-signin .checkbox {
-  margin-bottom: 10px;
-}
-.form-signin .checkbox {
-  font-weight: normal;
-}
-.form-signin .form-control {
-  position: relative;
-  height: auto;
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 0;
-  margin-bottom: 10px;
-  border: 1px solid #ddd;
-  box-shadow: none;
-
-}
-.form-signin .form-control:focus {
-  z-index: 2;
-}
-
-.form-signin input.form-checkcode{width: 200px; display: inline-block; vertical-align: middle;}
-.checkcode-img{width: 80px; height: 44px; background: #eee; display: inline-block; vertical-align: middle; border-radius: 4px;
-overflow: hidden;}
-
-.n-container{width: 440px; margin: 0 auto; background: rgba(255,255,255,.8); border: 4px solid #ffffff; height: 360px; margin-top: 40px;}
-
-.form-control{border:1px solid #999;}
-.error-tip{color: #ff4400; padding: 4px 10px; background: #fff; }
-.btn-block{border: 0 none; border-radius: 0; margin-top: 40px;}
-
-.form-signin-heading{border-bottom: 2px solid #5cb85c; margin-bottom: 0; text-align: center; font-size: 22px; padding-bottom: 10px;}
-.f-corner{border: 8px solid  transparent; border-top: 8px solid #5cb85c; width: 0;height: 0; overflow: hidden; display: inline-block;}
-.n-container .inner{padding: 20px 30px;}
-.n-title{font-size: 40px; color: #fff; padding-top: 20px; text-shadow: 0 0 2px #333;}
-.n-title,
-.n-intro{font-family: "Hiragino Sans GB","华文细黑","STHeiti","微软雅黑","Microsoft YaHei",SimHei,"Helvetica Neue",Helvetica,Arial,sans-serif !important;}
-.n-intro{font-size: 18px; font-weight: bold; color: #fff; text-shadow: 0 0 2px #444; letter-spacing: 2px;}
-</style>
+    <link href="css/login.css" rel="stylesheet">
+    <style type="text/css">
+body{background:#f5f5f5;}
+    </style>
 
   </head>
 
   <body>
-    <h4 class="tl-c n-title"><img src="img/ic-nenghao-ico.png" class="vl-m" style="width:70px; margin-top:-8px;" /><span class="vl-m">能耗云管理系统</span></h4>
-    <p class="tl-c n-intro">独一无二的大数据能耗管理平台，让节能变得更简单。</p>
-    <div class="n-container">
+    <div class="login-layout">
+      <img class="fl-l logo" src="img/lv-logo.png" style="margin-top:12px;" />
+      <div class="fl-l" style="margin-left:40px;">
+        <h4 class="n-title">能耗云管理系统</span></h4>
+        <p class="n-intro">独一无二的大数据能耗管理平台，让节能变得更简单。</p>
+        <div class="n-container">
 
-      <form class="form-signin">
-        <h2 class="form-signin-heading">登录</h2>
-        <div class="tl-c"><em class="f-corner"></em></div>
-        <div class="inner">
-          <label for="userName" class="sr-only">用户名</label>
-          <input type="text" id="userName" class="form-control form-username" placeholder="用户名" required autofocus>
-          <label for="inputPassword" class="sr-only">密码</label>
-          <input type="password" id="inputPassword" class="form-control" placeholder="密码" required>
+          <form class="form-signin">
+            <!-- <h2 class="form-signin-heading">登录</h2>
+            <div class="tl-c"><em class="f-corner"></em></div> -->
+            <div class="inner">
+              <label for="userName" class="sr-only">用户名</label>
+              <input type="text" id="userName" class="form-control form-username" placeholder="用户名" required autofocus>
+              <label for="inputPassword" class="sr-only">密码</label>
+              <input type="password" id="inputPassword" class="form-control" placeholder="密码" required>
 
-          <!-- <div class="clearfix" style="margin-bottom:20px;">
-            <label for="checkCode" class="sr-only">验证码</label>
-            <input type="text" id="checkCode" class="form-control form-checkcode" placeholder="验证码" required>
-            <img src="" class="checkcode-img fl-r" />
-          </div> -->
-          <!-- <p class="error-tip">错误信息存放处</p> -->
+              <!-- <div class="clearfix" style="margin-bottom:20px;">
+                <label for="checkCode" class="sr-only">验证码</label>
+                <input type="text" id="checkCode" class="form-control form-checkcode" placeholder="验证码" required>
+                <img src="" class="checkcode-img fl-r" />
+              </div> -->
+              <!-- <p class="error-tip">错误信息存放处</p> -->
 
 
-          <button class="btn btn-lg btn-success btn-block" type="submit">登录</button>
+              <button class="btn btn-lg btn-success btn-block" type="submit">登录</button>
+            </div>
+          </form>
+
         </div>
-      </form>
-
+      </div>
     </div>
 
 
