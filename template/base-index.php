@@ -155,7 +155,8 @@ if(params){
 
 var start = 0;
 var pageSize = 20;
-var pageQuery = 100;
+//查询暂时没有分页
+var pageQuery = 200;
 var renderOnePage = function(data){
 		var html = '';
 		for (var i=0;i<data.length;i++){
@@ -200,6 +201,7 @@ var renderList = function(init){
 if(energy_type || building_type){
 	$('#overload').val(energy_type);
 	$('#building_type').val(building_type);
+	$('#loading_tip').show();
 	$get('/station/query',{
 		start:0,
 		end:pageQuery,
@@ -221,6 +223,7 @@ if(energy_type || building_type){
 $('#page_container').delegate('li','click',function(){
 		var page = $(this).data('index');
 		currentPage = page;
+		$('#loading_tip').show();
 		renderList();
 });
 
@@ -233,7 +236,8 @@ $('#query_button').click(function(){
 	var station_type = $('#station_type').val();
 	var building_type = $('#building_type').val();
 	var overload = $('#overload').val();
-
+    $('#loading_tip').show();
+	
 	$get('/station/query',{
 		start:0,
 		end:pageQuery,
