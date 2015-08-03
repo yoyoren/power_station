@@ -14,6 +14,11 @@ class WarningHandler {
 		 }
          return array('data'=>$list,'count'=>$all_count);
     }
+	public static function get_total_count(){
+		$dao =  new PowerStationWarningMySqlExtDAO();      
+		$all_count = $dao->get_count();
+		return $all_count;
+	}
 	
 	//按类型获得告警的数量
 	public static function get_count_by_type(){
@@ -26,6 +31,14 @@ class WarningHandler {
 			array_push($ret,$num);
 		 }
 		 return $ret;
+    }
+	
+	//按类型获得告警的数量
+	public static function get_count_by_station_id($station_id){
+		 global $WARNING_TYPE;
+		 $dao =  new PowerStationWarningMySqlExtDAO();        
+         $num = $dao->get_count_by_station_id($station_id);
+		 return $num;
     }
 	
 	//按条件检索告警

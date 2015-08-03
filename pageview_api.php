@@ -13,16 +13,30 @@ global $response_body;
  }
 $app->get('/', function () use ($app) {
 	pageview_api_auth();
+	$warning_num = WarningHandler::get_count_by_type();
+	$warning_num_total = WarningHandler::get_total_count();
 	$station_num_1 = StationHandler::get_index_station_num(1);
 	$station_num_2 = StationHandler::get_index_station_num(2);
-	$app->render('main.php',array('station_num_1'=>$station_num_1,'station_num_2'=>$station_num_2));
+	$app->render('main.php',array(
+	'station_num_1'=>$station_num_1,
+	'station_num_2'=>$station_num_2,
+	'warning_num_total'=>$warning_num_total,
+	'warning_num'=>$warning_num
+	));
 });
 
 $app->get('/main', function () use ($app) {
 	pageview_api_auth();
+	$warning_num = WarningHandler::get_count_by_type();
+	$warning_num_total = WarningHandler::get_total_count();
 	$station_num_1 = StationHandler::get_index_station_num(1);
 	$station_num_2 = StationHandler::get_index_station_num(2);
-	$app->render('main.php',array('station_num_1'=>$station_num_1,'station_num_2'=>$station_num_2));
+	$app->render('main.php',array(
+	'station_num_1'=>$station_num_1,
+	'station_num_2'=>$station_num_2,
+	'warning_num_total'=>$warning_num_total,
+	'warning_num'=>$warning_num
+	));
 });
 
 //登录
@@ -44,10 +58,18 @@ $app->get('/base', function () use ($app) {
 //基站当前状态
 $app->get('/base/status/:id', function ($id) use ($app) {
 	pageview_api_auth();
+	$test_id = 1;
 	$station = StationHandler::get_one_detail($id);
-	$status = StationHandler::get_current_status(1);
+	$status = StationHandler::get_current_status($test_id);
 	$weather = WeatherHandler::get_weather_baidu($station['info']->stationCityName)->retData;
-	$app->render('base-status.php',array('weather'=>$weather,'station'=>$station,'status'=>$status,'id'=>$id));
+	$warning_num = WarningHandler::get_count_by_station_id($test_id);
+	$app->render('base-status.php',array(
+	'weather'=>$weather,
+	'station'=>$station,
+	'status'=>$status,
+	'id'=>$id,
+	'warning_num'=>$warning_num
+	));
 });
 
 //基站基础信息

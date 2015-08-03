@@ -12,9 +12,9 @@
 
       <div class="n-right-content">
         <h4 class="tab-to-title">当前状态
-          <a href="#" class="warning-ico-area" style="display:none">
+          <a href="#" class="warning-ico-area">
             <span class="glyphicon glyphicon-bell"></span>
-            <span class="badge badge-purple" >7</span>
+            <span class="badge badge-purple" ><? echo $warning_num;?></span>
           </a>
         </h4>
         <div class="current-name-area clearfix">

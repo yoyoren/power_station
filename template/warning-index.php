@@ -197,6 +197,12 @@
 			pagesize:pageSize
 		},function(d){
 			if(d.code == 0){
+				__render(d,init);
+			}
+		});
+	}
+	
+	var __render = function(d,init){
 				if(init){
 					total = parseInt(d.data.count);
 					totalPage = Math.floor(total/pageSize) + 1;
@@ -227,10 +233,7 @@
 							  <td class="status">'+(_d.warningStatus=='1'?'open':'close')+'</td>\
 							</tr>';
 				}
-				$('#container').html(html);
-			}
-		});
-	
+				$('#container').html(html);	
 	}
 	renderPage(true);
 	
@@ -245,6 +248,10 @@
 		if($('#warning_year').val()!='0' && $('#warning_month').val()!='0'){
 			create_time = new Date($('#warning_year').val() + '-' + $('#warning_month').val()).getTime();
 		}
+		
+		currentPage = 0;
+		total = 0;
+		
 		$get('/warning/query',{
 			start:0,
 			pagesize:pageSize,
@@ -254,7 +261,7 @@
 		},function(d){
 			if(d.code == 0){
 				if(d.data.length){
-				
+					__render(d,true);
 				}else{
 					alert('没有查询到相关数据');
 				}

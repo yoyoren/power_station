@@ -68,11 +68,6 @@
 </head>
 <body>
 <div id="portfolio">
-<ul class="bar">
-    <li class="current"><a href="#" id="visit">排一下</a></li>
-    <li><a href="#" id="name">排一下</a></li>
-    <li><a href="#" id="date">排一下</a></li>
-</ul>
 <div style="clear:both">
    <ul id="itemUL" class="itemUL">
       <li data-id="id-1" class="book panel panel-color panel-success">

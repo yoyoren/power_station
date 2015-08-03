@@ -19,6 +19,14 @@ class PowerStationWarningMySqlExtDAO extends PowerStationWarningMySqlDAO{
 		return $num[0][0];
 	}
 	
+	public function get_count_by_station_id($station_id){
+		$sql = 'SELECT COUNT(*) FROM power_station_warning WHERE station_id = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($station_id);
+		$num = $this->execute($sqlQuery);
+		return $num[0][0];
+	}
+	
 	public function get_count_by_type($type){
 		$sql = 'SELECT COUNT(*) FROM power_station_warning WHERE warning_type = ?';
 		$sqlQuery = new SqlQuery($sql);

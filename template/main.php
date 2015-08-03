@@ -89,29 +89,49 @@
           <h4 class="n-title">故障告警
             <a href="#" class="warning-ico-area">
               <span class="glyphicon glyphicon-bell"></span>
-              <span class="badge badge-purple">7</span>
+              <span class="badge badge-purple"><?php echo $warning_num_total?></span>
             </a>
           </h4>
           <table class="table table-bordered tl-c">
             <tr>
-              <th>断站</th>
-              <th>空调故障</th>
-              <th>室内高温</th>
-              <th>恒温柜高温</th>
-              <th>电表故障</th>
-              <th>功率异常</th>
-              <th>远程关站</th>
-              <th>代理维护按钮</th>
-            </tr>
+            <th>
+              断站
+            </th>
+            <th>
+              室内高温
+            </th>
+            <th>
+              恒温柜高温
+            </th>
+            <th>
+              电表故障
+            </th>
+            <th>
+              功率异常
+            </th>
+            <th>
+              远程关站
+            </th>
+            <th>
+              代理维护按钮
+            </th>
+            <th>
+              空调故障
+            </th>
+            <th>
+              温度感应故障
+            </th>
+          </tr>
             <tr>
-              <td><a href="/warning">0</a></td>
-              <td><a href="/warning">0</a></td>
-              <td><a href="/warning">0</a></td>
-              <td><a href="/warning">0</a></td>
-              <td><a href="/warning">0</a></td>
-              <td><a href="/warning">0</a></td>
-              <td><a href="/warning">0</a></td>
-              <td><a href="/warning">0</a></td>
+              <td><a href="/warning?type=1"><?php echo $warning_num[0];?></a></td>
+              <td><a href="/warning?type=2"><?php echo $warning_num[1];?></a></td>
+              <td><a href="/warning?type=3"><?php echo $warning_num[2];?></a></td>
+              <td><a href="/warning?type=4"><?php echo $warning_num[3];?></a></td>
+              <td><a href="/warning?type=5"><?php echo $warning_num[4];?></a></td>
+              <td><a href="/warning?type=6"><?php echo $warning_num[5];?></a></td>
+              <td><a href="/warning?type=7"><?php echo $warning_num[6];?></a></td>
+              <td><a href="/warning?type=8"><?php echo $warning_num[7];?></a></td>
+			  <td><a href="/warning?type=9"><?php echo $warning_num[8];?></a></td>
             </tr>
           </table>
         </div>
