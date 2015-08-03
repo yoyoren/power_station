@@ -112,8 +112,12 @@ $(function () {
             }
         },
         yAxis: {
+            tickPositions: [0, 4, 8, 10],
             min: 0,
             max:10,
+            labels: {
+              enabled: false
+            },
             title: {
                 text: ''
             }
