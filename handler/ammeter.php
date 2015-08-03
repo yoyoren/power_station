@@ -52,8 +52,8 @@ class AmmeterHandler {
            $readTime      =  strtotime($readTime);
            $ammeterNormal =  DAOFactory::getPowerAmmeterChinamobileDAO()->queryNormal($stationId, $readTime);
            if(!$ammeterNormal) $ammeterNormal=0;
-           $data->stationId=$stationId;
-           $data->ammeterNormal=$ammeterNormal;          
+           $data['stationId']=$stationId;
+           $data['ammeterNormal']=$ammeterNormal;          
            return  $data;
        }else{
            return FALSE;
@@ -84,8 +84,8 @@ class AmmeterHandler {
            $readTime      =  strtotime($readTime);
            $ammeterNormal =  DAOFactory::getPowerAmmeterChinamobileDAO()->queryNormal($stationId, $readTime);
            if(!$ammeterNormal) $ammeterNormal=0;
-           $data->stationId=$stationId;
-           $data->ammeterNormal=$ammeterNormal;          
+           $data['stationId']=$stationId;
+           $data['ammeterNormal']=$ammeterNormal;         
            return  $data;
        }else{
            return FALSE;
@@ -117,11 +117,7 @@ class AmmeterHandler {
         return FALSE;
          
     }
-    //异值的计算
-    public static function diff_value($readTime){
-        
-        
-    }
+
     
 }
 
