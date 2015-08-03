@@ -51,12 +51,12 @@ function param_check($key,$method='post',$type='',$empty = false){
 	return $val;
  }
  
- function param_check_get($key,$type=''){
-	return param_check($key,'get',$type);
+ function param_check_get($key,$type='',$empty=false){
+	return param_check($key,'get',$type,$empty);
  }
  
- function param_check_post($key,$type=''){
-	return param_check($key,'post',$type);
+ function param_check_post($key,$type='',$empty=false){
+	return param_check($key,'post',$type,$empty);
  }
  
  //API登陆身份验证
@@ -478,8 +478,8 @@ $app->post('/station/update', function () {
 $app->get('/station/list', function () {
 	restful_api_auth();
 	$start = param_check_get('start');
-	$end = param_check_get('end');
-	$data = StationHandler::get_list($start,$end);
+	$pagesize = param_check_get('pagesize');
+	$data = StationHandler::get_list($start,$pagesize,true);
 	restful_response(RES_SUCCESS,$data);
 });
 
@@ -510,6 +510,7 @@ $app->get('/station/query', function () {
 	$district = param_check_get('district','',true);
 	$station_type = param_check_get('station_type','',true);
 	$overload = param_check_get('overload','',true);
+	$building_type = param_check_get('building_type','',true);
 	$query_option = array(
 		'project_id'=>$project,
 		'station_province'=>$province,
@@ -518,7 +519,7 @@ $app->get('/station/query', function () {
 		'station_type'=>$station_type
 	);
 		
-	$data = StationHandler::query($start,$end,$query_option,$overload);
+	$data = StationHandler::query($start,$end,$query_option,$overload,$building_type);
 	restful_response(RES_SUCCESS,$data);
 });
 
@@ -527,6 +528,90 @@ $app->get('/station/num', function () {
 	restful_api_auth();	
 	$project_id = $_COOKIE['current_project_id'];
 	$data = StationHandler::get_index_station_num($project_id);
+	restful_response(RES_SUCCESS,$data);
+});
+
+//获得基站的数量,首页
+$app->get('/station/status/:id', function ($id) use ($app) {
+	restful_api_auth();
+	$data = StationHandler::get_current_status($id);
+	restful_response(RES_SUCCESS,$data);
+});
+
+//用最新一条数据计算出基站当前存在的告警
+$app->get('/station/warning/:id', function ($id) use ($app) {
+	restful_api_auth();
+	$data = StationHandler::cal_warning_from_runing_data($id);
+	restful_response(RES_SUCCESS,$data);
+});
+
+//获得基站的原始数据
+$app->get('/station/origindata/:id', function ($id) use ($app) {
+	restful_api_auth();
+	//时间戳
+	$time = param_check_get('time');
+	$data = StationHandler::get_origin_data_by_time($id,$time);
+	restful_response(RES_SUCCESS,$data);
+});
+
+//获得基站最新的数据
+$app->get('/station/last/origindata/:id', function ($id) use ($app) {
+	restful_api_auth();
+	//时间戳
+	$data = StationHandler::get_origin_data_by_time($id,-2);
+	restful_response(RES_SUCCESS,$data);
+});
+
+//获得基站谋天的数据
+$app->get('/station/oneday', function () use ($app) {
+	restful_api_auth();
+	//时间戳
+	$time = param_check_get('time');
+	$time = intval($time);
+	$data = StationHandler::get_one_day_status(1,$time);
+	restful_response(RES_SUCCESS,$data);
+});
+
+//获得基站月报的数据
+$app->get('/station/onemonth', function () use ($app) {
+	restful_api_auth();
+	//时间戳
+	$time = param_check_get('time');
+	$time = intval($time);
+	$data = StationHandler::get_one_month_status(1,$time);
+	restful_response(RES_SUCCESS,$data);
+});
+
+//获得基站月报的数据
+$app->get('/station/getbyname', function () use ($app) {
+	restful_api_auth();
+	$name = param_check_get('name');
+	$data = StationHandler::get_station_by_station_name($name);
+	restful_response(RES_SUCCESS,$data);
+});
+
+//获得告警的数据
+$app->get('/warning/list', function () use ($app) {
+	restful_api_auth();
+	$page = param_check_get('page');
+	$pagesize = param_check_get('pagesize');
+	$data = WarningHandler::get_list(-1,$page,$pagesize);
+	restful_response(RES_SUCCESS,$data);
+});
+
+//按条件检索告警
+$app->get('/warning/query', function () {
+	restful_api_auth();
+	$start = param_check_get('start');
+	$pagesize = param_check_get('pagesize');
+	$create_time = param_check_get('create_time','',true);
+	$warning_status = param_check_get('warning_status','',true);
+	$warning_type = param_check_get('warning_type','',true);
+	$query_option = array(
+		'warning_status'=>$warning_status,
+		'warning_type'=>$warning_type
+	);
+	$data = WarningHandler::query($start,$pagesize,$query_option,$create_time);
 	restful_response(RES_SUCCESS,$data);
 });
 
@@ -622,19 +707,39 @@ $app->get('/weather/show', function () {
 //插入天气
 $app->post('/weather/add', function () {
      global $app;
-     $result=WeatherHandler::add_weather();
+     $result = WeatherHandler::add_weather();
      if(!$result){
           restful_response(RES_ERROR);
      }else{
           restful_response(RES_SUCCESS,$result);
      }
-	
 });
+
+$app->get('/weather/baidu/get', function () {
+     global $app;
+     $result = WeatherHandler::get_weather_baidu('上海');
+     if(!$result){
+          restful_response(RES_ERROR);
+     }else{
+          restful_response(RES_SUCCESS,$result);
+     }
+});
+
+$app->get('/weather/month/get', function () {
+     global $app;
+	 $province = param_check_get('province');
+     $city = param_check_get('city');
+	 $startMonth = param_check_get('time');
+     $result = WeatherHandler::get_weather_by_month($startMonth,$province,$city);
+     restful_response(RES_SUCCESS,$result);
+});
+
+
 //日志列表
 $app->get('/log/list', function () {
     global $app;
     $start = param_check_get('start');
-     $end = param_check_get('end');
+    $end = param_check_get('end');
     $result=LogHandler::show_log($start, $end);
      if(!$result){
           restful_response(RES_ERROR);

@@ -18,8 +18,17 @@
 			$dao_project->insert($project);
 		}
 		
-		public static function remove(){
-			
+		public static function remove($id){
+			$dao_project =  new ProwerProjectMySqlDAO();
+			$dao_project->delete($id);
+			return true;
+		}
+		
+		//删除项目的同时更新用户的项目权限
+		public static function delete_project_and_update_auth($id){
+			ProjectHandler::remove($id);
+			AccountHandler::delete_all_user_from_project($id);
+			return true;
 		}
 	}
 ?>

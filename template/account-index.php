@@ -212,6 +212,7 @@
 				},'json');
 
 				alert('添加成功！');
+				location.reload();
 
 			} else {
 

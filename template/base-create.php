@@ -6,8 +6,12 @@
     <?php include ('include/header.php')?>
 
     <div class="n-container">
-      <?php include ('include/nav_base.php')?>
-	  <script>$('#nav_base_8').addClass('current');</script>
+      <div class="n-nav-left">
+        <ul>
+          <li ><a href="/log"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">工作日志</span></a></li>
+          <li id="nav_base_8" class="current"><a href="/base/create"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">基站创建</a></li>
+        </ul>
+      </div>
 
       <div class="n-right-content">
         <h4 class="tab-to-title">基站创建</h4>
@@ -199,7 +203,8 @@
 						<option value="3">30-40A</option>
 						<option value="4">40-50A</option>
 						<option value="5">50-60A</option>
-						<option value="6">70A+</option>
+						<option value="6">60-70A</option>
+						<option value="7">70A+</option>
 					</select>
 				</td>
                 <td class="td-to-th">&nbsp;</td>
@@ -341,8 +346,7 @@ $('#create_button').click(function(){
 	var building_type = $('#building_type').val();
 	var ration = $('#ration').val();
 	var energy_type = $('#energy_type').val();
-
-	$post('/station/add',{
+	var postData = {
 	  name:name,
 	  code:code,
 	  type:type,
@@ -375,12 +379,23 @@ $('#create_button').click(function(){
 	  building_type:building_type,
 	  ration:ration,
 	  energy_type:energy_type
-	},function(d){
+	};
+	for(var i in postData){
+		if(!postData[i]){
+			alert('字段'+i+'不能为空');
+			return;
+		}
+	}
+	$post('/station/add',postData,function(d){
 		if(d.code == 0){
 			alert('创建成功');
 			location.href = '/base';
 		} else {
-			alert('创建失败，存在相同的站点名和编号');
+			if(d.data.PARAM_EMPTY){
+				alert('创建失败，缺少参数' + d.data.PARAM_EMPTY);
+			} else {	
+				alert('创建失败，存在相同的站点名和编号');
+			}
 		}	
 	});
 

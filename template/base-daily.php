@@ -12,6 +12,9 @@
 
       <div class="n-right-content">
         <h4 class="tab-to-title">日报数据</h4>
+		<div class="alert alert-success" role="alert" id="loading_tip">
+		  <strong></strong> 数据正在加载...
+		</div>
         <div class="current-name-area clearfix">
           <span class="vl-m fl-l name"><b>001</b>基站</span>
 
@@ -31,15 +34,15 @@
         <div class="nav-tabs-content">
           <div class="n-check-area tl-r">
 
-            请选择日期<input size="16" type="text" value="2012-06-15 14:45" readonly class="date-control form-control form_datetime">
-            <button type="button" class="btn btn-default">确定</button>
+            请选择日期<input size="16" type="text" readonly class="date-control form-control form_datetime" id="query_date">
+            <button type="button" class="btn btn-default" id="query_button">确定</button>
             <br/>
             <br/>
             <div class="btn-group">
-              <button type="button" class="btn btn-default">
+              <button type="button" class="btn btn-default" id="prev_day">
                 <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><span class="vl-m">前一天</span>
               </button>
-              <button type="button" class="btn btn-default">
+              <button type="button" class="btn btn-default" id="next_day">
                 <span class="vl-m">后一天</span><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
               </button>
             </div>
@@ -68,7 +71,9 @@
             </tbody>
           </table>
 
-          <div id="container_device" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+          <div id="container_device" style="min-width: 310px; height: 400px; margin: 0 auto">
+			数据加载中...
+		  </div>
           <hr>
           <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
           <hr>
@@ -83,185 +88,410 @@
 <script src="/static/src/js/highchart/highcharts.js"></script>
 <script src="/static/src/js/highchart/modules/exporting.js"></script>
 <script src="/static/src/js/datepicker/bootstrap-datetimepicker.js"></script>
-
+<script>
+window.data = <?php echo json_encode($data);?>
+</script>
 <script>
 $(function () {
+	window.currentTime = window.data.current_date;
     $(".form_datetime").datetimepicker({
-      format: 'yyyy-mm-dd hh:ii',
-      language: 'cn'
+      format: 'yyyy-mm-dd',
+      language: 'cn',
+	  autoclose:true,
+	  minView:3
     });
+	
+	var refresh = function(time){
+		$('#loading_tip').show();
+		time = new Date(time).getTime()/1000;
+		time = time - 8* 60 *60;
+		window.currentTime = time;
+		$get('/station/oneday',{
+			time:window.currentTime
+		},function(d){
+			$('#container_device').html('数据加载中...');
+			window.data = d.data;
+			renderPage();
+		});
+	}
+	$('#query_button').click(function(){
+		var time = $('#query_date').val();
+		if(!time){
+		   return;
+		}
+		refresh(time);
+	});
+	
+	$('#prev_day').click(function(){
+		window.currentTime -= 24* 60 *60;
+		refresh(window.currentTime);
+	});
+	
+	$('#next_day').click(function(){
+		window.currentTime += 24* 60 *60;
+		refresh(window.currentTime);
+	});
+	
+	
+	var renderPage = function(){
+		var time = [];
+		var colse_status = [];
+		var fan_status = [];
+		var air_1_status = [];
+		var air_2_status = [];
+		for(var i=0;i<window.data['power_dc'].length;i++){
+			window.data['power_dc'][i] = parseInt(window.data['power_dc'][i]);
+			window.data['power_all'][i] = parseInt(window.data['power_all'][i]);
+			window.data['temp_inside'][i] = parseFloat(window.data['temp_inside'][i]);
+			window.data['temp_outside'][i] = parseFloat(window.data['temp_outside'][i]);
+			window.data['temp_air_1'][i] = parseFloat(window.data['temp_air_1'][i]);
+			window.data['temp_air_2'][i] = parseFloat(window.data['temp_air_2'][i]);
+			window.data['temp_cabint'][i] = parseFloat(window.data['temp_cabint'][i]);
+			var _t = window.data['time'][i];
+			_t = _t*1000;
+			_t = new Date(_t);
+			time.push(_t.getHours() + ':' +_t.getMinutes());
+			
+			if(window.data['temp_air_2_status'][i] == '1'){
+			   colse_status.push(null);
+			   fan_status.push(null);
+			   air_1_status.push(null);
+			   air_2_status.push(6);
+			   continue;
+			}
+			
+			if(window.data['temp_air_1_status'][i] == '1'){
+			   colse_status.push(null);
+			   fan_status.push(null);
+			   air_1_status.push(6);
+			   air_2_status.push(null);
+			   continue;
+			}
+			
+			if(window.data['temp_fan_status'][i] == '1'){
+			   colse_status.push(null);
+			   fan_status.push(6);
+			   air_1_status.push(null);
+			   air_2_status.push(null);
+			   continue;
+			}
+			
+			colse_status.push(6);
+			fan_status.push(null);
+			air_1_status.push(null);
+			air_2_status.push(null);
+		}
+		for(var key in window.data){
+			try{
+				window.data[key] =  window.data[key].reverse();
+			}catch(ex){
+			
+			}
+		}
+		window.step = parseInt(window.data.power_all.length / 20);
+		time = time.reverse();
+		colse_status = colse_status.reverse();
+		fan_status = fan_status.reverse();
+		air_1_status = air_1_status.reverse();
+		air_2_status = air_2_status.reverse();
+		
+		 //设备开启状态
+		$('#container_device').highcharts({
+			chart: {
+				type: 'column'
+			},
+			title: {
+				text: '设备启动状态图'
+			},
+			colors:[
+					'#5cab1c',//全关
+					'#21aed1',//风机
+					'#ed8e28',//一个空调
+					'#ff4400' //两个空调
+			],
+			xAxis: {
+				categories: time,
+				labels: {
+				  step:window.step
+				}
+			},
+			yAxis: {
+				labels: {
+				  enabled: false
+				}
+			},
+			tooltip: {
+				// pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+				pointFormat: '当前启动状态是：<b><span style="color:{series.color}">{series.name}</span></b><br/>',
+				shared: true
+			},
+			plotOptions: {
+				column: {
+					stacking: 'normal'
+				}
+			},
+			series: [{
+				name: '全关',
+				data: colse_status
+			}, {
+				name: '风机',
+				data: fan_status}, {
+				name: '一个空调',
+				data: air_1_status}, {
+				name: '二个空调',
+				data: air_2_status}]
+		});
+		
+		$('#container').highcharts({
+			chart: {
+				type: 'area'
+			},
+			title: {
+				text: '基站总功率和DC功率'
+			},
+			colors:[
+				'#4989c4',
+				'#333'
+			],
+			xAxis: {
+				categories: time,
+				labels: {
+				  step:window.step
+				}
+			},
+			yAxis: {
+				title: {
+					text: ''
+				},
+				labels: {
+					formatter: function () {
+						return this.value / 1000 + 'k';
+					},
+					step:2
+				}
+			},
+			credits: {
+				enabled: false
+			},
+			plotOptions: {
+				area: {
+					marker: {
+						enabled: false,
+						symbol: 'circle',
+						radius: 1,
+						states: {
+							hover: {
+								enabled: true
+							}
+						}
+					}
+				}
+			},
+			series: [ {
+				name: '总功率',
+				data: window.data['power_all']
+			},{
+				name: 'DC功率',
+				data: window.data['power_dc']
+			}]
+		});
 
-    //设备开启状态
-    $('#container_device').highcharts({
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: '设备启动状态图'
-        },
-        colors:[
-                '#5cab1c',//全关
-                '#21aed1',//风机
-                '#ed8e28',//一个空调
-                '#ff4400' //两个空调
-        ],
-        xAxis: {
-            categories: ['00:00', '00:20', '00:40', '01:00', '01:20', '01:40', '02:00', '02:20', '02:40', '03:00', '03:20', '03:40', '04:00',  '04:20',  '04:40','05:00',  '05:20',  '05:40', '06:00', '06:20', '06:40', '07:00', '07:20', '07:40', '08:00',  '08:20', '08:40', '09:00', '09:20','09:40','10:00', '10:20', '10:40', '11:00','11:20', '11:40', '12:00', '12:20', '12:40', '13:00', '13:20', '13:40', '14:00', '14:20', '14:40','15:00', '15:20', '15:40', '16:00', '16:20','16:40', '17:00','17:20', '17:40', '18:00', '18:20', '18:40', '19:00', '19:20', '19:40', '20:00', '20:20', '20:40', '21:00', '21:20', '21:40', '22:00', '22:20', '22:40', '23:00' ,'23:20',  '23:40','24:00'],
-            labels: {
-              step:12
-            }
-        },
-        yAxis: {
-            tickPositions: [0, 4, 8, 10],
-            min: 0,
-            max:10,
-            labels: {
-              enabled: false
-            },
-            title: {
-                text: ''
-            }
-        },
-        tooltip: {
-            // pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
-            pointFormat: '当前启动状态是：<b><span style="color:{series.color}">{series.name}</span></b><br/>',
-            shared: true
-        },
-        plotOptions: {
-            column: {
-                stacking: 'normal'
-            }
-        },
-        series: [{
-            name: '全关',
-            data: [null,null,null,null,null,6,6,6,6,null,null,null,null,null,6,6,6,6,null,null,null,null,null,6,6,6,6,null,null,null,null,null,6,6,6,6,null,null,null,null,null,6,6,6,6,null,null,null,null,null,6,6,6,6,null,null,null,null,null,6,6,6,6,6,6,6,6,6,6,6,6,6,6,]
-        }, {
-            name: '风机',
-            data: [6,6,null,null,null,null,null,null,null,6,6,null,null,null,null,null,null,null,6,6,null,null,null,null,null,null,null,6,6,null,null,null,null,null,null,null,6,6,null,null,null,null,null,null,null,6,6,null,null,null,null,null,null,null,6,6,null,null,null,null,null,null,null]
-        }, {
-            name: '一个空调',
-            data: [null,null,null,6,6,null,null,null,null,null,null,null,6,6,null,null,null,null,null,null,null,6,6,null,null,null,null,null,null,null,6,6,null,null,null,null,null,null,null,6,6,null,null,null,null,null,null,null,6,6,null,null,null,null,null,null,null,6,6,null,null,null,null]
-        }, {
-            name: '二个空调',
-            data: [null,null,6,null,null,null,null,null,null,null,null,6,null,null,null,null,null,null,null,null,6,null,null,null,null,null,null,null,null,6,null,null,null,null,null,null,null,null,6,null,null,null,null,null,null,null,null,6,null,null,null,null,null,null,null,null,6,null,null,null,null,null,null]
-        }]
 
-    });
+		$('#container2').highcharts({
+			chart: {
+				type: 'spline'
+			},
+			title: {
+				text: '温度',
+				x: -20 //center
+			},
+			xAxis: {
+				categories: time,
+				minorTickLength : 20,
+				labels: {
+				  step:window.step
+				}
+			},
+			yAxis: {
+				title: {
+					text: '温度 (°C)'
+				},
+				plotLines: [{
+					value: 0,
+					width: 1,
+					color: '#808080'
+				}],
+				plotBands: [{ // Light air
+					from: 38,
+					to: 38.2,
+					color: 'rgb(239, 88, 89)',
+					label: {
+						text: '警戒线',
+						style: {
+							color: 'black'
+						}
+					}
+				}]
+			},
+			tooltip: {
+				valueSuffix: '°C'
+			},
 
+			series: [{
+				name: '室内温度',
+				data:  window.data['temp_inside']}, {
+				name: '室外温度',
+				data: window.data['temp_outside']}, {
+				name: '恒温柜温度',
+				data:  window.data['temp_cabint']}, {
+				name: '空调一温度',
+				data: window.data['temp_air_1']}, {
+				name: '空调二温度',
+				data:window.data['temp_air_2'] 
+				}]
+		});
+		
+		$('#loading_tip').hide();
+	}
+	
+	setTimeout(function(){
+		renderPage();
+	},100);
 
-    $('#container').highcharts({
-        chart: {
-            type: 'area'
-        },
-        title: {
-            text: '基站总功率和DC功率'
-        },
-        colors:[
-            '#4989c4',
-            '#333'
-        ],
-        xAxis: {
-            // categories: ['00:00', '02:00', '04:00', '06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00', '00:00']
-            categories: ['00:00', '00:10', '00:20', '00:30', '00:40', '00:50', '01:00', '01:10', '01:20', '01:30', '01:40', '01:50', '02:00', '02:10', '02:20', '02:30', '02:40', '02:50', '03:00', '03:10','03:20', '03:30', '03:40', '03:50', '04:00', '04:10', '04:20', '04:30', '04:40', '04:50', '05:00', '05:10', '05:20', '05:30', '05:40', '05:50', '06:00', '06:10', '06:20', '06:30','06:40', '06:50', '07:00', '07:10', '07:20', '07:30', '07:40', '07:50', '08:00', '08:10', '08:20', '08:30', '08:40', '08:50', '09:00', '09:10', '09:20', '09:30', '09:40', '09:50','10:00', '10:10', '10:20', '10:30', '10:40', '10:50', '11:00', '11:10', '11:20', '11:30', '11:40', '11:50', '12:00', '12:10', '12:20', '12:30', '12:40', '12:50', '13:00', '13:10','13:20', '13:30', '13:40', '13:50', '14:00', '14:10', '14:20', '14:30', '14:40', '14:50', '15:00', '15:10', '15:20', '15:30', '15:40', '15:50', '16:00', '16:10', '16:20', '16:30'],
-            labels: {
-              step:12
-            }
+   
 
+	
+/*
+  var startDate = new Date(window.data.time[window.data.time.length - 1] * 1000);
+  var startYear = startDate.getFullYear();
+  var startMonth = startDate.getMonth();
+  var startDay = startDate.getDate();
+  $('#container').highcharts({
+      chart: {
+          type: 'spline'
+      },
+      title: {
+          text: '基站总功率和DC功率'
+      },
+      xAxis: {
+          type: 'datetime'
+      },
+      yAxis: {
+          title: {
+              text: 'Wind speed (m/s)'
+          },
+          min: 0,
+          minorGridLineWidth: 0,
+          gridLineWidth: 0,
+          alternateGridColor: null,
+          plotBands: [{ // Light air
+              from: 0.3,
+              to: 1.5,
+              color: 'rgba(68, 170, 213, 0.1)',
+              label: {
+                  text: 'Light air',
+                  style: {
+                      color: '#606060'
+                  }
+              }
+          }, { // Light breeze
+              from: 1.5,
+              to: 3.3,
+              color: 'rgba(0, 0, 0, 0)',
+              label: {
+                  text: 'Light breeze',
+                  style: {
+                      color: '#606060'
+                  }
+              }
+          }, { // Gentle breeze
+              from: 3.3,
+              to: 5.5,
+              color: 'rgba(68, 170, 213, 0.1)',
+              label: {
+                  text: 'Gentle breeze',
+                  style: {
+                      color: '#606060'
+                  }
+              }
+          }, { // Moderate breeze
+              from: 5.5,
+              to: 8,
+              color: 'rgba(0, 0, 0, 0)',
+              label: {
+                  text: 'Moderate breeze',
+                  style: {
+                      color: '#606060'
+                  }
+              }
+          }, { // Fresh breeze
+              from: 8,
+              to: 11,
+              color: 'rgba(68, 170, 213, 0.1)',
+              label: {
+                  text: 'Fresh breeze',
+                  style: {
+                      color: '#606060'
+                  }
+              }
+          }, { // Strong breeze
+              from: 11,
+              to: 14,
+              color: 'rgba(0, 0, 0, 0)',
+              label: {
+                  text: 'Strong breeze',
+                  style: {
+                      color: '#606060'
+                  }
+              }
+          }, { // High wind
+              from: 14,
+              to: 15,
+              color: 'rgba(68, 170, 213, 0.1)',
+              label: {
+                  text: 'High wind',
+                  style: {
+                      color: '#606060'
+                  }
+              }
+          }]
+      },
+      tooltip: {
+          valueSuffix: ' m/s'
+      },
+      plotOptions: {
+          spline: {
+              lineWidth: 4,
+              states: {
+                  hover: {
+                      lineWidth: 5
+                  }
+              },
+              marker: {
+                  enabled: false
+              },
+              pointInterval: 60000, // one hour
+              pointStart: Date.UTC(startYear, startMonth, startDay, 0, 0, 0)
+          }
+      },
+      series: [{
+          name: 'Hestavollane',
+          data: window.data['power_all']
 
-        },
-        yAxis: {
-            title: {
-                text: ' '
-            },
-            labels: {
-                formatter: function () {
-                    return this.value / 1000 + 'k';
-                },
-                step:2
-            }
-        },
-        credits: {
-            enabled: false
-        },
-        plotOptions: {
-            area: {
-                marker: {
-                    enabled: false,
-                    symbol: 'circle',
-                    radius: 1,
-                    states: {
-                        hover: {
-                            enabled: true
-                        }
-                    }
-                }
-            }
-        },
-        series: [{
-            name: '总功率',
-            data: [5000, 6000, 4600, 7000, 6000, 5000, 6000, 6000, 5000, 6000, 4600, 7000, 6000, 5000, 6000, 4600, 7000, 6000, 5000, 6000, 4600, 7000, 6000,5000, 6000, 4600, 7000, 6000, 5000, 6000, 6000, 5000, 6000, 4600, 7000, 6000, 5000, 6000, 4600, 7000, 6000, 5000, 6000, 4600, 7000, 6000,5000, 6000, 4600, 7000, 6000, 5000, 6000, 6000, 5000, 6000, 4600, 7000, 6000, 5000, 6000, 4600, 7000, 6000, 5000, 6000, 4600, 7000, 6000,6000, 5000, 6000, 4600, 7000, 6000, 5000, 6000, 4600, 7000, 6000,6000, 5000, 6000, 4600, 7000, 6000, 5000, 6000, 4600, 7000, 6000,6000, 4600, 7000, 6000, 5000, 6000, 4600, 7000, 6000]
-        }, {
-            name: 'DC功率',
-            data: [4000, 4200, 4300, 4100, 4100, 4000, 4200, 4300, 4100, 4100,4000, 4200, 4300, 4100, 4100,4000, 4200, 4300, 4100, 4100,4000, 4200, 4300, 4100, 4100,4000, 4200, 4300, 4100, 4100,4000, 4200, 4300, 4100, 4100,4000, 4200, 4300, 4100, 4100,4000, 4200, 4300, 4100, 4100,4000, 4200, 4300, 4100, 4100,4000, 4200, 4300, 4100, 4100,4000, 4200, 4300, 4100, 4100,4000, 4200, 4300, 4100, 4100,4000, 4200, 4300, 4100, 4100,4000, 4200, 4300, 4100, 4100,4100, 4100,4000, 4200, 4300, 4100, 4100,4000, 4200, 4300, 4100, 4100,4100, 4100,4000, 4200, 4300, 4100, 4100,4000, 4200, 4300, 4100, 4100]
-        }]
-    });
+      }, {
+          name: 'Voll',
+          data:  window.data['power_dc']
+      }]
+      ,
+      navigation: {
+          menuItemStyle: {
+              fontSize: '10px'
+          }
+      }
+  });
 
-    $('#container2').highcharts({
-        chart: {
-            type: 'spline'
-        },
-        title: {
-            text: '温度',
-            x: -20 //center
-        },
-        xAxis: {
-            categories: ['00:00', '00:10', '00:20', '00:30', '00:40', '00:50', '01:00', '01:10', '01:20', '01:30', '01:40', '01:50', '02:00', '02:10', '02:20', '02:30', '02:40', '02:50', '03:00', '03:10','03:20', '03:30', '03:40', '03:50', '04:00', '04:10', '04:20', '04:30', '04:40', '04:50', '05:00', '05:10', '05:20', '05:30', '05:40', '05:50', '06:00', '06:10', '06:20', '06:30','06:40', '06:50', '07:00', '07:10', '07:20', '07:30', '07:40', '07:50', '08:00', '08:10', '08:20', '08:30', '08:40', '08:50', '09:00', '09:10', '09:20', '09:30', '09:40', '09:50','10:00', '10:10', '10:20', '10:30', '10:40', '10:50', '11:00', '11:10', '11:20', '11:30', '11:40', '11:50', '12:00', '12:10', '12:20', '12:30', '12:40', '12:50', '13:00', '13:10','13:20', '13:30', '13:40', '13:50', '14:00', '14:10', '14:20', '14:30', '14:40', '14:50', '15:00', '15:10', '15:20', '15:30', '15:40', '15:50', '16:00', '16:10', '16:20', '16:30'],
-            labels: {
-              step:12
-            }
-        },
-        yAxis: {
-            title: {
-                text: '温度 (°C)'
-            },
-            plotLines: [{
-                value: 0,
-                width: 1,
-                color: '#808080'
-            }],
-            plotBands: [{ // Light air
-                from: 38,
-                to: 38.2,
-                color: 'rgb(239, 88, 89)',
-                label: {
-                    text: '警戒线',
-                    style: {
-                        color: 'black'
-                    }
-                }
-            }]
-        },
-        tooltip: {
-            valueSuffix: '°C'
-        },
-
-        series: [{
-            name: '室内温度',
-            data: [27.0, 26.9, 29.5, 28.5, 28.2, 28.5, 28.2, 26.5, 27.3, 28.3, 28.9, 29.6,27.0, 26.9,27.0, 26.9, 29.5, 28.5, 28.2, 28.5, 28.2, 26.5, 27.3, 28.3, 28.9, 29.6,27.0, 26.9,27.0, 26.9, 29.5, 28.5, 28.2, 28.5, 28.2, 26.5, 27.3, 28.3, 28.9, 29.6,27.0, 26.9,27.0, 26.9, 29.5, 28.5, 28.2, 28.5, 28.2, 26.5, 27.3, 28.3, 28.9, 29.6,27.0, 26.9,27.0, 26.9, 29.5, 28.5, 28.2, 28.5, 28.2, 26.5, 27.3, 28.3, 28.9, 29.6,27.0, 26.9,28.2, 28.5, 28.2, 26.5, 27.3, 28.3, 28.9, 29.6,27.0, 26.9]
-        }, {
-            name: '室外温度',
-            data: [32,31,33,34,35,36,35,36,37,36,34,35,34,32,31,33,34,35,36,35,36,37,36,34,35,34,32,31,33,34,35,36,35,36,37,36,34,35,34,32,31,33,34,35,36,35,36,37,36,34,35,34,32,31,33,34,35,36,35,36,37,36,34,35,34,32,31,33,34,35,36,35,36,37,36,34,35,34,]
-        }, {
-            name: '恒温柜温度',
-            data: [39,37,37,38,31,32,32,36,31,31,32,34,38,36,31,32,33,30,39,38,34,38,31,36,34,33,38,39,39,36,32,37,31,31,38,31,39,31,31,30,32,32,35,33,36,34,34,32,33,34,39,30,36,30,39,39,37,36,38,33,30,36,37,30,30,37,32,36,35,39,31,38,38,35,35,35,36,35,36,34,]
-        }, {
-            name: '空调一温度',
-            data: [22,25,26,26,29,20,25,29,23,25,28,21,28,27,28,24,23,25,23,26,23,25,28,20,28,28,28,25,20,24,24,20,23,21,27,26,21,23,21,23,24,22,23,29,23,20,26,25,23,20,25,28,23,28,25,22,29,28,29,26,28,23,20,28,29,25,28,29,29,21,24,24,27,27,21,22,28,25,26,29,]
-        }, {
-            name: '空调二温度',
-            data: [22,16,21,23,18,19,22,17,24,15,24,24,18,17,17,19,19,19,15,15,22,22,17,22,19,15,18,18,23,16,15,21,21,21,16,17,20,24,23,19,17,18,23,16,22,17,19,16,18,21,19,20,15,16,15,21,19,21,18,23,24,15,19,22,15,20,21,19,21,17,24,17,16,15,19,15,23,21,22,15,]
-        }]
-    });
+return;
+*/   
 });
     </script>
 </html>

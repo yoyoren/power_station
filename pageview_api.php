@@ -13,14 +13,30 @@ global $response_body;
  }
 $app->get('/', function () use ($app) {
 	pageview_api_auth();
-	$station_num = StationHandler::get_index_station_num();
-	$app->render('main.php',array('station_num'=>$station_num));
+	$warning_num = WarningHandler::get_count_by_type();
+	$warning_num_total = WarningHandler::get_total_count();
+	$station_num_1 = StationHandler::get_index_station_num(1);
+	$station_num_2 = StationHandler::get_index_station_num(2);
+	$app->render('main.php',array(
+	'station_num_1'=>$station_num_1,
+	'station_num_2'=>$station_num_2,
+	'warning_num_total'=>$warning_num_total,
+	'warning_num'=>$warning_num
+	));
 });
 
 $app->get('/main', function () use ($app) {
 	pageview_api_auth();
-	$station_num = StationHandler::get_index_station_num();
-	$app->render('main.php',array('station_num'=>$station_num));
+	$warning_num = WarningHandler::get_count_by_type();
+	$warning_num_total = WarningHandler::get_total_count();
+	$station_num_1 = StationHandler::get_index_station_num(1);
+	$station_num_2 = StationHandler::get_index_station_num(2);
+	$app->render('main.php',array(
+	'station_num_1'=>$station_num_1,
+	'station_num_2'=>$station_num_2,
+	'warning_num_total'=>$warning_num_total,
+	'warning_num'=>$warning_num
+	));
 });
 
 //登录
@@ -42,22 +58,41 @@ $app->get('/base', function () use ($app) {
 //基站当前状态
 $app->get('/base/status/:id', function ($id) use ($app) {
 	pageview_api_auth();
-	$data = StationHandler::get_one_detail($id);
-	$app->render('base-status.php',array('station'=>$data,'id'=>$id));
+	$test_id = $id;
+	$station = StationHandler::get_one_detail($id);
+	$status = StationHandler::get_current_status($test_id);
+	$online = false;
+	if($status->createTime){
+		if(time() - $status->createTime < 300 ){
+			$online = true;
+		}
+	}
+	
+	$weather = WeatherHandler::get_weather_baidu($station['info']->stationCityName)->retData;
+	$warning_num = WarningHandler::get_count_by_station_id($test_id);
+	$app->render('base-status.php',array(
+	'weather'=>$weather,
+	'station'=>$station,
+	'status'=>$status,
+	'id'=>$id,
+	'warning_num'=>$warning_num,
+	'online'=>$online
+	));
 });
 
 //基站基础信息
 $app->get('/base/info/:id', function ($id) use ($app) {
 	pageview_api_auth();
-	$data = StationHandler::get_one_detail($id);
+	$station = StationHandler::get_one_detail($id);
 	//var_dump($data['energy']);
-	$app->render('base-info.php',array('station'=>$data,'id'=>$id));
+	$app->render('base-info.php',array('station'=>$station,'id'=>$id));
 });
 
 //基站基础信息编辑
 $app->get('/base/edit/:id', function ($id) use ($app) {
 	pageview_api_auth();
 	$data = StationHandler::get_one_detail($id,true);
+	
 	$data_json = json_encode($data);
 	$app->render('base-edit.php',array('station_json'=>$data_json,'station'=>$data,'id'=>$id));
 });
@@ -71,14 +106,20 @@ $app->get('/base/create', function () use ($app) {
 //日报数据
 $app->get('/base/daily/:id', function ($id) use ($app) {
 	pageview_api_auth();
-	$app->render('base-daily.php',array('id'=>$id));
-});
+	//$data = StationHandler::get_full_day_status(1);
+	$data = StationHandler::get_one_day_status($id);
+	
+	$app->render('base-daily.php',array('id'=>$id,'data'=>$data));
+});	
+
 
 //月报数据
 $app->get('/base/month/:id', function ($id) use ($app) {
 	pageview_api_auth();
-	$app->render('base-month.php',array('id'=>$id));
-});
+	$station = StationHandler::get_one_detail($id);
+	$app->render('base-month.php',array('id'=>$id,'station'=>$station));
+});	
+
 
 //年报数据
 $app->get('/base/year/:id', function ($id) use ($app) {
@@ -87,9 +128,9 @@ $app->get('/base/year/:id', function ($id) use ($app) {
 });
 
 //远程控制
-$app->get('/base/remote', function () use ($app) {
+$app->get('/base/remote/:id', function ($id) use ($app) {
 	pageview_api_auth();
-	$app->render('base-remote.php',array());
+	$app->render('base-remote.php',array('id'=>$id));
 });
 
 //原始数据
@@ -101,13 +142,24 @@ $app->get('/base/origindata/:id', function ($id) use ($app) {
 //告警首页
 $app->get('/warning', function () use ($app) {
 	pageview_api_auth();
-	$app->render('warning-index.php',array());
+	global $WARNING_TYPE;
+	$warning_num = WarningHandler::get_count_by_type();
+	$app->render('warning-index.php',array(
+		'warning_num'=>$warning_num,
+		'WARNING_TYPE'=>$WARNING_TYPE
+	));
 });
 
 //告警策略
 $app->get('/warning/rule', function () use ($app) {
 	pageview_api_auth();
 	$app->render('warning-rule.php',array());
+});
+
+//告警策略
+$app->get('/warning/fullscreen', function () use ($app) {
+	pageview_api_auth();
+	$app->render('warning-fullscreen.php',array());
 });
 
 //电表首页

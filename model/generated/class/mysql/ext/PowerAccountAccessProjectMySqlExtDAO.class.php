@@ -22,6 +22,13 @@ class PowerAccountAccessProjectMySqlExtDAO extends PowerAccountAccessProjectMySq
 		return $this->executeUpdate($sqlQuery);
 	}
 	
+	public function removeAllFromProject($projectId){
+		$sql = 'DELETE FROM power_account_access_project WHERE project_id = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($projectId);
+		return $this->executeUpdate($sqlQuery);
+	}
+	
 	
 	
 }

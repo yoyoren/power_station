@@ -12,5 +12,16 @@ class PowerWeatherMySqlExtDAO extends PowerWeatherMySqlDAO{
 		return $this->getList($sqlQuery);
     }
 	
+	public function get_weather_by_month($startMonth,$province='11',$city='01'){
+		$sql = 'SELECT * FROM power_weather WHERE province = ? AND city = ? AND create_time > ? AND create_time < ? GROUP BY create_time';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->set($province);
+		$sqlQuery->set($city);
+		$sqlQuery->setNumber($startMonth);
+		$endMonth = $startMonth + 31*24*3600;
+		$sqlQuery->setNumber($endMonth);
+		return $this->getList($sqlQuery);
+	}
+	
 }
 ?>
