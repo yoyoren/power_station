@@ -8,45 +8,41 @@
 
       <div class="n-nav-left">
         <ul>
-          <li><a href="/ammeter"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">录入电表 - 我方</span></a></li>
-          <li class="current"><a href="/ammeter-other"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">录入电表 - 局方</a></li>
+          <li><a href="/ammeter"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">录入电表 - 杉实环境</span></a></li>
+          <li class="current"><a href="/ammeter-other"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">录入电表 - 用能公司</a></li>
 
         </ul>
       </div>
 
       <div class="n-right-content">
-        <h4 class="tab-to-title">录入电表 - 局方</h4>
+        <h4 class="tab-to-title">录入电表 - 用能公司</h4>
         <div class="n-check-area">
-          <div class="input-group-item clearfix">
-            <span class="name">项目名称：</span>
-            <select>
-              <option>上海联通</option>
-              <option>北京移动</option>
-            </select>
-          </div>
+
           <div class="input-group-item clearfix">
             <span class="name">基站名称：</span>
-            <input type="text" class="form-control" required autofocus />
+            <input type="text" class="form-control" required autofocus id="stationName" />
           </div>
           <div class="input-group-item clearfix">
             <span class="name">基站电表采集时间：</span>
-            <input type="text" class="form-control form_datetime" readonly value="2015-04-05 15:30" required />
+            <input type="text" class="form-control form_datetime" readonly value="2015-04-05 15:30" required  id="readTime" />
           </div>
           <div class="input-group-item tl-r">
-            <button type="button" class="btn btn-default">确定</button>
+            <button type="button" class="btn btn-default" id="show">确定</button>
           </div>
           <hr/>
-          <p style="color:#ff4400;">点了上面的确定以后，才能出下面的查询结果，跟进结果来对数据和选择是否录入。</p>
+          <div style="display:none" id="biao">
           <div class="input-group-item clearfix">
             <span class="name">我方电表采集值：</span>
-            <span class="name">3456565</span>
+            <span class="name" id="owndu"></span>
           </div>
           <div class="input-group-item clearfix">
             <span class="name">基站电表采集值：</span>
-            <input type="text" class="form-control" required value="3456565" />
+            <input type="text" class="form-control" required value="" id="du"/>
           </div>
           <div class="input-group-item tl-r">
-            <button type="button" class="btn btn-default">确定</button>
+              <input type="hidden" id="own" /><input type="hidden" id="stationId" />
+            <button type="button" class="btn btn-default" id="create">确定</button>
+          </div>
           </div>
         </div>
 
@@ -54,35 +50,18 @@
         <table class="table table-bordered table-striped">
           <thead>
             <tr>
-              <th>基站</th>
+              <th>基站名称</th>
               <th>采集时间</th>
-              <th>度</th>
+              <th>录入值</th>
+              <th>电表值</th>
+              <th>最新E值</th>
               <th>录入人</th>
               <th>录入时间</th>
+              <th>操作</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>鹤东</td>
-              <td>2015-04-12 12:00</td>
-              <td>1111</td>
-              <td>&nbsp;</td>
-              <td>2015-04-14</td>
-            </tr>
-            <tr>
-              <td>鹤东</td>
-              <td>2015-04-12 12:00</td>
-              <td>1111</td>
-              <td>&nbsp;</td>
-              <td>2015-04-14</td>
-            </tr>
-            <tr>
-              <td>鹤东</td>
-              <td>2015-04-12 12:00</td>
-              <td>1111</td>
-              <td>&nbsp;</td>
-              <td>2015-04-14</td>
-            </tr>
+          <tbody id="content">
+
 
           </tbody>
         </table>
@@ -93,16 +72,69 @@
 
   </div>
 </body>
-
-<script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/datepicker/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="/static/src/js/datepicker/bootstrap-datetimepicker.js"></script>
 
 <script type="text/javascript">
 $(function () {
     $(".form_datetime").datetimepicker({
-      language: 'cn'
-    });
+      format: 'yyyy-mm-dd h:i',
+      language: 'cn',
+      autoclose:true
 
+    });
+        //显示所有项目名称
+    	$get('/ammeter/otherList',{
+            	start:0,
+		end:15
+	},function(d){
+
+	   var data = d.data;
+	   var html = '';
+		for (var i=0;i<data.length;i++){
+			var _d = data[i];
+			html += '<tr>\
+					  <td>'+_d.stationName+'</td>\
+					  <td>'+_d.readTime+'</td>\
+					  <td>'+_d.ammeterNormal+'</td>\
+					  <td>'+_d.operater+'</td>\
+					  <td>'+_d.createTime+'</td>\
+					</tr>';
+		}
+            $('#content').html(html);
+     });
+
+
+});
+$('#show').click(function(){
+	$.post('/ammeter/otherShow',{
+	  stationName:$('#stationName').val(),
+          readTime:$('#readTime').val(),
+	},function(d){
+		if(d.code == 0){
+                    $('#biao').show();
+                    $('#owndu').html(d.data.ammeterNormal);
+                    $('#own').val(d.data.ammeterNormal);
+                    $('#stationId').val(d.data.stationId);
+                    $('#du').val(d.data.ammeterNormal);
+		}else{
+                    alert('基站名称有误');
+                }
+	},'json');
+});
+$('#create').click(function(){
+	$.post('/ammeter/otherAdd',{
+	  stationId:$('#stationId').val(),
+          readTime:$('#readTime').val(),
+          own:$('#own').val(),
+          du:$('#du').val()
+	},function(d){
+		if(d.code == 0){
+                    alert('抄表成功');
+                    location.reload();
+		}else{
+                    alert('有误');
+                }
+	},'json');
 });
 </script>
 </html>

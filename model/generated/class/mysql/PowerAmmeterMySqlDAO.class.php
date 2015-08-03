@@ -3,7 +3,7 @@
  * Class that operate on table 'power_ammeter'. Database Mysql.
  *
  * @author: http://phpdao.com
- * @date: 2015-06-29 10:45
+ * @date: 2015-07-20 13:00
  */
 class PowerAmmeterMySqlDAO implements PowerAmmeterDAO{
 
@@ -57,9 +57,12 @@ class PowerAmmeterMySqlDAO implements PowerAmmeterDAO{
  	 * @param PowerAmmeterMySql powerAmmeter
  	 */
 	public function insert($powerAmmeter){
-		$sql = 'INSERT INTO power_ammeter (begin_value, end_value, creator_id, create_time) VALUES (?, ?, ?, ?)';
+		$sql = 'INSERT INTO power_ammeter (station_id, ammeter_normal,read_time, begin_value, end_value, creator_id, create_time) VALUES (?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
+		$sqlQuery->setNumber($powerAmmeter->stationId);
+		$sqlQuery->setNumber($powerAmmeter->ammeterNormal);
+                $sqlQuery->setNumber($powerAmmeter->readTime);
 		$sqlQuery->setNumber($powerAmmeter->beginValue);
 		$sqlQuery->setNumber($powerAmmeter->endValue);
 		$sqlQuery->setNumber($powerAmmeter->creatorId);
@@ -76,9 +79,11 @@ class PowerAmmeterMySqlDAO implements PowerAmmeterDAO{
  	 * @param PowerAmmeterMySql powerAmmeter
  	 */
 	public function update($powerAmmeter){
-		$sql = 'UPDATE power_ammeter SET begin_value = ?, end_value = ?, creator_id = ?, create_time = ? WHERE ammeter_id = ?';
+		$sql = 'UPDATE power_ammeter SET station_id = ?, ammeter_normal = ?, begin_value = ?, end_value = ?, creator_id = ?, create_time = ? WHERE ammeter_id = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
+		$sqlQuery->setNumber($powerAmmeter->stationId);
+		$sqlQuery->setNumber($powerAmmeter->ammeterNormal);
 		$sqlQuery->setNumber($powerAmmeter->beginValue);
 		$sqlQuery->setNumber($powerAmmeter->endValue);
 		$sqlQuery->setNumber($powerAmmeter->creatorId);
@@ -95,6 +100,20 @@ class PowerAmmeterMySqlDAO implements PowerAmmeterDAO{
 		$sql = 'DELETE FROM power_ammeter';
 		$sqlQuery = new SqlQuery($sql);
 		return $this->executeUpdate($sqlQuery);
+	}
+
+	public function queryByStationId($value){
+		$sql = 'SELECT * FROM power_ammeter WHERE station_id = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		return $this->getList($sqlQuery);
+	}
+
+	public function queryByAmmeterNormal($value){
+		$sql = 'SELECT * FROM power_ammeter WHERE ammeter_normal = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		return $this->getList($sqlQuery);
 	}
 
 	public function queryByBeginValue($value){
@@ -124,7 +143,27 @@ class PowerAmmeterMySqlDAO implements PowerAmmeterDAO{
 		$sqlQuery->setNumber($value);
 		return $this->getList($sqlQuery);
 	}
+        public function queryByReadTime($value){
+		$sql = 'SELECT * FROM power_ammeter WHERE read_time = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		return $this->getList($sqlQuery);
+	}
 
+
+	public function deleteByStationId($value){
+		$sql = 'DELETE FROM power_ammeter WHERE station_id = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		return $this->executeUpdate($sqlQuery);
+	}
+
+	public function deleteByAmmeterNormal($value){
+		$sql = 'DELETE FROM power_ammeter WHERE ammeter_normal = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($value);
+		return $this->executeUpdate($sqlQuery);
+	}
 
 	public function deleteByBeginValue($value){
 		$sql = 'DELETE FROM power_ammeter WHERE begin_value = ?';
@@ -165,10 +204,13 @@ class PowerAmmeterMySqlDAO implements PowerAmmeterDAO{
 		$powerAmmeter = new PowerAmmeter();
 		
 		$powerAmmeter->ammeterId = $row['ammeter_id'];
+		$powerAmmeter->stationId = $row['station_id'];
+		$powerAmmeter->ammeterNormal = $row['ammeter_normal'];
 		$powerAmmeter->beginValue = $row['begin_value'];
 		$powerAmmeter->endValue = $row['end_value'];
 		$powerAmmeter->creatorId = $row['creator_id'];
 		$powerAmmeter->createTime = $row['create_time'];
+                $powerAmmeter->readTime = $row['read_time'];
 
 		return $powerAmmeter;
 	}

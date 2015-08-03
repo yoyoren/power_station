@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html>
+ <?php include ('include/head_script.php')?>
+<body>
+<link rel="stylesheet" type="text/css" href="/static/src/css/table.css">
+  <div class="n-layout">
+    <?php include ('include/header.php')?>
+    <div class="n-container">
+      <?php include ('include/nav_report.php')?>
+      <script>$('#nav_report_0').addClass('current');</script>
+
+      <div class="n-right-content" style="padding:74px 20px 20px 0; overflow:hidden;">
+        <div class="n-check-area report-check-area">
+          <div class="n-check-item">
+            <span class="name">项目</span>
+            <select><option>上海联通</option></select>
+          </div>
+          <div class="n-check-item">
+            年份与月份
+            <input type="text" class="form-control form_datetime" readonly="" value="2015-04" required="" style="width:80px;">
+          </div>
+          <div class="n-check-item">
+            <span class="name">区县</span>
+            <select>
+              <option>全部</option>
+              <option>浦东</option>
+              <option>南汇</option>
+            </select>
+          </div>
+          <div class="n-check-item">
+            <span class="name">基站类型</span>
+            <select>
+              <option>基准</option>
+              <option>节能</option>
+            </select>
+          </div>
+          <button type="button" class="btn btn-default" id="sub_check">确定</button>
+        </div>
+        <div style="height:100%; overflow:auto; padding-right:20px; display:none;" id="show_table">
+          <table class="table table-bordered">
+            <tr>
+              <th colspan="27">表一   砖墙类型节能效益核算表</th>
+              <th>&nbsp;</th>
+            </tr>
+            <tr>
+              <td class="th" colspan="7">分公司：上海联通 </td>
+              <td class="th">&nbsp;</td>
+              <td class="th" colspan="20">时间：2015年04月01日 - 2015年04月30日 </td>
+            </tr>
+            <tr>
+              <td class="th" colspan="7">系统数据</td>
+              <td class="th">&nbsp;</td>
+              <td class="th" colspan="3">异常能耗修正</td>
+              <td class="th">&nbsp;</td>
+              <td class="th" colspan="3">电表核准系数e</td>
+              <td class="th">&nbsp;</td>
+              <td class="th">&nbsp;</td>
+              <td class="th" colspan="7">节电量确认</td>
+              <td class="th" colspan="4">最终分成金额</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>2</td>
+              <td>3</td>
+              <td>4</td>
+              <td>5</td>
+              <td>6</td>
+              <td>7</td>
+              <td>&nbsp;</td>
+              <td>8</td>
+              <td>9</td>
+              <td>10</td>
+              <td>&nbsp;</td>
+              <td>11</td>
+              <td>12</td>
+              <td>13</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>14</td>
+              <td>&nbsp;</td>
+              <td>15</td>
+              <td>&nbsp;</td>
+              <td>16</td>
+              <td>&nbsp;</td>
+              <td>17</td>
+              <td>18</td>
+              <td>&nbsp;</td>
+              <td>19</td>
+              <td>20</td>
+            </tr>
+            <tr>
+              <td>档位区分</td>
+              <td>节能站名称</td>
+              <td>基站负载(A)</td>
+              <td>区局</td>
+              <td>节能站用电量核算起始度数(每月1日0点)</td>
+              <td>节能站用电量核算结束度数(每月最后一天24点)</td>
+              <td>节能站月用电量(度)</td>
+              <td>&nbsp;</td>
+              <td>能耗异常情况是否存在</td>
+              <td>表四异常能耗修正(度)</td>
+              <td>节能站修正后用电量(度)</td>
+              <td>&nbsp;</td>
+              <td>表三电表偏差系数e</td>
+              <td>电表是否需要核准</td>
+              <td>节能站核准用电量(度)</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>表二基准站能耗标准值S</td>
+              <td>&nbsp;</td>
+              <td>节能站对应标准值S</td>
+              <td>&nbsp;</td>
+              <td>节能站月节电量(度)</td>
+              <td>&nbsp;</td>
+              <td>节能站电费单价(元)</td>
+              <td>节能站当月节电费(元)</td>
+              <td>&nbsp;</td>
+              <td>节能分成比例</td>
+              <td>杉实环境节能分成(元)</td>
+            </tr>
+            <tr>
+              <td>40-50A</td>
+              <td>塘下</td>
+              <td>43.2</td>
+              <td>南汇</td>
+              <td>15082.89</td>
+              <td>16363.51</td>
+              <td class="has-bg2">1280.62</td>
+              <td class="has-bg">1280.62</td>
+              <td>否</td>
+              <td>&nbsp;</td>
+              <td class="has-bg2">1281</td>
+              <td class="has-bg">1281</td>
+              <td>1</td>
+              <td>否</td>
+              <td class="has-bg2">1280.62</td>
+              <td class="has-bg">1281</td>
+              <td class="has-bg" rowspan="16">28331</td>
+              <td>2201.52</td>
+              <td class="has-bg" rowspan="16">35224.32</td>
+              <td>1592.19</td>
+              <td class="has-bg">1592.19</td>
+              <td class="has-bg2">311.57</td>
+              <td class="has-bg">311.57</td>
+              <td>0.8</td>
+              <td class="has-bg2">249.26</td>
+              <td class="has-bg">249.26</td>
+              <td>0.6</td>
+              <td class="has-bg2">149.56</td>
+            </tr>
+            <tr>
+              <td>40-50A</td>
+              <td>唐天</td>
+              <td>44</td>
+              <td>南汇</td>
+              <td>21851.47</td>
+              <td>22815.69</td>
+              <td class="has-bg2">1999999</td>
+              <td class="has-bg">1999999</td>
+              <td>是</td>
+              <td>1290.34</td>
+              <td class="has-bg2">2254.56</td>
+              <td class="has-bg">2254.56</td>
+              <td>1</td>
+              <td>否</td>
+              <td class="has-bg2">2254.56</td>
+              <td class="has-bg">2254.56</td>
+              <td>2201.52</td>
+              <td>2803.09</td>
+              <td class="has-bg">2803.09</td>
+              <td class="has-bg2">548.53</td>
+              <td class="has-bg">548.53</td>
+              <td>1.3</td>
+              <td class="has-bg2">713.09</td>
+              <td class="has-bg">713.09</td>
+              <td>0.7</td>
+              <td class="has-bg2">499.16</td>
+            </tr>
+            <tr>
+              <td>40-50A</td>
+              <td>金桥村</td>
+              <td>44.6</td>
+              <td>南汇</td>
+              <td>24761.15</td>
+              <td>26601.27</td>
+              <td class="has-bg2">1840.12</td>
+              <td class="has-bg">1840.12</td>
+              <td>否</td>
+              <td>&nbsp;</td>
+              <td class="has-bg2">1840</td>
+              <td class="has-bg">1840</td>
+              <td>1</td>
+              <td>否</td>
+              <td class="has-bg2">1840.12</td>
+              <td class="has-bg">1840</td>
+              <td>2201.52</td>
+              <td>2287.82</td>
+              <td class="has-bg">2287.82</td>
+              <td class="has-bg2">447.70</td>
+              <td class="has-bg">447.70</td>
+              <td>0.8</td>
+              <td class="has-bg2">358.16</td>
+              <td class="has-bg">358.16</td>
+              <td>0.6</td>
+              <td class="has-bg2">214.9</td>
+            </tr>
+            <tr>
+              <td>40-50A</td>
+              <td>友爱</td>
+              <td>47</td>
+              <td>南汇</td>
+              <td>29800.01</td>
+              <td>31683.44</td>
+              <td class="has-bg2">1883.43</td>
+              <td class="has-bg">1883.43</td>
+              <td>否</td>
+              <td>&nbsp;</td>
+              <td class="has-bg2">1883</td>
+              <td class="has-bg">1883</td>
+              <td>1</td>
+              <td>否</td>
+              <td class="has-bg2">1883.43</td>
+              <td class="has-bg">1883</td>
+              <td>2201.52</td>
+              <td>2341.66</td>
+              <td class="has-bg">2341.66</td>
+              <td class="has-bg2">458.23</td>
+              <td class="has-bg">458.23</td>
+              <td>1.1</td>
+              <td class="has-bg2">504.05</td>
+              <td class="has-bg">504.06</td>
+              <td>0.7</td>
+              <td class="has-bg2">352.84</td>
+            </tr>
+            <tr>
+              <td>40-50A</td>
+              <td>南绿</td>
+              <td>48</td>
+              <td>南汇</td>
+              <td>9650.72</td>
+              <td>11522.68</td>
+              <td class="has-bg2">1871.96</td>
+              <td class="has-bg">1871.96</td>
+              <td>否</td>
+              <td>&nbsp;</td>
+              <td class="has-bg2">1872</td>
+              <td class="has-bg">1872</td>
+              <td>1</td>
+              <td>否</td>
+              <td class="has-bg2">1871.96</td>
+              <td class="has-bg">1872</td>
+              <td>2201.52</td>
+              <td>2327.4</td>
+              <td class="has-bg">2327.40</td>
+              <td class="has-bg2">455.44</td>
+              <td class="has-bg">455.44</td>
+              <td>0.8</td>
+              <td class="has-bg2">364.35</td>
+              <td class="has-bg">364.35</td>
+              <td>0.7</td>
+              <td class="has-bg2">255.05</td>
+            </tr>
+            <tr>
+              <td>40-50A</td>
+              <td>友林</td>
+              <td>40</td>
+              <td>浦东</td>
+              <td>6606.16</td>
+              <td>8226.39</td>
+              <td class="has-bg2">1620.23</td>
+              <td class="has-bg">1620.23</td>
+              <td>否</td>
+              <td>&nbsp;</td>
+              <td class="has-bg2">1620</td>
+              <td class="has-bg">1620</td>
+              <td>1</td>
+              <td>否</td>
+              <td class="has-bg2">1620.23</td>
+              <td class="has-bg">1620</td>
+              <td>2201.52</td>
+              <td>2014.43</td>
+              <td class="has-bg">2014.43</td>
+              <td class="has-bg2">394.20</td>
+              <td class="has-bg">394.20</td>
+              <td>1.25</td>
+              <td class="has-bg2">492.75</td>
+              <td class="has-bg">492.75</td>
+              <td>0.7</td>
+              <td class="has-bg2">344.93</td>
+            </tr>
+            <tr>
+              <td>40-50A</td>
+              <td>三桥</td>
+              <td>40</td>
+              <td>浦东</td>
+              <td>6285.13</td>
+              <td>7767.97</td>
+              <td class="has-bg2">1482.84</td>
+              <td class="has-bg">1482.84</td>
+              <td>否</td>
+              <td>&nbsp;</td>
+              <td class="has-bg2">1483</td>
+              <td class="has-bg">1483</td>
+              <td>1</td>
+              <td>否</td>
+              <td class="has-bg2">1482.84</td>
+              <td class="has-bg">1483</td>
+              <td>2201.52</td>
+              <td>1843.61</td>
+              <td class="has-bg">1843.61</td>
+              <td class="has-bg2">360.77</td>
+              <td class="has-bg">360.77</td>
+              <td>0.8</td>
+              <td class="has-bg2">288.62</td>
+              <td class="has-bg">288.62</td>
+              <td>0.7</td>
+              <td class="has-bg2">202.03</td>
+            </tr>
+            <tr>
+                <td>40-50A</td>
+                <td>华舟</td>
+                <td>40</td>
+                <td>浦东</td>
+                <td>5779.21</td>
+                <td>7372.91</td>
+                <td class="has-bg2">1593.7</td>
+                <td class="has-bg">1593.7</td>
+                <td>否</td>
+                <td>&nbsp;</td>
+                <td class="has-bg2">1594</td>
+                <td class="has-bg">1594</td>
+                <td>1</td>
+                <td>否</td>
+                <td class="has-bg2">1593.7</td>
+                <td class="has-bg">1594</td>
+                <td>2201.52</td>
+                <td>1981.44</td>
+                <td class="has-bg">1981.44</td>
+                <td class="has-bg2">387.74</td>
+                <td class="has-bg">387.74</td>
+                <td>1.15</td>
+                <td class="has-bg2">445.9</td>
+                <td class="has-bg">445.90</td>
+                <td>0.7</td>
+                <td class="has-bg2">312.13</td>
+            </tr>
+            <tr>
+                <td>40-50A</td>
+                <td>共新村</td>
+                <td>41</td>
+                <td>浦东</td>
+                <td>6313.34</td>
+                <td>7863.64</td>
+                <td class="has-bg2">1550.3</td>
+                <td class="has-bg">1550.3</td>
+                <td>否</td>
+                <td>&nbsp;</td>
+                <td class="has-bg2">1550</td>
+                <td class="has-bg">1550</td>
+                <td>1</td>
+                <td>否</td>
+                <td class="has-bg2">1550.3</td>
+                <td class="has-bg">1550</td>
+                <td>2201.52</td>
+                <td>1927.48</td>
+                <td class="has-bg">1927.48</td>
+                <td class="has-bg2">377.18</td>
+                <td class="has-bg">377.18</td>
+                <td>0.525</td>
+                <td class="has-bg2">198.02</td>
+                <td class="has-bg">198.02</td>
+                <td>0.6</td>
+                <td class="has-bg2">118.81</td>
+            </tr>
+            <tr>
+                <td>40-50A</td>
+                <td>板泉</td>
+                <td>42</td>
+                <td>浦东</td>
+                <td>7480.39</td>
+                <td>9222.7</td>
+                <td class="has-bg2">1742.31</td>
+                <td class="has-bg">1742.31</td>
+                <td>否</td>
+                <td>&nbsp;</td>
+                <td class="has-bg2">1742</td>
+                <td class="has-bg">1742</td>
+                <td>1</td>
+                <td>否</td>
+                <td class="has-bg2">1742.31</td>
+                <td class="has-bg">1742</td>
+                <td>2201.52</td>
+                <td>2166.21</td>
+                <td class="has-bg">2166.21</td>
+                <td class="has-bg2">423.90</td>
+                <td class="has-bg">423.90</td>
+                <td>1.1</td>
+                <td class="has-bg2">466.29</td>
+                <td class="has-bg">466.29</td>
+                <td>0.6</td>
+                <td class="has-bg2">279.77</td>
+            </tr>
+            <tr>
+                <td>40-50A</td>
+                <td>天花庵村</td>
+                <td>42</td>
+                <td>浦东</td>
+                <td>5863.46</td>
+                <td>7226.03</td>
+                <td class="has-bg2">1362.57</td>
+                <td class="has-bg">1362.57</td>
+                <td>否</td>
+                <td>&nbsp;</td>
+                <td class="has-bg2">1363</td>
+                <td class="has-bg">1363</td>
+                <td>1</td>
+                <td>否</td>
+                <td class="has-bg2">1362.57</td>
+                <td class="has-bg">1363</td>
+                <td>2201.52</td>
+                <td>1694.08</td>
+                <td class="has-bg">1694.08</td>
+                <td class="has-bg2">331.51</td>
+                <td class="has-bg">331.51</td>
+                <td>0.525</td>
+                <td class="has-bg2">174.04</td>
+                <td class="has-bg">174.04</td>
+                <td>0.7</td>
+                <td class="has-bg2">121.83</td>
+            </tr>
+            <tr>
+                <td>40-50A</td>
+                <td>爱都</td>
+                <td>44.9</td>
+                <td>浦东</td>
+                <td>7743.35</td>
+                <td>9869.52</td>
+                <td class="has-bg2">2126.17</td>
+                <td class="has-bg">2126.17</td>
+                <td>否</td>
+                <td>&nbsp;</td>
+                <td class="has-bg2">2126</td>
+                <td class="has-bg">2126</td>
+                <td>1</td>
+                <td>否</td>
+                <td class="has-bg2">2126.17</td>
+                <td class="has-bg">2126</td>
+                <td>2201.52</td>
+                <td>2643.46</td>
+                <td class="has-bg">2643.46</td>
+                <td class="has-bg2">517.29</td>
+                <td class="has-bg">517.29</td>
+                <td>0.525</td>
+                <td class="has-bg2">271.58</td>
+                <td class="has-bg">271.58</td>
+                <td>0.7</td>
+                <td class="has-bg2">190.11</td>
+            </tr>
+            <tr>
+                <td>40-50A</td>
+                <td>高光</td>
+                <td>47</td>
+                <td>浦东</td>
+                <td>7638.43</td>
+                <td>9677.78</td>
+                <td class="has-bg2">2039.35</td>
+                <td class="has-bg">2039.35</td>
+                <td>否</td>
+                <td>&nbsp;</td>
+                <td class="has-bg2">2039</td>
+                <td class="has-bg">2039</td>
+                <td>1</td>
+                <td>否</td>
+                <td class="has-bg2">2039.35</td>
+                <td class="has-bg">2039</td>
+                <td>2201.52</td>
+                <td>2535.52</td>
+                <td class="has-bg">2535.52</td>
+                <td class="has-bg2">496.17</td>
+                <td class="has-bg">496.17</td>
+                <td>1.2</td>
+                <td class="has-bg2">595.4</td>
+                <td class="has-bg">595.40</td>
+                <td>0.7</td>
+                <td class="has-bg2">416.78</td>
+            </tr>
+            <tr>
+                <td>40-50A</td>
+                <td>成山</td>
+                <td>49</td>
+                <td>浦东</td>
+                <td>8880.83</td>
+                <td>10859.69</td>
+                <td class="has-bg2">1978.86</td>
+                <td class="has-bg">1978.86</td>
+                <td>否</td>
+                <td>&nbsp;</td>
+                <td class="has-bg2">1979</td>
+                <td class="has-bg">1979</td>
+                <td>1</td>
+                <td>否</td>
+                <td class="has-bg2">1978.86</td>
+                <td class="has-bg">1979</td>
+                <td>2201.52</td>
+                <td>2460.31</td>
+                <td class="has-bg">2460.31</td>
+                <td class="has-bg2">481.45</td>
+                <td class="has-bg">481.45</td>
+                <td>1.187</td>
+                <td class="has-bg2">571.48</td>
+                <td class="has-bg">571.48</td>
+                <td>0.7</td>
+                <td class="has-bg2">400.04</td>
+            </tr>
+            <tr>
+                <td>40-50A</td>
+                <td>德杨</td>
+                <td>49</td>
+                <td>浦东</td>
+                <td>8132.94</td>
+                <td>10085.16</td>
+                <td class="has-bg2">1952.22</td>
+                <td class="has-bg">1952.22</td>
+                <td>否</td>
+                <td>&nbsp;</td>
+                <td class="has-bg2">1952</td>
+                <td class="has-bg">1952</td>
+                <td>1</td>
+                <td>否</td>
+                <td class="has-bg2">1952.22</td>
+                <td class="has-bg">1952</td>
+                <td>2201.52</td>
+                <td>2427.19</td>
+                <td class="has-bg">2427.19</td>
+                <td class="has-bg2">474.97</td>
+                <td class="has-bg">474.97</td>
+                <td>0.525</td>
+                <td class="has-bg2">249.36</td>
+                <td class="has-bg">249.36</td>
+                <td>0.7</td>
+                <td class="has-bg2">174.55</td>
+            </tr>
+            <tr>
+                <td>40-50A</td>
+                <td>新六里</td>
+                <td>49.9</td>
+                <td>浦东</td>
+                <td>5663.07</td>
+                <td>7415.21</td>
+                <td class="has-bg2">1752.14</td>
+                <td class="has-bg">1752.14</td>
+                <td>否</td>
+                <td>&nbsp;</td>
+                <td class="has-bg2">1752</td>
+                <td class="has-bg">1752</td>
+                <td>1</td>
+                <td>否</td>
+                <td class="has-bg2">1752.14</td>
+                <td class="has-bg">1752</td>
+                <td>2201.52</td>
+                <td>2178.43</td>
+                <td class="has-bg">2178.43</td>
+                <td class="has-bg2">426.29</td>
+                <td class="has-bg">426.29</td>
+                <td>1</td>
+                <td class="has-bg2">426.29</td>
+                <td class="has-bg">426.29</td>
+                <td>0.7</td>
+                <td class="has-bg2">298.4</td>
+            </tr>
+            <tr>
+              <td>总计</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>27041.04</td>
+              <td>27041.04</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>28331</td>
+              <td>28331</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>28331.38</td>
+              <td>28331</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>6892.94</td>
+              <td>6892.94</td>
+              <td>&nbsp;</td>
+              <td>6368.64</td>
+              <td>6368.64</td>
+              <td>&nbsp;</td>
+              <td>4330.89</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</body>
+<script type="text/javascript" src="/static/src/js/datepicker/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript">
+$('.form_datetime').datetimepicker( {
+  format: 'yyyy-mm',
+  weekStart: 1,
+  autoclose: true,
+  startView: 3,
+  minView: 3,
+  forceParse: false,
+  language: 'cn'
+});
+
+$('#sub_check').bind('click',function(){
+  $('#show_table').show();
+})
+</script>
+</html>

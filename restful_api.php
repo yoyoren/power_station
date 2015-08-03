@@ -670,4 +670,74 @@ $app->post('/log/list', function () {
      }
 	
 });
+//显示我方抄表数据
+$app->get('/ammeter/ownList', function () {
+    global $app;
+    $start = param_check_get('start');
+     $end = param_check_get('end');
+    $result=  AmmeterHandler::get_own_list($start, $end);
+     if(!$result){
+          restful_response(RES_ERROR);
+     }else{
+          restful_response(RES_SUCCESS,$result);
+     }
+	
+});
+//插入我方抄表数据
+$app->post('/ammeter/ownAdd', function () {
+    global $app;
+    $stationName = param_check('stationName');
+    $readTime    = param_check('readTime').":00";
+    $ammeterNormal = param_check('du');
+    
+    $result=  AmmeterHandler::own_add($stationName, $readTime, $ammeterNormal);
+     if(!$result){
+          restful_response(RES_ERROR);
+     }else{
+          restful_response(RES_SUCCESS);
+     }
+	
+});
+//显示局方抄表数据
+$app->get('/ammeter/otherList', function () {
+    global $app;
+    $start = param_check_get('start');
+     $end = param_check_get('end');
+    $result=  AmmeterHandler::get_other_list($start, $end);
+     if(!$result){
+          restful_response(RES_ERROR);
+     }else{
+          restful_response(RES_SUCCESS,$result);
+     }
+	
+});
+//验证基站信息
+$app->post('/ammeter/otherShow', function () {
+    global $app;
+    $stationName = param_check('stationName');
+    $readTime    = param_check('readTime').":00";
+    $result=  AmmeterHandler::other_show($stationName, $readTime);
+     if(!$result){
+          restful_response(RES_ERROR);
+     }else{
+          restful_response(RES_SUCCESS,$result);
+     }
+	
+});
+//插入局方抄表数据
+$app->post('/ammeter/otherAdd', function () {
+    global $app;
+    $stationId                 = param_check('stationId');
+    $readTime                  = param_check('readTime').":00";
+    $ammeterNormal             = param_check('own');
+    $ammeterNormalChinamobile  = param_check('du');
+    
+    $result=  AmmeterHandler::other_add($stationId, $readTime, $ammeterNormal, $ammeterNormalChinamobile);
+     if(!$result){
+          restful_response(RES_ERROR);
+     }else{
+          restful_response(RES_SUCCESS);
+     }
+	
+});
 ?>
