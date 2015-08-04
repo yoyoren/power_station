@@ -66,7 +66,7 @@ class PowerWeatherMySqlDAO implements PowerWeatherDAO{
 		$sqlQuery->set($powerWeather->weather);
 		$sqlQuery->setNumber($powerWeather->temperatureHigh);
 		$sqlQuery->setNumber($powerWeather->temperatureLow);
-		$sqlQuery->setNumber($powerWeather->wind);
+		$sqlQuery->set($powerWeather->wind);
 		$sqlQuery->setNumber($powerWeather->createTime);
 
 		$id = $this->executeInsert($sqlQuery);	
@@ -89,7 +89,7 @@ class PowerWeatherMySqlDAO implements PowerWeatherDAO{
 		$sqlQuery->set($powerWeather->weather);
 		$sqlQuery->setNumber($powerWeather->temperatureHigh);
 		$sqlQuery->setNumber($powerWeather->temperatureLow);
-		$sqlQuery->setNumber($powerWeather->wind);
+		$sqlQuery->set($powerWeather->wind);
 		$sqlQuery->setNumber($powerWeather->createTime);
 
 		$sqlQuery->setNumber($powerWeather->id);

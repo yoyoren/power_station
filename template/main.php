@@ -7,7 +7,7 @@
     <div class="n-container" style="padding-left:20px;">
 
       <div class="n-right-content">
-      <div class="clearfix" style="border-bottom:1px solid #eee;">
+      <div class="clearfix" style="border-bottom:1px solid #eee;display:none">
         <h4 class="n-title fl-l" style="padding:0; margin-right:40px;" >当前项目：<span style="color:#ff4400;" id="current_project">无</span></h4>
         <div class="btn-group fl-l" id="project_list">
 
@@ -15,30 +15,29 @@
 
         <a href="/account/project" style="margin-left:40px;" class="btn btn-primary">创建项目</a>
       </div>
-        <div style="background:#fff; padding:20px;">
+        <div style="background:#fff; padding:20px; margin-top:20px;">
           <h4 class="n-title">能耗节约成效</h4>
           <div class="clearfix" style="padding-bottom:20px;">
             <div class="n-show-item" style="background:#0099e1;">
               <p class="intro">节约电</p>
               <img src="/static/src/img/ic-deng2.png" style="margin-top:-10px;" />
-              <p class="num">1000<em>度</em></p>
+               <p class="num"><span id="start_num"></span><em>度</em></p>
             </div>
             <div class="n-show-item" style="background:#ff4660;">
               <p class="intro">节约标准煤</p>
               <img src="/static/src/img/ic-huo2.png" style="width:56px" />
-              <p class="num">10000*0.4<em>千克</em></p>
+              <p class="num" id=""><span id="start_num_mei"></span><em>千克</em></p>
             </div>
             <div class="n-show-item" style="background:#cca402;">
               <p class="intro">减少碳排放</p>
               <img src="/static/src/img/ic-paifang2.png" style="width:60px" />
-              <p class="num">10000*0.272<em>千克</em></p>
+              <p class="num"  id=""><span id="start_num_co"></span><em>千克</em></p>
             </div>
             <div class="n-show-item" style="background:#4ebd21;">
               <p class="intro">造林</p>
               <img src="/static/src/img/ic-shu2.png" style="width:52px" />
-              <p class="num">100<em>亩</em></p>
+              <p class="num" id=""><span id="start_num_tree"></span><em>亩</em></p>
             </div>
-
           </div>
         </div>
 
@@ -62,26 +61,25 @@
             </tr>
             <tr>
               <th>砖墙</th>
-              <td><a href="/base"><?php echo $station_num[0]?>（台）</a></td>
-              <td><a href="/base"><?php echo $station_num[1]?>（台）</a></td>
-              <td><a href="/base"><?php echo $station_num[2]?>（台）</a></td>
-              <td><a href="/base"><?php echo $station_num[3]?>（台）</a></td>
-              <td><a href="/base"><?php echo $station_num[4]?>（台）</a></td>
-              <td><a href="/base"><?php echo $station_num[5]?>（台）</a></td>
-              <td><a href="#">100（台）</a></td>
-              <td><a href="/base"><?php echo $station_num[6]?>（台）</a></td>
-
+              <td><a href="/base?building=1&energy=1"><?php echo $station_num_1[0]?>（台）</a></td>
+              <td><a href="/base?building=1&energy=2"><?php echo $station_num_1[1]?>（台）</a></td>
+              <td><a href="/base?building=1&energy=3"><?php echo $station_num_1[2]?>（台）</a></td>
+              <td><a href="/base?building=1&energy=4"><?php echo $station_num_1[3]?>（台）</a></td>
+              <td><a href="/base?building=1&energy=5"><?php echo $station_num_1[4]?>（台）</a></td>
+              <td><a href="/base?building=1&energy=6"><?php echo $station_num_1[5]?>（台）</a></td>
+              <td><a href="/base?building=1&energy=7"><?php echo $station_num_1[6]?>（台）</a></td>
+              <td><a href="/base?building=1&energy=8"><?php echo $station_num_1[7]?>（台）</a></td>
             </tr>
             <tr>
               <th>板房</th>
-              <td><a href="/base"><?php echo $station_num[0]?>（台）</a></td>
-              <td><a href="/base"><?php echo $station_num[1]?>（台）</a></td>
-              <td><a href="/base"><?php echo $station_num[2]?>（台）</a></td>
-              <td><a href="/base"><?php echo $station_num[3]?>（台）</a></td>
-              <td><a href="/base"><?php echo $station_num[4]?>（台）</a></td>
-              <td><a href="/base"><?php echo $station_num[5]?>（台）</a></td>
-              <td><a href="#">100（台）</a></td>
-              <td><a href="/base"><?php echo $station_num[6]?>（台）</a></td>
+             <td><a href="/base"><?php echo $station_num_2[0]?>（台）</a></td>
+            <td><a href="/base"><?php echo $station_num_2[1]?>（台）</a></td>
+            <td><a href="/base"><?php echo $station_num_2[2]?>（台）</a></td>
+            <td><a href="/base"><?php echo $station_num_2[3]?>（台）</a></td>
+            <td><a href="/base"><?php echo $station_num_2[4]?>（台）</a></td>
+            <td><a href="/base"><?php echo $station_num_2[5]?>（台）</a></td>
+            <td><a href="/base"><?php echo $station_num_2[6]?>（台）</a></td>
+            <td><a href="/base"><?php echo $station_num_2[7]?>（台）</a></td>
 
             </tr>
           </table>
@@ -91,29 +89,49 @@
           <h4 class="n-title">故障告警
             <a href="#" class="warning-ico-area">
               <span class="glyphicon glyphicon-bell"></span>
-              <span class="badge badge-purple">7</span>
+              <span class="badge badge-purple"><?php echo $warning_num_total?></span>
             </a>
           </h4>
           <table class="table table-bordered tl-c">
             <tr>
-              <th>断站</th>
-              <th>空调故障</th>
-              <th>室内高温</th>
-              <th>恒温柜高温</th>
-              <th>电表故障</th>
-              <th>功率异常</th>
-              <th>远程关站</th>
-              <th>代理维护按钮</th>
-            </tr>
+            <th>
+              断站
+            </th>
+            <th>
+              室内高温
+            </th>
+            <th>
+              恒温柜高温
+            </th>
+            <th>
+              电表故障
+            </th>
+            <th>
+              功率异常
+            </th>
+            <th>
+              远程关站
+            </th>
+            <th>
+              代理维护按钮
+            </th>
+            <th>
+              空调故障
+            </th>
+            <th>
+              温度感应故障
+            </th>
+          </tr>
             <tr>
-              <td><a href="/warning">0</a></td>
-              <td><a href="/warning">0</a></td>
-              <td><a href="/warning">0</a></td>
-              <td><a href="/warning">0</a></td>
-              <td><a href="/warning">0</a></td>
-              <td><a href="/warning">0</a></td>
-              <td><a href="/warning">0</a></td>
-              <td><a href="/warning">0</a></td>
+              <td><a href="/warning?type=1"><?php echo $warning_num[0];?></a></td>
+              <td><a href="/warning?type=2"><?php echo $warning_num[1];?></a></td>
+              <td><a href="/warning?type=3"><?php echo $warning_num[2];?></a></td>
+              <td><a href="/warning?type=4"><?php echo $warning_num[3];?></a></td>
+              <td><a href="/warning?type=5"><?php echo $warning_num[4];?></a></td>
+              <td><a href="/warning?type=6"><?php echo $warning_num[5];?></a></td>
+              <td><a href="/warning?type=7"><?php echo $warning_num[6];?></a></td>
+              <td><a href="/warning?type=8"><?php echo $warning_num[7];?></a></td>
+			  <td><a href="/warning?type=9"><?php echo $warning_num[8];?></a></td>
             </tr>
           </table>
         </div>
@@ -122,6 +140,54 @@
 
   </div>
   <script>
+	var startTime =  new Date('2015-08-01').getTime();
+	var currentTime = new Date().getTime();
+
+	var start_num = (698421.87 + ((currentTime - startTime) /1000) * 0.19).toFixed(2);
+	var old_num = 0;
+	var timer = 0;
+	var cal = function(start_num){
+		if(old_num == 0){
+		    old_num = start_num;
+		    var start_num_mei = (start_num*0.1229/1000).toFixed(2);
+			var start_num_co = (start_num*0.785/1000).toFixed(2);
+			var start_num_tree = 269;
+			$("#start_num").html(start_num);
+			$("#start_num_mei").html(start_num_mei);
+			$("#start_num_co").html(start_num_co);
+		}else{
+		   var distance = (start_num - old_num)/10;
+		   timer = setInterval(function(){
+				if(old_num < start_num){
+				   old_num = parseFloat(old_num);
+				   old_num += distance;
+				   old_num = old_num.toFixed(2);
+				   $("#start_num").html(old_num);
+				}else{
+				   old_num = start_num;
+				   $("#start_num").html(start_num);
+				   var start_num_mei = (start_num*0.1229/1000).toFixed(2);
+				   var start_num_co = (start_num*0.785/1000).toFixed(2);
+				   var start_num_tree = 269;
+					$("#start_num").html(start_num);
+					$("#start_num_mei").html(start_num_mei);
+					$("#start_num_co").html(start_num_co);
+				   clearInterval(timer);
+				}
+			},10);
+		}
+		
+		
+		$("#start_num_tree").html(start_num_tree);
+	}
+	cal(start_num);
+	setInterval(function(){
+		start_num = parseFloat(start_num);
+		start_num+=0.19;
+		start_num = start_num.toFixed(2);
+		cal(start_num);
+	},5000);
+	
 	var project_list = $('#project_list');
 	var base_container = $('#base_container');
 	var base_container_a = $('#base_container').find('a');

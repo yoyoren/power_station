@@ -12,7 +12,7 @@
         <h4 class="tab-to-title">创建项目</h4>
 
         <div class="n-check-area" style="border:0 none;">
-          <div class="input-group-item clearfix">
+          <div class="input-group-item clearfix" style="display:none">
             <span class="name">已有项目：</span>
             <span style="margin-right:20px;">上海杉实</span><span style="margin-right:20px;">上海杉实</span>
           </div>
@@ -26,6 +26,18 @@
           </div>
 
         </div>
+		
+        <h4 class="tab-to-title">项目管理</h4>
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>项目序号</th>
+              <th>项目</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="project_list"></tbody>
+        </table>
       </div>
 
     </div>
@@ -55,16 +67,42 @@
 </div><!-- /.modal -->
 </body>
 <script>
+var project_list = $('#project_list')
+$get('/project/list',{
+	},function(d){
+	   var data = d.data;
+	   var html = '';
+	   for(var i=0;i<data.length;i++){
+	      html += '<tr><td>'+data[i].id+'</td><td data-id="'+data[i].id+'">'+data[i].projectName+'</td><td><button type="button" class="btn btn-default project_del" data-id="'+data[i].id+'">删除</button></td></tr>';
+	   }	   
+	   project_list.html(html);
+	});
 $('#create').click(function(){
 	var name = $('#p_name');
-	$.post('/project/add',{
+	$post('/project/add',{
 	  name:name.val()
 	},function(d){
 		if(d.code == 0){
 			alert('创建成功');
+			location.reload();
 		}
-	},'json');
+	});
 });
+
+$('body').delegate('.project_del','click',function(){
+	var _this = $(this);
+	var del = confirm('确认删除该项目？');
+	var id = _this.data('id');
+	$post('/project/remove',{
+	  id:id
+	},function(d){
+		if(d.code == 0){
+			alert('删除成功');
+			_this.parent().parent().remove();
+		}
+	});
+});
+
 </script>
 
 </html>

@@ -39,16 +39,16 @@
                 <span class="vl-m">下一个月</span><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
               </button>
             </div>
-            可选择月份<input size="16" type="text" value="2012-06" readonly class="date-control form-control form_datetime">
-            <input type="checkbox" checked="checked" />天气
-            <button type="button" class="btn btn-default" style="margin-left:30px;">确定</button>
+            可选择月份<input size="16" type="text" id="date_input" readonly class="date-control form-control form_datetime">
+            <input type="checkbox" checked="checked"  style="display:none"/>天气
+            <button type="button" class="btn btn-default" style="margin-left:30px;" id="query_button">确定</button>
 
           </div>
 
           <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
           <hr>
           <table class="table table-bordered">
-            <tbody>
+			 <thead>
               <tr>
                 <th>日期</th>
                 <th>总能耗</th>
@@ -63,64 +63,9 @@
                 <th>日照</th>
                 <th>风力</th>
               </tr>
-              <tr>
-                <td>5－1 周一</td>
-                <td>136.98</td>
-                <td>123.28</td>
-                <td>13.7</td>
-                <td>86</td>
-                <td>81.6</td>
-                <td>29233.35</td>
-                <td>有／无</td>
-                <td>28</td>
-                <td>16</td>
-                <td>阴</td>
-                <td>2</td>
-              </tr>
-              <tr>
-                <td>5－2 周二</td>
-                <td>136.98</td>
-                <td>123.28</td>
-                <td>13.7</td>
-                <td>86</td>
-                <td>81.6</td>
-                <td>29233.35</td>
-                <td>有／无</td>
-                <td>28</td>
-                <td>16</td>
-                <td>阴</td>
-                <td>2</td>
-              </tr>
-              <tr>
-                <td>5－3 周三</td>
-                <td>136.98</td>
-                <td>123.28</td>
-                <td>13.7</td>
-                <td>86</td>
-                <td>81.6</td>
-                <td>29233.35</td>
-                <td>有／无</td>
-                <td>28</td>
-                <td>16</td>
-                <td>阴</td>
-                <td>2</td>
-              </tr>
-              <tr>
-                <td>5－4 周四</td>
-                <td>136.98</td>
-                <td>123.28</td>
-                <td>13.7</td>
-                <td>86</td>
-                <td>81.6</td>
-                <td>29233.35</td>
-                <td>有／无</td>
-                <td>28</td>
-                <td>16</td>
-                <td>阴</td>
-                <td>2</td>
-              </tr>
-
-            </tbody>
+			  </thead>
+			  <tbody id="data_container">
+			  </tbody>
           </table>
 
         </div>
@@ -133,12 +78,66 @@
 <script type="text/javascript" src="/static/src/js/highchart/highcharts.js"></script>
 <script type="text/javascript" src="/static/src/js/highchart/modules/exporting.js"></script>
 <script type="text/javascript" src="/static/src/js/datepicker/bootstrap-datetimepicker.js"></script>
-
-<script type="text/javascript">
+<script>
+window.station = <? echo json_encode($station)?>
+</script>
+<script>
 $(function () {
+	var currentMonth = new Date((new Date()).getFullYear() +'-' + ((new Date()).getMonth()+1)).getTime()/1000;
+	var renderPage = function(month){
+		var time = currentMonth - 8*3600;
+		$get('/station/onemonth',{
+			time : time
+		},function(d){
+		
+		});
+		
+		$get('/weather/month/get',{
+			time:month,
+			province:window.station.info.stationProvince,
+			city:window.station.info.stationCity
+		},function(d){
+			if(d.code == 0){
+				var data = d.data ||[];
+				var html = '';
+				for(var i=0;i<data.length;i++){
+					var _d = data[i];
+					html += '<tr>\
+								<td>'+new Date( _d.createTime * 1000)+'</td>\
+								<td>136.98</td>\
+								<td>123.28</td>\
+								<td>13.7</td>\
+								<td>86</td>\
+								<td>81.6</td>\
+								<td>29233.35</td>\
+								<td>有／无</td>\
+								<td>'+_d.temperatureHigh+'</td>\
+								<td>'+_d.temperatureLow+'</td>\
+								<td>'+_d.weather+'</td>\
+								<td>'+_d.wind+'</td>\
+							  </tr>';
+				}
+				$('#data_container').html(html);
+			}
+		});
+	}
+	renderPage(currentMonth);
+	$('#query_button').click(function(){
+		var month = $('#date_input').val();
+		if(month){
+			//东8区要减去8小时
+			month = new Date(month).getTime()/1000;
+			month = month - 8*3600;
+			renderPage(month);
+		}
+	});
+	
     $(".form_datetime").datetimepicker({
       format: 'yyyy-mm',
-      language: 'cn'
+      language: 'cn',
+	  minView:3,
+	  startView:3,
+	  autoclose:true
     });
 
     $('#container').highcharts({

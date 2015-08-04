@@ -30,6 +30,7 @@ class AccountHandler {
 		$users = $data['data'];
 		for($i=0;$i<count($users);$i++){
 			$user = $users[$i];
+			
 			$project = AccountHandler::get_user_project($user['id']);
 			if($project){
 				$res = array();
@@ -194,6 +195,13 @@ class AccountHandler {
 	public static function remove_from_project($accountId,$projectId){
 		$dao =  new PowerAccountAccessProjectMySqlExtDAO();
 		$dao->removeUserFromProject($accountId,$projectId);
+		return true;
+	}
+	
+	//从当删除一个项目 则从项目中移除用户
+	public static function delete_all_user_from_project($projectId){
+		$dao =  new PowerAccountAccessProjectMySqlExtDAO();
+		$dao->removeAllUserFromProject($projectId);
 		return true;
 	}
 	
