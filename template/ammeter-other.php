@@ -107,6 +107,16 @@ $(function () {
 
 });
 $('#show').click(function(){
+	if($('#stationName').val()==""){
+		alert('基站名称为空');
+		//$('#jzmsg').html('请输入基站名称');
+		return;
+	}
+	if($('#readTime').val()==""){
+		alert('采集时间为空');
+		//$('#rtmsg').html('请输入采集时间');
+		return;
+	}
 	$.post('/ammeter/otherShow',{
 	  stationName:$('#stationName').val(),
           readTime:$('#readTime').val(),        

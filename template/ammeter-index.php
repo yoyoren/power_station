@@ -20,11 +20,11 @@
         <div class="n-check-area">
           <div class="input-group-item clearfix">
             <span class="name">基站名称：</span>
-            <input type="text" class="form-control" required autofocus id="stationName"/>
+            <input type="text" class="form-control" required autofocus id="stationName"/><span id="jzmsg"></span>
           </div>
           <div class="input-group-item clearfix">
             <span class="name">基站电表采集时间：</span>
-            <input type="text" class="form-control form_datetime"  value="" required   id="readTime"/>
+            <input type="text" class="form-control form_datetime"  value=""   id="readTime"/><span id="rtmsg"></span>
           </div>
           <div class="input-group-item tl-r">
             <button type="button" class="btn btn-default" id="show">确定</button>
@@ -105,6 +105,20 @@ $(function () {
            
 });
 $('#show').click(function(){
+	
+	if($('#stationName').val()==""){
+		alert('基站名称为空');
+		//$('#jzmsg').html('请输入基站名称');
+		return;
+	}
+	if($('#readTime').val()==""){
+		alert('采集时间为空');
+		//$('#rtmsg').html('请输入采集时间');
+		return;
+	}
+	$('#jzmsg').html('');
+	$('#rtmsg').html('');
+	
 	$.post('/ammeter/otherShow',{
 	  stationName:$('#stationName').val(),
           readTime:$('#readTime').val(),        
