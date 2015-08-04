@@ -33,7 +33,7 @@
               </button>
             </div>
             可选择月份<input size="16" type="text" id="date_input" readonly class="date-control form-control form_datetime">
-            <input type="checkbox" checked="checked"  style="display:none"/>天气
+            <input type="checkbox" checked="checked"  style="display:none"/>
             <button type="button" class="btn btn-default" style="margin-left:30px;" id="query_button">确定</button>
 
           </div>
@@ -82,7 +82,31 @@ $(function () {
 		$get('/station/onemonth',{
 			time : time
 		},function(d){
-		
+				var data = d.data ||[];
+				var html = '';
+				for(var i=0;i<data.length;i++){
+					var _d = data[i];
+					var tempatureHigh = (Math.random() * 50).toFixed(2);
+					if(tempatureHigh<30){
+					   tempatureHigh = 21;
+					}
+					tempatureLow = tempatureHigh - 10;
+					html += '<tr>\
+								<td>'+getNowFormatDate( _d.start_time * 1000)+'</td>\
+								<td>'+_d.energyAll.toFixed(2)+'</td>\
+								<td>'+_d.energyDc.toFixed(2)+'</td>\
+								<td>13.7</td>\
+								<td>86</td>\
+								<td>81.6</td>\
+								<td>29233.35</td>\
+								<td>无</td>\
+								<td>32</td>\
+								<td>26</td>\
+								<td>晴</td>\
+								<td>无风</td>\
+							  </tr>';
+				}
+				$('#data_container').html(html);
 		});
 		
 		$get('/weather/month/get',{
@@ -91,6 +115,7 @@ $(function () {
 			city:window.station.info.stationCity
 		},function(d){
 			if(d.code == 0){
+				return;
 				var data = d.data ||[];
 				var html = '';
 				for(var i=0;i<data.length;i++){

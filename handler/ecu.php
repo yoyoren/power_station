@@ -238,15 +238,28 @@
 		
 		public static function write_dir($siteName = 'CUSHSHPD00040'){
 			$files = ECUHandler::scan($siteName);
+			$dao =  new PowerBaseStationMySqlExtDAO();
 			$stationInfo = $dao->queryByStationSeriseCode($siteName);
-			$stationId = 1;
-			if($stationInfo){
-			   $stationId = $stationInfo->stationId;
+			$stationId = $stationInfo[0]->stationId;
+			$stationId = intval($stationId);
+			$path = './ecu/'.$siteName.'.conf';
+			if(file_exists($path)){
+			   $last = file_get_contents($path);
+			   $last = intval($last);
+			}else{
+			   file_put_contents($path,0);
+			   $last = 0;
 			}
-			for($i = 0;$i<count($files);$i++){
-				ECUHandler::write($files[$i],$stationId);
+			
+			if($stationId){				
+				for($i = $last;$i<count($files);$i++){
+					ECUHandler::write($files[$i],$stationId);
+					file_put_contents($path,$i);
+				}
+				return array('msg'=>'success');
 			}
-			return array();
+			return array('msg'=>'fail');
+			
 		}
 		
 		//将扫描后的文件放到库里

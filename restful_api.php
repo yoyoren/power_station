@@ -564,12 +564,24 @@ $app->get('/station/last/origindata/:id', function ($id) use ($app) {
 
 //获得基站谋天的数据
 $app->get('/station/oneday', function () use ($app) {
+	global $Redis_client;
 	restful_api_auth();
 	//时间戳
 	$time = param_check_get('time');
+	$id = param_check_get('id');
 	$time = intval($time);
-	$data = StationHandler::get_one_day_status(1,$time);
-	restful_response(RES_SUCCESS,$data);
+	$cache_key = 'daliy_cache_'.$id.$time;
+	if($Redis_client->get($cache_key)){
+		$data = $Redis_client->get($cache_key);
+		$data = json_decode($data);
+		restful_response(RES_SUCCESS,$data);
+	}else{
+		$data = StationHandler::get_one_day_status($id,$time);
+		if($data){
+		   $Redis_client->set($cache_key,json_encode($data));
+		}
+		restful_response(RES_SUCCESS,$data);
+	}
 });
 
 //获得基站月报的数据

@@ -160,7 +160,10 @@ $app->get('/warning/rule', function () use ($app) {
 //告警策略
 $app->get('/warning/fullscreen', function () use ($app) {
 	pageview_api_auth();
-	$app->render('warning-fullscreen.php',array());
+	$data = WarningHandler::get_list(-1,2,30);
+	$app->render('warning-fullscreen.php',array(
+		'data'=>$data,
+	));
 });
 
 //电表首页

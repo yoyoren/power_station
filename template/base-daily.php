@@ -100,6 +100,7 @@ $(function () {
 		time = time - 8* 60 *60;
 		window.currentTime = time;
 		$get('/station/oneday',{
+			id:location.href.split('/').pop(),
 			time:window.currentTime
 		},function(d){
 			$('#container_device').html('数据加载中...');

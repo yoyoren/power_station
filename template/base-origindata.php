@@ -178,7 +178,7 @@ $(function () {
 			}
 		});
 	});
-	var stationId = 1;
+	var stationId = location.href.split('/').pop();
 	$get('/station/last/origindata/' + stationId,{
 		time :-2
 	},function(d){
