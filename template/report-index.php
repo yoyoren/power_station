@@ -39,24 +39,21 @@
         <div style="height:100%; overflow:auto; padding-right:20px; display:none;" id="show_table">
           <table class="table table-bordered">
             <tr>
-              <th colspan="27">表一   砖墙类型节能效益核算表</th>
-              <th>&nbsp;</th>
+              <th colspan="20">表一   砖墙类型节能效益核算表</th>
             </tr>
             <tr>
               <td class="th" colspan="7">分公司：上海联通 </td>
-              <td class="th">&nbsp;</td>
-              <td class="th" colspan="20">时间：2015年04月01日 - 2015年04月30日 </td>
+              <td class="th" colspan="13">时间：2015年04月01日 - 2015年04月30日 </td>
             </tr>
             <tr>
               <td class="th" colspan="7">系统数据</td>
-              <td class="th">&nbsp;</td>
+
               <td class="th" colspan="3">异常能耗修正</td>
-              <td class="th">&nbsp;</td>
+
               <td class="th" colspan="3">电表核准系数e</td>
-              <td class="th">&nbsp;</td>
-              <td class="th">&nbsp;</td>
-              <td class="th" colspan="7">节电量确认</td>
-              <td class="th" colspan="4">最终分成金额</td>
+
+              <td class="th" colspan="4">节电量确认</td>
+              <td class="th" colspan="3">最终分成金额</td>
             </tr>
             <tr>
               <td>1</td>
@@ -66,25 +63,17 @@
               <td>5</td>
               <td>6</td>
               <td>7</td>
-              <td>&nbsp;</td>
               <td>8</td>
               <td>9</td>
               <td>10</td>
-              <td>&nbsp;</td>
               <td>11</td>
               <td>12</td>
               <td>13</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
               <td>14</td>
-              <td>&nbsp;</td>
               <td>15</td>
-              <td>&nbsp;</td>
               <td>16</td>
-              <td>&nbsp;</td>
               <td>17</td>
               <td>18</td>
-              <td>&nbsp;</td>
               <td>19</td>
               <td>20</td>
             </tr>
@@ -96,25 +85,23 @@
               <td>节能站用电量核算起始度数(每月1日0点)</td>
               <td>节能站用电量核算结束度数(每月最后一天24点)</td>
               <td>节能站月用电量(度)</td>
-              <td>&nbsp;</td>
+
               <td>能耗异常情况是否存在</td>
               <td>表四异常能耗修正(度)</td>
               <td>节能站修正后用电量(度)</td>
-              <td>&nbsp;</td>
+
               <td>表三电表偏差系数e</td>
               <td>电表是否需要核准</td>
               <td>节能站核准用电量(度)</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
+
               <td>表二基准站能耗标准值S</td>
-              <td>&nbsp;</td>
+
               <td>节能站对应标准值S</td>
-              <td>&nbsp;</td>
+
               <td>节能站月节电量(度)</td>
-              <td>&nbsp;</td>
+
               <td>节能站电费单价(元)</td>
               <td>节能站当月节电费(元)</td>
-              <td>&nbsp;</td>
               <td>节能分成比例</td>
               <td>杉实环境节能分成(元)</td>
             </tr>
@@ -576,24 +563,16 @@
               <td>&nbsp;</td>
               <td>&nbsp;</td>
               <td>27041.04</td>
-              <td>27041.04</td>
               <td>&nbsp;</td>
               <td>&nbsp;</td>
-              <td>28331</td>
               <td>28331</td>
               <td>&nbsp;</td>
               <td>&nbsp;</td>
               <td>28331.38</td>
-              <td>28331</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
               <td>&nbsp;</td>
               <td>&nbsp;</td>
               <td>6892.94</td>
-              <td>6892.94</td>
               <td>&nbsp;</td>
-              <td>6368.64</td>
               <td>6368.64</td>
               <td>&nbsp;</td>
               <td>4330.89</td>
