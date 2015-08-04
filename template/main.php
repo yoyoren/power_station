@@ -26,12 +26,12 @@
             <div class="n-show-item" style="background:#ff4660;">
               <p class="intro">节约标准煤</p>
               <img src="/static/src/img/ic-huo2.png" style="width:56px" />
-              <p class="num" id=""><span id="start_num_mei"></span><em>千克</em></p>
+              <p class="num" id=""><span id="start_num_mei"></span><em>吨</em></p>
             </div>
             <div class="n-show-item" style="background:#cca402;">
               <p class="intro">减少碳排放</p>
               <img src="/static/src/img/ic-paifang2.png" style="width:60px" />
-              <p class="num"  id=""><span id="start_num_co"></span><em>千克</em></p>
+              <p class="num"  id=""><span id="start_num_co"></span><em>吨</em></p>
             </div>
             <div class="n-show-item" style="background:#4ebd21;">
               <p class="intro">造林</p>

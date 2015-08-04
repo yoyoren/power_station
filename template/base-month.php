@@ -13,17 +13,10 @@
       <div class="n-right-content">
         <h4 class="tab-to-title">月报数据</h4>
         <div class="current-name-area clearfix">
-          <span class="vl-m fl-l name"><b>001</b>基站</span>
+          <span class="vl-m fl-l name"><b><?php echo $station['info']->stationName;?></b> 基站</span>
 
           <div class="fl-r">
-            <div class="btn-group">
-              <button type="button" class="btn btn-default">
-                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><span class="vl-m">前一个基站</span>
-              </button>
-              <button type="button" class="btn btn-default">
-                <span class="vl-m">后一个基站</span><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-              </button>
-            </div>
+            <?php include ('include/base_top_switch.php')?>
           </div>
 
         </div>

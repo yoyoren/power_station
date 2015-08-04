@@ -183,51 +183,65 @@
 			$dao =  new PowerBaseStationMySqlDAO();
 			$dao_project = new ProwerProjectMySqlDAO();
 			$station_base_info = $dao->load($stationId);
-			$station_base_info->stationType = $STATION_TYPE[$station_base_info->stationType];
+			if($station_base_info){
+				$station_base_info->stationType = $STATION_TYPE[$station_base_info->stationType];
+				
+				//获得项目名称
+				$project_id = $station_base_info->projectId;
+				$project = $dao_project->load($project_id);
+				$station_base_info->projectName = $project->projectName;
+				
+				//时间转换
+				$station_base_info->displayDate = date('Y-m-d H:i:s',$station_base_info->createTime);
 			
-			//获得项目名称
-			$project_id = $station_base_info->projectId;
-			$project = $dao_project->load($project_id);
-			$station_base_info->projectName = $project->projectName;
-			
-			//时间转换
-			$station_base_info->displayDate = date('Y-m-d H:i:s',$station_base_info->createTime);
-		
-			
-			$station_base_info->stationProvinceName = AddressHandler::get_province_info($station_base_info->stationProvince);
-			$station_base_info->stationProvinceName = $station_base_info->stationProvinceName->name;
-			
-			$station_base_info->stationCityName = AddressHandler::get_city_info($station_base_info->stationProvince,$station_base_info->stationCity);
-			$station_base_info->stationCityName = $station_base_info->stationCityName->name;
-			
-			$station_base_info->stationDistirctName = AddressHandler::get_district_info($station_base_info->stationProvince,$station_base_info->stationCity,$station_base_info->stationDistirct);
-			$station_base_info->stationDistirctName = $station_base_info->stationDistirctName->name;
-			
-			//获得站点的设备信息
-			$dao =  new PowerBaseStationDeviceInfoMySqlDAO();
-			$station_device_info = $dao->queryByStationId($stationId)[0];
-			//var_dump($station_device_info); 
-			//获得站点的能耗信息
-			$dao =  new PowerBaseStationEnergyInfoMySqlDAO();
-			$station_energy_info = $dao->queryByStationId($stationId)[0];
-			//var_dump($station_energy_info->powerSupplyType);
-			if($station_energy_info->powerSupplyType){
-				$station_energy_info->powerSupplyTypeName = $POWER_SUPPLY_TYPE[$station_energy_info->powerSupplyType];
+				
+				$station_base_info->stationProvinceName = AddressHandler::get_province_info($station_base_info->stationProvince);
+				$station_base_info->stationProvinceName = $station_base_info->stationProvinceName->name;
+				
+				$station_base_info->stationCityName = AddressHandler::get_city_info($station_base_info->stationProvince,$station_base_info->stationCity);
+				$station_base_info->stationCityName = $station_base_info->stationCityName->name;
+				
+				$station_base_info->stationDistirctName = AddressHandler::get_district_info($station_base_info->stationProvince,$station_base_info->stationCity,$station_base_info->stationDistirct);
+				$station_base_info->stationDistirctName = $station_base_info->stationDistirctName->name;
+				
+				//获得站点的设备信息
+				$dao =  new PowerBaseStationDeviceInfoMySqlDAO();
+				$station_device_info = $dao->queryByStationId($stationId)[0];
+				//var_dump($station_device_info); 
+				//获得站点的能耗信息
+				$dao =  new PowerBaseStationEnergyInfoMySqlDAO();
+				$station_energy_info = $dao->queryByStationId($stationId)[0];
+				//var_dump($station_energy_info->powerSupplyType);
+				if($station_energy_info->powerSupplyType){
+					$station_energy_info->powerSupplyTypeName = $POWER_SUPPLY_TYPE[$station_energy_info->powerSupplyType];
+				}
+				if($station_energy_info->feeType){
+					$station_energy_info->feeTypeName = $POWER_SUPPLY_TYPE[$station_energy_info->feeType];
+				}
+				if($station_energy_info->buildingType){
+					$station_energy_info->buildingTypeName = $BUILDING_TYPE[$station_energy_info->buildingType];
+				}
+				if($station_energy_info->energyType){
+					$station_energy_info->energyTypeName = $ENERGY_TYPE[$station_energy_info->energyType];
+				}
 			}
-			if($station_energy_info->feeType){
-				$station_energy_info->feeTypeName = $POWER_SUPPLY_TYPE[$station_energy_info->feeType];
-			}
-			if($station_energy_info->buildingType){
-				$station_energy_info->buildingTypeName = $BUILDING_TYPE[$station_energy_info->buildingType];
-			}
-			if($station_energy_info->energyType){
-				$station_energy_info->energyTypeName = $ENERGY_TYPE[$station_energy_info->energyType];
-			}
-			$stationPrevId = intval($stationId) - 1;
-			$stationNextId = intval($stationId) + 1;
-			if($stationPrevId < 1){
+			
+			//获得当前基站的前后基站的数据
+			$dao_station = new PowerBaseStationMySqlExtDAO();
+			$next = $dao_station->getNextStation($stationId);
+			$prev = $dao_station->getPrevStation($stationId);
+
+			$stationPrevId = $prev->stationId;
+			$stationNextId = $next->stationId;
+			
+			if(!$stationPrevId){
 			   $stationPrevId = -1;
 			}
+			
+			if(!$stationNextId){
+			   $stationNextId = -1;
+			}
+			
 			if($editMode){
 				$project_list = ProjectHandler::get_list();
 				$province_list = AddressHandler::get_province_list();

@@ -130,5 +130,21 @@ class PowerBaseStationMySqlExtDAO extends PowerBaseStationMySqlDAO{
 		return $this->getList($sqlQuery);
 	}
 	
+	//获得前一个基站
+	public function getNextStation($stationId){
+		$sql = 'SELECT * FROM power_base_station WHERE station_id = (select station_id from power_base_station WHERE station_id > ? order by station_id ASC limit 1)';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->set($stationId);
+		return $this->getRow($sqlQuery);
+	}
+	
+	//获得后一个基站
+	public function getPrevStation($stationId){
+		$sql = 'SELECT * FROM power_base_station WHERE station_id = (select station_id from power_base_station WHERE station_id < ? order by station_id DESC limit 1)';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->set($stationId);
+		return $this->getRow($sqlQuery);
+	}
+	
 }
 ?>

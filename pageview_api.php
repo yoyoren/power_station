@@ -108,8 +108,8 @@ $app->get('/base/daily/:id', function ($id) use ($app) {
 	pageview_api_auth();
 	//$data = StationHandler::get_full_day_status(1);
 	$data = StationHandler::get_one_day_status($id);
-
-	$app->render('base-daily.php',array('id'=>$id,'data'=>$data));
+	$station = StationHandler::get_one_detail($id);
+	$app->render('base-daily.php',array('id'=>$id,'data'=>$data,'station'=>$station));
 });
 
 
@@ -136,7 +136,8 @@ $app->get('/base/remote/:id', function ($id) use ($app) {
 //原始数据
 $app->get('/base/origindata/:id', function ($id) use ($app) {
 	pageview_api_auth();
-	$app->render('base-origindata.php',array('id'=>$id));
+	$station = StationHandler::get_one_detail($id);
+	$app->render('base-origindata.php',array('id'=>$id,'station'=>$station));
 });
 
 //告警首页

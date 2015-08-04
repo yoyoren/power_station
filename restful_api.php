@@ -515,7 +515,7 @@ $app->get('/station/query', function () {
 		'project_id'=>$project,
 		'station_province'=>$province,
 		'station_city'=>$city,
-		'station_district'=>$district,
+		'station_distirct'=>$district,
 		'station_type'=>$station_type
 	);
 		
