@@ -9,12 +9,15 @@ class AmmeterHandler {
                      $list[$k]->stationName= DAOFactory::getPowerBaseStationLogDAO()->queryStationName($list[$k]->stationId);                    
                      $list[$k]->operater= DAOFactory::getPowerBaseStationLogDAO()->queryAccountNameById($list[$k]->creatorId);
                      $list[$k]->createTime=date('Y-m-d h:i',$list[$k]->createTime);
-                     $e=1;                   
-                     if($k<$num-1 && $num>1) $e=sprintf("%.2f", abs((intval($v->ammeterNormal)-intval($list[$k+1]->ammeterNormal))/(intval($v->readValue)-intval($list[$k+1]->readValue))));                     
-                     $list[$k]->e=$e;
-                     if($e<1.02 && $e>0.98)  $list[$k]->e=1;
-                     $list[$k]->readTime=date('Y-m-d h:i',$list[$k]->readTime);
-                     
+		     $list[$k]->readTime=date('Y-m-d h:i',$list[$k]->readTime);
+                     $e=1;             
+                    if((intval($v->readValue)-intval($list[$k+1]->readValue))==0){
+                        $list[$k]->e=0; 
+                    }else{
+                        if($k<$num-1 && $num>1) $e=sprintf("%.2f", abs((intval($v->ammeterNormal)-intval($list[$k+1]->ammeterNormal))/(intval($v->readValue)-intval($list[$k+1]->readValue))));                     
+                        $list[$k]->e=$e;
+                        if($e<1.02 && $e>0.98)  $list[$k]->e=1; 
+                    }    
                 }
             }         
         return $list;
@@ -30,9 +33,14 @@ class AmmeterHandler {
                      $list[$k]->createTime=date('Y-m-d h:i',$list[$k]->createTime);
                      $list[$k]->readTime=date('Y-m-d h:i',$list[$k]->readTime);
                      $e=1;
-                     if($k<$num-1 && $num>1) $e=sprintf("%.2f", abs((intval($v->ammeterNormalChinamobile)-intval($list[$k+1]->ammeterNormalChinamobile))/(intval($v->ammeterNormal)-intval($list[$k+1]->ammeterNormal))));                     
-                     $list[$k]->e=$e;
-                     if($e<1.02 && $e>0.98)  $list[$k]->e=1;
+					 if((intval($v->ammeterNormal)-intval($list[$k+1]->ammeterNormal))==0){
+						$list[$k]->e=0;  
+					 }else{
+						 if($k<$num-1 && $num>1) $e=sprintf("%.2f", abs((intval($v->ammeterNormalChinamobile)-intval($list[$k+1]->ammeterNormalChinamobile))/(intval($v->ammeterNormal)-intval($list[$k+1]->ammeterNormal))));                     
+						 $list[$k]->e=$e;
+						 if($e<1.02 && $e>0.98)  $list[$k]->e=1;
+					 }
+
                 }
             }
         
@@ -117,7 +125,49 @@ class AmmeterHandler {
         return FALSE;
          
     }
+    public static function query_history_ammter($flag,$stationName,$start,$end){
+        $stationId=self::is_exsit_station($stationName);
+        if($stationId){   
+            $sql=" where station_id=".$stationId;
+            if($flag==1){
+                $list= DAOFactory::getPowerAmmeterChinamobileDAO()->search($start,$end,$sql);
+            }else{
+                $list= DAOFactory::getPowerAmmeterDAO()->search($start, $end, $sql);
+            }
+            
+            if($list){
+                 $num=  count($list);
+                foreach($list as $k=>$v){                    
+                     $list[$k]->stationName= DAOFactory::getPowerBaseStationLogDAO()->queryStationName($list[$k]->stationId);                    
+                     $list[$k]->operater= DAOFactory::getPowerBaseStationLogDAO()->queryAccountNameById($list[$k]->creatorId);
+                     $list[$k]->createTime=date('Y-m-d h:i',$list[$k]->createTime);
+                     $list[$k]->readTime=date('Y-m-d h:i',$list[$k]->readTime);
+                     $e=1;
+                     if($flag==1){
+                        if((intval($v->ammeterNormal)-intval($list[$k+1]->ammeterNormal))==0){
+                            $list[$k]->e=0;  
+                        }else{
+                            if($k<$num-1 && $num>1) $e=sprintf("%.2f", abs((intval($v->ammeterNormalChinamobile)-intval($list[$k+1]->ammeterNormalChinamobile))/(intval($v->ammeterNormal)-intval($list[$k+1]->ammeterNormal))));                     
+                            $list[$k]->e=$e;
+                            if($e<1.02 && $e>0.98)  $list[$k]->e=1;
+                        }
+                     }else{
+                            if((intval($v->readValue)-intval($list[$k+1]->readValue))==0){
+                                $list[$k]->e=0; 
+                            }else{
+                                if($k<$num-1 && $num>1) $e=sprintf("%.2f", abs((intval($v->ammeterNormal)-intval($list[$k+1]->ammeterNormal))/(intval($v->readValue)-intval($list[$k+1]->readValue))));                     
+                                $list[$k]->e=$e;
+                                if($e<1.02 && $e>0.98)  $list[$k]->e=1; 
+                            } 
+                     }
 
+                }
+            }      
+            return $list;
+       }else{
+           return FALSE;
+       }
+    }
     
 }
 

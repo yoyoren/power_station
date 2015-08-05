@@ -25,13 +25,11 @@
         </div>
 
         <div class="nav-tabs-content">
-          <div class="n-check-area tl-r">
+          <div class="n-check-area tl-r" style="padding:0 20px;">
 
-            请选择日期<input size="16" type="text" readonly class="date-control form-control form_datetime" id="query_date">
+            请选择日期：<input size="16" type="text" readonly class="date-control form-control form_datetime vl-m" id="query_date">
             <button type="button" class="btn btn-default" id="query_button">确定</button>
-            <br/>
-            <br/>
-            <div class="btn-group">
+            <div class="btn-group" style="margin-left:40px;">
               <button type="button" class="btn btn-default" id="prev_day">
                 <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><span class="vl-m">前一天</span>
               </button>
@@ -64,13 +62,13 @@
             </tbody>
           </table>
 
-          <div id="container_device" style="min-width: 310px; height: 400px; margin: 0 auto">
+          <div id="container_device" class="data-container" style="min-width: 310px; height: 300px;">
 			数据加载中...
 		  </div>
-          <hr>
-          <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-          <hr>
-          <div id="container2" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+          <div id="container" class="data-container"  style="min-width: 310px; height: 400px;"></div>
+
+          <div id="container2" class="data-container"  style="min-width: 310px; height: 400px;"></div>
         </div>
       </div>
 
@@ -93,7 +91,7 @@ $(function () {
 	  autoclose:true,
 	  minView:3
     });
-	
+
 	var refresh = function(time){
 		$('#loading_tip').show();
 		time = new Date(time).getTime()/1000;
@@ -115,18 +113,18 @@ $(function () {
 		}
 		refresh(time);
 	});
-	
+
 	$('#prev_day').click(function(){
 		window.currentTime -= 24* 60 *60;
 		refresh(window.currentTime);
 	});
-	
+
 	$('#next_day').click(function(){
 		window.currentTime += 24* 60 *60;
 		refresh(window.currentTime);
 	});
-	
-	
+
+
 	var renderPage = function(){
 		var time = [];
 		var colse_status = [];
@@ -145,32 +143,32 @@ $(function () {
 			_t = _t*1000;
 			_t = new Date(_t);
 			time.push(_t.getHours() + ':' +_t.getMinutes());
-			
+
 			if(window.data['temp_air_2_status'][i] == '1'){
 			   colse_status.push(null);
 			   fan_status.push(null);
 			   air_1_status.push(null);
-			   air_2_status.push(6);
+			   air_2_status.push(3);
 			   continue;
 			}
-			
+
 			if(window.data['temp_air_1_status'][i] == '1'){
 			   colse_status.push(null);
 			   fan_status.push(null);
-			   air_1_status.push(6);
+			   air_1_status.push(3);
 			   air_2_status.push(null);
 			   continue;
 			}
-			
+
 			if(window.data['temp_fan_status'][i] == '1'){
 			   colse_status.push(null);
-			   fan_status.push(6);
+			   fan_status.push(3);
 			   air_1_status.push(null);
 			   air_2_status.push(null);
 			   continue;
 			}
-			
-			colse_status.push(6);
+
+			colse_status.push(3);
 			fan_status.push(null);
 			air_1_status.push(null);
 			air_2_status.push(null);
@@ -179,7 +177,7 @@ $(function () {
 			try{
 				window.data[key] =  window.data[key].reverse();
 			}catch(ex){
-			
+
 			}
 		}
 		window.step = parseInt(window.data.power_all.length / 20);
@@ -188,7 +186,7 @@ $(function () {
 		fan_status = fan_status.reverse();
 		air_1_status = air_1_status.reverse();
 		air_2_status = air_2_status.reverse();
-		
+
 		 //设备开启状态
 		$('#container_device').highcharts({
 			chart: {
@@ -209,11 +207,17 @@ $(function () {
 				  step:window.step
 				}
 			},
-			yAxis: {
-				labels: {
-				  enabled: false
-				}
-			},
+      yAxis: {
+            tickPositions: [0, 3, 5, 7],
+            min: 0,
+            max:7,
+            labels: {
+              enabled: false
+            },
+            title: {
+                text: ''
+            }
+        },
 			tooltip: {
 				// pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
 				pointFormat: '当前启动状态是：<b><span style="color:{series.color}">{series.name}</span></b><br/>',
@@ -235,7 +239,7 @@ $(function () {
 				name: '二个空调',
 				data: air_2_status}]
 		});
-		
+
 		$('#container').highcharts({
 			chart: {
 				type: 'area'
@@ -341,20 +345,20 @@ $(function () {
 				name: '空调一温度',
 				data: window.data['temp_air_1']}, {
 				name: '空调二温度',
-				data:window.data['temp_air_2'] 
+				data:window.data['temp_air_2']
 				}]
 		});
-		
+
 		$('#loading_tip').hide();
 	}
-	
+
 	setTimeout(function(){
 		renderPage();
 	},100);
 
-   
 
-	
+
+
 /*
   var startDate = new Date(window.data.time[window.data.time.length - 1] * 1000);
   var startYear = startDate.getFullYear();
@@ -485,7 +489,7 @@ $(function () {
   });
 
 return;
-*/   
+*/
 });
     </script>
 </html>

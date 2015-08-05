@@ -818,8 +818,9 @@ $app->post('/ammeter/ownAdd', function () {
 //显示局方抄表数据
 $app->get('/ammeter/otherList', function () {
     global $app;
+    //$stationName=param_check_post("stationName",'',true);
     $start = param_check_get('start');
-     $end = param_check_get('end');
+     $end = param_check_get('end');;
     $result=  AmmeterHandler::get_other_list($start, $end);
      if(!$result){
           restful_response(RES_ERROR);
@@ -867,6 +868,21 @@ $app->post('/ammeter/ammeterdel', function () {
           restful_response(RES_ERROR);
      }else{
           restful_response(RES_SUCCESS);
+     }
+	
+});
+//显示我方历史抄表数据
+$app->post('/ammeter/historyList', function () {
+    global $app;
+    $flag        = param_check('flag');
+    $stationName = param_check('stationName');
+    $start       = param_check('start');
+    $end         = param_check('end');  
+    $result      = AmmeterHandler::query_history_ammter($flag, $stationName, $start, $end);
+     if(!$result){
+          restful_response(RES_ERROR);
+     }else{
+          restful_response(RES_SUCCESS,$result);
      }
 	
 });

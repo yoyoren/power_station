@@ -171,10 +171,18 @@ $app->get('/ammeter', function () use ($app) {
 	pageview_api_auth();
 	$app->render('ammeter-index.php',array());
 });
+$app->get('/ammeterList', function () use ($app) {
+	pageview_api_auth();
+	$app->render('ammeterList-index.php',array());
+});
 
 $app->get('/ammeter-other', function () use ($app) {
 	pageview_api_auth();
 	$app->render('ammeter-other.php',array());
+});
+$app->get('/ammeterList-other', function () use ($app) {
+	pageview_api_auth();
+	$app->render('ammeterList-other.php',array());
 });
 
 //维护日志首页
