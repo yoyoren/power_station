@@ -272,7 +272,7 @@
 			if(!$data){
 				return;
 			}
-
+			global $Redis_client;
 			$data = $data['file_content'];
 			$dao =  new PowerBaseStationRuningDataMySqlDAO();
 			$current_time = time();
@@ -340,11 +340,22 @@
 				
 				$dao_obj->powerAll = $cur_data['elec_power'][0];
 				$dao_obj->powerDc = $cur_data['elec_power'][1];
+				$key = 'last_data_time'.$stationId;
 				
+				//无效时间
+				if($dao_obj->createTime >= 2147483648){
+					return;
+				}
+				$last_time = $Redis_client->get($key);
+				if($last_time){
+					if($dao_obj->createTime - $last_time < 60){
+					   return;
+					}
+				}
+				$Redis_client->set($key,$dao_obj->createTime);
 				
-				//var_dump($dao_obj);
 				$dao->insert($dao_obj);
-				
+				StationHandler::cal_warning_from_runing_data($stationId,$dao_obj);
 			}
 				
 		}

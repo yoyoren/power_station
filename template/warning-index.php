@@ -214,7 +214,7 @@
 			create_time:create_time
 		},function(d){
 			if(d.code == 0){
-				if(d.data.length){
+				if(d.data.data.length){
 					__render(d,true);
 				}else{
 					alert('没有查询到相关数据');
