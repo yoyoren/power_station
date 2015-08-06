@@ -7,7 +7,7 @@
  */
 class PowerStationWarningMySqlExtDAO extends PowerStationWarningMySqlDAO{
 	public function queryByPage($page,$pagesize){
-		$sql = 'SELECT * FROM power_station_warning limit '.$page.','.$pagesize;
+		$sql = 'SELECT * FROM power_station_warning ORDER BY warning_id DESC limit '.$page.','.$pagesize.' ';
 		$sqlQuery = new SqlQuery($sql);
 		return $this->getList($sqlQuery);
 	}

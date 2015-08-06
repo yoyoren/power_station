@@ -141,7 +141,7 @@
 
   </div>
   <script>
-	var pageSize = 20;
+	var pageSize = 50;
 	var currentPage = 0;
 	var total = 0;
 	var totalPage;
