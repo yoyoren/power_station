@@ -100,11 +100,11 @@
               </tr>
             </tbody>
           </table>
-          <div id="container_device" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-          <hr>
-          <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-          <hr>
-          <div id="container2" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+          <div id="container_device"  class="data-container" style="min-width: 310px; height: 300px; "></div>
+
+          <div id="container"  class="data-container" style="min-width: 310px; height: 400px;"></div>
+
+          <div id="container2"  class="data-container" style="min-width: 310px; height: 400px;"></div>
         </div>
       </div>
 
@@ -153,9 +153,9 @@ $(function () {
             }
         },
         yAxis: {
-            tickPositions: [0, 4, 8, 10],
+            tickPositions: [0, 3, 5, 7],
             min: 0,
-            max:10,
+            max:7,
             //gridLineWidth: 0,
             labels: {
               enabled: false// Highcharts学习交流群294191384
@@ -176,17 +176,18 @@ $(function () {
         },
         series: [{
             name: '全关',
-            data: [null,null,null,null,null,6,6,6,6,null,null,null,null,null,6,6,6,6,null,null,null,null,null,6,6,6,6,null,null,null,null,null,6,6,6,6,null,null,null,null,null,6,6,6,6,null,null,null,null,null,6,6,6,6,null,null,null,null,null,6,6,6,6,6,6,6,6,6,6,6,6,6,6,]
+            data: [null,null,null,null,null,3,3,3,3,null,null,null,null,null,3,3,3,3,null,null,null,null,null,3,3,3,3,null,null,null,null,null,3,3,3,3,null,null,null,null,null,3,3,3,3,null,null,null,null,null,3,3,3,3,null,null,null,null,null,3,3,3,3,3,3,3,3,3,3,3,3,3,3,]
         }, {
             name: '风机',
-            data: [6,6,null,null,null,null,null,null,null,6,6,null,null,null,null,null,null,null,6,6,null,null,null,null,null,null,null,6,6,null,null,null,null,null,null,null,6,6,null,null,null,null,null,null,null,6,6,null,null,null,null,null,null,null,6,6,null,null,null,null,null,null,null]
+            data: [3,3,null,null,null,null,null,null,null,3,3,null,null,null,null,null,null,null,3,3,null,null,null,null,null,null,null,3,3,null,null,null,null,null,null,null,3,3,null,null,null,null,null,null,null,3,3,null,null,null,null,null,null,null,3,3,null,null,null,null,null,null,null]
         }, {
             name: '一个空调',
-            data: [null,null,null,6,6,null,null,null,null,null,null,null,6,6,null,null,null,null,null,null,null,6,6,null,null,null,null,null,null,null,6,6,null,null,null,null,null,null,null,6,6,null,null,null,null,null,null,null,6,6,null,null,null,null,null,null,null,6,6,null,null,null,null]
+            data: [null,null,null,3,3,null,null,null,null,null,null,null,3,3,null,null,null,null,null,null,null,3,3,null,null,null,null,null,null,null,3,3,null,null,null,null,null,null,null,3,3,null,null,null,null,null,null,null,3,3,null,null,null,null,null,null,null,3,3,null,null,null,null]
         }, {
             name: '二个空调',
-            data: [null,null,6,null,null,null,null,null,null,null,null,6,null,null,null,null,null,null,null,null,6,null,null,null,null,null,null,null,null,6,null,null,null,null,null,null,null,null,6,null,null,null,null,null,null,null,null,6,null,null,null,null,null,null,null,null,6,null,null,null,null,null,null]
+            data: [null,null,3,null,null,null,null,null,null,null,null,3,null,null,null,null,null,null,null,null,3,null,null,null,null,null,null,null,null,3,null,null,null,null,null,null,null,null,3,null,null,null,null,null,null,null,null,3,null,null,null,null,null,null,null,null,3,null,null,null,null,null,null]
         }]
+
 
     });
 
