@@ -9,9 +9,9 @@
 
       <div class="n-nav-left">
         <ul>
-          <li class="current"><a href="/ammeter"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">录入电表 - 杉实环境</span></a></li>
+          <li><a href="/ammeter"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">录入电表 - 杉实环境</span></a></li>
           <li><a href="/ammeterList"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">查看电表 - 杉实环境</span></a></li>
-          <li><a href="/ammeter-bak"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">录入备用电表 - 杉实环境</span></a></li>
+          <li class="current"><a href="/ammeter-bak"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">录入备用电表 - 杉实环境</span></a></li>
           <li><a href="/ammeterList-bak"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">查看备用电表 - 杉实环境</span></a></li>
           <li><a href="/ammeter-other"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">录入电表 - 用能公司</a></li>          
           <li><a href="/ammeterList-other"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">查看电表 - 用能公司</a></li>
@@ -19,7 +19,7 @@
       </div>
 
       <div class="n-right-content">
-        <h4 class="tab-to-title">录入电表 - 杉实环境</h4>
+        <h4 class="tab-to-title">录入备用电表 - 杉实环境</h4>
         <div class="n-check-area">
           <div class="input-group-item clearfix">
             <span class="name">基站名称：</span>
@@ -35,7 +35,7 @@
           <hr/>
           <div style="display:none" id="biao">
           <div class="input-group-item clearfix">
-            <span class="name">电表采集值：</span>
+            <span class="name">备用电表采集值：</span>
             <span class="name" id="owndu"></span>
           </div>
           <div class="input-group-item clearfix">
@@ -89,7 +89,7 @@ $(function () {
                 r:new Date().getTime(),
             	start:0,
 		end:15,
-                is_bak:0
+                is_bak:1
 	},function(d){
           
 	   var data = d.data;
@@ -144,7 +144,7 @@ $('#create').click(function(){
           readTime:$('#readTime').val(),
           own:$('#own').val(), 
           du:$('#du').val(),
-          is_bak:0
+          is_bak:1
 	},function(d){
 		if(d.code == 0){
                     alert('抄表成功');

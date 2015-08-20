@@ -12,7 +12,7 @@ class PowerAmmeterChinamobileMySqlExtDAO extends PowerAmmeterChinamobileMySqlDAO
             //查询是否是管理员
             $a=DAOFactory::getPowerAccountDAO()->load($user_id);
             if($a->accoutType==1) $where="";  
-            $sql = "SELECT * FROM power_ammeter_chinamobile ".$where." order by ammeter_id desc limit ".$start.','.$end;		
+            $sql = "SELECT * FROM power_ammeter_chinamobile ".$where." order by station_id,ammeter_id desc limit ".$start.','.$end;		
             $sqlQuery = new SqlQuery($sql);
             return $this->getList($sqlQuery);
 	}
@@ -26,6 +26,12 @@ class PowerAmmeterChinamobileMySqlExtDAO extends PowerAmmeterChinamobileMySqlDAO
             $sql = "SELECT * FROM power_ammeter_chinamobile ".$sql." order by ammeter_id desc limit ".$start.','.$end;		
             $sqlQuery = new SqlQuery($sql);
             return $this->getList($sqlQuery);
+        }
+        public function lastRow($stationId){                     
+           $sql = "SELECT * FROM power_ammeter_chinamobile where station_id=".$stationId." order by ammeter_id desc";         
+            $sqlQuery = new SqlQuery($sql);
+            $result=$this->execute($sqlQuery);
+            return $result[0];
         }
 	
 }

@@ -9,8 +9,10 @@
       <div class="n-nav-left">
         <ul>
           <li><a href="/ammeter"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">录入电表 - 杉实环境</span></a></li>
+          <li><a href="/ammeterList"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">查看电表 - 杉实环境</span></a></li>      
+          <li><a href="/ammeter-bak"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">录入备用电表 - 杉实环境</span></a></li>
+          <li><a href="/ammeterList-bak"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">查看备用电表 - 杉实环境</span></a></li>
           <li class="current"><a href="/ammeter-other"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">录入电表 -用能公司</a></li>
-          <li><a href="/ammeterList"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">查看电表 - 杉实环境</span></a></li>
           <li><a href="/ammeterList-other"><span class="glyphicon glyphicon-grain" aria-hidden="true"></span><span class="vl-m">查看电表 - 用能公司</a></li>
 
         </ul>
