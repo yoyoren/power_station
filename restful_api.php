@@ -602,6 +602,14 @@ $app->get('/station/getbyname', function () use ($app) {
 	restful_response(RES_SUCCESS,$data);
 });
 
+//获得基站月报的数据
+$app->post('/station/delete', function () use ($app) {
+	restful_api_auth();
+	$id = param_check('id');
+	$data = StationHandler::del_station($id);
+	restful_response(RES_SUCCESS,$data);
+});
+
 //获得告警的数据
 $app->get('/warning/list', function () use ($app) {
 	restful_api_auth();

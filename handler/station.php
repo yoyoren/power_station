@@ -746,8 +746,9 @@
 			return $data[0];
 		}
 		
-		public static function remove(){
-			
+		public static function del_station($id){
+			$dao = new PowerBaseStationMySqlExtDAO();
+			$data = $dao->delStation($id);
 		}
 	}
 ?>
