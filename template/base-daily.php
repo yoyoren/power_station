@@ -173,6 +173,7 @@ $(function () {
 			air_1_status.push(null);
 			air_2_status.push(null);
 		}
+		
 		for(var key in window.data){
 			try{
 				window.data[key] =  window.data[key].reverse();
@@ -239,7 +240,23 @@ $(function () {
 				name: '二个空调',
 				data: air_2_status}]
 		});
+		var powerdata = window.data['power_all'];
+		var dcdata = window.data['power_dc'];
+		var last = time[time.length - 1];
+		var dateprefix = [new Date().getFullYear() , new Date().getMonth()+1 , new Date().getDate()].join('-');
+		var now = new Date(dateprefix + ' ' +last).getTime();
+		var end = new Date(dateprefix + ' 23:59').getTime();
+		var need = (end - now) /(60*1000);
+		
+		for(var i=0;i<need;i++){
+			now += (60*1000);
+			time.push(new Date(now).getHours()+':' + new Date(now).getMinutes());
+			dcdata.push(0);
+			powerdata.push(0);
+		}
+		window.step = parseInt(powerdata.length / 24);
 
+		
 		$('#container').highcharts({
 			chart: {
 				type: 'area'
@@ -287,10 +304,10 @@ $(function () {
 			},
 			series: [ {
 				name: '总功率',
-				data: window.data['power_all']
+				data: powerdata
 			},{
 				name: 'DC功率',
-				data: window.data['power_dc']
+				data: dcdata
 			}]
 		});
 
