@@ -116,12 +116,12 @@ $(function () {
 
 	$('#prev_day').click(function(){
 		window.currentTime -= 24* 60 *60;
-		refresh(window.currentTime);
+		refresh(window.currentTime*1000);
 	});
 
 	$('#next_day').click(function(){
 		window.currentTime += 24* 60 *60;
-		refresh(window.currentTime);
+		refresh(window.currentTime*1000);
 	});
 
 
@@ -180,7 +180,7 @@ $(function () {
 
 			}
 		}
-		window.step = parseInt(window.data.power_all.length / 20);
+		window.step = parseInt(window.data.power_all.length / 24);
 		time = time.reverse();
 		colse_status = colse_status.reverse();
 		fan_status = fan_status.reverse();

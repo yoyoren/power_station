@@ -140,10 +140,10 @@
 
   </div>
   <script>
-	var startTime =  new Date('2015-08-01').getTime();
+	var startTime =  new Date('2015-08-19').getTime();
 	var currentTime = new Date().getTime();
 
-	var start_num = (698421.87 + ((currentTime - startTime) /1000) * 0.19).toFixed(2);
+	var start_num = (855917 + ((currentTime - startTime) /1000) * 0.03733572).toFixed(2);
 	var old_num = 0;
 	var timer = 0;
 	var cal = function(start_num){
