@@ -24,7 +24,7 @@ background-color: #fff;}
 .n-logout .name{color: #e8da33;}
 .n-logout .func{color: #fff; margin-left: 20px; text-decoration: underline;}
 
-.n-container{height: 100%; position: relative; padding-left: 220px;}
+.n-container{height: 100%; position: relative; padding-left: 220px; background-color: #f5f5f5;}
 
 .n-nav-left{width: 200px; position: absolute; left: 0; top:0; background: #2c2e2f; height: 100%;}
 .n-nav-left li{height: 50px; line-height: 50px;  padding-left: 30px; }
@@ -56,9 +56,10 @@ background-color: #fff;}
 /* 右边主内容区 */
 
 .n-right-content{height: 100%; overflow: auto; padding-right: 20px;}
+.n-right-content-inner{background:#fff; margin:20px 0; padding:20px;}
 .pagination{margin: 0; margin-bottom: 20px;}
 
-.tab-to-title{margin: 0; padding: 20px 0; border-bottom: 1px solid #ddd; margin-bottom: 20px;}
+.tab-to-title{margin: 0; padding: 0 0 20px 0; border-bottom: 1px solid #ddd; margin-bottom: 20px;}
 
 .n-check-area{padding: 20px; margin-bottom: 20px;}
 

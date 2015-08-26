@@ -1,0 +1,16 @@
+/* 电表手机版css */
+@media screen and (max-width: 640px) {
+.n-logo,
+.n-head-nav,
+.n-nav-left{display:none;}
+.n-container{padding:10px;}
+.input-group-item .name{width:auto; float:none;}
+.input-group-item .form-control{float:none; width:300px; display:block;}
+.n-right-content{padding-right:0;}
+.n-right-content-inner{margin:0; padding:10px;}
+.n-check-area{padding:0;}
+.input-group-item{width:auto;}
+.input-group-item.tl-r{text-align:left;}
+.tab-to-title{padding-bottom:10px; margin-bottom:0;}
+table{font-size:12px;}
+}

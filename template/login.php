@@ -8,7 +8,7 @@
     <link href="/static/src/css/login.css" rel="stylesheet">
 	  <script src="/static/src/js/jquery.js"></script>
     <style type="text/css">
-body{background:#f5f5f5;}
+body{background:#fff;}
     </style>
   </head>
 

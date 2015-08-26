@@ -11,6 +11,8 @@
 	  <script>$('#nav_base_6').addClass('current');</script>
 
       <div class="n-right-content">
+      <div class="n-right-content-inner">
+
         <h4 class="tab-to-title">基站编辑</h4>
         <div class="current-name-area clearfix">
           <span class="vl-m fl-l name"><b><?php echo $station['info']->stationSeriseCode; ?></b>基站</span>
@@ -66,7 +68,7 @@
                 <td class="td-to-th">项目</td>
                 <td>
                   <select id="station_project">
-					<?php 
+					<?php
 					for($i=0;$i<count($station['project_list']);$i++){
 						echo '<option value="'.$station['project_list'][$i]->projectId.'">'.$station['project_list'][$i]->projectName.'</option>';
 					}
@@ -82,7 +84,7 @@
               <tr>
                 <td class="td-to-th">省</td>
                 <td><select id="province">
-				<?php 
+				<?php
 					for($i=0;$i<count($station['province_list']);$i++){
 						echo '<option value="'.$station['province_list'][$i]->code.'">'.$station['province_list'][$i]->name.'</option>';
 					}
@@ -247,6 +249,7 @@
         </div>
 
       </div>
+      </div>
 
     </div>
 
@@ -338,7 +341,7 @@ $('#create_button').click(function(){
 	var lng = $('#lng').val();
 	var create_time = $('#station_createtime').val();
 	create_time = new Date(create_time).getTime() / 1000;
-	
+
 	//设备信息
 	var air_condition_num = $('#air_condition_num').val();
 	var tempature_out_side = $('#tempature_out_side').val();
@@ -348,7 +351,7 @@ $('#create_button').click(function(){
 	var cabinet_num = $('#cabinet_num').val();
 	var battery_type = $('#battery_type').val();
 	var air_condition_tempature = $('#air_condition_tempature').val();
-	
+
 	//节能信息
 	var price = $('#price').val();
 	var ammeter_num = $('#ammeter_num').val();
@@ -362,7 +365,7 @@ $('#create_button').click(function(){
 	var building_type = $('#building_type').val();
 	var ration = $('#ration').val();
 	var energy_type = $('#energy_type').val();
-	
+
 	$post('/station/update',{
 	  station_id:stationId,
 	  project:project,

@@ -9,6 +9,7 @@
       <?php include ('include/nav_account.php')?>
 	  <script>$('#account_nav_1').addClass('current');</script>
       <div class="n-right-content">
+      <div class="n-right-content-inner">
         <h4 class="tab-to-title">创建项目</h4>
 
         <div class="n-check-area" style="border:0 none;">
@@ -26,7 +27,7 @@
           </div>
 
         </div>
-		
+
         <h4 class="tab-to-title">项目管理</h4>
         <table class="table table-bordered table-striped">
           <thead>
@@ -40,6 +41,7 @@
         </table>
       </div>
 
+    </div>
     </div>
 
   </div>
@@ -74,7 +76,7 @@ $get('/project/list',{
 	   var html = '';
 	   for(var i=0;i<data.length;i++){
 	      html += '<tr><td>'+data[i].id+'</td><td data-id="'+data[i].id+'">'+data[i].projectName+'</td><td><button type="button" class="btn btn-default project_del" data-id="'+data[i].id+'">删除</button></td></tr>';
-	   }	   
+	   }
 	   project_list.html(html);
 	});
 $('#create').click(function(){

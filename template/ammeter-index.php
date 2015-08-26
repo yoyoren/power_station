@@ -2,6 +2,7 @@
 <html>
  <?php include ('include/head_script.php')?>
 <body>
+<link rel="stylesheet" type="text/css" href="/static/src/css/main-for-wap.css">
   <div class="n-layout">
     <?php include ('include/header.php')?>
 
@@ -16,6 +17,7 @@
       </div>
 
       <div class="n-right-content">
+      <div class="n-right-content-inner">
         <h4 class="tab-to-title">录入电表 - 杉实环境</h4>
         <div class="n-check-area">
           <div class="input-group-item clearfix">
@@ -53,10 +55,10 @@
               <th>基站名称</th>
               <th>采集时间</th>
               <th>录入值</th>
-              <th>电表值</th>  
+              <th>电表值</th>
               <th>最新E值</th>
               <th>录入人</th>
-              <th>录入时间</th>             
+              <th>录入时间</th>
               <th>操作</th>
             </tr>
           </thead>
@@ -66,6 +68,7 @@
           </tbody>
         </table>
 
+      </div>
       </div>
 
     </div>
@@ -78,8 +81,8 @@
 $(function () {
     $(".form_datetime").datetimepicker({
       format: 'yyyy-mm-dd h:i',
-      language: 'cn',    
-      autoclose:true, 
+      language: 'cn',
+      autoclose:true,
     });
         //显示所有项目名称
     	$get('/ammeter/ownList',{
@@ -87,7 +90,7 @@ $(function () {
             	start:0,
 		end:15
 	},function(d){
-          
+
 	   var data = d.data;
 	   var html = '';
 		for (var i=0;i<data.length;i++){
@@ -101,13 +104,13 @@ $(function () {
 					<td><button type=button class=\"btn btn-default\" onclick=del('+_d.ammeterId+')>删除</button></td></tr>';
 		}
             $('#content').html(html);
-     });       
-           
+     });
+
 });
 $('#show').click(function(){
 	$.post('/ammeter/otherShow',{
 	  stationName:$('#stationName').val(),
-          readTime:$('#readTime').val(),        
+          readTime:$('#readTime').val(),
 	},function(d){
 		if(d.code == 0){
                     $('#biao').show();
@@ -124,7 +127,7 @@ $('#create').click(function(){
 	$.post('/ammeter/ownAdd',{
 	  stationId:$('#stationId').val(),
           readTime:$('#readTime').val(),
-          own:$('#own').val(), 
+          own:$('#own').val(),
           du:$('#du').val(),
 	},function(d){
 		if(d.code == 0){
@@ -147,7 +150,7 @@ function del(id){
                     alert('基站名称有误');
                 }
 	},'json');
-    
+
 }
 </script>
 </html>

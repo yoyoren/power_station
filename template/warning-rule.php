@@ -18,6 +18,7 @@
 .data-data p{height: 20px; margin-bottom: 4px;}
 </style>
       <div class="n-right-content">
+      <div class="n-right-content-inner">
         <h4 class="tab-to-title">告警策略管理</h4>
 
         <table class="table table-bordered">
@@ -121,6 +122,7 @@
           </tbody>
         </table>
 
+      </div>
       </div>
 
     </div>

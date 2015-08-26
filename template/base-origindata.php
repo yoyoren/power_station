@@ -9,6 +9,7 @@
 	  <?php include ('include/nav_base.php')?>
 	  <script>$('#nav_base_5').addClass('current');</script>
       <div class="n-right-content">
+      <div class="n-right-content-inner">
         <h4 class="tab-to-title">原始数据</h4>
 		<div class="alert alert-success" role="alert" id="loading_tip">
 		  <strong></strong> 数据正在加载...
@@ -46,7 +47,7 @@
 
           </div>
           <table class="table table-bordered">
-            
+
               <tr>
                 <th>采集时间</th>
                 <th>室内温度</th>
@@ -88,7 +89,7 @@
             </tbody>
           </table>
 
-
+        </div>
         </div>
       </div>
 
@@ -99,37 +100,37 @@
 <script type="text/javascript" src="/static/src/js/datepicker/bootstrap-datetimepicker.js"></script>
 
 <script type="text/javascript">
-function getNowFormatDate(day) { 
+function getNowFormatDate(day) {
 	day = new Date(day);
-	var Year = 0; 
-	var Month = 0; 
-	var Day = 0; 
-	var CurrentDate = ""; 
+	var Year = 0;
+	var Month = 0;
+	var Day = 0;
+	var CurrentDate = "";
 
 	Year= day.getFullYear();
-	Month= day.getMonth()+1; 
-	Day = day.getDate(); 
-	CurrentDate += Year + "-"; 
-	if (Month >= 10 ) 
-	{ 
-	CurrentDate += Month + "-"; 
-	} 
-	else 
-	{ 
-	CurrentDate += "0" + Month + "-"; 
-	} 
-	if (Day >= 10 ) 
-	{ 
-	CurrentDate += Day ; 
-	} 
-	else 
-	{ 
-	CurrentDate += "0" + Day ; 
-	} 
+	Month= day.getMonth()+1;
+	Day = day.getDate();
+	CurrentDate += Year + "-";
+	if (Month >= 10 )
+	{
+	CurrentDate += Month + "-";
+	}
+	else
+	{
+	CurrentDate += "0" + Month + "-";
+	}
+	if (Day >= 10 )
+	{
+	CurrentDate += Day ;
+	}
+	else
+	{
+	CurrentDate += "0" + Day ;
+	}
 
 	CurrentDate+= ' ' + day.getHours() + ':' + day.getMinutes();
-	return CurrentDate; 
-} 
+	return CurrentDate;
+}
 $(function () {
     $(".form_datetime").datetimepicker({
       language: 'cn',
@@ -144,7 +145,7 @@ $(function () {
 				var openStatus = function(status){
 					return status ==1?'开':'关';
 				}
-				
+
 				var valueVaild = function(val){
 					return val == 255?'N/A':val;
 				}
@@ -169,7 +170,7 @@ $(function () {
 			}
 			$('#data_container').html(html);
 	}
-	
+
 	$('#query_button').click(function(){
 		var time = $('#query_date').val();
 		time = new Date(time).getTime();

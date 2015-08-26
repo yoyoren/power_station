@@ -11,10 +11,11 @@
 	  <script>$('#nav_base_2').addClass('current');</script>
 
       <div class="n-right-content">
+      <div class="n-right-content-inner">
         <h4 class="tab-to-title">日报数据</h4>
-		<div class="alert alert-success" role="alert" id="loading_tip">
-		  <strong></strong> 数据正在加载...
-		</div>
+    		<div class="alert alert-success" role="alert" id="loading_tip">
+    		  <strong></strong> 数据正在加载...
+    		</div>
         <div class="current-name-area clearfix">
           <span class="vl-m fl-l name"><b>001</b>基站</span>
 
@@ -76,6 +77,7 @@
           <div id="container" class="data-container"  style="min-width: 310px; height: 400px;"></div>
 
           <div id="container2" class="data-container"  style="min-width: 310px; height: 400px;"></div>
+        </div>
         </div>
       </div>
 

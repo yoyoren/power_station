@@ -29,11 +29,18 @@
                 }
             });
 
+            setInterval(function(){
+              $("#name").trigger('click');
+            },120000);
+
+
+
         });
 
     </script>
 <style type="text/css">
   body{background: #f5f5f5;}
+  .panel{background: none; margin-bottom: 10px;}
   .panel-con{padding: 10px 20px; overflow: hidden;}
   .panel.panel-success .panel-heading {
     background-color: #8dc63f;
@@ -55,18 +62,25 @@
     background-color: #d5080f;
     color: #ffffff;
   }
-  .panel{display: inline-block; width: 280px; margin: 10px;
-  border-radius: 0; box-shadow: none; border: 0 none; float: left; height: 140px;}
+  .panel{display: inline-block; width: 20%; padding: 10px;
+  border-radius: 0; box-shadow: none; border: 0 none; float: left; height: 160px;}
+  .panel-body{padding: 10px; background-color: #fff;}
   .panel .panel-heading{border-radius: 0; border: 0 none;}
 
   .test{display: inline-block; width: 100px; height: 100px; border: 1px solid #eee;}
-  .itemUL{width: 1200px; margin: 0 auto;}
+  .itemUL{width: 100%; margin: 0 auto;}
   .itemUL li{text-align: left;}
  .bar{overflow: hidden;}
   .bar li a{display: inline-block; background: #ddd; color: #333; padding: 10px; float: left; margin-right: 20px;}
 </style>
 </head>
 <body>
+<ul class="bar" style="display:none;">
+    <li class="current"><a href="#" id="visit">排一下</a></li>
+    <li><a href="#" id="name">排一下</a></li>
+    <li><a href="#" id="date">排一下</a></li>
+</ul>
+
 <div id="portfolio">
 <div style="clear:both">
    <ul id="itemUL" class="itemUL">
