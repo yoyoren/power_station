@@ -8,7 +8,8 @@
     <div class="n-container">
       <div class="n-nav-left">
         <ul>
-          <li class="current"><a href="javascript:void(0);"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">基站列表</span></a></li>
+          <li class="current"><a href="/base"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">基站列表</span></a></li>
+		  <li><a href="/base/map"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">基站地图</span></a></li>
         </ul>
       </div>
       <div class="n-right-content">

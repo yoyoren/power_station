@@ -63,6 +63,12 @@ $app->get('/base', function () use ($app) {
 	$app->render('base-index.php',array());
 });
 
+//基站地图
+$app->get('/base/map', function () use ($app) {
+	pageview_api_auth();
+	$app->render('base-map.php',array());
+});
+
 //基站当前状态
 $app->get('/base/status/:id', function ($id) use ($app) {
 	pageview_api_auth();
