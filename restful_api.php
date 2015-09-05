@@ -715,6 +715,22 @@ $app->get('/address/district', function () {
 	}
 });
 
+$app->get('/remote/get', function () {
+	$id = param_check_get('id');
+	$ip = "192.168.88.133";
+	$name = "redwoodsh";
+	$res = snmpget($ip,$name, "1.3.6.1.4.1.682.1.".$id.".0");
+	restful_response(RES_SUCCESS,$res);
+});
+
+$app->get('/remote/walk', function () {
+	$id = param_check_get('id');
+	$ip = "192.168.88.133";
+	$name = "redwoodsh";
+	$res = snmpwalk($ip,$name, "1.3.6.1.4.1.682.1.".$id);
+});
+ 
+ 
 //显示天气
 $app->get('/weather/show', function () {
      global $app;
