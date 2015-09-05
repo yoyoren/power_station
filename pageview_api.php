@@ -10,6 +10,14 @@ global $response_body;
 		header("Location: /login");
 		die();
 	}
+	//echo $_SERVER['REQUEST_URI'];
+	
+	//工程人员只能到这个电表页面
+	if($_COOKIE['user_type'] == 4){
+		if($_SERVER['REQUEST_URI']!='/ammeter'){
+			header("Location: /ammeter");
+		}
+	}
  }
 $app->get('/', function () use ($app) {
 	pageview_api_auth();

@@ -85,6 +85,7 @@
               <option value="1">管理员</option>
               <option value="2">普通用户</option>
               <option value="3">局方用户</option>
+			  <option value="4">工程人员</option>
             </select>
           </div>
           <div class="input-group-item clearfix project_list" id="add_project_list">
@@ -122,6 +123,7 @@
               <option value="1">管理员</option>
               <option value="2">普通用户</option>
               <option value="3">局方用户</option>
+			  <option value="4">工程人员</option>
             </select>
           </div>
           <div class="input-group-item clearfix project_list" id="edit_project_list">
@@ -144,7 +146,8 @@
 	var USER_TYPE = {
 		1:'超级管理员',
 		2:'普通用户',
-		3:'局方用户'
+		3:'局方用户',
+		4:'工程人员'
 	}
 	var USE_PROJECT ={
 

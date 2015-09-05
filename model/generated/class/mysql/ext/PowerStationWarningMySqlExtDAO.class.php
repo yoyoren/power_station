@@ -40,5 +40,13 @@ class PowerStationWarningMySqlExtDAO extends PowerStationWarningMySqlDAO{
 		$sqlQuery = new SqlQuery($sql);
 		return $this->getList($sqlQuery);
 	}
+	
+	public function check_rencent($type,$stationId){
+		$sql = 'SELECT * FROM power_station_warning WHERE warning_type = ? AND station_id = ? limit 0,1';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($type);
+		$sqlQuery->setNumber($stationId);
+		return $this->getList($sqlQuery);
+	}
 }
 ?>

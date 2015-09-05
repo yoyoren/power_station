@@ -72,14 +72,14 @@
             </tr>
             <tr>
               <th>板房</th>
-             <td><a href="/base"><?php echo $station_num_2[0]?>（台）</a></td>
-            <td><a href="/base"><?php echo $station_num_2[1]?>（台）</a></td>
-            <td><a href="/base"><?php echo $station_num_2[2]?>（台）</a></td>
-            <td><a href="/base"><?php echo $station_num_2[3]?>（台）</a></td>
-            <td><a href="/base"><?php echo $station_num_2[4]?>（台）</a></td>
-            <td><a href="/base"><?php echo $station_num_2[5]?>（台）</a></td>
-            <td><a href="/base"><?php echo $station_num_2[6]?>（台）</a></td>
-            <td><a href="/base"><?php echo $station_num_2[7]?>（台）</a></td>
+             <td><a href="/base?building=2&energy=1"><?php echo $station_num_2[0]?>（台）</a></td>
+            <td><a href="/base?building=2&energy=2"><?php echo $station_num_2[1]?>（台）</a></td>
+            <td><a href="/base?building=2&energy=3"><?php echo $station_num_2[2]?>（台）</a></td>
+            <td><a href="/base?building=2&energy=4"><?php echo $station_num_2[3]?>（台）</a></td>
+            <td><a href="/base?building=2&energy=5"><?php echo $station_num_2[4]?>（台）</a></td>
+            <td><a href="/base?building=2&energy=6"><?php echo $station_num_2[5]?>（台）</a></td>
+            <td><a href="/base?building=2&energy=7"><?php echo $station_num_2[6]?>（台）</a></td>
+            <td><a href="/base?building=2&energy=8"><?php echo $station_num_2[7]?>（台）</a></td>
 
             </tr>
           </table>

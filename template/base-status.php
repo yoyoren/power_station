@@ -48,7 +48,7 @@
                 <tr>
                   <td>
                     高温<br/>
-                    <b><?php echo $weather->h_tmp;?>℃</b>
+                    <b><?php echo $weather->h_tmp == 327.68? 'N/A':$weather->h_tmp;?>℃</b>
                   </td>
                   <td>
                     低温<br/>
@@ -229,24 +229,53 @@ jQuery(document).ready(function($)
     });
   }
   draw_1($('#inside_display'),window.device_status.temperatureInside);
-  $('#inside_tmp').html(window.device_status.temperatureInside+'℃');
+  if(window.device_status.temperatureInside == 327.68){
+	$('#inside_tmp').html('N/A');
+  }else{
+	$('#inside_tmp').html(window.device_status.temperatureInside+'℃');
+  }
+  
   
   draw_1($('#outside_display'),window.device_status.temperatureOutside);
-  $('#outside_tmp').html(window.device_status.temperatureOutside+'℃');
+  if(window.device_status.temperatureOutside == 327.68){
+	$('#outside_tmp').html('N/A');
+  }else{
+	$('#outside_tmp').html(window.device_status.temperatureOutside+'℃');
+  }
+ 
   
   draw_1($('#air_1_display'),window.device_status.temperatureAircondition1);
-  $('#air_1_tmp').html(window.device_status.temperatureAircondition1+'℃');
+  if(window.device_status.temperatureAircondition1 == 327.68){
+	$('#air_1_tmp').html('N/A');
+  }else{
+	$('#air_1_tmp').html(window.device_status.temperatureAircondition1+'℃');
+  }
+  
   
   draw_1($('#air_2_display'),window.device_status.temperatureAircondition2);
-  $('#air_2_tmp').html(window.device_status.temperatureAircondition2+'℃');
+  if(window.device_status.temperatureAircondition2 == 327.68){
+	$('#air_2_tmp').html('N/A');
+  }else{
+	$('#air_2_tmp').html(window.device_status.temperatureAircondition2+'℃');
+  }
   
   draw_1($('#inside_hum_display'),window.device_status.wetInside);
-  $('#inside_hum').html(window.device_status.wetInside + '%');
-  $('#outside_hum').html(window.device_status.wetOutside  + '%');
-  // CPU Usage Gauge
-  draw_1($('#cabint_display'),window.device_status.temperatureCabinet);
-  $('#cabint_tmp').html(window.device_status.temperatureCabinet+'℃');
   
+  if(window.device_status.wetInside == 255){
+	$('#inside_hum').html('N/A');
+  }else{
+	$('#inside_hum').html(window.device_status.wetInside + '%');
+  }
+  
+  //$('#outside_hum').html(window.device_status.wetOutside  + '%');
+  // CPU Usage Gauge
+  
+  draw_1($('#cabint_display'),window.device_status.temperatureCabinet);
+  if(window.device_status.temperatureCabinet == 327.68){
+	$('#cabint_tmp').html('N/A');
+  }else{
+	$('#cabint_tmp').html(window.device_status.temperatureCabinet+'℃');
+  }
   
   if(window.device_status.deviceStatus1 == '1'){
 	$("#device_air_1").find('.open').show();

@@ -119,6 +119,7 @@ $app->post('/account/signin', function () {
 	$result = AccountHandler::sign_in($accountName,$accountPassword);
 	global $app;
 	$expire_time = time() + 7200;
+	$app->setCookie('user_type', $result['data']->accoutType,$expire_time );
 	$app->setCookie('user_id', $result['data']->accountId,$expire_time );
 	$app->setCookie('user_name', $result['data']->accountName,$expire_time);
 	$app->setCookie('pass_token', $result['pass_token'],$expire_time);
@@ -146,6 +147,8 @@ $app->get('/account/islogin', function () {
 $app->get('/account/logout', function () {
      global $app;
 	 $use_id = $_COOKIE['user_id'];
+	 $app->deleteCookie('user_name');
+	 $app->deleteCookie('user_type');
 	 $app->deleteCookie('user_id');
 	 $app->deleteCookie('pass_token');
 	 
