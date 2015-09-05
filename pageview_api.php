@@ -144,7 +144,8 @@ $app->get('/base/year/:id', function ($id) use ($app) {
 //远程控制
 $app->get('/base/remote/:id', function ($id) use ($app) {
 	pageview_api_auth();
-	$app->render('base-remote.php',array('id'=>$id));
+	$station = StationHandler::get_one_detail($id);
+	$app->render('base-remote.php',array('id'=>$id,'station'=>$station));
 });
 
 //原始数据

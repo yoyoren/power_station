@@ -638,6 +638,15 @@ $app->get('/warning/query', function () {
 	restful_response(RES_SUCCESS,$data);
 });
 
+//按条件检索告警
+$app->get('/warning/test', function () {
+	restful_api_auth();
+	$type = 8;
+	$id = 209;
+	$data = StationHandler::warning_test($id,$type);
+	restful_response(RES_SUCCESS,$data);
+});
+
 //新建项目
 $app->post('/project/add', function () {
 	restful_api_auth();
@@ -728,6 +737,7 @@ $app->get('/remote/walk', function () {
 	$ip = "192.168.88.133";
 	$name = "redwoodsh";
 	$res = snmpwalk($ip,$name, "1.3.6.1.4.1.682.1.".$id);
+	restful_response(RES_SUCCESS,$res);
 });
  
  

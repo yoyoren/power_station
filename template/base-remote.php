@@ -13,17 +13,10 @@
       <div class="n-right-content">
         <h4 class="tab-to-title">远程配置</h4>
         <div class="current-name-area clearfix">
-          <span class="vl-m fl-l name"><b>001</b>基站</span>
+          <span class="vl-m fl-l name"><b><?php echo $station['info']->stationName;?> </b>基站</span>
 
           <div class="fl-r">
-            <div class="btn-group">
-              <button type="button" class="btn btn-default">
-                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><span class="vl-m">前一个基站</span>
-              </button>
-              <button type="button" class="btn btn-default">
-                <span class="vl-m">后一个基站</span><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-              </button>
-            </div>
+            <?php include ('include/base_top_switch.php')?>
           </div>
 
         </div>
@@ -152,7 +145,37 @@
 			  <td><button data-id="21">查询</button></td>
           </tr>
 		  </table>
-        </div>
+		  <div>接口表 <button id="api_table_button">查询</button></div>
+		  <table id="w1_table" class="table table-bordered table-striped" role="grid">
+			  <thead>
+				<tr>
+				  <th></th>
+				  <th>ifName</th>
+				  <th>ifStatus</th>
+				  <th>ifCfgStatus</th>
+				  <th>ifValue</th>
+				  <th>ifFile</th>
+				  <th>ifFunc</th>
+				</tr>
+			  </thead>
+		  </table>
+		  
+		  <div>软件升级表 <button id="update_table_button">查询</button></div>
+		  <table id="w2_table" class="table table-bordered table-striped" role="grid">
+			  <thead>
+				<tr>
+				  <th></th>
+				  <th>operId</th>
+				  <th>operOrder</th>
+				  <th>operTime</th>
+				  <th>operState</th>
+				  <th>operInfo</th>
+				  <th>operRowStatus</th>
+				</tr>
+			  </thead>
+		  </table>
+        
+		</div>
 
       </div>
 
@@ -165,6 +188,24 @@
 $('#get_table').find('button').click(function(){
 	var id = $(this).data('id');
 	$get('/remote/get',{
+		id:id
+	},function(d){
+		
+	});
+});
+
+$('#api_table_button').click(function(){
+	var id = 22;
+	$get('/remote/walk',{
+		id:id
+	},function(d){
+		
+	});
+});
+
+$('#update_table_button').click(function(){
+	var id = 23;
+	$get('/remote/walk',{
 		id:id
 	},function(d){
 		
