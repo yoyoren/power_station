@@ -575,6 +575,48 @@
 			return $res;
 		}
 		
+		//月报数据
+		public static function get_one_month_ration($stationId=1,$start_time=0){
+			$dao =  new PowerBaseStationRuningDataMySqlExtDAO();
+			$res = array();
+			if($start_time == 0 || $start_time == NULL){
+				$start_time = date("Y-m",time());
+				$start_time = strtotime($start_time);
+			}
+			$end_time = $start_time + 24*60*60*30;
+			$data = $dao->get_one_month_status($stationId,$start_time,$end_time);
+			$counts = count($data);
+			$all_off = 0;
+			$one_open = 0;
+			$two_open = 0;
+			$fan_open = 0;
+			for($i = 0;$i<$counts;$i++){
+				$_d = $data[$i];
+				if($_d->deviceStatus2 == '1'){
+					$two_open++;
+					continue;
+				}
+				
+				if($_d->deviceStatus1 == '1'){
+					$one_open++;
+					continue;
+				}
+				
+				if($_d->deviceStatusFan == '1'){
+					$fan_open++;
+					continue;
+				}
+				$all_off++;
+			}
+			return array(
+				'all'=>$counts,
+				'fan_open'=>$fan_open,
+				'two_open'=>$two_open,
+				'one_open'=>$one_open,
+				'all_off'=>$all_off
+			);
+		}
+		
 		
 		//按照时间查看基站的原始数据
 		public static function get_origin_data_by_time($stationId=1,$time){

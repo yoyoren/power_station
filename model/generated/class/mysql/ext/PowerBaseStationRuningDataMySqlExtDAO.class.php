@@ -32,6 +32,15 @@ class PowerBaseStationRuningDataMySqlExtDAO extends PowerBaseStationRuningDataMy
 		return $this->getList($sqlQuery);
 	}
 	
+	public function get_one_month_status($stationId,$start_time,$end_time){
+		$sql = 'SELECT * FROM power_base_station_runing_data WHERE station_id = ? AND create_time > ? AND create_time < ? ORDER BY runing_data_id DESC';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($stationId);
+		$sqlQuery->setNumber($start_time);
+		$sqlQuery->setNumber($end_time);
+		return $this->getList($sqlQuery);
+	}
+	
 	// date("y-m-d",$time)
 	
 	//按天为单位获得原始数据

@@ -592,8 +592,20 @@ $app->get('/station/onemonth', function () use ($app) {
 	restful_api_auth();
 	//时间戳
 	$time = param_check_get('time');
+	$id = param_check_get('id');
 	$time = intval($time);
-	$data = StationHandler::get_one_month_status(1,$time);
+	$data = StationHandler::get_one_month_status($id,$time);
+	restful_response(RES_SUCCESS,$data);
+});
+
+//获得基站月报的数据
+$app->get('/station/onemonth/ration', function () use ($app) {
+	restful_api_auth();
+	//时间戳
+	$time = param_check_get('time');
+	$time = intval($time);
+	$id = param_check_get('id');
+	$data = StationHandler::get_one_month_ration($id,$time);
 	restful_response(RES_SUCCESS,$data);
 });
 

@@ -23,8 +23,8 @@
 
 
         <div class="nav-tabs-content">
-          <div class="n-check-area tl-r">
-            <div class="btn-group">
+          <div class="n-check-area tl-r" >
+            <div class="btn-group" style="display:none">
               <button type="button" class="btn btn-default">
                 <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><span class="vl-m">上一个月</span>
               </button>
@@ -79,6 +79,72 @@ $(function () {
 	var currentMonth = new Date((new Date()).getFullYear() +'-' + ((new Date()).getMonth()+1)).getTime()/1000;
 	var renderPage = function(month){
 		var time = currentMonth - 8*3600;
+		$get('/station/onemonth/ration',{
+			time : time,
+			id: window.station.info.stationId
+		},function(d){
+			var all_off = 45.0;
+			var fan = 26.5;
+			var one_open = 16.0;
+			var two_open = 12.5;
+			if(d.code == 0){
+				all_off = parseFloat(((d.data.all_off/d.data.all) * 100).toFixed(2));
+				fan = parseFloat(((d.data.fan_open/d.data.all) * 100).toFixed(2));
+				one_open = parseFloat(((d.data.one_open/d.data.all) * 100).toFixed(2));
+				two_open = parseFloat(((d.data.two_open/d.data.all) * 100).toFixed(2));
+			}
+
+			$('#container').highcharts({
+				chart: {
+					plotBackgroundColor: null,
+					plotBorderWidth: null,
+					plotShadow: false
+				},
+				colors:[
+						'#5cab1c',//全关
+						'#21aed1',//风机
+						'#ed8e28',//一个空调
+						'#ff4400' //两个空调
+				],
+				title: {
+					text: '设备状态启动比例'
+				},
+				tooltip: {
+					pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+				},
+				plotOptions: {
+					pie: {
+						allowPointSelect: true,
+						cursor: 'pointer',
+
+						dataLabels: {
+							enabled: true,
+							format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+							style: {
+								color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+							}
+						}
+					}
+				},
+				series: [{
+					type: 'pie',
+					name: '当月启动比例',
+					data: [
+						['全关',   all_off],
+						['风机',       fan],
+						['一个空调',    one_open],
+						{
+							name: '两个空调',
+							y: two_open,
+							sliced: true,
+							selected: true
+						}
+
+					]
+				}]
+			});
+		});
+		
 		$get('/station/onemonth',{
 			time : time
 		},function(d){
@@ -158,55 +224,7 @@ $(function () {
 	  autoclose:true
     });
 
-    $('#container').highcharts({
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false
-        },
-        colors:[
-                '#5cab1c',//全关
-                '#21aed1',//风机
-                '#ed8e28',//一个空调
-                '#ff4400' //两个空调
-        ],
-        title: {
-            text: '设备状态启动比例'
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-
-                dataLabels: {
-                    enabled: true,
-                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                    style: {
-                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                    }
-                }
-            }
-        },
-        series: [{
-            type: 'pie',
-            name: '当月启动比例',
-            data: [
-                ['全关',   45.0],
-                ['风机',       26.5],
-                ['一个空调',    16.0],
-                {
-                    name: '两个空调',
-                    y: 12.5,
-                    sliced: true,
-                    selected: true
-                }
-
-            ]
-        }]
-    });
+    
 
 });
     </script>
