@@ -57,7 +57,7 @@ class PowerAmmeterMySqlDAO implements PowerAmmeterDAO{
  	 * @param PowerAmmeterMySql powerAmmeter
  	 */
 	public function insert($powerAmmeter){
-		$sql = 'INSERT INTO power_ammeter (station_id, ammeter_normal,read_time, begin_value, end_value, creator_id, create_time, read_value) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO power_ammeter (station_id, ammeter_normal,read_time, begin_value, end_value, creator_id, create_time, read_value, e_value, is_bak) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
 		$sqlQuery->setNumber($powerAmmeter->stationId);
@@ -68,6 +68,8 @@ class PowerAmmeterMySqlDAO implements PowerAmmeterDAO{
 		$sqlQuery->setNumber($powerAmmeter->creatorId);
 		$sqlQuery->setNumber($powerAmmeter->createTime);
                 $sqlQuery->setNumber($powerAmmeter->readValue);
+                $sqlQuery->setNumber($powerAmmeter->eValue);
+                $sqlQuery->setNumber($powerAmmeter->isBak);
 		$id = $this->executeInsert($sqlQuery);	
 		$powerAmmeter->ammeterId = $id;
 		return $id;
@@ -212,6 +214,7 @@ class PowerAmmeterMySqlDAO implements PowerAmmeterDAO{
 		$powerAmmeter->createTime = $row['create_time'];
                 $powerAmmeter->readTime = $row['read_time'];
                 $powerAmmeter->readValue = $row['read_value'];
+                $powerAmmeter->eValue = $row['e_value'];
 		return $powerAmmeter;
 	}
 	

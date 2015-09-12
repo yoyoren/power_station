@@ -190,7 +190,14 @@ $app->get('/ammeterList', function () use ($app) {
 	pageview_api_auth();
 	$app->render('ammeterList-index.php',array());
 });
-
+$app->get('/ammeter-bak', function () use ($app) {
+	pageview_api_auth();
+	$app->render('ammeter-index-bak.php',array());
+});
+$app->get('/ammeterList-bak', function () use ($app) {
+	pageview_api_auth();
+	$app->render('ammeterList-index-bak.php',array());
+});
 $app->get('/ammeter-other', function () use ($app) {
 	pageview_api_auth();
 	$app->render('ammeter-other.php',array());
