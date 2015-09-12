@@ -123,10 +123,10 @@ $(function () {
 							<td>'+openStatus(_d.deviceStatusVentilator)+'</td>\
 							<td>'+[openStatus(_d.deviceStatus1),openStatus(_d.deviceStatus2)].join(',')+'</td>\
 							<td>'+openStatus(_d.workingStatus)+'</td>\
-							<td>'+_d.powerAll+'</td>\
-							<td>'+_d.powerDc+'</td>\
-							<td>'+_d.energyAll+'</td>\
-							<td>'+_d.energyDc+'</td>\
+							<td>'+(_d.powerAll*2*0.035986/1000).toFixed(4)+'kw</td>\
+							<td>'+(_d.powerDc*2*0.035986/1000).toFixed(4)+'kw</td>\
+							<td>'+(_d.energyAll*1000/10733).toFixed(2)+'度</td>\
+							<td>'+(_d.energyDc*1000/10733).toFixed(2)+'度</td>\
 						</tr>';
 			}
 			$('#data_container').html(html);

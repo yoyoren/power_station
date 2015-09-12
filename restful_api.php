@@ -732,6 +732,31 @@ $app->get('/remote/get', function () {
 	restful_response(RES_SUCCESS,$res);
 });
 
+//设置配置ID
+$app->get('/remote/set/id', function () {
+	//CUSHSHPD100640
+	$id = param_check_get('id');
+	$ip = "192.168.88.133";
+	$name = "redwoodsh";
+	$res = snmpset($ip,$name, "1.3.6.1.4.1.682.1.2","string",$id,3,1);
+});
+
+//设置修改节能状态
+$app->get('/remote/set/savestatus', function () {
+	$status = param_check_get('status');
+	$ip = "192.168.88.133";
+	$name = "redwoodsh";
+	$res = snmpset($ip,$name, "1.3.6.1.4.1.682.1.14","string",$status,3,1);
+});
+
+//设置电源开关
+$app->get('/remote/set/engerystatus', function () {
+	$status = param_check_get('status');
+	$ip = "192.168.88.133";
+	$name = "redwoodsh";
+	$res = snmpset($ip,$name, "1.3.6.1.4.1.682.1.4","string",$status,3,1);
+});
+
 $app->get('/remote/walk', function () {
 	$id = param_check_get('id');
 	$ip = "192.168.88.133";
