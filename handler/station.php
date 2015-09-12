@@ -558,15 +558,13 @@
 				$data = $dao->get_one_day_status($stationId,$start_time,$end_time);
 				
 				if($data){
-					$start_data = $data[0];
-					$end_data = $data[count($data) -  1];
+					$end_data = $data[0];
+					$start_data = $data[count($data) -  1];
 					array_push($res,array(
 						'energyAll'=>$end_data->energyAll - $start_data->energyAll,
 						'energyDc'=>$end_data->energyDc - $start_data->energyDc,
 						'powerAll'=>$end_data->powerAll - $start_data->powerAll,
 						'powerDc'=>$end_data->energyAll - $start_data->powerDc,
-						'energyAll'=>$end_data->energyAll - $start_data->energyAll,
-						'energyAll'=>$end_data->energyAll - $start_data->energyAll,
 						'start_time' =>$start_time,
 					));
 				}

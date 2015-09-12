@@ -12,6 +12,9 @@
 
       <div class="n-right-content">
         <h4 class="tab-to-title">月报数据</h4>
+		<div class="alert alert-success" role="alert" id="loading_tip">
+		  <strong></strong> 数据正在加载...
+		</div>
         <div class="current-name-area clearfix">
           <span class="vl-m fl-l name"><b><?php echo $station['info']->stationName;?></b> 基站</span>
 
@@ -37,7 +40,7 @@
             <button type="button" class="btn btn-default" style="margin-left:30px;" id="query_button">确定</button>
 
           </div>
-
+		 
           <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
           <hr>
           <table class="table table-bordered">
@@ -78,6 +81,7 @@ window.station = <? echo json_encode($station)?>
 $(function () {
 	var currentMonth = new Date((new Date()).getFullYear() +'-' + ((new Date()).getMonth()+1)).getTime()/1000;
 	var renderPage = function(month){
+		$('#loading_tip').show();
 		var time = currentMonth - 8*3600;
 		$get('/station/onemonth/ration',{
 			time : time,
@@ -144,9 +148,10 @@ $(function () {
 				}]
 			});
 		});
-		
+		var time = currentMonth;
 		$get('/station/onemonth',{
-			time : time
+			time : time,
+			id: window.station.info.stationId
 		},function(d){
 				var data = d.data ||[];
 				var html = '';
@@ -159,12 +164,12 @@ $(function () {
 					tempatureLow = tempatureHigh - 10;
 					html += '<tr>\
 								<td>'+getNowFormatDate( _d.start_time * 1000)+'</td>\
-								<td>'+_d.energyAll.toFixed(2)+'</td>\
-								<td>'+_d.energyDc.toFixed(2)+'</td>\
-								<td>13.7</td>\
-								<td>86</td>\
-								<td>81.6</td>\
-								<td>29233.35</td>\
+								<td>'+(_d.energyAll*1000/10733).toFixed(2)+'度</td>\
+								<td>'+(_d.energyDc*1000/10733).toFixed(2)+'度</td>\
+								<td>'+((_d.energyAll*1000/10733).toFixed(2) - (_d.energyDc*1000/10733).toFixed(2)).toFixed(2)+'度</td>\
+								<td>'+window.station.energy.overload+'A</td>\
+								<td>'+((_d.energyDc*1000/10733)*1000*0.85/(53.5*24)).toFixed(2)+'A</td>\
+								<td>NA</td>\
 								<td>无</td>\
 								<td>32</td>\
 								<td>26</td>\
@@ -173,6 +178,7 @@ $(function () {
 							  </tr>';
 				}
 				$('#data_container').html(html);
+				$('#loading_tip').hide();
 		});
 		
 		$get('/weather/month/get',{
