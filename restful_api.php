@@ -779,8 +779,9 @@ $app->post('/log/list', function () {
 $app->get('/ammeter/ownList', function () {
     global $app;
     $start = param_check_get('start');
-     $end = param_check_get('end');
-    $result=  AmmeterHandler::get_own_list($start, $end);
+    $end = param_check_get('end');
+    $is_bak = param_check_get('is_bak');
+    $result=  AmmeterHandler::get_own_list($start, $end,$is_bak);
      if(!$result){
           restful_response(RES_ERROR);
      }else{
@@ -795,7 +796,8 @@ $app->post('/ammeter/ownAdd', function () {
     $readTime       = param_check('readTime').":00";
     $readValue      = param_check('own');
     $ammeterNormal  = param_check('du');
-    $result=  AmmeterHandler::own_add($stationId, $readTime, $ammeterNormal,$readValue);
+    $is_bak         = param_check('is_bak');
+    $result=  AmmeterHandler::own_add($stationId, $readTime, $ammeterNormal,$readValue,$is_bak);
      if(!$result){
           restful_response(RES_ERROR);
      }else{
@@ -808,7 +810,7 @@ $app->get('/ammeter/otherList', function () {
     global $app;
     //$stationName=param_check_post("stationName",'',true);
     $start = param_check_get('start');
-     $end = param_check_get('end');;
+    $end = param_check_get('end');
     $result=  AmmeterHandler::get_other_list($start, $end);
      if(!$result){
           restful_response(RES_ERROR);
@@ -865,8 +867,9 @@ $app->post('/ammeter/historyList', function () {
     $flag        = param_check('flag');
     $stationName = param_check('stationName');
     $start       = param_check('start');
-    $end         = param_check('end');  
-    $result      = AmmeterHandler::query_history_ammter($flag, $stationName, $start, $end);
+    $end         = param_check('end'); 
+    $is_bak      = param_check('is_bak','post','',true);
+    $result      = AmmeterHandler::query_history_ammter($flag, $stationName, $start, $end,$is_bak);
      if(!$result){
           restful_response(RES_ERROR);
      }else{

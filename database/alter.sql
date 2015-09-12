@@ -58,3 +58,8 @@ alter table power_base_station_runing_data modify column power_all double;
 alter table power_base_station_runing_data modify column power_dc double;
 
 alter table power_weather modify column wind varchar(200);
+ALTER TABLE `power_ammeter` ADD `e_value` FLOAT NULL DEFAULT '1';
+ALTER TABLE `power_ammeter_chinamobile` ADD `e_value` FLOAT NOT NULL DEFAULT '1' ;
+ALTER TABLE `power_ammeter` ADD `is_bak` TINYINT NOT NULL DEFAULT '0' COMMENT '是否为备用表' ;
+
+

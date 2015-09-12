@@ -1,8 +1,8 @@
 <?php
 class AmmeterHandler {
     //获取我方电表列表
-    public static function get_own_list($start=0,$end=15){ 
-        $list = DAOFactory::getPowerAmmeterDAO()->queryAndPage($start,$end);
+    public static function get_own_list($start=0,$end=15,$is_bak=0){ 
+        $list = DAOFactory::getPowerAmmeterDAO()->queryAndPage($start,$end,$is_bak);
         if($list){
                 $num=  count($list);
                 foreach($list as $k=>$v){
@@ -10,14 +10,7 @@ class AmmeterHandler {
                      $list[$k]->operater= DAOFactory::getPowerBaseStationLogDAO()->queryAccountNameById($list[$k]->creatorId);
                      $list[$k]->createTime=date('Y-m-d h:i',$list[$k]->createTime);
 		     $list[$k]->readTime=date('Y-m-d h:i',$list[$k]->readTime);
-                     $e=1;             
-                    if((intval($v->readValue)-intval($list[$k+1]->readValue))==0){
-                        $list[$k]->e=0; 
-                    }else{
-                        if($k<$num-1 && $num>1) $e=sprintf("%.2f", abs((intval($v->ammeterNormal)-intval($list[$k+1]->ammeterNormal))/(intval($v->readValue)-intval($list[$k+1]->readValue))));                     
-                        $list[$k]->e=$e;
-                        if($e<1.02 && $e>0.98)  $list[$k]->e=1; 
-                    }    
+                     $list[$k]->e=$list[$k]->eValue;                                 
                 }
             }         
         return $list;
@@ -32,14 +25,7 @@ class AmmeterHandler {
                      $list[$k]->operater= DAOFactory::getPowerBaseStationLogDAO()->queryAccountNameById($list[$k]->creatorId);
                      $list[$k]->createTime=date('Y-m-d h:i',$list[$k]->createTime);
                      $list[$k]->readTime=date('Y-m-d h:i',$list[$k]->readTime);
-                     $e=1;
-					 if((intval($v->ammeterNormal)-intval($list[$k+1]->ammeterNormal))==0){
-						$list[$k]->e=0;  
-					 }else{
-						 if($k<$num-1 && $num>1) $e=sprintf("%.2f", abs((intval($v->ammeterNormalChinamobile)-intval($list[$k+1]->ammeterNormalChinamobile))/(intval($v->ammeterNormal)-intval($list[$k+1]->ammeterNormal))));                     
-						 $list[$k]->e=$e;
-						 if($e<1.02 && $e>0.98)  $list[$k]->e=1;
-					 }
+                     $list[$k]->e=$list[$k]->eValue; 
 
                 }
             }
@@ -69,7 +55,7 @@ class AmmeterHandler {
      
     }
     //我方抄表 
-    public static function own_add($stationId,$readTime,$ammeterNormal,$readValue){         
+    public static function own_add($stationId,$readTime,$ammeterNormal,$readValue,$is_bak=0){         
             $dao=new PowerAmmeterMySqlDAO;
             $ammeter=new PowerAmmeter();
             $ammeter->stationId    =$stationId;
@@ -78,6 +64,21 @@ class AmmeterHandler {
             $ammeter->createTime   =time();
             $ammeter->creatorId    =$_COOKIE['user_id'];
             $ammeter->readValue    =$readValue;
+            $ammeter->isBak        =$is_bak;
+            //var_dump($ammeter);exit;
+            //查询上一次的数据
+            $last=DAOFactory::getPowerAmmeterDAO()->lastRow($stationId);         
+            if($last){
+                if(intval($readValue)-intval($last[4])==0){
+                    $e=0;  
+                }else{
+                    $e=sprintf("%.2f", abs((intval($ammeterNormal)-intval($last[2]))/(intval($readValue)-intval($last[4]))));
+                    if($e<1.02 && $e>0.98)  $e=1; 
+                }
+            }else{
+                $e=1;
+            }
+            $ammeter->eValue    =$e;
             $flag=$dao->insert($ammeter);
             if($flag)  return TRUE;
             return FALSE;
@@ -110,6 +111,19 @@ class AmmeterHandler {
             $ammeter->createTime   =time();
             $ammeter->creatorId     =$_COOKIE['user_id'];
             $ammeter->ammeterNormalChinamobile=$ammeterNormalChinamobile;
+                        //查询上一次的数据
+            $last=DAOFactory::getPowerAmmeterChinamobileDAO()->lastRow($stationId);         
+            if($last){
+                if(intval($ammeterNormal)-intval($last['ammeter_normal'])==0){
+                    $e=0;  
+                }else{
+                    $e=sprintf("%.2f", abs((intval($ammeterNormalChinamobile)-intval($last['ammeter_normal_chinamobile']))/(intval($ammeterNormal)-intval($last['ammeter_normal']))));
+                    if($e<1.02 && $e>0.98)  $e=1; 
+                }
+            }else{
+                $e=1;
+            }
+           $ammeter->eValue    =$e;
             $flag=$dao->insert($ammeter);
             if($flag)  return TRUE;
             return FALSE;
@@ -125,42 +139,28 @@ class AmmeterHandler {
         return FALSE;
          
     }
-    public static function query_history_ammter($flag,$stationName,$start,$end){
+    public static function query_history_ammter($flag,$stationName,$start,$end,$is_bak=0){
         $stationId=self::is_exsit_station($stationName);
         if($stationId){   
             $sql=" where station_id=".$stationId;
             if($flag==1){
                 $list= DAOFactory::getPowerAmmeterChinamobileDAO()->search($start,$end,$sql);
-            }else{
+            }else{              
+                if($is_bak==1){
+                  $sql.=" and is_bak=1";
+                }else{
+                  $sql.=" and is_bak=0"; 
+                }
                 $list= DAOFactory::getPowerAmmeterDAO()->search($start, $end, $sql);
             }
             
-            if($list){
-                 $num=  count($list);
+            if($list){              
                 foreach($list as $k=>$v){                    
                      $list[$k]->stationName= DAOFactory::getPowerBaseStationLogDAO()->queryStationName($list[$k]->stationId);                    
                      $list[$k]->operater= DAOFactory::getPowerBaseStationLogDAO()->queryAccountNameById($list[$k]->creatorId);
                      $list[$k]->createTime=date('Y-m-d h:i',$list[$k]->createTime);
                      $list[$k]->readTime=date('Y-m-d h:i',$list[$k]->readTime);
-                     $e=1;
-                     if($flag==1){
-                        if((intval($v->ammeterNormal)-intval($list[$k+1]->ammeterNormal))==0){
-                            $list[$k]->e=0;  
-                        }else{
-                            if($k<$num-1 && $num>1) $e=sprintf("%.2f", abs((intval($v->ammeterNormalChinamobile)-intval($list[$k+1]->ammeterNormalChinamobile))/(intval($v->ammeterNormal)-intval($list[$k+1]->ammeterNormal))));                     
-                            $list[$k]->e=$e;
-                            if($e<1.02 && $e>0.98)  $list[$k]->e=1;
-                        }
-                     }else{
-                            if((intval($v->readValue)-intval($list[$k+1]->readValue))==0){
-                                $list[$k]->e=0; 
-                            }else{
-                                if($k<$num-1 && $num>1) $e=sprintf("%.2f", abs((intval($v->ammeterNormal)-intval($list[$k+1]->ammeterNormal))/(intval($v->readValue)-intval($list[$k+1]->readValue))));                     
-                                $list[$k]->e=$e;
-                                if($e<1.02 && $e>0.98)  $list[$k]->e=1; 
-                            } 
-                     }
-
+                     $list[$k]->e=$list[$k]->eValue; 
                 }
             }      
             return $list;
