@@ -211,6 +211,12 @@ $(function () {
 		var temp_cabint = window.data['temp_cabint'];
 		var temp_air_1 = window.data['temp_air_1'];
 		var temp_air_2 = window.data['temp_air_2'];
+		for(var i = 0;i<need;i++){
+			colse_status.push(null);
+			fan_status.push(null);
+			air_1_status.push(null);
+			air_2_status.push(null);
+		}
 		
 		for(var i = 0;i<need;i++){
 			temp_inside.push(0);

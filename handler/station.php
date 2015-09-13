@@ -561,6 +561,7 @@
 					$end_data = $data[0];
 					$start_data = $data[count($data) -  1];
 					array_push($res,array(
+						'energyAllBegin'=>$start_data->energyAll,
 						'energyAll'=>$end_data->energyAll - $start_data->energyAll,
 						'energyDc'=>$end_data->energyDc - $start_data->energyDc,
 						'powerAll'=>$end_data->powerAll - $start_data->powerAll,
@@ -581,8 +582,11 @@
 				$start_time = date("Y-m",time());
 				$start_time = strtotime($start_time);
 			}
-			$end_time = $start_time + 24*60*60*30;
-			$data = $dao->get_one_month_status($stationId,$start_time,$end_time);
+			$end_time = $start_time + 24*60*60*10;
+			$data_1 = $dao->get_one_month_status($stationId,$start_time,$end_time);
+			$data_2 = $dao->get_one_month_status($stationId,$end_time,$end_time+ 24*60*60*10);
+			$data_3 = $dao->get_one_month_status($stationId,$end_time+ 24*60*60*10,$end_time+ 24*60*60*20);
+			$data =  array_merge($data_1,$data_2,$data_3);
 			$counts = count($data);
 			$all_off = 0;
 			$one_open = 0;

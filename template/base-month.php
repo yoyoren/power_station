@@ -169,7 +169,7 @@ $(function () {
 								<td>'+((_d.energyAll*1000/10733).toFixed(2) - (_d.energyDc*1000/10733).toFixed(2)).toFixed(2)+'度</td>\
 								<td>'+window.station.energy.overload+'A</td>\
 								<td>'+((_d.energyDc*1000/10733)*1000*0.85/(53.5*24)).toFixed(2)+'A</td>\
-								<td>NA</td>\
+								<td>'+(_d.energyAllBegin*1000/10733).toFixed(2)+'度</td>\
 								<td>无</td>\
 								<td>32</td>\
 								<td>26</td>\
