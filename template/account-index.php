@@ -8,6 +8,7 @@
       <?php include ('include/nav_account.php')?>
 	    <script>$('#account_nav_0').addClass('current');</script>
       <div class="n-right-content">
+      <div class="n-right-content-inner">
         <h4 class="tab-to-title">权限管理</h4>
         <div class="tl-r" style="margin-bottom:20px;">
           <button type="button" id="add" class="btn btn-success">+ 增加用户</button>
@@ -46,6 +47,7 @@
           </ul>
         </div>
 
+      </div>
       </div>
 
     </div>

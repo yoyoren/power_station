@@ -15,6 +15,7 @@
       </div>
 
       <div class="n-right-content">
+      <div class="n-right-content-inner">
         <h4 class="tab-to-title">工作日志</h4>
         <div class="n-check-area">
           <div class="n-check-item2">
@@ -33,7 +34,7 @@
           <div class="n-check-item2">
             <span class="name">操作者</span>
             <select id="operater">
-                
+
             </select>
           </div>
             <button type="button" class="btn btn-default" onclick="search()">确定</button>
@@ -77,6 +78,7 @@
         </div>
 
       </div>
+      </div>
 
     </div>
 
@@ -92,7 +94,7 @@ $(function () {
       format: 'yyyy-mm-dd',
       language: 'cn',
       minView: "month",
-      autoclose:true 
+      autoclose:true
     });
     $get('/log/list',{
 		start:0,
@@ -113,19 +115,19 @@ $(function () {
 					</tr>';
 		}
 		$('#container').html(html);
-	   
+
     });
         $get('/log/operater',{
-		
+
 	},function(d){
 		var data = d.data;
 		var html = '';
 		for (var i=0;i<data.length;i++){
 			var _d = data[i];
-			html += "<option value=\""+_d.accountId+"\">"+_d.accountName+"</option>";										
+			html += "<option value=\""+_d.accountId+"\">"+_d.accountName+"</option>";
 		}
 		$('#operater').html(html);
-	   
+
     });
 
 });
@@ -136,7 +138,7 @@ window.search = function(){
                 createTime:$("#createTime").val(),
                 logType:$("#logType").val(),
                 operaterId:$("#operater").val()
-                
+
 	},function(d){
             	var data = d.data;
 		var html = '';

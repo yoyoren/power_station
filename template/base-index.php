@@ -12,6 +12,7 @@
         </ul>
       </div>
       <div class="n-right-content">
+      <div class="n-right-content-inner">
 
       <h4 class="tab-to-title"><a href="/base/create" class="btn btn-primary">创建基站</a></h4>
   	  <div class="alert alert-success" role="alert" id="loading_tip">
@@ -80,15 +81,21 @@
 
           </tbody>
         </table>
+
+        </div>
         </div>
 
       </div>
       <div class="n-right-content">
+      <div class="n-right-content-inner">
+
         <div class="tl-r">
           <ul class="pagination" id="page_container">
 
           </ul>
         </div>
+
+      </div>
       </div>
     </div>
   </div>

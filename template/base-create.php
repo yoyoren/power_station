@@ -14,10 +14,10 @@
       </div>
 
       <div class="n-right-content">
+      <div class="n-right-content-inner">
         <h4 class="tab-to-title">基站创建</h4>
 
         <div class="nav-tabs-content">
-
           <style type="text/css">
           .table-bordered td.td-to-th{vertical-align: middle;}
           </style>
@@ -223,8 +223,9 @@
             </tbody>
           </table>
           <div class="tl-r">
-		  <button type="button" class="btn btn-primary" id="create_button">创建</button></div>
-        </div>
+		        <button type="button" class="btn btn-primary" id="create_button">创建</button></div>
+          </div>
+      </div>
       </div>
     </div>
   </div>
@@ -393,10 +394,10 @@ $('#create_button').click(function(){
 		} else {
 			if(d.data.PARAM_EMPTY){
 				alert('创建失败，缺少参数' + d.data.PARAM_EMPTY);
-			} else {	
+			} else {
 				alert('创建失败，存在相同的站点名和编号');
 			}
-		}	
+		}
 	});
 
 });

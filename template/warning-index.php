@@ -18,6 +18,7 @@
 		.data-data p{height: 20px; margin-bottom: 4px;}
 		</style>
       <div class="n-right-content">
+      <div class="n-right-content-inner">
         <h4 class="tab-to-title">故障列表
         <a href="/warning/fullscreen" class="btn btn-default">全屏显示</a>
         </h4>
@@ -136,6 +137,7 @@
         </table>
 
       </div>
+      </div>
 
     </div>
 
@@ -152,39 +154,39 @@
 		'8':'空调故障',
 		'9':'温度感应故障'
   };
-  function getNowFormatDate(day) { 
+  function getNowFormatDate(day) {
 	day = new Date(day);
-	var Year = 0; 
-	var Month = 0; 
-	var Day = 0; 
-	var CurrentDate = ""; 
+	var Year = 0;
+	var Month = 0;
+	var Day = 0;
+	var CurrentDate = "";
 
 	Year= day.getFullYear();
-	Month= day.getMonth()+1; 
-	Day = day.getDate(); 
-	CurrentDate += Year + "-"; 
-	if (Month >= 10 ) 
-	{ 
-	CurrentDate += Month + "-"; 
-	} 
-	else 
-	{ 
-	CurrentDate += "0" + Month + "-"; 
-	} 
-	if (Day >= 10 ) 
-	{ 
-	CurrentDate += Day ; 
-	} 
-	else 
-	{ 
-	CurrentDate += "0" + Day ; 
-	} 
+	Month= day.getMonth()+1;
+	Day = day.getDate();
+	CurrentDate += Year + "-";
+	if (Month >= 10 )
+	{
+	CurrentDate += Month + "-";
+	}
+	else
+	{
+	CurrentDate += "0" + Month + "-";
+	}
+	if (Day >= 10 )
+	{
+	CurrentDate += Day ;
+	}
+	else
+	{
+	CurrentDate += "0" + Day ;
+	}
 	var minute = day.getMinutes();
 	if(minute<10){
 		minute = '0' + minute;
 	}
 	CurrentDate+= ' ' + day.getHours() + ':' + minute;
-	return CurrentDate; 
+	return CurrentDate;
 }
 
 
@@ -202,7 +204,7 @@
 			}
 		});
 	}
-	
+
 	var __render = function(d,init){
 				if(init){
 					total = parseInt(d.data.count);
@@ -234,25 +236,25 @@
 							  <td class="status">'+(_d.warningStatus=='1'?'open':'close')+'</td>\
 							</tr>';
 				}
-				$('#container').html(html);	
+				$('#container').html(html);
 	}
 	renderPage(true);
-	
+
 	$('#page_container').delegate('li','click',function(){
 		var page = $(this).data('index');
 		currentPage = page;
 		renderPage();
 	});
-	
+
 	$('#query_button').click(function(){
 		var create_time = -1;
 		if($('#warning_year').val()!='0' && $('#warning_month').val()!='0'){
 			create_time = new Date($('#warning_year').val() + '-' + $('#warning_month').val()).getTime();
 		}
-		
+
 		currentPage = 0;
 		total = 0;
-		
+
 		$get('/warning/query',{
 			start:0,
 			pagesize:pageSize,

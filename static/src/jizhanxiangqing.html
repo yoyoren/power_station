@@ -112,27 +112,23 @@
             <div class="n-wendu-item">
 
               <div id="other-stats" style="min-height: 160px">
-                <div class="cpu-usage-gauge" data="30"></div>
+                <div class="cpu-usage-gauge in_out_door" data="30"></div>
               </div>
 
               <div class="fl-l" style="padding:0 0 0 20px;;">
                 <p class="num">27.9℃</p>
                 <p>室内温度</p>
-                <p class="num">80%</p>
-                <p>室内湿度</p>
               </div>
 
             </div>
 
             <div class="n-wendu-item">
               <div id="other-stats" style="min-height: 160px">
-                <div class="cpu-usage-gauge" data="20"></div>
+                <div class="cpu-usage-gauge in_out_door" data="20"></div>
               </div>
               <div class="fl-l" style="padding:0 0 0 20px;;">
                 <p class="num">27.9℃</p>
                 <p>室外温度</p>
-                <p class="num">80%</p>
-                <p>室内湿度</p>
               </div>
 
             </div>
@@ -144,34 +140,42 @@
               <div class="fl-l" style="padding:0 0 0 20px;;">
                 <p class="num">27.9℃</p>
                 <p>恒温柜温度</p>
-                <p class="num">80%</p>
-                <p>恒温柜湿度</p>
+
               </div>
 
             </div>
 
             <div class="n-wendu-item">
               <div id="other-stats" style="min-height: 160px">
-                <div class="cpu-usage-gauge" data="50"></div>
+                <div class="cpu-usage-gauge air_condition" data="50"></div>
               </div>
               <div class="fl-l" style="padding:0 0 0 20px;;">
                 <p class="num">27.9℃</p>
                 <p>空调一温度</p>
-                <p class="num">80%</p>
-                <p>空调一湿度</p>
+
               </div>
 
             </div>
 
             <div class="n-wendu-item">
               <div id="other-stats" style="min-height: 160px">
-                <div class="cpu-usage-gauge" data="80"></div>
+                <div class="cpu-usage-gauge air_condition" data="80"></div>
               </div>
               <div class="fl-l" style="padding:0 0 0 20px;;">
                 <p class="num">27.9℃</p>
                 <p>空调二温度</p>
+
+              </div>
+
+            </div>
+
+            <div class="n-wendu-item">
+              <div id="other-stats" style="min-height: 160px">
+                <div class="cpu-usage-gauge humidity" data="80"></div>
+              </div>
+              <div class="fl-l" style="padding:0 0 0 20px;;">
                 <p class="num">80%</p>
-                <p>空调二湿度</p>
+                <p>室内湿度</p>
               </div>
 
             </div>
@@ -276,19 +280,19 @@ jQuery(document).ready(function($)
     //var dataValue = $(this).attr('data');
       scale: {
         startValue: 0,
-        endValue: 100,
+        endValue: 50,
         majorTick: {
-          tickInterval: 25
+          tickInterval: 10
         }
       },
       rangeContainer: {
         palette: 'pastel',
         width: 3,
         ranges: [
-          { startValue: 0, endValue: 25, color: "#68b828" },
-          { startValue: 25, endValue: 50, color: "#5daec3" },
-          { startValue: 50, endValue: 75, color: "#eac350" },
-          { startValue: 75, endValue: 100, color: "#d5080f" },
+          { startValue: 0, endValue: 30, color: "#68b828" },
+          { startValue: 30, endValue: 50, color: "#d5080f" },
+          // { startValue: 50, endValue: 75, color: "#eac350" },
+          // { startValue: 75, endValue: 100, color: "#d5080f" },
         ],
       },
       value: data,
@@ -301,6 +305,79 @@ jQuery(document).ready(function($)
     });
 
   }
+
+
+  // var draw_1 = function(el,value){
+  // el.dxCircularGauge({
+  //     scale: {
+  //       startValue: 0,
+  //       endValue: 50,
+  //       majorTick: {
+  //         tickInterval: 10
+  //       }
+  //     },
+  //     rangeContainer: {
+  //       palette: 'pastel',
+  //       width: 3,
+  //       ranges: [
+  //         { startValue: 0, endValue: 30, color: "#68b828" },
+  //         { startValue: 30, endValue: 50, color: "#d5080f" },
+  //       ],
+  //     },
+  //     value: value,
+  //     valueIndicator: {
+  //       offset: 10,
+  //       color: 'red',
+  //       type: 'rectangleNeedle',
+  //       spindleSize: 12
+  //     }
+  //   });
+  // };
+
+  // draw_1($('.in_out_door'),40);
+
+  /* 室内温度 */
+  $('.in_out_door').dxCircularGauge({
+    rangeContainer: {
+      palette: 'pastel',
+      width: 3,
+      ranges: [
+        { startValue: 0, endValue: 38, color: "#68b828" },
+        { startValue: 38, endValue: 50, color: "#d5080f" },
+      ],
+    }
+  });
+
+  /* 空调温度 */
+  $('.air_condition').dxCircularGauge({
+    rangeContainer: {
+      palette: 'pastel',
+      width: 3,
+      ranges: [
+        { startValue: 0, endValue: 20, color: "#68b828" },
+        { startValue: 20, endValue: 50, color: "#d5080f" },
+      ],
+    }
+  });
+
+  /* 湿度 */
+  $('.humidity').dxCircularGauge({
+    scale: {
+      startValue: 0,
+      endValue: 100,
+      majorTick: {
+        tickInterval: 25
+      }
+    },
+    rangeContainer: {
+      palette: 'pastel',
+      width: 3,
+      ranges: [
+        { startValue: 0, endValue: 78, color: "#68b828" },
+        { startValue: 78, endValue: 100, color: "#d5080f" },
+      ],
+    },
+  });
 
   var dataItemPower =$(".cpu-gauge2");
   for(var i =0; i<dataItemPower.length;i++){
