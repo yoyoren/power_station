@@ -183,51 +183,65 @@
 			$dao =  new PowerBaseStationMySqlDAO();
 			$dao_project = new ProwerProjectMySqlDAO();
 			$station_base_info = $dao->load($stationId);
-			$station_base_info->stationType = $STATION_TYPE[$station_base_info->stationType];
+			if($station_base_info){
+				$station_base_info->stationType = $STATION_TYPE[$station_base_info->stationType];
+				
+				//获得项目名称
+				$project_id = $station_base_info->projectId;
+				$project = $dao_project->load($project_id);
+				$station_base_info->projectName = $project->projectName;
+				
+				//时间转换
+				$station_base_info->displayDate = date('Y-m-d H:i:s',$station_base_info->createTime);
 			
-			//获得项目名称
-			$project_id = $station_base_info->projectId;
-			$project = $dao_project->load($project_id);
-			$station_base_info->projectName = $project->projectName;
-			
-			//时间转换
-			$station_base_info->displayDate = date('Y-m-d H:i:s',$station_base_info->createTime);
-		
-			
-			$station_base_info->stationProvinceName = AddressHandler::get_province_info($station_base_info->stationProvince);
-			$station_base_info->stationProvinceName = $station_base_info->stationProvinceName->name;
-			
-			$station_base_info->stationCityName = AddressHandler::get_city_info($station_base_info->stationProvince,$station_base_info->stationCity);
-			$station_base_info->stationCityName = $station_base_info->stationCityName->name;
-			
-			$station_base_info->stationDistirctName = AddressHandler::get_district_info($station_base_info->stationProvince,$station_base_info->stationCity,$station_base_info->stationDistirct);
-			$station_base_info->stationDistirctName = $station_base_info->stationDistirctName->name;
-			
-			//获得站点的设备信息
-			$dao =  new PowerBaseStationDeviceInfoMySqlDAO();
-			$station_device_info = $dao->queryByStationId($stationId)[0];
-			//var_dump($station_device_info); 
-			//获得站点的能耗信息
-			$dao =  new PowerBaseStationEnergyInfoMySqlDAO();
-			$station_energy_info = $dao->queryByStationId($stationId)[0];
-			//var_dump($station_energy_info->powerSupplyType);
-			if($station_energy_info->powerSupplyType){
-				$station_energy_info->powerSupplyTypeName = $POWER_SUPPLY_TYPE[$station_energy_info->powerSupplyType];
+				
+				$station_base_info->stationProvinceName = AddressHandler::get_province_info($station_base_info->stationProvince);
+				$station_base_info->stationProvinceName = $station_base_info->stationProvinceName->name;
+				
+				$station_base_info->stationCityName = AddressHandler::get_city_info($station_base_info->stationProvince,$station_base_info->stationCity);
+				$station_base_info->stationCityName = $station_base_info->stationCityName->name;
+				
+				$station_base_info->stationDistirctName = AddressHandler::get_district_info($station_base_info->stationProvince,$station_base_info->stationCity,$station_base_info->stationDistirct);
+				$station_base_info->stationDistirctName = $station_base_info->stationDistirctName->name;
+				
+				//获得站点的设备信息
+				$dao =  new PowerBaseStationDeviceInfoMySqlDAO();
+				$station_device_info = $dao->queryByStationId($stationId)[0];
+				//var_dump($station_device_info); 
+				//获得站点的能耗信息
+				$dao =  new PowerBaseStationEnergyInfoMySqlDAO();
+				$station_energy_info = $dao->queryByStationId($stationId)[0];
+				//var_dump($station_energy_info->powerSupplyType);
+				if($station_energy_info->powerSupplyType){
+					$station_energy_info->powerSupplyTypeName = $POWER_SUPPLY_TYPE[$station_energy_info->powerSupplyType];
+				}
+				if($station_energy_info->feeType){
+					$station_energy_info->feeTypeName = $POWER_SUPPLY_TYPE[$station_energy_info->feeType];
+				}
+				if($station_energy_info->buildingType){
+					$station_energy_info->buildingTypeName = $BUILDING_TYPE[$station_energy_info->buildingType];
+				}
+				if($station_energy_info->energyType){
+					$station_energy_info->energyTypeName = $ENERGY_TYPE[$station_energy_info->energyType];
+				}
 			}
-			if($station_energy_info->feeType){
-				$station_energy_info->feeTypeName = $POWER_SUPPLY_TYPE[$station_energy_info->feeType];
-			}
-			if($station_energy_info->buildingType){
-				$station_energy_info->buildingTypeName = $BUILDING_TYPE[$station_energy_info->buildingType];
-			}
-			if($station_energy_info->energyType){
-				$station_energy_info->energyTypeName = $ENERGY_TYPE[$station_energy_info->energyType];
-			}
-			$stationPrevId = intval($stationId) - 1;
-			$stationNextId = intval($stationId) + 1;
-			if($stationPrevId < 1){
+			
+			//获得当前基站的前后基站的数据
+			$dao_station = new PowerBaseStationMySqlExtDAO();
+			$next = $dao_station->getNextStation($stationId);
+			$prev = $dao_station->getPrevStation($stationId);
+
+			$stationPrevId = $prev->stationId;
+			$stationNextId = $next->stationId;
+			
+			if(!$stationPrevId){
 			   $stationPrevId = -1;
 			}
+			
+			if(!$stationNextId){
+			   $stationNextId = -1;
+			}
+			
 			if($editMode){
 				$project_list = ProjectHandler::get_list();
 				$province_list = AddressHandler::get_province_list();
@@ -544,21 +558,100 @@
 				$data = $dao->get_one_day_status($stationId,$start_time,$end_time);
 				
 				if($data){
-					$start_data = $data[0];
-					$end_data = $data[count($data) -  1];
+					$end_data = $data[0];
+					$start_data = $data[count($data) -  1];
 					array_push($res,array(
+						'energyAllBegin'=>$start_data->energyAll,
 						'energyAll'=>$end_data->energyAll - $start_data->energyAll,
 						'energyDc'=>$end_data->energyDc - $start_data->energyDc,
 						'powerAll'=>$end_data->powerAll - $start_data->powerAll,
 						'powerDc'=>$end_data->energyAll - $start_data->powerDc,
-						'energyAll'=>$end_data->energyAll - $start_data->energyAll,
-						'energyAll'=>$end_data->energyAll - $start_data->energyAll,
 						'start_time' =>$start_time,
 					));
 				}
 				$start_time += 24*60*60;
 			}
 			return $res;
+		}
+		public static function write_month_report($stationId=1,$start_time=0){
+			$dao =  new PowerBaseStationRuningDataMySqlExtDAO();
+			$res = array();
+			if($start_time == 0 || $start_time == NULL){
+				$start_time = date("Y-m",time());
+				$start_time = strtotime($start_time);
+			}
+			$date_string = date("Y-m",$start_time);
+			$date_string = explode('-',$date_string);
+			$date_string_year = $date_string [0];
+			$date_string_month = $date_string [1];
+			$end_time = 0;
+			for($i=0;$i<30;$i++){
+				$end_time = $start_time + 24*60*60;
+				
+				//计算一天的数据效能
+				$data = $dao->get_one_day_status($stationId,$start_time,$end_time);
+				
+				if($data){
+					$end_data = $data[0];
+					$start_data = $data[count($data) -  1];
+					array_push($res,array(
+						'energyAllBegin'=>$start_data->energyAll,
+						'energyAll'=>$end_data->energyAll - $start_data->energyAll,
+						'energyDc'=>$end_data->energyDc - $start_data->energyDc,
+						'powerAll'=>$end_data->powerAll - $start_data->powerAll,
+						'powerDc'=>$end_data->energyAll - $start_data->powerDc,
+						'start_time' =>$start_time,
+					));
+				}
+				$start_time += 24*60*60;
+			}
+			file_put_contents('./report/month_report_'.$date_string_year.'_'.$date_string_month.'_'.$stationId.'.json',json_encode($res));
+			return $res;
+		}
+		
+		//月报数据
+		public static function get_one_month_ration($stationId=1,$start_time=0){
+			$dao =  new PowerBaseStationRuningDataMySqlExtDAO();
+			$res = array();
+			if($start_time == 0 || $start_time == NULL){
+				$start_time = date("Y-m",time());
+				$start_time = strtotime($start_time);
+			}
+			$end_time = $start_time + 24*60*60*10;
+			$data_1 = $dao->get_one_month_status($stationId,$start_time,$end_time);
+			$data_2 = $dao->get_one_month_status($stationId,$end_time,$end_time+ 24*60*60*10);
+			$data_3 = $dao->get_one_month_status($stationId,$end_time+ 24*60*60*10,$end_time+ 24*60*60*20);
+			$data =  array_merge($data_1,$data_2,$data_3);
+			$counts = count($data);
+			$all_off = 0;
+			$one_open = 0;
+			$two_open = 0;
+			$fan_open = 0;
+			for($i = 0;$i<$counts;$i++){
+				$_d = $data[$i];
+				if($_d->deviceStatus2 == '1'){
+					$two_open++;
+					continue;
+				}
+				
+				if($_d->deviceStatus1 == '1'){
+					$one_open++;
+					continue;
+				}
+				
+				if($_d->deviceStatusFan == '1'){
+					$fan_open++;
+					continue;
+				}
+				$all_off++;
+			}
+			return array(
+				'all'=>$counts,
+				'fan_open'=>$fan_open,
+				'two_open'=>$two_open,
+				'one_open'=>$one_open,
+				'all_off'=>$all_off
+			);
 		}
 		
 		
@@ -569,11 +662,20 @@
 			return $data;
 		}
 		
+		//测试代码
+		public static function warning_test($stationId,$warningType){
+			$warning_dao =  new PowerStationWarningMySqlExtDAO();
+			$warning_obj = new PowerStationWarning();
+			$warning_obj->stationId = $stationId;
+			$warning_obj->warningType = $warningType;
+			$warning_dao->update_one($warning_obj);
+		}
+		
 		//计算基站的实时告警情况
-		public static function cal_warning_from_runing_data($stationId=1){
+		public static function cal_warning_from_runing_data($stationId=1,$data){
 			//global $WARNING_TYPE;
 			//告警类型
-			$WARNING_TYPE = array(
+			$WARNING_TYPE_DESC = array(
 				'STATION_OFFLINE'=>'断站',
 				'INSIDE_HIGH_TMP'=>'室内高温',
 				'CABINT_HIGH_TMP'=>'恒温柜高温',
@@ -584,40 +686,62 @@
 				'AIR_CONDITION_ERROR'=>'空调故障',
 				'TEMPATURE_ERROR'=>'温度感应故障',
 			);
+			
 			$current_date = time();
 			//先获得该基站的最新数据
 			$dao =  new PowerBaseStationRuningDataMySqlExtDAO();
-			$data = $dao->get_current_status($stationId);
 			$ret = array();
-			//var_dump($data);
-			//室内高温
+			$warning_dao =  new PowerStationWarningMySqlDAO();
+			$warning_dao_ext =  new PowerStationWarningMySqlExtDAO();					
+			$warning_obj = new PowerStationWarning();
+			$warning_obj->createTime = $current_date;
+			$warning_obj->updateTime = $current_date;
+			$warning_obj->stationId = $stationId;
+			$warning_obj->warningStatus = WARNING_OPEN;
 			if($data->temperatureInside > 38){
-				$ret['INSIDE_HIGH_TMP'] = $WARNING_TYPE['INSIDE_HIGH_TMP'];
+				$warning_obj->warningType = WARNING_INSIDE_HIGH_TMP;
+				$warning_obj->warningDesc = $WARNING_TYPE_DESC['INSIDE_HIGH_TMP'].':'.$data->temperatureInside;
+				if($warning_dao_ext->update_one($warning_obj) == false){
+				   $warning_dao->insert($warning_obj);
+				}
+				
 			}
-			
-			//基站断站
-			if($current_date - $data->createTime > 300){
-				$ret['STATION_OFFLINE'] = $WARNING_TYPE['STATION_OFFLINE'];
-			}
-			
+								
 			//恒温柜高温
 			if($data->temperatureCabinet > 32){
-				$ret['CABINT_HIGH_TMP'] = $WARNING_TYPE['CABINT_HIGH_TMP'];
+				$warning_obj->warningType = WARNING_CABINT_HIGH_TMP;
+				$warning_obj->warningDesc = $WARNING_TYPE_DESC['CABINT_HIGH_TMP'].':'.$data->temperatureCabinet;
+				if($warning_dao_ext->update_one($warning_obj) == false){
+				   $warning_dao->insert($warning_obj);
+				}
 			}
-			
+				
 			//无总能耗／无DC能耗／总能耗小于DC
 			//电表故障
 			if(!$data->energyAll || !$data->energyDc || $data->energyAll < $data->energyDc){
-				$ret['AMATER_ERROR'] = $WARNING_TYPE['AMATER_ERROR'];
+				$warning_obj->warningType = WARNING_AMATER_ERROR;
+				$warning_obj->warningDesc = $WARNING_TYPE_DESC['AMATER_ERROR'];
+				if($warning_dao_ext->update_one($warning_obj) == false){
+				   $warning_dao->insert($warning_obj);
+				}
 			}
-			//空调温度大于20度（开）
+				
+			//空调温度大于23度（开）
 			if($data->temperatureAircondition1 > 23 || $data->temperatureAircondition2 > 23){
-				$ret['AIR_CONDITION_ERROR'] = $WARNING_TYPE['AIR_CONDITION_ERROR'];
+				$warning_obj->warningType = WARNING_AIR_CONDITION_ERROR;
+				$warning_obj->warningDesc = $WARNING_TYPE_DESC['AIR_CONDITION_ERROR'].',空调1温度:'.$data->temperatureAircondition1.';空调2温度:'.$data->temperatureAircondition2;
+				if($warning_dao_ext->update_one($warning_obj) == false){
+				   $warning_dao->insert($warning_obj);
+				}
 			}
-			
+				
 			//温度感应故障
 			if(!$data->temperatureInside || !$data->temperatureOutside){
-				$ret['TEMPATURE_ERROR'] = $WARNING_TYPE['TEMPATURE_ERROR'];
+				$warning_obj->warningType = WARNING_TEMPATURE_ERROR;
+				$warning_obj->warningDesc = $WARNING_TYPE_DESC['TEMPATURE_ERROR'].',室内温度:'.$data->temperatureInside.';室外温度:'.$data->temperatureOutside;;
+				if($warning_dao_ext->update_one($warning_obj) == false){
+				   $warning_dao->insert($warning_obj);
+				}
 			}
 
 			return $ret;
@@ -722,8 +846,9 @@
 			return $data[0];
 		}
 		
-		public static function remove(){
-			
+		public static function del_station($id){
+			$dao = new PowerBaseStationMySqlExtDAO();
+			$data = $dao->delStation($id);
 		}
 	}
 ?>

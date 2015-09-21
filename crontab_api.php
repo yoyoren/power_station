@@ -26,7 +26,8 @@
 	//ECU历史数据同步
 	$app->get('/crontab/ecu/sync', function () use ($app) {
 		//crontab_api_auth();
-		$res = ECUHandler::write_dir();
+		$name = param_check_get('name');
+		$res = ECUHandler::write_dir($name);
 		restful_response(RES_SUCCESS,$res);
 	});
 	

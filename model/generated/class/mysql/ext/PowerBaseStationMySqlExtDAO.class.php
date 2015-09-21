@@ -16,13 +16,13 @@ class PowerBaseStationMySqlExtDAO extends PowerBaseStationMySqlDAO{
 	}
 	
 	public function queryAndPage($start,$pagesize){
-		$sql = 'SELECT * FROM power_base_station limit '.$start.','.$pagesize;
+		$sql = 'SELECT * FROM power_base_station WHERE status=0 limit '.$start.','.$pagesize;
 		$sqlQuery = new SqlQuery($sql);
 		return $this->getList($sqlQuery);
 	}
 	
 	public function get_count(){
-		$sql = 'SELECT COUNT(*) FROM power_base_station';
+		$sql = 'SELECT COUNT(*) FROM power_base_station WHERE status=0';
 		$sqlQuery = new SqlQuery($sql);
 		$num = $this->execute($sqlQuery);
 		return $num[0][0];
@@ -108,7 +108,7 @@ class PowerBaseStationMySqlExtDAO extends PowerBaseStationMySqlDAO{
 	
 	
 	public function search($start,$end,$sql){
-		$sql = 'SELECT * FROM power_base_station WHERE '.$sql.' limit '.$start.','.$end;
+		$sql = 'SELECT * FROM power_base_station WHERE status=0 AND '.$sql.' limit '.$start.','.$end;
 		$sqlQuery = new SqlQuery($sql);
 		return $this->getList($sqlQuery);
 	}
@@ -129,6 +129,32 @@ class PowerBaseStationMySqlExtDAO extends PowerBaseStationMySqlDAO{
 		$sqlQuery->set($stationType);
 		return $this->getList($sqlQuery);
 	}
+	
+	//获得前一个基站
+	public function getNextStation($stationId){
+		$sql = 'SELECT * FROM power_base_station WHERE station_id = (select station_id from power_base_station WHERE station_id > ? order by station_id ASC limit 1)';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->set($stationId);
+		return $this->getRow($sqlQuery);
+	}
+	
+	//获得后一个基站
+	public function getPrevStation($stationId){
+		$sql = 'SELECT * FROM power_base_station WHERE station_id = (select station_id from power_base_station WHERE station_id < ? order by station_id DESC limit 1)';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->set($stationId);
+		return $this->getRow($sqlQuery);
+	}
+	
+	//删除一个基站
+	public function delStation($stationId){
+		$sql = 'UPDATE power_base_station SET status = ? WHERE station_id = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber(1);
+		$sqlQuery->setNumber($stationId);
+		return $this->executeUpdate($sqlQuery);
+	}
+	
 	
 }
 ?>

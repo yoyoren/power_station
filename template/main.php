@@ -26,12 +26,12 @@
             <div class="n-show-item" style="background:#ff4660;">
               <p class="intro">节约标准煤</p>
               <img src="/static/src/img/ic-huo2.png" style="width:56px" />
-              <p class="num" id=""><span id="start_num_mei"></span><em>千克</em></p>
+              <p class="num" id=""><span id="start_num_mei"></span><em>吨</em></p>
             </div>
             <div class="n-show-item" style="background:#cca402;">
               <p class="intro">减少碳排放</p>
               <img src="/static/src/img/ic-paifang2.png" style="width:60px" />
-              <p class="num"  id=""><span id="start_num_co"></span><em>千克</em></p>
+              <p class="num"  id=""><span id="start_num_co"></span><em>吨</em></p>
             </div>
             <div class="n-show-item" style="background:#4ebd21;">
               <p class="intro">造林</p>
@@ -72,14 +72,14 @@
             </tr>
             <tr>
               <th>板房</th>
-             <td><a href="/base"><?php echo $station_num_2[0]?>（台）</a></td>
-            <td><a href="/base"><?php echo $station_num_2[1]?>（台）</a></td>
-            <td><a href="/base"><?php echo $station_num_2[2]?>（台）</a></td>
-            <td><a href="/base"><?php echo $station_num_2[3]?>（台）</a></td>
-            <td><a href="/base"><?php echo $station_num_2[4]?>（台）</a></td>
-            <td><a href="/base"><?php echo $station_num_2[5]?>（台）</a></td>
-            <td><a href="/base"><?php echo $station_num_2[6]?>（台）</a></td>
-            <td><a href="/base"><?php echo $station_num_2[7]?>（台）</a></td>
+             <td><a href="/base?building=2&energy=1"><?php echo $station_num_2[0]?>（台）</a></td>
+            <td><a href="/base?building=2&energy=2"><?php echo $station_num_2[1]?>（台）</a></td>
+            <td><a href="/base?building=2&energy=3"><?php echo $station_num_2[2]?>（台）</a></td>
+            <td><a href="/base?building=2&energy=4"><?php echo $station_num_2[3]?>（台）</a></td>
+            <td><a href="/base?building=2&energy=5"><?php echo $station_num_2[4]?>（台）</a></td>
+            <td><a href="/base?building=2&energy=6"><?php echo $station_num_2[5]?>（台）</a></td>
+            <td><a href="/base?building=2&energy=7"><?php echo $station_num_2[6]?>（台）</a></td>
+            <td><a href="/base?building=2&energy=8"><?php echo $station_num_2[7]?>（台）</a></td>
 
             </tr>
           </table>
@@ -140,10 +140,10 @@
 
   </div>
   <script>
-	var startTime =  new Date('2015-08-01').getTime();
+	var startTime =  new Date('2015-08-19').getTime();
 	var currentTime = new Date().getTime();
 
-	var start_num = (698421.87 + ((currentTime - startTime) /1000) * 0.19).toFixed(2);
+	var start_num = (855917 + ((currentTime - startTime) /1000) * 0.03733572).toFixed(2);
 	var old_num = 0;
 	var timer = 0;
 	var cal = function(start_num){

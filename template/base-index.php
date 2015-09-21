@@ -8,7 +8,8 @@
     <div class="n-container">
       <div class="n-nav-left">
         <ul>
-          <li class="current"><a href="javascript:void(0);"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">基站列表</span></a></li>
+          <li class="current"><a href="/base"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">基站列表</span></a></li>
+		  <li><a href="/base/map"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span><span class="vl-m">基站地图</span></a></li>
         </ul>
       </div>
       <div class="n-right-content">
@@ -74,6 +75,7 @@
               <th>负载功率</th>
               <th>砖墙/板房</th>
               <th>基准站</th>
+			  <th>操作</th>
             </tr>
           </thead>
           <tbody id="container">
@@ -161,7 +163,7 @@ var renderOnePage = function(data){
 		var html = '';
 		for (var i=0;i<data.length;i++){
 			var _d = data[i];
-			html += '<tr>\
+			html += '<tr id="station_item_'+_d.stationId+'">\
 					  <td class="sorting_1"><a href="/base/status/'+_d.stationId+'">'+_d.stationSeriseCode+'</a></td>\
 					  <td>'+_d.stationName+'</td>\
 					  <td>'+_d.cityName+'</td>\
@@ -169,6 +171,7 @@ var renderOnePage = function(data){
 					  <td>'+_d.energyTypeName+'</td>\
 					  <td>'+_d.buildTypeName+'</td>\
 					  <td>是</td>\
+					  <td><button class="del_site" data-id="'+_d.stationId+'">删除</button></td>\
 					</tr>';
 		}
 		$('#container').html(html);
@@ -196,7 +199,19 @@ var renderList = function(init){
 			renderOnePage(data);
 	});
 }
-
+$('body').delegate('.del_site','click',function(){
+	var id = $(this).data('id');
+	if(confirm('确认删除该基站？')){
+		$post('/station/delete',{
+			id:id
+		},function(d){
+			if(d.code == 0){
+				$('#station_item_' + id ).remove();
+				alert('删除成功！');
+			}
+		});
+	}
+});
 //从首页过来的条件查询
 if(energy_type || building_type){
 	$('#overload').val(energy_type);

@@ -16,17 +16,10 @@
 		  <strong></strong> 数据正在加载...
 		</div>
         <div class="current-name-area clearfix">
-          <span class="vl-m fl-l name"><b>001</b>基站</span>
+          <span class="vl-m fl-l name"><b><?php echo $station['info']->stationName;?></b> 基站</span>
 
           <div class="fl-r">
-            <div class="btn-group">
-              <button type="button" class="btn btn-default">
-                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><span class="vl-m">前一个基站</span>
-              </button>
-              <button type="button" class="btn btn-default">
-                <span class="vl-m">后一个基站</span><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-              </button>
-            </div>
+            <?php include ('include/base_top_switch.php')?>
           </div>
 
         </div>
@@ -44,6 +37,7 @@
                 <span class="vl-m">后一天</span><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
               </button>
             </div>
+			<div id="current_date_diplay"></div>
           </div>
           <p class="table-title" style="display:none;"><b>成就</b></p>
           <table class="table table-bordered" style="display:none;">
@@ -102,9 +96,10 @@ $(function () {
 	var refresh = function(time){
 		$('#loading_tip').show();
 		time = new Date(time).getTime()/1000;
-		time = time - 8* 60 *60;
+		
 		window.currentTime = time;
 		$get('/station/oneday',{
+			id:location.href.split('/').pop(),
 			time:window.currentTime
 		},function(d){
 			$('#container_device').html('数据加载中...');
@@ -117,17 +112,24 @@ $(function () {
 		if(!time){
 		   return;
 		}
+		time = time - 8* 60 *60;
 		refresh(time);
 	});
 
 	$('#prev_day').click(function(){
 		window.currentTime -= 24* 60 *60;
-		refresh(window.currentTime);
+		refresh(window.currentTime*1000);
+		var _date = new Date(window.currentTime*1000);
+		var _date = [_date.getFullYear(),_date.getMonth() + 1,_date.getDate()].join('-');
+		$('#current_date_diplay').html('当前日期'+_date);
 	});
 
 	$('#next_day').click(function(){
 		window.currentTime += 24* 60 *60;
-		refresh(window.currentTime);
+		refresh(window.currentTime*1000);
+		var _date = new Date(window.currentTime*1000);
+		var _date = [_date.getFullYear(),_date.getMonth() + 1,_date.getDate()].join('-');
+		$('#current_date_diplay').html('当前日期'+_date);
 	});
 
 
@@ -137,9 +139,11 @@ $(function () {
 		var fan_status = [];
 		var air_1_status = [];
 		var air_2_status = [];
+		var EC = 1;
 		for(var i=0;i<window.data['power_dc'].length;i++){
-			window.data['power_dc'][i] = parseInt(window.data['power_dc'][i]);
-			window.data['power_all'][i] = parseInt(window.data['power_all'][i]);
+			
+			window.data['power_dc'][i] = parseInt(window.data['power_dc'][i])
+			window.data['power_all'][i] = parseInt(window.data['power_all'][i])
 			window.data['temp_inside'][i] = parseFloat(window.data['temp_inside'][i]);
 			window.data['temp_outside'][i] = parseFloat(window.data['temp_outside'][i]);
 			window.data['temp_air_1'][i] = parseFloat(window.data['temp_air_1'][i]);
@@ -179,6 +183,7 @@ $(function () {
 			air_1_status.push(null);
 			air_2_status.push(null);
 		}
+		
 		for(var key in window.data){
 			try{
 				window.data[key] =  window.data[key].reverse();
@@ -186,12 +191,79 @@ $(function () {
 
 			}
 		}
-		window.step = parseInt(window.data.power_all.length / 20);
+		window.step = parseInt(window.data.power_all.length / 24);
 		time = time.reverse();
 		colse_status = colse_status.reverse();
 		fan_status = fan_status.reverse();
 		air_1_status = air_1_status.reverse();
 		air_2_status = air_2_status.reverse();
+		
+		var powerdata = window.data['power_all'];
+		var dcdata = window.data['power_dc'];
+		var last = time[time.length - 1];
+		var dateprefix = [new Date().getFullYear() , new Date().getMonth()+1 , new Date().getDate()].join('-');
+		var now = new Date(dateprefix + ' ' +last).getTime();
+		var end = new Date(dateprefix + ' 23:59').getTime();
+		var need = (end - now) /(60*1000);
+		
+		var temp_inside = window.data['temp_inside'];
+		var temp_outside = window.data['temp_outside'];
+		var temp_cabint = window.data['temp_cabint'];
+		var temp_air_1 = window.data['temp_air_1'];
+		var temp_air_2 = window.data['temp_air_2'];
+		for(var i = 0;i<need;i++){
+			colse_status.push(null);
+			fan_status.push(null);
+			air_1_status.push(null);
+			air_2_status.push(null);
+		}
+		
+		for(var i = 0;i<need;i++){
+			temp_inside.push(0);
+			temp_outside.push(0);
+			temp_cabint.push(0);
+			temp_air_1.push(0);
+			temp_air_2.push(0);
+		}
+		
+		for(var i=0;i<temp_inside.length;i++){
+			if(temp_inside[i] > 100){
+			   temp_inside[i] = 0;
+			}
+		}
+		for(var i=0;i<temp_outside.length;i++){
+			if(temp_outside[i] > 100){
+			   temp_outside[i] = 0;
+			}
+		}
+		for(var i=0;i<temp_cabint.length;i++){
+			if(temp_cabint[i] > 100){
+			   temp_cabint[i] = 0;
+			}
+		}
+		for(var i=0;i<temp_air_1.length;i++){
+			if(temp_air_1[i] > 100){
+			   temp_air_1[i] = 0;
+			}
+		}
+		for(var i=0;i<temp_air_2.length;i++){
+			if(temp_air_2[i] > 100){
+			   temp_air_2[i] = 0;
+			}
+		}
+		
+		for(var i=0;i<need;i++){
+			now += (60*1000);
+			time.push(new Date(now).getHours()+':' + new Date(now).getMinutes());
+			dcdata.push(0);
+			powerdata.push(0);
+		}
+		for(var i=0;i<dcdata.length;i++){
+			dcdata[i] = parseFloat((dcdata[i]*2*0.035986/1000).toFixed(4));
+			powerdata[i] = parseFloat((powerdata[i]*2*0.035986/1000).toFixed(4));
+		}
+		
+		window.step = parseInt(powerdata.length / 24);
 
 		 //设备开启状态
 		$('#container_device').highcharts({
@@ -245,7 +317,9 @@ $(function () {
 				name: '二个空调',
 				data: air_2_status}]
 		});
+		
 
+		
 		$('#container').highcharts({
 			chart: {
 				type: 'area'
@@ -269,7 +343,7 @@ $(function () {
 				},
 				labels: {
 					formatter: function () {
-						return this.value / 1000 + 'k';
+						return this.value + 'kw';
 					},
 					step:2
 				}
@@ -293,10 +367,10 @@ $(function () {
 			},
 			series: [ {
 				name: '总功率',
-				data: window.data['power_all']
+				data: powerdata
 			},{
 				name: 'DC功率',
-				data: window.data['power_dc']
+				data: dcdata
 			}]
 		});
 
@@ -343,15 +417,15 @@ $(function () {
 
 			series: [{
 				name: '室内温度',
-				data:  window.data['temp_inside']}, {
+				data:  temp_inside}, {
 				name: '室外温度',
-				data: window.data['temp_outside']}, {
+				data: temp_outside}, {
 				name: '恒温柜温度',
-				data:  window.data['temp_cabint']}, {
+				data:  temp_cabint}, {
 				name: '空调一温度',
-				data: window.data['temp_air_1']}, {
+				data: temp_air_1}, {
 				name: '空调二温度',
-				data:window.data['temp_air_2']
+				data:temp_air_2
 				}]
 		});
 

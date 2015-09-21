@@ -7,6 +7,7 @@
  */
 class PowerBaseStationRuningDataMySqlExtDAO extends PowerBaseStationRuningDataMySqlDAO{
 	
+
 	//获得一个基站最新的数据情况
 	public function get_current_status($stationId){
 		$sql = 'SELECT * FROM power_base_station_runing_data WHERE station_id = ? ORDER BY runing_data_id DESC limit 0,1';
@@ -24,6 +25,15 @@ class PowerBaseStationRuningDataMySqlExtDAO extends PowerBaseStationRuningDataMy
 	}
 	
 	public function get_one_day_status($stationId,$start_time,$end_time){
+		$sql = 'SELECT * FROM power_base_station_runing_data WHERE station_id = ? AND create_time > ? AND create_time < ? ORDER BY runing_data_id DESC';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($stationId);
+		$sqlQuery->setNumber($start_time);
+		$sqlQuery->setNumber($end_time);
+		return $this->getList($sqlQuery);
+	}
+	
+	public function get_one_month_status($stationId,$start_time,$end_time){
 		$sql = 'SELECT * FROM power_base_station_runing_data WHERE station_id = ? AND create_time > ? AND create_time < ? ORDER BY runing_data_id DESC';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->setNumber($stationId);

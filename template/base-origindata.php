@@ -14,17 +14,10 @@
 		  <strong></strong> 数据正在加载...
 		</div>
         <div class="current-name-area clearfix">
-          <span class="vl-m fl-l name"><b>001</b>基站</span>
+          <span class="vl-m fl-l name"><b><?php echo $station['info']->stationName;?></b> 基站</span>
 
           <div class="fl-r">
-            <div class="btn-group">
-              <button type="button" class="btn btn-default">
-                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><span class="vl-m">前一个基站</span>
-              </button>
-              <button type="button" class="btn btn-default">
-                <span class="vl-m">后一个基站</span><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-              </button>
-            </div>
+            <?php include ('include/base_top_switch.php')?>
           </div>
 
         </div>
@@ -99,37 +92,6 @@
 <script type="text/javascript" src="/static/src/js/datepicker/bootstrap-datetimepicker.js"></script>
 
 <script type="text/javascript">
-function getNowFormatDate(day) { 
-	day = new Date(day);
-	var Year = 0; 
-	var Month = 0; 
-	var Day = 0; 
-	var CurrentDate = ""; 
-
-	Year= day.getFullYear();
-	Month= day.getMonth()+1; 
-	Day = day.getDate(); 
-	CurrentDate += Year + "-"; 
-	if (Month >= 10 ) 
-	{ 
-	CurrentDate += Month + "-"; 
-	} 
-	else 
-	{ 
-	CurrentDate += "0" + Month + "-"; 
-	} 
-	if (Day >= 10 ) 
-	{ 
-	CurrentDate += Day ; 
-	} 
-	else 
-	{ 
-	CurrentDate += "0" + Day ; 
-	} 
-
-	CurrentDate+= ' ' + day.getHours() + ':' + day.getMinutes();
-	return CurrentDate; 
-} 
 $(function () {
     $(".form_datetime").datetimepicker({
       language: 'cn',
@@ -161,10 +123,10 @@ $(function () {
 							<td>'+openStatus(_d.deviceStatusVentilator)+'</td>\
 							<td>'+[openStatus(_d.deviceStatus1),openStatus(_d.deviceStatus2)].join(',')+'</td>\
 							<td>'+openStatus(_d.workingStatus)+'</td>\
-							<td>'+_d.powerAll+'</td>\
-							<td>'+_d.powerDc+'</td>\
-							<td>'+_d.energyAll+'</td>\
-							<td>'+_d.energyDc+'</td>\
+							<td>'+(_d.powerAll*2*0.035986/1000).toFixed(4)+'kw</td>\
+							<td>'+(_d.powerDc*2*0.035986/1000).toFixed(4)+'kw</td>\
+							<td>'+(_d.energyAll*1000/10733).toFixed(2)+'度</td>\
+							<td>'+(_d.energyDc*1000/10733).toFixed(2)+'度</td>\
 						</tr>';
 			}
 			$('#data_container').html(html);
@@ -185,7 +147,7 @@ $(function () {
 			}
 		});
 	});
-	var stationId = 1;
+	var stationId = location.href.split('/').pop();
 	$get('/station/last/origindata/' + stationId,{
 		time :-2
 	},function(d){

@@ -119,6 +119,7 @@ $app->post('/account/signin', function () {
 	$result = AccountHandler::sign_in($accountName,$accountPassword);
 	global $app;
 	$expire_time = time() + 7200;
+	$app->setCookie('user_type', $result['data']->accoutType,$expire_time );
 	$app->setCookie('user_id', $result['data']->accountId,$expire_time );
 	$app->setCookie('user_name', $result['data']->accountName,$expire_time);
 	$app->setCookie('pass_token', $result['pass_token'],$expire_time);
@@ -146,6 +147,8 @@ $app->get('/account/islogin', function () {
 $app->get('/account/logout', function () {
      global $app;
 	 $use_id = $_COOKIE['user_id'];
+	 $app->deleteCookie('user_name');
+	 $app->deleteCookie('user_type');
 	 $app->deleteCookie('user_id');
 	 $app->deleteCookie('pass_token');
 	 
@@ -275,6 +278,15 @@ $app->get('/ecu/write', function () {
 	$result = ECUHandler::write();
 	restful_response(RES_SUCCESS,$result);
 });
+
+//扫描上传ECU文件的目录
+$app->get('/ecu/last', function () {
+	restful_api_auth();
+	$stationId = param_check_get('id');
+	$result = ECUHandler::get_last_ecu($stationId);
+	restful_response(RES_SUCCESS,$result);
+});
+
 
 //增加一个基站站点
 $app->post('/station/add', function () {
@@ -515,7 +527,7 @@ $app->get('/station/query', function () {
 		'project_id'=>$project,
 		'station_province'=>$province,
 		'station_city'=>$city,
-		'station_district'=>$district,
+		'station_distirct'=>$district,
 		'station_type'=>$station_type
 	);
 		
@@ -564,12 +576,24 @@ $app->get('/station/last/origindata/:id', function ($id) use ($app) {
 
 //获得基站谋天的数据
 $app->get('/station/oneday', function () use ($app) {
+	global $Redis_client;
 	restful_api_auth();
 	//时间戳
 	$time = param_check_get('time');
+	$id = param_check_get('id');
 	$time = intval($time);
-	$data = StationHandler::get_one_day_status(1,$time);
-	restful_response(RES_SUCCESS,$data);
+	$cache_key = 'daliy_cache_'.$id.$time;
+	if($Redis_client->get($cache_key)){
+		$data = $Redis_client->get($cache_key);
+		$data = json_decode($data);
+		restful_response(RES_SUCCESS,$data);
+	}else{
+		$data = StationHandler::get_one_day_status($id,$time);
+		if($data){
+		   $Redis_client->set($cache_key,json_encode($data));
+		}
+		restful_response(RES_SUCCESS,$data);
+	}
 });
 
 //获得基站月报的数据
@@ -577,8 +601,31 @@ $app->get('/station/onemonth', function () use ($app) {
 	restful_api_auth();
 	//时间戳
 	$time = param_check_get('time');
+	$id = param_check_get('id');
 	$time = intval($time);
-	$data = StationHandler::get_one_month_status(1,$time);
+	$data = StationHandler::get_one_month_status($id,$time);
+	restful_response(RES_SUCCESS,$data);
+});
+
+//生成一个月的月报数据
+$app->get('/station/month/write', function () use ($app) {
+	restful_api_auth();
+	//时间戳
+	$time = param_check_get('time');
+	$id = param_check_get('id');
+	$time = intval($time);
+	$data = StationHandler::write_month_report($id,$time);
+	restful_response(RES_SUCCESS,$data);
+});
+
+//获得基站月报的数据
+$app->get('/station/onemonth/ration', function () use ($app) {
+	restful_api_auth();
+	//时间戳
+	$time = param_check_get('time');
+	$time = intval($time);
+	$id = param_check_get('id');
+	$data = StationHandler::get_one_month_ration($id,$time);
 	restful_response(RES_SUCCESS,$data);
 });
 
@@ -587,6 +634,14 @@ $app->get('/station/getbyname', function () use ($app) {
 	restful_api_auth();
 	$name = param_check_get('name');
 	$data = StationHandler::get_station_by_station_name($name);
+	restful_response(RES_SUCCESS,$data);
+});
+
+//获得基站月报的数据
+$app->post('/station/delete', function () use ($app) {
+	restful_api_auth();
+	$id = param_check('id');
+	$data = StationHandler::del_station($id);
 	restful_response(RES_SUCCESS,$data);
 });
 
@@ -612,6 +667,15 @@ $app->get('/warning/query', function () {
 		'warning_type'=>$warning_type
 	);
 	$data = WarningHandler::query($start,$pagesize,$query_option,$create_time);
+	restful_response(RES_SUCCESS,$data);
+});
+
+//按条件检索告警
+$app->get('/warning/test', function () {
+	restful_api_auth();
+	$type = 8;
+	$id = 209;
+	$data = StationHandler::warning_test($id,$type);
 	restful_response(RES_SUCCESS,$data);
 });
 
@@ -692,6 +756,48 @@ $app->get('/address/district', function () {
 	}
 });
 
+$app->get('/remote/get', function () {
+	$id = param_check_get('id');
+	$ip = "192.168.88.133";
+	$name = "redwoodsh";
+	$res = snmpget($ip,$name, "1.3.6.1.4.1.682.1.".$id.".0");
+	restful_response(RES_SUCCESS,$res);
+});
+
+//设置配置ID
+$app->get('/remote/set/id', function () {
+	//CUSHSHPD100640
+	$id = param_check_get('id');
+	$ip = "192.168.88.133";
+	$name = "redwoodsh";
+	$res = snmpset($ip,$name, "1.3.6.1.4.1.682.1.2","string",$id,3,1);
+});
+
+//设置修改节能状态
+$app->get('/remote/set/savestatus', function () {
+	$status = param_check_get('status');
+	$ip = "192.168.88.133";
+	$name = "redwoodsh";
+	$res = snmpset($ip,$name, "1.3.6.1.4.1.682.1.14","string",$status,3,1);
+});
+
+//设置电源开关
+$app->get('/remote/set/engerystatus', function () {
+	$status = param_check_get('status');
+	$ip = "192.168.88.133";
+	$name = "redwoodsh";
+	$res = snmpset($ip,$name, "1.3.6.1.4.1.682.1.4","string",$status,3,1);
+});
+
+$app->get('/remote/walk', function () {
+	$id = param_check_get('id');
+	$ip = "192.168.88.133";
+	$name = "redwoodsh";
+	$res = snmpwalk($ip,$name, "1.3.6.1.4.1.682.1.".$id);
+	restful_response(RES_SUCCESS,$res);
+});
+ 
+ 
 //显示天气
 $app->get('/weather/show', function () {
      global $app;

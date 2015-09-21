@@ -141,54 +141,7 @@
 
   </div>
   <script>
-  var WARNING_MSG = {
-		'1':'断站',
-		'2':'室内高温',
-		'3':'恒温柜高温',
-		'4':'电表故障',
-		'5':'功率异常',
-		'6':'远程关站',
-		'7':'代理维护按钮',
-		'8':'空调故障',
-		'9':'温度感应故障'
-  };
-  function getNowFormatDate(day) { 
-	day = new Date(day);
-	var Year = 0; 
-	var Month = 0; 
-	var Day = 0; 
-	var CurrentDate = ""; 
-
-	Year= day.getFullYear();
-	Month= day.getMonth()+1; 
-	Day = day.getDate(); 
-	CurrentDate += Year + "-"; 
-	if (Month >= 10 ) 
-	{ 
-	CurrentDate += Month + "-"; 
-	} 
-	else 
-	{ 
-	CurrentDate += "0" + Month + "-"; 
-	} 
-	if (Day >= 10 ) 
-	{ 
-	CurrentDate += Day ; 
-	} 
-	else 
-	{ 
-	CurrentDate += "0" + Day ; 
-	} 
-	var minute = day.getMinutes();
-	if(minute<10){
-		minute = '0' + minute;
-	}
-	CurrentDate+= ' ' + day.getHours() + ':' + minute;
-	return CurrentDate; 
-}
-
-
-	var pageSize = 20;
+	var pageSize = 50;
 	var currentPage = 0;
 	var total = 0;
 	var totalPage;
@@ -261,7 +214,7 @@
 			create_time:create_time
 		},function(d){
 			if(d.code == 0){
-				if(d.data.length){
+				if(d.data.data.length){
 					__render(d,true);
 				}else{
 					alert('没有查询到相关数据');

@@ -11,6 +11,9 @@ define('ACCOUNT_TYPE_USER',2);
 //联通
 define('ACCOUNT_TYPE_CHINA_UNICOM',3);
 
+//工程人员
+define('ACCOUNT_TYPE_ENG',4);
+
 //基准站
 define('STATION_TYPE_NORMAL',1);
 //节能站

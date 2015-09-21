@@ -7,7 +7,7 @@
  */
 class PowerStationWarningMySqlExtDAO extends PowerStationWarningMySqlDAO{
 	public function queryByPage($page,$pagesize){
-		$sql = 'SELECT * FROM power_station_warning limit '.$page.','.$pagesize;
+		$sql = 'SELECT * FROM power_station_warning ORDER BY warning_id DESC limit '.$page.','.$pagesize.' ';
 		$sqlQuery = new SqlQuery($sql);
 		return $this->getList($sqlQuery);
 	}
@@ -38,6 +38,43 @@ class PowerStationWarningMySqlExtDAO extends PowerStationWarningMySqlDAO{
 	public function search($start,$pagesize,$sql){
 		$sql = 'SELECT * FROM power_station_warning WHERE '.$sql.' limit '.$start.','.$pagesize;
 		$sqlQuery = new SqlQuery($sql);
+		return $this->getList($sqlQuery);
+	}
+	
+	public function update_one($warning_obj){
+	    $type = $warning_obj->warningType;
+		$stationId = $warning_obj->stationId;
+		
+		$sql = 'SELECT * FROM power_station_warning WHERE warning_type = ? AND station_id = ? ORDER BY warning_id DESC limit 0,1';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($type);
+		$sqlQuery->setNumber($stationId);
+		$data = $this->getList($sqlQuery);
+		
+		if($data){
+		   $data = $data[0];
+		   $current_date = time();
+			//小于五分钟的告警 不会创建新的告警
+		   if($current_date - $data->updateTime < 300){
+			$sql_update = 'UPDATE power_station_warning SET update_time = ? WHERE warning_id = ?';
+			$sqlQuery = new SqlQuery($sql_update);
+			$sqlQuery->setNumber($current_date);
+			$sqlQuery->setNumber($data->warningId);
+			$data = $this->executeUpdate($sqlQuery);
+			return true;
+		   }else{
+			return false;
+		   }
+		}else{
+			return false;
+		}
+	}
+	
+	public function check_rencent($type,$stationId){
+		$sql = 'SELECT * FROM power_station_warning WHERE warning_type = ? AND station_id = ? limit 0,1';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($type);
+		$sqlQuery->setNumber($stationId);
 		return $this->getList($sqlQuery);
 	}
 }

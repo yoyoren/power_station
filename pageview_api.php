@@ -10,6 +10,14 @@ global $response_body;
 		header("Location: /login");
 		die();
 	}
+	//echo $_SERVER['REQUEST_URI'];
+	
+	//工程人员只能到这个电表页面
+	if($_COOKIE['user_type'] == 4){
+		if($_SERVER['REQUEST_URI']!='/ammeter'){
+			header("Location: /ammeter");
+		}
+	}
  }
 $app->get('/', function () use ($app) {
 	pageview_api_auth();
@@ -53,6 +61,12 @@ $app->get('/login', function () use ($app) {
 $app->get('/base', function () use ($app) {
 	pageview_api_auth();
 	$app->render('base-index.php',array());
+});
+
+//基站地图
+$app->get('/base/map', function () use ($app) {
+	pageview_api_auth();
+	$app->render('base-map.php',array());
 });
 
 //基站当前状态
@@ -108,8 +122,8 @@ $app->get('/base/daily/:id', function ($id) use ($app) {
 	pageview_api_auth();
 	//$data = StationHandler::get_full_day_status(1);
 	$data = StationHandler::get_one_day_status($id);
-
-	$app->render('base-daily.php',array('id'=>$id,'data'=>$data));
+	$station = StationHandler::get_one_detail($id);
+	$app->render('base-daily.php',array('id'=>$id,'data'=>$data,'station'=>$station));
 });
 
 
@@ -130,13 +144,15 @@ $app->get('/base/year/:id', function ($id) use ($app) {
 //远程控制
 $app->get('/base/remote/:id', function ($id) use ($app) {
 	pageview_api_auth();
-	$app->render('base-remote.php',array('id'=>$id));
+	$station = StationHandler::get_one_detail($id);
+	$app->render('base-remote.php',array('id'=>$id,'station'=>$station));
 });
 
 //原始数据
 $app->get('/base/origindata/:id', function ($id) use ($app) {
 	pageview_api_auth();
-	$app->render('base-origindata.php',array('id'=>$id));
+	$station = StationHandler::get_one_detail($id);
+	$app->render('base-origindata.php',array('id'=>$id,'station'=>$station));
 });
 
 //告警首页
@@ -159,7 +175,10 @@ $app->get('/warning/rule', function () use ($app) {
 //告警策略
 $app->get('/warning/fullscreen', function () use ($app) {
 	pageview_api_auth();
-	$app->render('warning-fullscreen.php',array());
+	$data = WarningHandler::get_list(-1,2,30);
+	$app->render('warning-fullscreen.php',array(
+		'data'=>$data,
+	));
 });
 
 //电表首页
