@@ -261,6 +261,14 @@
 			return array('msg'=>'fail');
 			
 		}
+		//获得最新的一条数据
+		public static function get_last_ecu($stationId=1){
+			$dao =  new PowerBaseStationRuningDataMySqlExtDAO();
+			$data =  $dao -> get_current_status($stationId);
+			$energyAll = $data->energyAll;
+			$energyDc = $data->energyDc;
+			return $data;
+		}
 		
 		//将扫描后的文件放到库里
 		public static function write($path=ECU_ROOT_PATH.'ecu1234567-20150717-221043.engy',$stationId=1){
@@ -337,6 +345,46 @@
 				//新增
 				$dao_obj->energyAll = $cur_data['elec_engy'][0];
 				$dao_obj->energyDc = $cur_data['elec_engy'][1];
+				$last_data = ECUHandler::get_last_ecu($stationId);
+				
+				//防止电表断电
+				if($last_data->energyAll>$dao_obj->energyAll || $dao_obj->energyAll == 4294967.295){
+					$last_key = 'last_energy_all'.$stationId;
+					$last_energyAll = $Redis_client->get($last_key);
+					if($last_energyAll!=NULL){
+						$last_energyAll = floatval($last_energyAll);
+					}
+					$Redis_client->set($last_key,$dao_obj->energyAll);
+					
+					if($last_energyAll || $last_energyAll == 0){
+						if($dao_obj->energyAll - $last_energyAll >= 0){
+							$dao_obj->energyAll = $dao_obj->energyAll - $last_energyAll + $last_data->energyAll;
+						}else{
+							$dao_obj->energyAll = $dao_obj->energyAll + $last_data->energyAll;
+						}
+					}else{
+						$dao_obj->energyAll = $dao_obj->energyAll + $last_data->energyAll;
+					}
+				}
+				
+				if($last_data->energyDc>$dao_obj->energyDc|| $dao_obj->energyDc == 4294967.295){
+					$last_key = 'last_energy_dc'.$stationId;
+					$last_energyDc = $Redis_client->get($last_key);
+					if($last_energyDc!=NULL){
+						$last_energyDc = floatval($last_energyDc);
+					}
+					$Redis_client->set($last_key,$dao_obj->energyDc);
+					
+					if($last_energyDc || $last_energyDc == 0){
+						if($dao_obj->energyDc - $last_energyDc >= 0){
+							$dao_obj->energyDc = $dao_obj->energyDc - $last_energyDc + $last_data->energyDc;
+						}else{
+							$dao_obj->energyDc = $dao_obj->energyDc + $last_data->energyDc;
+						}
+					}else{
+						$dao_obj->energyDc = $dao_obj->energyDc + $last_data->energyDc;
+					}
+				}
 				
 				$dao_obj->powerAll = $cur_data['elec_power'][0];
 				$dao_obj->powerDc = $cur_data['elec_power'][1];

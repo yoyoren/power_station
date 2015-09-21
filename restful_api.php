@@ -279,6 +279,15 @@ $app->get('/ecu/write', function () {
 	restful_response(RES_SUCCESS,$result);
 });
 
+//扫描上传ECU文件的目录
+$app->get('/ecu/last', function () {
+	restful_api_auth();
+	$stationId = param_check_get('id');
+	$result = ECUHandler::get_last_ecu($stationId);
+	restful_response(RES_SUCCESS,$result);
+});
+
+
 //增加一个基站站点
 $app->post('/station/add', function () {
 	restful_api_auth();
@@ -595,6 +604,17 @@ $app->get('/station/onemonth', function () use ($app) {
 	$id = param_check_get('id');
 	$time = intval($time);
 	$data = StationHandler::get_one_month_status($id,$time);
+	restful_response(RES_SUCCESS,$data);
+});
+
+//生成一个月的月报数据
+$app->get('/station/month/write', function () use ($app) {
+	restful_api_auth();
+	//时间戳
+	$time = param_check_get('time');
+	$id = param_check_get('id');
+	$time = intval($time);
+	$data = StationHandler::write_month_report($id,$time);
 	restful_response(RES_SUCCESS,$data);
 });
 

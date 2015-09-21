@@ -573,6 +573,41 @@
 			}
 			return $res;
 		}
+		public static function write_month_report($stationId=1,$start_time=0){
+			$dao =  new PowerBaseStationRuningDataMySqlExtDAO();
+			$res = array();
+			if($start_time == 0 || $start_time == NULL){
+				$start_time = date("Y-m",time());
+				$start_time = strtotime($start_time);
+			}
+			$date_string = date("Y-m",$start_time);
+			$date_string = explode('-',$date_string);
+			$date_string_year = $date_string [0];
+			$date_string_month = $date_string [1];
+			$end_time = 0;
+			for($i=0;$i<30;$i++){
+				$end_time = $start_time + 24*60*60;
+				
+				//计算一天的数据效能
+				$data = $dao->get_one_day_status($stationId,$start_time,$end_time);
+				
+				if($data){
+					$end_data = $data[0];
+					$start_data = $data[count($data) -  1];
+					array_push($res,array(
+						'energyAllBegin'=>$start_data->energyAll,
+						'energyAll'=>$end_data->energyAll - $start_data->energyAll,
+						'energyDc'=>$end_data->energyDc - $start_data->energyDc,
+						'powerAll'=>$end_data->powerAll - $start_data->powerAll,
+						'powerDc'=>$end_data->energyAll - $start_data->powerDc,
+						'start_time' =>$start_time,
+					));
+				}
+				$start_time += 24*60*60;
+			}
+			file_put_contents('./report/month_report_'.$date_string_year.'_'.$date_string_month.'_'.$stationId.'.json',json_encode($res));
+			return $res;
+		}
 		
 		//月报数据
 		public static function get_one_month_ration($stationId=1,$start_time=0){
