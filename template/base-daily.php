@@ -93,10 +93,12 @@ $(function () {
 	  minView:3
     });
 
-	var refresh = function(time){
+	var refresh = function(time,min){
 		$('#loading_tip').show();
 		time = new Date(time).getTime()/1000;
-		
+		if(min){
+			time = time - 8* 60 *60;
+		}
 		window.currentTime = time;
 		$get('/station/oneday',{
 			id:location.href.split('/').pop(),
@@ -112,8 +114,10 @@ $(function () {
 		if(!time){
 		   return;
 		}
-		time = time - 8* 60 *60;
-		refresh(time);
+		//time = new Date(time).getTime();
+		//time = time;
+		//time = time - 8* 60 *60 * 1000;
+		refresh(time,true);
 	});
 
 	$('#prev_day').click(function(){

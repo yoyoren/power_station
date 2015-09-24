@@ -17,7 +17,7 @@ class PowerAmmeterChinamobileMySqlExtDAO extends PowerAmmeterChinamobileMySqlDAO
             return $this->getList($sqlQuery);
 	}
         public function queryNormal($stationId,$readTime){
-            $sql = 'SELECT ammeter_normal FROM power_base_station_runing_data where station_id='.$stationId.' and create_time<='.$readTime.' order by create_time desc';
+            $sql = 'SELECT energy_all FROM power_base_station_runing_data where station_id='.$stationId.' and create_time<='.$readTime.' order by create_time desc';
             $sqlQuery = new SqlQuery($sql);
             $result=$this->execute($sqlQuery);
             return $result[0][0];
