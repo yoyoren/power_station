@@ -618,6 +618,17 @@ $app->get('/station/month/write', function () use ($app) {
 	restful_response(RES_SUCCESS,$data);
 });
 
+$app->get('/station/month/read', function () use ($app) {
+	restful_api_auth();
+	//时间戳
+	$year = param_check_get('year');
+	$month = param_check_get('month');
+	$id = param_check_get('id');
+	$time = intval($time);
+	$data = StationHandler::read_month_report($id,$year,$month);
+	restful_response(RES_SUCCESS,$data);
+});
+
 //获得基站月报的数据
 $app->get('/station/onemonth/ration', function () use ($app) {
 	restful_api_auth();

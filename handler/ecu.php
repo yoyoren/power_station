@@ -407,5 +407,33 @@
 			}
 				
 		}
+		
+		public static function check_offline(){
+			global $Redis_client;
+			$now = time();
+			for($i=1;$i<500;$i++){
+				$id = $i;
+				$key = 'last_data_time'.$id;
+				$last_time = $Redis_client->get($key);
+				if($last_time){
+					//var_dump($id);
+					//断站设计
+					if($now - $last_time > 600){
+						$warning_dao =  new PowerStationWarningMySqlDAO();
+						$warning_dao_ext =  new PowerStationWarningMySqlExtDAO();					
+						$warning_obj = new PowerStationWarning();
+						$warning_obj->createTime = $now;
+						$warning_obj->updateTime = $now;
+						$warning_obj->stationId = $id;
+						$warning_obj->warningStatus = WARNING_OPEN;
+						$warning_obj->warningType = WARNING_STATION_OFFLINE;
+						$warning_obj->warningDesc = '基站已断站';
+						if($warning_dao_ext->update_one($warning_obj) == false){
+						   $warning_dao->insert($warning_obj);
+						}					
+					}
+				}
+			}
+		}
 	}
 ?>

@@ -149,8 +149,10 @@ $(function () {
 			});
 		});
 		var time = currentMonth;
-		$get('/station/onemonth',{
-			time : time,
+			
+		$get('/station/month/read',{
+			year:(new Date()).getFullYear(),
+			month:((new Date()).getMonth()+1),
 			id: window.station.info.stationId
 		},function(d){
 				var data = d.data ||[];

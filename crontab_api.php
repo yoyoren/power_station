@@ -40,5 +40,20 @@
 		$res = StationHandler::cal_warning_from_history_running_data($station_id,$start,$pagesize);
 		restful_response(RES_SUCCESS,$res);
 		
+		
 	});
+	
+
+	$app->get('/crontab/month/report', function () use ($app) {
+		$station_id = param_check_get('id');;
+		$res = StationHandler::write_month_report($station_id,0);
+		restful_response(RES_SUCCESS,$res);
+	});
+	
+	$app->get('/crontab/checkoffline', function () use ($app) {
+		$res = ECUHandler::check_offline();
+		restful_response(RES_SUCCESS,$res);
+	});
+	
+	
 ?>

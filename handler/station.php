@@ -573,6 +573,18 @@
 			}
 			return $res;
 		}
+		
+		public static function read_month_report($stationId=1,$year,$month){
+			if($month < 10){
+				$month = '0'.$month;
+			}
+			$res = file_get_contents('./report/month_report_'.$year.'_'.$month.'_'.$stationId.'.json');
+			if($res){
+			   $res = json_decode($res);
+			}
+			return $res;
+		}
+		
 		public static function write_month_report($stationId=1,$start_time=0){
 			$dao =  new PowerBaseStationRuningDataMySqlExtDAO();
 			$res = array();
@@ -619,9 +631,9 @@
 			}
 			$end_time = $start_time + 24*60*60*10;
 			$data_1 = $dao->get_one_month_status($stationId,$start_time,$end_time);
-			$data_2 = $dao->get_one_month_status($stationId,$end_time,$end_time+ 24*60*60*10);
-			$data_3 = $dao->get_one_month_status($stationId,$end_time+ 24*60*60*10,$end_time+ 24*60*60*20);
-			$data =  array_merge($data_1,$data_2,$data_3);
+			//$data_2 = $dao->get_one_month_status($stationId,$end_time,$end_time+ 24*60*60*10);
+			//$data_3 = $dao->get_one_month_status($stationId,$end_time+ 24*60*60*10,$end_time+ 24*60*60*20);
+			$data =  array_merge($data_1);
 			$counts = count($data);
 			$all_off = 0;
 			$one_open = 0;
