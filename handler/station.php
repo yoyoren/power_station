@@ -585,6 +585,15 @@
 			return $res;
 		}
 		
+		public static function write_month_report_v2($stationId=1,$year,$month){
+			if($month < 10){
+				$month = '0'.$month;
+			}
+			$start_time = strtotime($year.'-'.$month);
+			StationHandler::write_month_report($stationId,$start_time);
+			return $res;
+		}
+		
 		public static function write_month_report($stationId=1,$start_time=0){
 			$dao =  new PowerBaseStationRuningDataMySqlExtDAO();
 			$res = array();

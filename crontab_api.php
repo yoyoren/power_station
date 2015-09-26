@@ -45,8 +45,16 @@
 	
 
 	$app->get('/crontab/month/report', function () use ($app) {
-		$station_id = param_check_get('id');;
+		$station_id = param_check_get('id');
 		$res = StationHandler::write_month_report($station_id,0);
+		restful_response(RES_SUCCESS,$res);
+	});
+	
+	$app->get('/crontab/month/report/v2', function () use ($app) {
+		$station_id = param_check_get('id');
+		$year = param_check_get('year');
+		$month = param_check_get('month');
+		$res = StationHandler::write_month_report_v2($station_id,$year,$month);
 		restful_response(RES_SUCCESS,$res);
 	});
 	
