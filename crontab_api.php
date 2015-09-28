@@ -50,6 +50,10 @@
 		restful_response(RES_SUCCESS,$res);
 	});
 	
+	$app->get('/crontab/month/report/new', function () use ($app) {
+
+	});
+	
 	$app->get('/crontab/month/report/v2', function () use ($app) {
 		$station_id = param_check_get('id');
 		$year = param_check_get('year');
