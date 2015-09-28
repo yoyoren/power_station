@@ -53,7 +53,8 @@
               <option value="3">30-40A</option>
               <option value="4">40-50A</option>
               <option value="5">50-60A</option>
-              <option value="6">70A+</option>
+			  <option value="6">60-70A</option>
+              <option value="7">70A+</option>
              </select>
           </div>
     		  <div class="n-check-item">
@@ -75,6 +76,7 @@
               <th>负载功率</th>
               <th>砖墙/板房</th>
               <th>基准站</th>
+			  <th>状态</th>
 			  <th>操作</th>
             </tr>
           </thead>
@@ -171,6 +173,7 @@ var renderOnePage = function(data){
 					  <td>'+_d.energyTypeName+'</td>\
 					  <td>'+_d.buildTypeName+'</td>\
 					  <td>是</td>\
+					  <td>'+(_d.online?'在线':'离线')+'</td>\
 					  <td><button class="del_site" data-id="'+_d.stationId+'">删除</button></td>\
 					</tr>';
 		}

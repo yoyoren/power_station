@@ -122,10 +122,26 @@
 		
 		//基站首页获得基站的列表
 		//getcount是否获查询结果的得总数
-		public static function get_list($start,$pagesize,$getcount = false){			
+		public static function get_list($start,$pagesize,$getcount = false){		
+			global $Redis_client;
 			$dao =  new PowerBaseStationMySqlExtDAO();
 			$exsit = $dao->queryAndPage($start,$pagesize);
 			$exsit = StationHandler::_get_list_extend_info($exsit);
+			
+			for($i=0;$i<count($exsit);$i++){
+				$id = $exsit[$i]->stationId;
+				$key = 'last_data_time'.$id;
+				$last_time = $Redis_client->get($key);
+				if($last_time){
+					if(time()-$last_time < 600){
+						$exsit[$i]->online = true;
+					}else{
+						$exsit[$i]->online = false;
+					}
+				}else{
+					$exsit[$i]->online = false;
+				}
+			}
 			if($getcount == true){
 				$count = $dao->get_count();
 				return array(
