@@ -41,7 +41,7 @@
 
           </div>
 		 
-          <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+          <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto;display:none"></div>
           <hr>
           <table class="table table-bordered">
 			 <thead>
@@ -83,6 +83,7 @@ $(function () {
 	var renderPage = function(month){
 		$('#loading_tip').show();
 		var time = currentMonth - 8*3600;
+		/*
 		$get('/station/onemonth/ration',{
 			time : time,
 			id: window.station.info.stationId
@@ -148,6 +149,7 @@ $(function () {
 				}]
 			});
 		});
+		*/
 		var time = currentMonth;
 			
 		$get('/station/month/read',{
