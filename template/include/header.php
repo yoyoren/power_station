@@ -14,7 +14,7 @@
 				<li><a href="/warning" id="tab_warning">故障告警</a></li>
 				<li><a href="/ammeter" id="tab_ammeter">电表</a></li>
 				<li><a href="/log" id="tab_log">维护</a></li>
-				<li><a href="/report" id="tab_report">报表</a></li>
+				<li><a href="/report/index" id="tab_report">报表</a></li>
 				<li><a href="/account" id="tab_account">账户</a></li>
 			  </ul>';
 		}

@@ -57,7 +57,7 @@ class PowerAmmeterChinamobileMySqlDAO implements PowerAmmeterChinamobileDAO{
  	 * @param PowerAmmeterChinamobileMySql powerAmmeterChinamobile
  	 */
 	public function insert($powerAmmeterChinamobile){
-		$sql = 'INSERT INTO power_ammeter_chinamobile (station_id, ammeter_normal, ammeter_normal_chinamobile, read_time, begin_value, end_value, creator_id, create_time) VALUES (?,?, ?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO power_ammeter_chinamobile (station_id, ammeter_normal, ammeter_normal_chinamobile, read_time, begin_value, end_value, creator_id, create_time, e_value, ec_value) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
 		$sqlQuery->setNumber($powerAmmeterChinamobile->stationId);
@@ -68,7 +68,8 @@ class PowerAmmeterChinamobileMySqlDAO implements PowerAmmeterChinamobileDAO{
 		$sqlQuery->setNumber($powerAmmeterChinamobile->endValue);
 		$sqlQuery->setNumber($powerAmmeterChinamobile->creatorId);
 		$sqlQuery->setNumber($powerAmmeterChinamobile->createTime);
-
+                $sqlQuery->setNumber($powerAmmeterChinamobile->eValue);
+                $sqlQuery->setNumber($powerAmmeterChinamobile->ecValue);
 		$id = $this->executeInsert($sqlQuery);	
 		$powerAmmeterChinamobile->ammeterId = $id;
 		return $id;
@@ -90,7 +91,7 @@ class PowerAmmeterChinamobileMySqlDAO implements PowerAmmeterChinamobileDAO{
 		$sqlQuery->setNumber($powerAmmeterChinamobile->endValue);
 		$sqlQuery->setNumber($powerAmmeterChinamobile->creatorId);
 		$sqlQuery->setNumber($powerAmmeterChinamobile->createTime);
-
+                $sqlQuery->setNumber($powerAmmeterChinamobile->eValue);
 		$sqlQuery->setNumber($powerAmmeterChinamobile->ammeterId);
 		return $this->executeUpdate($sqlQuery);
 	}
@@ -222,6 +223,8 @@ class PowerAmmeterChinamobileMySqlDAO implements PowerAmmeterChinamobileDAO{
 		$powerAmmeterChinamobile->endValue = $row['end_value'];
 		$powerAmmeterChinamobile->creatorId = $row['creator_id'];
 		$powerAmmeterChinamobile->createTime = $row['create_time'];
+                $powerAmmeterChinamobile->eValue = $row['e_value'];
+                $powerAmmeterChinamobile->ecValue = $row['ec_value'];
 
 		return $powerAmmeterChinamobile;
 	}

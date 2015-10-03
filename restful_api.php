@@ -983,4 +983,24 @@ $app->post('/ammeter/historyList', function () {
      }
 	
 });
+//报表（表三）-E值
+//按条件检索基站
+$app->get('/report/evalue', function () {
+	restful_api_auth();
+	$start = param_check_get('start');
+	$end = param_check_get('end');
+	$project = param_check_get('project','',false);
+	$province = param_check_get('province','',false);
+	$city = param_check_get('city','',false);
+	$district = param_check_get('district','',false);
+	$query_option = array(
+		'project_id'=>$project,
+		'station_province'=>$province,
+		'station_city'=>$city,
+		'station_distirct'=>$district
+	);
+	$data=  ReportHandler::evaule($start,$end,$query_option);
+        //print_r($data);exit;
+	restful_response(RES_SUCCESS,$data);
+});
 ?>

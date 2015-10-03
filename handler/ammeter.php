@@ -25,7 +25,8 @@ class AmmeterHandler {
                      $list[$k]->operater= DAOFactory::getPowerBaseStationLogDAO()->queryAccountNameById($list[$k]->creatorId);
                      $list[$k]->createTime=date('Y-m-d h:i',$list[$k]->createTime);
                      $list[$k]->readTime=date('Y-m-d h:i',$list[$k]->readTime);
-                     $list[$k]->e=$list[$k]->eValue; 
+                     $list[$k]->e=$list[$k]->eValue;
+                     $list[$k]->ec=$list[$k]->ecValue;
 
                 }
             }
@@ -69,10 +70,10 @@ class AmmeterHandler {
             //查询上一次的数据
             $last=DAOFactory::getPowerAmmeterDAO()->lastRow($stationId);         
             if($last){
-                if(intval($readValue)-intval($last[4])==0){
+                if(floatval($readValue)-floatval($last[4])==0){
                     $e=0;  
                 }else{
-                    $e=sprintf("%.2f", abs((intval($ammeterNormal)-intval($last[2]))/(intval($readValue)-intval($last[4]))));
+                    $e=sprintf("%.2f", abs((floatval($ammeterNormal)-floatval($last[2]))/(floatval($readValue)-floatval($last[4]))));
                     if($e<1.02 && $e>0.98)  $e=1; 
                 }
             }else{
@@ -94,7 +95,11 @@ class AmmeterHandler {
            $ammeterNormal =  DAOFactory::getPowerAmmeterChinamobileDAO()->queryNormal($stationId, $readTime);
            if(!$ammeterNormal) $ammeterNormal=0;
            $data['stationId']=$stationId;
-           $data['ammeterNormal']=$ammeterNormal;         
+           $ec=10733;
+           $last=DAOFactory::getPowerAmmeterChinamobileDAO()->lastRow($stationId);                   
+           if($last) $ec=floatval($last['ec_value']);
+           $data['ammeterNormal']=  round(floatval($ammeterNormal)*1000/$ec,2);
+           $data['ys_ammeterNormal']=$ammeterNormal;
            return  $data;
        }else{
            return FALSE;
@@ -114,16 +119,24 @@ class AmmeterHandler {
                         //查询上一次的数据
             $last=DAOFactory::getPowerAmmeterChinamobileDAO()->lastRow($stationId);         
             if($last){
-                if(intval($ammeterNormal)-intval($last['ammeter_normal'])==0){
-                    $e=0;  
+                if(floatval($ammeterNormal)-floatval($last['ammeter_normal'])==0){
+                    $e=$ec=0;  
                 }else{
-                    $e=sprintf("%.2f", abs((intval($ammeterNormalChinamobile)-intval($last['ammeter_normal_chinamobile']))/(intval($ammeterNormal)-intval($last['ammeter_normal']))));
-                    if($e<1.02 && $e>0.98)  $e=1; 
+                    $e=sprintf("%.2f", abs((floatval($ammeterNormalChinamobile)-floatval($last['ammeter_normal_chinamobile']))/(floatval($ammeterNormal)-floatval($last['ammeter_normal']))));
+                    if($e<1.02 && $e>0.98)  $e=1;
+                    if(floatval($ammeterNormalChinamobile)-floatval($last['ammeter_normal_chinamobile'])==0){
+                       $ec=10733;
+                    }else{
+                       $ec=(floatval($ammeterNormal)-floatval($last['ammeter_normal']))*floatval($last['ec_value'])/(floatval($ammeterNormalChinamobile)-floatval($last['ammeter_normal_chinamobile'])); 
+                    }
+                    
                 }
             }else{
                 $e=1;
+                $ec=10733;
             }
-           $ammeter->eValue    =$e;
+            $ammeter->eValue    =$e;
+            $ammeter->ecValue   =$ec;    
             $flag=$dao->insert($ammeter);
             if($flag)  return TRUE;
             return FALSE;
@@ -160,7 +173,8 @@ class AmmeterHandler {
                      $list[$k]->operater= DAOFactory::getPowerBaseStationLogDAO()->queryAccountNameById($list[$k]->creatorId);
                      $list[$k]->createTime=date('Y-m-d h:i',$list[$k]->createTime);
                      $list[$k]->readTime=date('Y-m-d h:i',$list[$k]->readTime);
-                     $list[$k]->e=$list[$k]->eValue; 
+                     $list[$k]->e=$list[$k]->eValue;
+                     if($flag==1) $list[$k]->ec=$list[$k]->ecValue; 
                 }
             }      
             return $list;

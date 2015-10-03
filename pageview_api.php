@@ -214,14 +214,14 @@ $app->get('/log', function () use ($app) {
 });
 
 //报表首页-月节能表
-$app->get('/report', function () use ($app) {
+$app->get('/report/index', function () use ($app) {
 	pageview_api_auth();
-	$app->render('report-index.php',array());
+        $app->render('report-index.php',array());
 });
 
 //报表-基准站表
 $app->get('/report/base', function () use ($app) {
-	pageview_api_auth();
+	pageview_api_auth();        
 	$app->render('report-base.php',array());
 });
 

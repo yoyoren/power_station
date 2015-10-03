@@ -8,5 +8,5 @@
   require 'address.php';
   require 'log.php';
   require 'ammeter.php';
-  
+  require 'report.php'; 
 ?>

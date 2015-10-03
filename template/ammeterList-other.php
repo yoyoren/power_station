@@ -40,6 +40,7 @@
               <th>录入值</th>
               <th>电表值</th>  
               <th>最新E值</th>
+              <th>最新EC值</th>
               <th>录入人</th>
               <th>录入时间</th> 
               <th>操作</th>
@@ -88,7 +89,7 @@ $('#show').click(function(){
 			html += '<tr>\
 					  <td>'+_d.stationName+'</td>\
 					  <td>'+_d.readTime+'</td>\<td>'+_d.ammeterNormalChinamobile+'</td>\
-					  <td>'+_d.ammeterNormal+'</td>\<td>'+_d.e+'</td>\
+					  <td>'+_d.ammeterNormal+'</td>\<td>'+_d.e+'</td>\<td>'+_d.ec+'</td>\
 					  <td>'+_d.operater+'</td>\
 					  <td>'+_d.createTime+'</td>\
 					  <td><button type=button class=\"btn btn-default\" onclick=del('+_d.ammeterId+')>删除</button></td></tr>';

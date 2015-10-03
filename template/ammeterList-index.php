@@ -93,7 +93,7 @@ $('#show').click(function(){
 			html += '<tr>\
 					  <td>'+_d.stationName+'</td>\
 					  <td>'+_d.readTime+'</td>\<td>'+_d.ammeterNormal+'</td>\
-					  <td>'+_d.readValue+'</td>\<td>'+_d.e+'</td>\
+					  <td>'+_d.readValue+'</td>\<td>N/A</td>\
 					  <td>'+_d.operater+'</td>\
 					  <td>'+_d.createTime+'</td>\
 					  <td><button type=button class=\"btn btn-default\" onclick=del('+_d.ammeterId+')>删除</button></td></tr>';
